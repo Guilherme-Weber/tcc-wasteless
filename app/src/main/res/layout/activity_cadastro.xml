@@ -168,7 +168,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.026"
-        app:srcCompat="@drawable/aluno_icon_menor" />
+        app:srcCompat="@drawable/person_icon_menor" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 
 
