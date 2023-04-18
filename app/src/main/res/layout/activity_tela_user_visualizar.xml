@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E4E4E4"
+    tools:context="com.example.wasteless.tela.TelaUserVisualizar">
+
+    <TextView
+        android:id="@+id/text_aluno"
+        android:layout_width="270dp"
+        android:layout_height="31dp"
+        android:layout_margin="20dp"
+        android:text="Aluno"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_voltar5"
+        android:layout_width="316dp"
+        android:layout_height="60dp"
+        android:background="@drawable/custom_botao_cadastro"
+        android:text="VOLTAR"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_aluno"
+        app:layout_constraintVertical_bias="0.952" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_pedidos"
+        android:layout_width="match_parent"
+        android:layout_height="440dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="32dp"
+        android:background="#EDEDED"
+        app:layout_constraintBottom_toTopOf="@+id/btn_voltar5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_aluno" />
+</androidx.constraintlayout.widget.ConstraintLayout>
