@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "717447360274",
+    "project_id": "wasteless-2309d",
+    "storage_bucket": "wasteless-2309d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:717447360274:android:e3c3655acce925b2544dcb",
+        "android_client_info": {
+          "package_name": "com.guilhermeweber.wasteless"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "717447360274-iet5dtis712r359t8c28497g9gs69g7d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.guilhermeweber.wasteless",
+            "certificate_hash": "a14e841cf7a70cb5aed18e2a37a4abe3226fc0e9"
+          }
+        },
+        {
+          "client_id": "717447360274-o0nrvaog9qdlv48lij8jngvfstuep683.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBXu_JCsBnR1RCw6sWHPNIAPLwJw62N70k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "717447360274-o0nrvaog9qdlv48lij8jngvfstuep683.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
