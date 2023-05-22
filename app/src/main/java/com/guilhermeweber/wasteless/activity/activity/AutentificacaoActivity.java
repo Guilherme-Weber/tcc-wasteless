@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.Toast;
 
@@ -16,32 +18,57 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
-import com.google.firebase.auth.FirebaseUser;
 import com.guilhermeweber.wasteless.R;
 import com.guilhermeweber.wasteless.activity.helper.ConfigFirebase;
+import com.guilhermeweber.wasteless.activity.model.Usuario;
 
 public class AutentificacaoActivity extends AppCompatActivity {
 
+
     private Button botaoAcessar;
-    private EditText campoEmail, campoSenha;
-    private Switch tipoAcesso;
+    private EditText campoEmail, campoSenha, campoNome;
+    private Switch tipoAcesso, tipoUsuario;
+    private LinearLayout linearTipoUsuario;
     private FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_autentificacao);
+        getSupportActionBar().hide();
+
+        Usuario usuario = new Usuario();
 
         inicializarComponentes();
         auth = ConfigFirebase.getFireAuth();
 
         //forsa o usuario ja logado a deslogar
         //auth.signOut();
+        //força user null pra casos mais extremos
+        //usuario = null;
 
         //verifica o usuario logado
-        usuarioLogado();
+        if (usuario.getUsuarioAtual()  != null) {
+            Usuario.redirectUser(AutentificacaoActivity.this);
+        }
+
+        tipoAcesso.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) { // se estiver selecionado é uma empresa
+                    botaoAcessar.setText("Cadastrar");
+                    linearTipoUsuario.setVisibility(View.VISIBLE);
+                    campoNome.setVisibility(View.VISIBLE);
+                } else { // se n estiver selecionado é um usuario
+                    botaoAcessar.setText("Acessar");
+                    linearTipoUsuario.setVisibility(View.GONE);
+                    campoNome.setVisibility(View.GONE);
+                }
+            }
+        });
 
         botaoAcessar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,6 +76,12 @@ public class AutentificacaoActivity extends AppCompatActivity {
 
                 String email = campoEmail.getText().toString();
                 String senha = campoSenha.getText().toString();
+                String nome = campoNome.getText().toString();
+
+                usuario.setNome(nome);
+                usuario.setEmail(email);
+                usuario.setSenha(senha);
+                usuario.setTipo(verificaUsuario());
 
                 //verifica se os campos estão vazios
                 if (!email.isEmpty()) {
@@ -58,16 +91,28 @@ public class AutentificacaoActivity extends AppCompatActivity {
                         if (tipoAcesso.isChecked()) { //cadastro
 
                             auth.createUserWithEmailAndPassword( // envia pro servidor o email e senha pra cadastro
-                                    email, senha
+                                    usuario.getEmail(), usuario.getSenha()
                             ).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
 
                                     if (task.isSuccessful()) { //Verifica se o processo de cadastro do usuario deu certo
 
-                                        Toast.makeText(AutentificacaoActivity.this, "Cadastro realizado com Sucesso!", Toast.LENGTH_LONG).show();
-                                        telaHome();
+                                        String idUsuario = task.getResult().getUser().getUid();
+                                        usuario.setId(idUsuario);
+                                        usuario.salvar();
 
+                                        //usuario.updateUserName(usuario.getNome());
+
+                                        if (usuario.getTipo() == "E") {//Empresa
+                                            startActivity(new Intent(getApplicationContext(), EmpresaActivity.class));
+                                            finish();
+                                            Toast.makeText(AutentificacaoActivity.this, "Empresa Cadastrada com Sucesso! ", Toast.LENGTH_LONG).show();
+                                        } else {//usuario
+                                            startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                                            finish();
+                                            Toast.makeText(AutentificacaoActivity.this, "Usuario Cadastrado com Sucesso! ", Toast.LENGTH_LONG).show();
+                                        }
                                     } else {
 
                                         //caso cadastro n seja realizado com sucesso é mostrado uma mensagem de erro
@@ -96,14 +141,26 @@ public class AutentificacaoActivity extends AppCompatActivity {
                             ).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
-
                                     if (task.isSuccessful()) { // verifica se o retorno foi um sucesso
 
+                                        usuario.redirectUser(AutentificacaoActivity.this);
                                         Toast.makeText(AutentificacaoActivity.this, "Logado com Sucesso", Toast.LENGTH_SHORT).show();
-                                        telaHome();
 
                                     } else {// caso login tenha dado falha ele informa ao usuario o erro
-                                        Toast.makeText(AutentificacaoActivity.this, "Erro ao fazer login: " + task.getException(), Toast.LENGTH_LONG).show();
+
+                                        String excecao = "";
+                                        try {
+                                            throw task.getException();
+                                        } catch (FirebaseAuthInvalidUserException e) {
+                                            excecao = "Usuario não está cadastrado";
+                                        } catch (FirebaseAuthInvalidCredentialsException e) {
+                                            excecao = "E-mail e senha não são validos";
+                                        } catch (Exception e) {
+                                            excecao = "erro ao cadastrar usuário" + e.getMessage();
+                                            e.printStackTrace();
+                                        }
+                                        Toast.makeText(AutentificacaoActivity.this, excecao, Toast.LENGTH_LONG).show();
+
                                     }
                                 }
                             });
@@ -118,21 +175,17 @@ public class AutentificacaoActivity extends AppCompatActivity {
         });
     }
 
-    private void usuarioLogado() {
-        FirebaseUser usuario = auth.getCurrentUser();
-        if (usuario != null) {
-            telaHome();
-        }
-    }
-
     private void inicializarComponentes() {
+        campoNome = findViewById(R.id.editTextNome);
         campoEmail = findViewById(R.id.editTextCadastroEmail);
         campoSenha = findViewById(R.id.editTextCadastroSenha);
         tipoAcesso = findViewById(R.id.switchAcesso);
+        tipoUsuario = findViewById(R.id.switchTipoUsuario);
         botaoAcessar = findViewById(R.id.buttonAcesso);
+        linearTipoUsuario = findViewById(R.id.linearTipoUsuario);
     }
 
-    private void telaHome() {
-        startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+    public String verificaUsuario() {
+        return tipoUsuario.isChecked() ? "E" : "U";
     }
 }

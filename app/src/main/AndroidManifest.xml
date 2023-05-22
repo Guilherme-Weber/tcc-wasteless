@@ -13,6 +13,9 @@
         android:theme="@style/Theme.WasteLess"
         tools:targetApi="31">
         <activity
+            android:name=".activity.activity.EmpresaActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.activity.HomeActivity"
             android:exported="false" />
         <activity
