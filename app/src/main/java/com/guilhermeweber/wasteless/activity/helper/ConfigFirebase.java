@@ -7,7 +7,6 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 public class ConfigFirebase {
-
     private static DatabaseReference refFirebase;
     private static FirebaseAuth refAuth;
     private static StorageReference refStorage;
@@ -35,5 +34,4 @@ public class ConfigFirebase {
         }
         return refStorage;
     }
-
 }

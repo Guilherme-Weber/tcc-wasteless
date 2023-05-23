@@ -38,7 +38,6 @@ public class AutentificacaoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_autentificacao);
-        getSupportActionBar().hide();
 
         Usuario usuario = new Usuario();
 
@@ -51,7 +50,7 @@ public class AutentificacaoActivity extends AppCompatActivity {
         //usuario = null;
 
         //verifica o usuario logado
-        if (usuario.getUsuarioAtual()  != null) {
+        if (usuario.getUsuarioAtual() != null) {
             Usuario.redirectUser(AutentificacaoActivity.this);
         }
 

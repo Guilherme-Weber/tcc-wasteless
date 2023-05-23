@@ -53,7 +53,6 @@ public class Usuario {
         } catch (Exception e) {
             e.printStackTrace();
             return false;
-
         }
     }
 
@@ -65,7 +64,6 @@ public class Usuario {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 Usuario usuario = snapshot.getValue(Usuario.class);
-
                 String tipoUser = usuario.getTipo();
                 if (tipoUser.equals("E")) {
                     activity.startActivity(new Intent(activity, EmpresaActivity.class));
@@ -79,7 +77,6 @@ public class Usuario {
 
             }
         });
-
     }
 
     public void salvar() {
