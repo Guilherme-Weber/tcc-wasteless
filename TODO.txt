@@ -1,0 +1,5 @@
+
+Tela activity_config_empresa.xml
+	Adicionar um spinner nos tipos de comida AKA coloca um menu drop down pra escolhe os predeterminados tipos
+	o mesmo com o tempo 
+	e modificar a taxa de entrega

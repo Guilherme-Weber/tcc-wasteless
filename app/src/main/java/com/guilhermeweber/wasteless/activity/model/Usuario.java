@@ -35,6 +35,11 @@ public class Usuario {
         return usuario.getCurrentUser();
     }
 
+    public static String getIdUsuario() {
+        FirebaseAuth auth = ConfigFirebase.getFireAuth();
+        return auth.getCurrentUser().getUid();
+    }
+
     public static boolean updateUserName(String nome) {
 
         try {

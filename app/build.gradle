@@ -50,4 +50,7 @@ dependencies {
     //MaterialSearchView
     implementation 'boxresin.android:materialsearchview:2.0.0'
 //    implementation 'com.miguelcatalan:materialsearchview:1.4.0'
+
+    //CircleImageView
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
 }
