@@ -10,6 +10,7 @@ public class Empresa {
     private String nome;
     private String tempo;
     private String categoria;
+    private String Telefone;
     private Double precoEntrega;
 
     public Empresa() {
@@ -19,6 +20,14 @@ public class Empresa {
         DatabaseReference firebaseRef = ConfigFirebase.getFirebase();
         DatabaseReference empresaRef = firebaseRef.child("empresa").child(getIdUsuario());
         empresaRef.setValue(this);
+    }
+
+    public String getTelefone() {
+        return Telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        Telefone = telefone;
     }
 
     public String getIdUsuario() {

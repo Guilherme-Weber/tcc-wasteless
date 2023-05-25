@@ -21,8 +21,13 @@
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imagePerfilEmpresa"
             android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:src="@drawable/perfil" />
+            android:layout_height="120dp" />
+
+        <!--        <ImageView-->
+        <!--            android:id="@+id/imagePerfilEmpresa"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="120dp"-->
+        <!--            app:srcCompat="@drawable/perfil" />-->
 
         <EditText
             android:id="@+id/editTextNomeEmpresa"
@@ -56,7 +61,41 @@
             android:inputType="text"
             android:padding="16dp" />
 
-        <EditText
+        <!--        <EditText-->
+        <!--            android:id="@+id/editTextEmpresaTaxa"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginTop="-2dp"-->
+        <!--            android:background="@drawable/bg_edit_text"-->
+        <!--            android:ems="10"-->
+        <!--            android:hint="Taxa de Entrega"-->
+        <!--            android:inputType="text"-->
+        <!--            android:padding="16dp" />-->
+
+        <com.santalu.maskedittext.MaskEditText
+            android:id="@+id/editTextNumeroTelefone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-2dp"
+            android:background="@drawable/bg_edit_text"
+            android:ems="10"
+            android:hint="Telefone"
+            android:inputType="phone"
+            android:padding="16dp"
+            app:met_mask="(##) #####-####" />
+        <!--        <EditText-->
+        <!--            android:id="@+id/editTextNumeroTelefone"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginTop="-2dp"-->
+        <!--            android:background="@drawable/bg_edit_text"-->
+        <!--            android:ems="10"-->
+        <!--            android:hint="Telefone"-->
+        <!--            android:inputType="text"-->
+        <!--            android:padding="16dp" />-->
+
+
+        <com.blackcat.currencyedittext.CurrencyEditText
             android:id="@+id/editTextEmpresaTaxa"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -64,13 +103,13 @@
             android:background="@drawable/bg_edit_text"
             android:ems="10"
             android:hint="Taxa de Entrega"
-            android:inputType="text"
             android:padding="16dp" />
 
         <Button
             android:id="@+id/buttonAcesso2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:backgroundTint="@color/secundaria"
             android:onClick="validarDadosEmpresa"
             android:padding="16dp"

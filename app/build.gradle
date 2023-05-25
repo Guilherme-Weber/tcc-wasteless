@@ -53,4 +53,12 @@ dependencies {
 
     //CircleImageView
     implementation 'de.hdodenhof:circleimageview:3.1.0'
+
+    //CurrencyEditText
+    implementation 'com.github.BlacKCaT27:CurrencyEditText:2.0.2'
+
+    //MaskEditText
+    implementation 'com.github.santalu:mask-edittext:1.1.1'
+//    implementation 'com.github.santalu:maskara:1.0.0'
+
 }
