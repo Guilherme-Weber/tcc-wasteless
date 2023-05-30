@@ -5,37 +5,30 @@ import com.guilhermeweber.wasteless.activity.helper.ConfigFirebase;
 
 public class Empresa {
 
-    private String idUsuario;
+    private String idEmpresa;
     private String urlImagem;
     private String nome;
     private String tempo;
-    private String categoria;
+    private Integer categoria;
     private String Telefone;
-    private Double precoEntrega;
+    private Long precoEntrega;
 
     public Empresa() {
     }
 
     public void salvar() {
         DatabaseReference firebaseRef = ConfigFirebase.getFirebase();
-        DatabaseReference empresaRef = firebaseRef.child("empresa").child(getIdUsuario());
+        DatabaseReference empresaRef = firebaseRef.child("empresa").child(getIdEmpresa());
         empresaRef.setValue(this);
     }
 
-    public String getTelefone() {
-        return Telefone;
+
+    public String getIdEmpresa() {
+        return idEmpresa;
     }
 
-    public void setTelefone(String telefone) {
-        Telefone = telefone;
-    }
-
-    public String getIdUsuario() {
-        return idUsuario;
-    }
-
-    public void setIdUsuario(String idUsuario) {
-        this.idUsuario = idUsuario;
+    public void setIdEmpresa(String idEmpresa) {
+        this.idEmpresa = idEmpresa;
     }
 
     public String getUrlImagem() {
@@ -62,19 +55,28 @@ public class Empresa {
         this.tempo = tempo;
     }
 
-    public String getCategoria() {
-        return categoria;
+
+    public String getTelefone() {
+        return Telefone;
     }
 
-    public void setCategoria(String categoria) {
-        this.categoria = categoria;
+    public void setTelefone(String telefone) {
+        Telefone = telefone;
     }
 
-    public Double getPrecoEntrega() {
+    public Long getPrecoEntrega() {
         return precoEntrega;
     }
 
-    public void setPrecoEntrega(Double precoEntrega) {
+    public void setPrecoEntrega(Long precoEntrega) {
         this.precoEntrega = precoEntrega;
+    }
+
+    public Integer getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Integer categoria) {
+        this.categoria = categoria;
     }
 }

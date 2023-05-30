@@ -41,7 +41,6 @@ public class Usuario {
     }
 
     public static boolean updateUserName(String nome) {
-
         try {
             FirebaseUser user = getUsuarioAtual();
             UserProfileChangeRequest profile = new UserProfileChangeRequest.Builder().setDisplayName(nome).build();

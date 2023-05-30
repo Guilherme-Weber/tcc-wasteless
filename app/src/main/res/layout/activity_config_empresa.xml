@@ -18,10 +18,30 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/imagePerfilEmpresa"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="120dp" />
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imagePerfilEmpresa"
+                android:layout_width="167dp"
+                android:layout_height="120dp"
+                android:background="@drawable/bg_edit_text"
+                android:ems="10"
+                android:padding="16dp"
+                android:src="@drawable/perfil" />/>
+
+            <EditText
+                android:id="@+id/editTextNomeEmpresa"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_edit_text"
+                android:ems="10"
+                android:hint="Nome Empresa"
+                android:inputType="text"
+                android:padding="16dp" />
+        </LinearLayout>
 
         <!--        <ImageView-->
         <!--            android:id="@+id/imagePerfilEmpresa"-->
@@ -29,25 +49,13 @@
         <!--            android:layout_height="120dp"-->
         <!--            app:srcCompat="@drawable/perfil" />-->
 
-        <EditText
-            android:id="@+id/editTextNomeEmpresa"
+        <Spinner
+            android:id="@+id/spinnerEmpresaCategoria"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_edit_text"
-            android:ems="10"
-            android:hint="Nome Empresa"
-            android:inputType="text"
-            android:padding="16dp" />
-
-        <EditText
-            android:id="@+id/editTextEmpresaCategoria"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="52dp"
             android:layout_marginTop="-2dp"
             android:background="@drawable/bg_edit_text"
             android:ems="10"
-            android:hint="Categoria"
-            android:inputType="text"
             android:padding="16dp" />
 
         <EditText
@@ -95,15 +103,33 @@
         <!--            android:padding="16dp" />-->
 
 
-        <com.blackcat.currencyedittext.CurrencyEditText
-            android:id="@+id/editTextEmpresaTaxa"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="-2dp"
-            android:background="@drawable/bg_edit_text"
-            android:ems="10"
-            android:hint="Taxa de Entrega"
-            android:padding="16dp" />
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="167dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="-2dp"
+                android:background="@drawable/bg_edit_text"
+                android:ems="10"
+                android:padding="16dp"
+                android:text="Taxa de Entrega:"
+                android:textSize="18sp" />
+
+            <com.blackcat.currencyedittext.CurrencyEditText
+                android:id="@+id/editTextEmpresaTaxa"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="-2dp"
+                android:background="@drawable/bg_edit_text"
+                android:ems="10"
+                android:hint="Taxa de Entrega"
+                android:padding="16dp" />
+        </LinearLayout>
+
 
         <Button
             android:id="@+id/buttonAcesso2"
