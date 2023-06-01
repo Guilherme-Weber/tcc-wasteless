@@ -57,9 +57,7 @@ public class ConfigEmpresaActivity extends AppCompatActivity implements View.OnC
     private DatabaseReference firebaseRef;
     private String idLogUsuario;
     private String urlImagemSelecionada;
-
     private List<String> listaFotosRec = new ArrayList<>();
-    private List<String> ListaUrl = new ArrayList<>();
     private String[] permissoes = new String[]{Manifest.permission.READ_EXTERNAL_STORAGE};
 
     @Override
@@ -110,6 +108,8 @@ public class ConfigEmpresaActivity extends AppCompatActivity implements View.OnC
                     editTextEmpresaNome.setText(empresa.getNome());
                     spinnerEmpresaCategoria.setSelection(empresa.getCategoria());
                     editTextEmpresaTaxa.setValue(empresa.getPrecoEntrega());
+                    editTextNumeroTelefone.setText(empresa.getTelefone());
+                    editTextEmpresaTempo.setText(empresa.getTempo());
 
                     urlImagemSelecionada = empresa.getUrlImagem();
 
@@ -130,7 +130,7 @@ public class ConfigEmpresaActivity extends AppCompatActivity implements View.OnC
     public void onClick(View v) {
 
         int needif = v.getId();
-        if (needif == R.id.imagePerfilEmpresa) {
+        if (needif == R.id.imageProduto) {
             escolherImagem(1);
         }
     }
@@ -214,15 +214,15 @@ public class ConfigEmpresaActivity extends AppCompatActivity implements View.OnC
     }
 
     private void iniciarComponentes() {
-        editTextEmpresaNome = findViewById(R.id.editTextNomeEmpresa);
+        editTextEmpresaNome = findViewById(R.id.editTextNomeProduto);
         editTextEmpresaTempo = findViewById(R.id.editTextEmpresaTempo);
-        editTextNumeroTelefone = findViewById(R.id.editTextNumeroTelefone);
-        spinnerEmpresaCategoria = findViewById(R.id.spinnerEmpresaCategoria);
+        editTextNumeroTelefone = findViewById(R.id.editTextDescricao);
+        spinnerEmpresaCategoria = findViewById(R.id.spinnerProdutoCategoria);
 
-        imagePerfilEmpresa = findViewById(R.id.imagePerfilEmpresa);
+        imagePerfilEmpresa = findViewById(R.id.imageProduto);
         imagePerfilEmpresa.setOnClickListener(this);
 
-        editTextEmpresaTaxa = findViewById(R.id.editTextEmpresaTaxa);
+        editTextEmpresaTaxa = findViewById(R.id.editTextPrecoProduto);
         Locale locale = new Locale("pt", "BR");
         editTextEmpresaTaxa.setLocale(locale);
     }

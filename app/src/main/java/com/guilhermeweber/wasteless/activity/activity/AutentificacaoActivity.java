@@ -51,6 +51,7 @@ public class AutentificacaoActivity extends AppCompatActivity {
 
         //verifica o usuario logado
         if (usuario.getUsuarioAtual() != null) {
+            //adicionar tela de carregando aqui no futuro
             Usuario.redirectUser(AutentificacaoActivity.this);
         }
 
@@ -176,7 +177,7 @@ public class AutentificacaoActivity extends AppCompatActivity {
 
     private void inicializarComponentes() {
         campoNome = findViewById(R.id.editTextNome);
-        campoEmail = findViewById(R.id.editTextNomeEmpresa);
+        campoEmail = findViewById(R.id.editTextNomeProduto);
         campoSenha = findViewById(R.id.editTextEmpresaCategoria);
         tipoAcesso = findViewById(R.id.switchAcesso);
         tipoUsuario = findViewById(R.id.switchTipoUsuario);
