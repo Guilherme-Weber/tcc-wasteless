@@ -9,27 +9,104 @@ import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.guilhermeweber.wasteless.R;
+import com.guilhermeweber.wasteless.activity.adapter.AdapterProduto;
 import com.guilhermeweber.wasteless.activity.helper.ConfigFirebase;
+import com.guilhermeweber.wasteless.activity.model.Produto;
+import com.guilhermeweber.wasteless.activity.model.Usuario;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class EmpresaActivity extends AppCompatActivity {
 
     private FirebaseAuth auth;
+    private DatabaseReference firebaseRef;
+    private FirebaseDatabase firebaseDatabase;
+    private String idUsuarioLogado;
+    private RecyclerView recyclerProdutos;
+    private AdapterProduto adapterProduto;
+    private List<Produto> produtos = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_empresa);
 
+
+        inicializarComponentes();
         auth = ConfigFirebase.getFireAuth();
+        firebaseRef = ConfigFirebase.getFirebase();
+        idUsuarioLogado = Usuario.getIdUsuario();
+
 
         //config toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("Wasteless - Empresa");
         setSupportActionBar(toolbar);
 
+        //configurando o RecycerView
+        recyclerProdutos.setLayoutManager(new LinearLayoutManager(this));
+        recyclerProdutos.setHasFixedSize(true);
+        adapterProduto = new AdapterProduto(produtos, this);
+        recyclerProdutos.setAdapter(adapterProduto);
+
+        //recuperar produtos
+        recuperarProdutos();
+
+    }
+
+    private void recuperarProdutos() {
+
+        firebaseRef = ConfigFirebase.getFirebase();
+        DatabaseReference produtosRef = firebaseRef.child("produtos").child(idUsuarioLogado);
+        produtosRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                produtos.clear();
+                for (DataSnapshot ds : snapshot.getChildren()) {
+
+                    produtos.add(ds.getValue(Produto.class));
+                }
+                adapterProduto.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+//        Produto produtoObj = new Produto();
+//
+//        firebaseDatabase = FirebaseDatabase.getInstance();
+////        DatabaseReference produtosRef = firebaseRef.getDatabase().getReference().child("produto").child(idUsuarioLogado);
+//        firebaseDatabase.getReference("produto").child(idUsuarioLogado).addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                produtos.clear();
+//                for (DataSnapshot ds : snapshot.getChildren()) {
+//                    produtos.add(ds.getValue(Produto.class));
+//
+//                }
+//                adapterProduto.notifyDataSetChanged();
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
     }
 
     @Override
@@ -91,6 +168,10 @@ public class EmpresaActivity extends AppCompatActivity {
 
     private void abrirNovoProduto() {
         startActivity(new Intent(EmpresaActivity.this, NovoProdutoEmpresaActivity.class));
+    }
+
+    private void inicializarComponentes() {
+        recyclerProdutos = findViewById(R.id.recyclerProdutos);
     }
 
 }

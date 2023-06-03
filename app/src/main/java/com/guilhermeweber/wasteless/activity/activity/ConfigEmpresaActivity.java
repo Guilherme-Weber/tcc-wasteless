@@ -236,7 +236,7 @@ public class ConfigEmpresaActivity extends AppCompatActivity implements View.OnC
     }
 
     private void salvarFotoStorage(String urlString, int totalFotos, int contador) {
-        final StorageReference imagemEmpresa = storageReference.child("imagens").child("empresa").child(idLogUsuario).child("image" + contador + ".jpag");
+        final StorageReference imagemEmpresa = storageReference.child("imagens").child("empresa").child(idLogUsuario).child("image" + contador + ".jpeg");
 
         UploadTask uploadTask = imagemEmpresa.putFile(Uri.parse(urlString));
         uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
