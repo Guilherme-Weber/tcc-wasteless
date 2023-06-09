@@ -6,6 +6,7 @@ import com.guilhermeweber.wasteless.activity.helper.ConfigFirebase;
 public class Produto {
 
     private String idProduto;
+    private String idProdutoInterno;
     private String nomeProduto;
     private String urlImagem;
     private String descricao;
@@ -15,12 +16,17 @@ public class Produto {
     private String TipoPeso;
 
     public Produto() {
+       
     }
 
-    public void salvar() {
+    public void salvar(String seed) {
         DatabaseReference firebaseRef = ConfigFirebase.getFirebase();
-        DatabaseReference empresaRef = firebaseRef.child("produto").child(getIdProduto()).push();
+        DatabaseReference empresaRef = firebaseRef.child("produto").child(getIdProduto()).child(seed);
         empresaRef.setValue(this);
+    }
+
+    public void remover(){
+
     }
 
     public String getIdProduto() {
@@ -29,6 +35,14 @@ public class Produto {
 
     public void setIdProduto(String idProduto) {
         this.idProduto = idProduto;
+    }
+
+    public String getIdProdutoInterno() {
+        return idProdutoInterno;
+    }
+
+    public void setIdProdutoInterno(String idProdutoInterno) {
+        this.idProdutoInterno = idProdutoInterno;
     }
 
     public String getNomeProduto() {

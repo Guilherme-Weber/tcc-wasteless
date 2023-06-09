@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,6 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.guilhermeweber.wasteless.R;
 import com.guilhermeweber.wasteless.activity.adapter.AdapterProduto;
 import com.guilhermeweber.wasteless.activity.helper.ConfigFirebase;
+import com.guilhermeweber.wasteless.activity.listener.RecyclerItemClickListener;
 import com.guilhermeweber.wasteless.activity.model.Produto;
 import com.guilhermeweber.wasteless.activity.model.Usuario;
 
@@ -54,8 +57,10 @@ public class EmpresaActivity extends AppCompatActivity {
         toolbar.setTitle("Wasteless - Empresa");
         setSupportActionBar(toolbar);
 
+        RecyclerView.LayoutManager recyclerViewProdutos = new LinearLayoutManager(getApplicationContext());
+
         //configurando o RecycerView
-        recyclerProdutos.setLayoutManager(new LinearLayoutManager(this));
+        recyclerProdutos.setLayoutManager(recyclerViewProdutos);
         recyclerProdutos.setHasFixedSize(true);
         adapterProduto = new AdapterProduto(produtos, this);
         recyclerProdutos.setAdapter(adapterProduto);
@@ -63,18 +68,36 @@ public class EmpresaActivity extends AppCompatActivity {
         //recuperar produtos
         recuperarProdutos();
 
+        //adiciona evento de click ai recyclerview
+        recyclerProdutos.addOnItemTouchListener(new RecyclerItemClickListener(this, recyclerProdutos, new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+
+            }
+
+            @Override
+            public void onLongItemClick(View view, int position) {
+                Produto produtoSelecionado = produtos.get(position);
+                produtoSelecionado.remover();
+            }
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+        }));
+
     }
 
     private void recuperarProdutos() {
 
         firebaseRef = ConfigFirebase.getFirebase();
-        DatabaseReference produtosRef = firebaseRef.child("produtos").child(idUsuarioLogado);
+        DatabaseReference produtosRef = firebaseRef.child("produto").child(idUsuarioLogado);
         produtosRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 produtos.clear();
                 for (DataSnapshot ds : snapshot.getChildren()) {
-
                     produtos.add(ds.getValue(Produto.class));
                 }
                 adapterProduto.notifyDataSetChanged();

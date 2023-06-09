@@ -54,9 +54,11 @@ public class NovoProdutoEmpresaActivity extends AppCompatActivity implements Vie
     private Switch switchTipoValor;
     private Switch switchTipoPeso;
     private String TipoValor = "Unidade";
+    private String urlImagem1;
     private LinearLayout linearTipoPeso;
     private ImageView ImageViewImageProduto;
     private CurrencyEditText editTextPrecoProduto;
+    private String ramdom;
     private List<String> listaFotosRec = new ArrayList<>();
     private String[] permissoes = new String[]{Manifest.permission.READ_EXTERNAL_STORAGE};
 
@@ -69,8 +71,9 @@ public class NovoProdutoEmpresaActivity extends AppCompatActivity implements Vie
         Permissoes.validarPermissoes(permissoes, this, 1);
 
         iniciarComponentes();
-
         carregarDadosSpinner();
+
+        ramdom = String.valueOf(System.currentTimeMillis());
 
         storageReference = ConfigFirebase.getRefStorage();
         firebaseRef = ConfigFirebase.getFirebase();
@@ -82,6 +85,7 @@ public class NovoProdutoEmpresaActivity extends AppCompatActivity implements Vie
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         switchTipoValor.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -106,6 +110,7 @@ public class NovoProdutoEmpresaActivity extends AppCompatActivity implements Vie
             }
         });
     }
+
 
     @Override
     public void onClick(View v) {
@@ -140,6 +145,7 @@ public class NovoProdutoEmpresaActivity extends AppCompatActivity implements Vie
         String nome = editTextNomeProduto.getText().toString();
         Integer categoria = spinnerNovoProdutoCategoria.getSelectedItemPosition();
         String descricao = editTexTextDescricao.getText().toString();
+        Long preco = editTextPrecoProduto.getRawValue();
 
         if (listaFotosRec.size() != 0) {
             if (!nome.isEmpty()) {
@@ -151,6 +157,7 @@ public class NovoProdutoEmpresaActivity extends AppCompatActivity implements Vie
                     produto.setNomeProduto(nome);
                     produto.setDescricao(descricao);
                     produto.setCategoria(categoria);
+                    produto.setPreco(preco);
 
                     if (switchTipoValor.isChecked()) { // se estiver selecionado é por peso
                         produto.setTipoValor("Por Peso");
@@ -168,9 +175,14 @@ public class NovoProdutoEmpresaActivity extends AppCompatActivity implements Vie
                         int tamanhoLista = listaFotosRec.size();
                         salvarFotoStorage(urlImagem, tamanhoLista, i);
                     }
-                    produto.salvar();
+
+                    produto.setIdProdutoInterno(ramdom);
+
+                    produto.salvar(ramdom);
                     finish();
                     mensagemToast("Produto Salvo Com Sucesso! ");
+
+
                 } else {
                     mensagemToast("Selecione a categoria em que a produto condiz");
                 }
@@ -214,7 +226,7 @@ public class NovoProdutoEmpresaActivity extends AppCompatActivity implements Vie
     }
 
     private void salvarFotoStorage(String urlString, int totalFotos, int contador) {
-        final StorageReference imagemProduto = storageReference.child("imagens").child("produto").child(idLogUsuario).child("image" + contador + ".jpeg");
+        final StorageReference imagemProduto = storageReference.child("imagens").child("produto").child(ramdom).child(idLogUsuario).child("image" + contador + ".jpg");
 
         UploadTask uploadTask = imagemProduto.putFile(Uri.parse(urlString));
         uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -224,7 +236,7 @@ public class NovoProdutoEmpresaActivity extends AppCompatActivity implements Vie
                     @Override
                     public void onComplete(@NonNull Task<Uri> task) {
                         Uri uri = task.getResult();
-                        firebaseRef.child("produto").child(idLogUsuario).child("urlImagem").setValue(uri.toString());
+                        firebaseRef.child("produto").child(idLogUsuario).child(ramdom).child("urlImagem").setValue(uri.toString());
                     }
                 });
             }

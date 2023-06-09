@@ -38,6 +38,7 @@ public class AdapterProduto extends RecyclerView.Adapter<AdapterProduto.MyViewHo
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
         Produto produto = produtos.get(position);
+
         holder.nome.setText(produto.getNomeProduto());
         holder.descricao.setText(produto.getDescricao());
         holder.valor.setValue(produto.getPreco());
@@ -64,9 +65,9 @@ public class AdapterProduto extends RecyclerView.Adapter<AdapterProduto.MyViewHo
         public MyViewHolder(View itemView) {
             super(itemView);
 
-            nome = itemView.findViewById(R.id.editTextNomeProduto);
-            descricao = itemView.findViewById(R.id.editTextDescricao);
-            valor = itemView.findViewById(R.id.textPreco);
+            nome = itemView.findViewById(R.id.textNomeRefeicao);
+            descricao = itemView.findViewById(R.id.textDescricaoRefeicao);
+            valor = itemView.findViewById(R.id.textPrecoRefeicao);
             produtoImg = itemView.findViewById(R.id.imageProdutoLista);
 
         }
