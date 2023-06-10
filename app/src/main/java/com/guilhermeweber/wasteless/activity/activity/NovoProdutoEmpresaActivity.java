@@ -143,6 +143,7 @@ public class NovoProdutoEmpresaActivity extends AppCompatActivity implements Vie
     public void validarDadosProduto(View view) {
 
         String nome = editTextNomeProduto.getText().toString();
+        String categoriaText = spinnerNovoProdutoCategoria.getSelectedItem().toString();
         Integer categoria = spinnerNovoProdutoCategoria.getSelectedItemPosition();
         String descricao = editTexTextDescricao.getText().toString();
         Long preco = editTextPrecoProduto.getRawValue();
@@ -153,21 +154,23 @@ public class NovoProdutoEmpresaActivity extends AppCompatActivity implements Vie
 
                     Produto produto = new Produto();
 
-                    produto.setIdProduto(idLogUsuario);
+                    produto.setIdEmpresa(idLogUsuario);
                     produto.setNomeProduto(nome);
                     produto.setDescricao(descricao);
-                    produto.setCategoria(categoria);
+                    produto.setIdCategoria(categoria);
+                    produto.setCategoria(categoriaText);
                     produto.setPreco(preco);
 
                     if (switchTipoValor.isChecked()) { // se estiver selecionado é por peso
                         produto.setTipoValor("Por Peso");
                         if (switchTipoPeso.isChecked()) { // se estiver selecionado é por gramas
-                            produto.setTipoPeso("Gramas");
-                        } else { // se não estiver selecionado é por kilos
                             produto.setTipoPeso("Por Grama");
+                        } else { // se não estiver selecionado é por kilos
+                            produto.setTipoPeso("Por Kilos");
                         }
                     } else { // se n estiver selecionado é por unidade
-                        produto.setTipoValor("or Unidade");
+                        produto.setTipoValor("Por Unidade");
+                        produto.setTipoPeso("Por Unidade");
                     }
 
                     for (int i = 0; i < listaFotosRec.size(); ++i) {
@@ -176,7 +179,7 @@ public class NovoProdutoEmpresaActivity extends AppCompatActivity implements Vie
                         salvarFotoStorage(urlImagem, tamanhoLista, i);
                     }
 
-                    produto.setIdProdutoInterno(ramdom);
+                    produto.setIdProduto(ramdom);
 
                     produto.salvar(ramdom);
                     finish();

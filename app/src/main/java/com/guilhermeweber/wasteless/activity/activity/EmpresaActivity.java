@@ -7,6 +7,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -57,9 +58,10 @@ public class EmpresaActivity extends AppCompatActivity {
         toolbar.setTitle("Wasteless - Empresa");
         setSupportActionBar(toolbar);
 
-        RecyclerView.LayoutManager recyclerViewProdutos = new LinearLayoutManager(getApplicationContext());
+
 
         //configurando o RecycerView
+        RecyclerView.LayoutManager recyclerViewProdutos = new LinearLayoutManager(getApplicationContext());
         recyclerProdutos.setLayoutManager(recyclerViewProdutos);
         recyclerProdutos.setHasFixedSize(true);
         adapterProduto = new AdapterProduto(produtos, this);
@@ -78,7 +80,8 @@ public class EmpresaActivity extends AppCompatActivity {
             @Override
             public void onLongItemClick(View view, int position) {
                 Produto produtoSelecionado = produtos.get(position);
-                produtoSelecionado.remover();
+                produtoSelecionado.remover(produtoSelecionado.getIdProduto());
+                mensagemToast("Produto Excluido com Sucesso!");
             }
 
             @Override
@@ -87,6 +90,10 @@ public class EmpresaActivity extends AppCompatActivity {
             }
         }));
 
+    }
+
+    private void mensagemToast(String texto) {
+        Toast.makeText(this, texto, Toast.LENGTH_SHORT).show();
     }
 
     private void recuperarProdutos() {
@@ -194,7 +201,7 @@ public class EmpresaActivity extends AppCompatActivity {
     }
 
     private void inicializarComponentes() {
-        recyclerProdutos = findViewById(R.id.recyclerProdutos);
+        recyclerProdutos = findViewById(R.id.recyclerEmpresas);
     }
 
 }

@@ -106,7 +106,7 @@ public class ConfigEmpresaActivity extends AppCompatActivity implements View.OnC
 
                     Empresa empresa = snapshot.getValue(Empresa.class);
                     editTextEmpresaNome.setText(empresa.getNome());
-                    spinnerEmpresaCategoria.setSelection(empresa.getCategoria());
+                    spinnerEmpresaCategoria.setSelection(empresa.getIdCategoria());
                     editTextEmpresaTaxa.setValue(empresa.getPrecoEntrega());
                     editTextNumeroTelefone.setText(empresa.getTelefone());
                     editTextEmpresaTempo.setText(empresa.getTempo());
@@ -158,6 +158,7 @@ public class ConfigEmpresaActivity extends AppCompatActivity implements View.OnC
 
         String fone = "";
         String nome = editTextEmpresaNome.getText().toString();
+        String categoriaText = spinnerEmpresaCategoria.getSelectedItem().toString();
         Integer categoria = spinnerEmpresaCategoria.getSelectedItemPosition();
         String taxa = String.valueOf(editTextEmpresaTaxa.getRawValue());
         String tempo = editTextEmpresaTempo.getText().toString();
@@ -178,7 +179,8 @@ public class ConfigEmpresaActivity extends AppCompatActivity implements View.OnC
                                 empresa.setIdEmpresa(idLogUsuario);
                                 empresa.setNome(nome);
                                 empresa.setPrecoEntrega(Long.parseLong(taxa));
-                                empresa.setCategoria(categoria);
+                                empresa.setCategoria(categoriaText);
+                                empresa.setIdCategoria(categoria);
                                 empresa.setTempo(tempo);
                                 empresa.setTelefone(telefone);
 

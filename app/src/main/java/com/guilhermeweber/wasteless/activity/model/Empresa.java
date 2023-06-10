@@ -9,7 +9,8 @@ public class Empresa {
     private String urlImagem;
     private String nome;
     private String tempo;
-    private Integer categoria;
+    private String categoria;
+    private Integer idCategoria;
     private String Telefone;
     private Long precoEntrega;
 
@@ -55,6 +56,21 @@ public class Empresa {
         this.tempo = tempo;
     }
 
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
+
+    public Integer getIdCategoria() {
+        return idCategoria;
+    }
+
+    public void setIdCategoria(Integer idCategoria) {
+        this.idCategoria = idCategoria;
+    }
 
     public String getTelefone() {
         return Telefone;
@@ -70,13 +86,5 @@ public class Empresa {
 
     public void setPrecoEntrega(Long precoEntrega) {
         this.precoEntrega = precoEntrega;
-    }
-
-    public Integer getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(Integer categoria) {
-        this.categoria = categoria;
     }
 }

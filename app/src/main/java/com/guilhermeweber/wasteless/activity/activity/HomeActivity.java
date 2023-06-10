@@ -9,16 +9,32 @@ import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.guilhermeweber.wasteless.R;
+import com.guilhermeweber.wasteless.activity.adapter.AdapterEmpresa;
 import com.guilhermeweber.wasteless.activity.helper.ConfigFirebase;
+import com.guilhermeweber.wasteless.activity.model.Empresa;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
 
     private FirebaseAuth auth;
     private MaterialSearchView searchView;
+    private RecyclerView recyclerEmpresa;
+    private List<Empresa> empresas = new ArrayList<>();
+    private DatabaseReference firebaseRef;
+    private AdapterEmpresa adapterEmpresa;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +42,7 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         inicializarComponentes();
+        firebaseRef = ConfigFirebase.getFirebase();
         auth = ConfigFirebase.getFireAuth();
 
         //config toolbar
@@ -33,6 +50,72 @@ public class HomeActivity extends AppCompatActivity {
         toolbar.setTitle("Wasteless");
         setSupportActionBar(toolbar);
 
+        //configurando o RecycerView
+        RecyclerView.LayoutManager recyclerViewEmpresa = new LinearLayoutManager(getApplicationContext());
+        recyclerEmpresa.setLayoutManager(recyclerViewEmpresa);
+        recyclerEmpresa.setHasFixedSize(true);
+        adapterEmpresa = new AdapterEmpresa(empresas, this);
+        recyclerEmpresa.setAdapter(adapterEmpresa);
+
+        //recuperar produtos
+        recuperarProdutos();
+
+        //config search view
+        searchView.setHint("Pesquisar Estabelecimentos");
+        searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(@NonNull String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(@NonNull String newText) {
+                pesquisarEmpresas(newText);
+                return true;
+            }
+        });
+
+    }
+
+    private void pesquisarEmpresas(String pesquisa) {
+        firebaseRef = ConfigFirebase.getFirebase();
+        DatabaseReference empresaRef = firebaseRef.child("empresa");
+        Query query = empresaRef.orderByChild("nome").startAt(pesquisa).endAt(pesquisa + "\uf8ff");
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                empresas.clear();
+                for (DataSnapshot ds : snapshot.getChildren()) {
+                    empresas.add(ds.getValue(Empresa.class));
+                }
+                adapterEmpresa.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void recuperarProdutos() {
+        firebaseRef = ConfigFirebase.getFirebase();
+        DatabaseReference empresaRef = firebaseRef.child("empresa");
+        empresaRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                empresas.clear();
+                for (DataSnapshot ds : snapshot.getChildren()) {
+                    empresas.add(ds.getValue(Empresa.class));
+                }
+                adapterEmpresa.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     @Override
@@ -78,6 +161,7 @@ public class HomeActivity extends AppCompatActivity {
 
     public void inicializarComponentes() {
         searchView = findViewById(R.id.materialSearchView);
+        recyclerEmpresa = findViewById(R.id.recyclerEmpresas);
     }
 
     private void abrirConfig() {

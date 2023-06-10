@@ -5,28 +5,41 @@ import com.guilhermeweber.wasteless.activity.helper.ConfigFirebase;
 
 public class Produto {
 
+    private String idEmpresa;
     private String idProduto;
-    private String idProdutoInterno;
     private String nomeProduto;
     private String urlImagem;
     private String descricao;
-    private Integer categoria;
+
+    private String categoria;
+    private Integer idCategoria;
     private Long preco;
     private String TipoValor;
     private String TipoPeso;
 
     public Produto() {
-       
+
     }
 
     public void salvar(String seed) {
         DatabaseReference firebaseRef = ConfigFirebase.getFirebase();
-        DatabaseReference empresaRef = firebaseRef.child("produto").child(getIdProduto()).child(seed);
-        empresaRef.setValue(this);
+        DatabaseReference produtoRef = firebaseRef.child("produto").child(getIdEmpresa()).child(seed);
+        produtoRef.setValue(this);
     }
 
-    public void remover(){
+    public void remover(String seed) {
+        DatabaseReference firebaseRef = ConfigFirebase.getFirebase();
+        DatabaseReference produtoRef = firebaseRef.child("produto").child(getIdEmpresa()).child(seed);
+        produtoRef.removeValue();
 
+    }
+
+    public String getIdEmpresa() {
+        return idEmpresa;
+    }
+
+    public void setIdEmpresa(String idEmpresa) {
+        this.idEmpresa = idEmpresa;
     }
 
     public String getIdProduto() {
@@ -35,14 +48,6 @@ public class Produto {
 
     public void setIdProduto(String idProduto) {
         this.idProduto = idProduto;
-    }
-
-    public String getIdProdutoInterno() {
-        return idProdutoInterno;
-    }
-
-    public void setIdProdutoInterno(String idProdutoInterno) {
-        this.idProdutoInterno = idProdutoInterno;
     }
 
     public String getNomeProduto() {
@@ -69,12 +74,20 @@ public class Produto {
         this.descricao = descricao;
     }
 
-    public Integer getCategoria() {
+    public String getCategoria() {
         return categoria;
     }
 
-    public void setCategoria(Integer categoria) {
+    public void setCategoria(String categoria) {
         this.categoria = categoria;
+    }
+
+    public Integer getIdCategoria() {
+        return idCategoria;
+    }
+
+    public void setIdCategoria(Integer idCategoria) {
+        this.idCategoria = idCategoria;
     }
 
     public Long getPreco() {
