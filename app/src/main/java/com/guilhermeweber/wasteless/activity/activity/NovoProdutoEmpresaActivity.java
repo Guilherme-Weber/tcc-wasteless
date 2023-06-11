@@ -47,18 +47,13 @@ public class NovoProdutoEmpresaActivity extends AppCompatActivity implements Vie
     private static final int SELECAO_GALERIA = 200;
     private StorageReference storageReference;
     private DatabaseReference firebaseRef;
-    private String idLogUsuario;
-    private EditText editTextNomeProduto;
-    private EditText editTexTextDescricao;
+    private String idLogUsuario, ramdom, urlImagem1, TipoValor = "Unidade";
+    private EditText editTextNomeProduto, editTexTextDescricao;
     private Spinner spinnerNovoProdutoCategoria;
-    private Switch switchTipoValor;
-    private Switch switchTipoPeso;
-    private String TipoValor = "Unidade";
-    private String urlImagem1;
+    private Switch switchTipoValor, switchTipoPeso;
     private LinearLayout linearTipoPeso;
     private ImageView ImageViewImageProduto;
     private CurrencyEditText editTextPrecoProduto;
-    private String ramdom;
     private List<String> listaFotosRec = new ArrayList<>();
     private String[] permissoes = new String[]{Manifest.permission.READ_EXTERNAL_STORAGE};
 
@@ -83,7 +78,6 @@ public class NovoProdutoEmpresaActivity extends AppCompatActivity implements Vie
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("Novo Produto");
         setSupportActionBar(toolbar);
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
@@ -115,7 +109,7 @@ public class NovoProdutoEmpresaActivity extends AppCompatActivity implements Vie
     @Override
     public void onClick(View v) {
         int needif = v.getId();
-        if (needif == R.id.imageProduto) {
+        if (needif == R.id.imageEmpresa1) {
             escolherImagem(1);
         }
     }
@@ -164,13 +158,12 @@ public class NovoProdutoEmpresaActivity extends AppCompatActivity implements Vie
                     if (switchTipoValor.isChecked()) { // se estiver selecionado é por peso
                         produto.setTipoValor("Por Peso");
                         if (switchTipoPeso.isChecked()) { // se estiver selecionado é por gramas
-                            produto.setTipoPeso("Por Grama");
+                            produto.setTipoPeso("Em Grama");
                         } else { // se não estiver selecionado é por kilos
-                            produto.setTipoPeso("Por Kilos");
+                            produto.setTipoPeso("Em Kilos");
                         }
                     } else { // se n estiver selecionado é por unidade
                         produto.setTipoValor("Por Unidade");
-                        produto.setTipoPeso("Por Unidade");
                     }
 
                     for (int i = 0; i < listaFotosRec.size(); ++i) {
@@ -202,12 +195,12 @@ public class NovoProdutoEmpresaActivity extends AppCompatActivity implements Vie
     }
 
     private void iniciarComponentes() {
-        editTextNomeProduto = findViewById(R.id.editTextNomeProduto);
-        editTexTextDescricao = findViewById(R.id.editTextDescricao);
+        editTextNomeProduto = findViewById(R.id.editTextNomeEmpresa);
+        editTexTextDescricao = findViewById(R.id.editTextNumeroTelefone);
 
         spinnerNovoProdutoCategoria = findViewById(R.id.spinnerNovoProdutoCategoria);
 
-        ImageViewImageProduto = findViewById(R.id.imageProduto);
+        ImageViewImageProduto = findViewById(R.id.imageEmpresa1);
         ImageViewImageProduto.setOnClickListener(this);
 
         linearTipoPeso = findViewById(R.id.linearTipoPeso);

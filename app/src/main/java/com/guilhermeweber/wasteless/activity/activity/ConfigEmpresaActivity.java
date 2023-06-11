@@ -55,8 +55,7 @@ public class ConfigEmpresaActivity extends AppCompatActivity implements View.OnC
     private CircleImageView imagePerfilEmpresa;
     private StorageReference storageReference;
     private DatabaseReference firebaseRef;
-    private String idLogUsuario;
-    private String urlImagemSelecionada;
+    private String idLogUsuario, urlImagemSelecionada;
     private List<String> listaFotosRec = new ArrayList<>();
     private String[] permissoes = new String[]{Manifest.permission.READ_EXTERNAL_STORAGE};
 
@@ -130,7 +129,7 @@ public class ConfigEmpresaActivity extends AppCompatActivity implements View.OnC
     public void onClick(View v) {
 
         int needif = v.getId();
-        if (needif == R.id.imageProduto) {
+        if (needif == R.id.imageEmpresa1) {
             escolherImagem(1);
         }
     }
@@ -162,8 +161,8 @@ public class ConfigEmpresaActivity extends AppCompatActivity implements View.OnC
         Integer categoria = spinnerEmpresaCategoria.getSelectedItemPosition();
         String taxa = String.valueOf(editTextEmpresaTaxa.getRawValue());
         String tempo = editTextEmpresaTempo.getText().toString();
-        String telefone = editTextNumeroTelefone.getText().toString();
 
+        String telefone = editTextNumeroTelefone.getText().toString();
         if (editTextNumeroTelefone.getRawText() != null) {
             fone = editTextNumeroTelefone.getRawText().toString();
         }
@@ -216,12 +215,12 @@ public class ConfigEmpresaActivity extends AppCompatActivity implements View.OnC
     }
 
     private void iniciarComponentes() {
-        editTextEmpresaNome = findViewById(R.id.editTextNomeProduto);
+        editTextEmpresaNome = findViewById(R.id.editTextNomeEmpresa);
         editTextEmpresaTempo = findViewById(R.id.editTextEmpresaTempo);
-        editTextNumeroTelefone = findViewById(R.id.editTextDescricao);
+        editTextNumeroTelefone = findViewById(R.id.editTextNumeroTelefone);
         spinnerEmpresaCategoria = findViewById(R.id.spinnerProdutoCategoria);
 
-        imagePerfilEmpresa = findViewById(R.id.imageProduto);
+        imagePerfilEmpresa = findViewById(R.id.imageEmpresa1);
         imagePerfilEmpresa.setOnClickListener(this);
 
         editTextEmpresaTaxa = findViewById(R.id.editTextPrecoProduto);

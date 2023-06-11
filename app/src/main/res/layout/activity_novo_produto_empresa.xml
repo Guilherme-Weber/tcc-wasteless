@@ -19,7 +19,7 @@
         android:padding="16dp">
 
         <ImageView
-            android:id="@+id/imageProduto"
+            android:id="@+id/imageEmpresa1"
             android:layout_width="match_parent"
             android:layout_height="198dp"
             android:background="@drawable/bg_edit_text"
@@ -28,7 +28,7 @@
             android:src="@drawable/perfil" />
 
         <EditText
-            android:id="@+id/editTextNomeProduto"
+            android:id="@+id/editTextNomeEmpresa"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_edit_text"
@@ -38,7 +38,7 @@
             android:padding="16dp" />
 
         <EditText
-            android:id="@+id/editTextDescricao"
+            android:id="@+id/editTextNumeroTelefone"
             android:layout_width="match_parent"
             android:layout_height="112dp"
             android:layout_marginTop="-2dp"

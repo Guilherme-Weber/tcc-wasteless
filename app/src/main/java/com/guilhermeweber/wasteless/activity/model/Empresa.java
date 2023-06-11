@@ -3,7 +3,9 @@ package com.guilhermeweber.wasteless.activity.model;
 import com.google.firebase.database.DatabaseReference;
 import com.guilhermeweber.wasteless.activity.helper.ConfigFirebase;
 
-public class Empresa {
+import java.io.Serializable;
+
+public class Empresa implements Serializable {
 
     private String idEmpresa;
     private String urlImagem;

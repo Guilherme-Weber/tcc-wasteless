@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,4 +11,90 @@
         layout="@layout/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imageUsuario"
+                android:layout_width="167dp"
+                android:layout_height="120dp"
+                android:background="@drawable/bg_edit_text"
+                android:ems="10"
+                android:padding="16dp"
+                android:src="@drawable/perfil" />/>
+
+            <EditText
+                android:id="@+id/editTextNomeUsuario"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_edit_text"
+                android:ems="10"
+                android:hint="Nome"
+                android:inputType="text"
+                android:padding="16dp" />
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/editTextUsuarioEndereco"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-2dp"
+            android:background="@drawable/bg_edit_text"
+            android:ems="10"
+            android:hint="Endereço Completo"
+            android:inputType="text"
+            android:padding="16dp" />
+
+        <EditText
+            android:id="@+id/editTextUsuarioCEP"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-2dp"
+            android:background="@drawable/bg_edit_text"
+            android:ems="10"
+            android:hint="CEP"
+            android:inputType="number"
+            android:padding="16dp" />
+
+        <com.santalu.maskedittext.MaskEditText
+            android:id="@+id/editTextTelefone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-2dp"
+            android:background="@drawable/bg_edit_text"
+            android:ems="10"
+            android:hint="Telefone"
+            android:inputType="phone"
+            android:padding="16dp"
+            app:met_mask="(##) #####-####" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" />
+
+        <Button
+            android:id="@+id/buttonAcesso2"
+            app:cornerRadius="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="@color/secundaria"
+            android:onClick="validarDadosUsuario"
+            android:padding="16dp"
+            android:text="Salvar"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:theme="@style/botaoPadrao" />
+
+    </LinearLayout>
 </androidx.appcompat.widget.LinearLayoutCompat>

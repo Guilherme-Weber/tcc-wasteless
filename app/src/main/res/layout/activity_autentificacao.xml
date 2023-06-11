@@ -30,7 +30,7 @@
         tools:visibility="visible" />
 
     <EditText
-        android:id="@+id/editTextNomeProduto"
+        android:id="@+id/editTextNomeEmpresa"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_edit_text"

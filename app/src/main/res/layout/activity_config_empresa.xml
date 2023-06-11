@@ -24,7 +24,7 @@
             android:orientation="horizontal">
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/imageProduto"
+                android:id="@+id/imageEmpresa1"
                 android:layout_width="167dp"
                 android:layout_height="120dp"
                 android:background="@drawable/bg_edit_text"
@@ -33,7 +33,7 @@
                 android:src="@drawable/perfil" />/>
 
             <EditText
-                android:id="@+id/editTextNomeProduto"
+                android:id="@+id/editTextNomeEmpresa"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/bg_edit_text"
@@ -64,7 +64,7 @@
             android:padding="16dp" />
 
         <com.santalu.maskedittext.MaskEditText
-            android:id="@+id/editTextDescricao"
+            android:id="@+id/editTextNumeroTelefone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="-2dp"

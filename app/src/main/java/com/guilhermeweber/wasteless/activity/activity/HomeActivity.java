@@ -5,9 +5,13 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.Window;
+import android.widget.AdapterView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.WindowDecorActionBar;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,6 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.guilhermeweber.wasteless.R;
 import com.guilhermeweber.wasteless.activity.adapter.AdapterEmpresa;
 import com.guilhermeweber.wasteless.activity.helper.ConfigFirebase;
+import com.guilhermeweber.wasteless.activity.listener.RecyclerItemClickListener;
 import com.guilhermeweber.wasteless.activity.model.Empresa;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
@@ -44,6 +49,7 @@ public class HomeActivity extends AppCompatActivity {
         inicializarComponentes();
         firebaseRef = ConfigFirebase.getFirebase();
         auth = ConfigFirebase.getFireAuth();
+
 
         //config toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -75,6 +81,28 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+        //evento de click
+        recyclerEmpresa.addOnItemTouchListener(new RecyclerItemClickListener(this, recyclerEmpresa, new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+
+                Empresa empresaSelecionada = empresas.get(position);
+                Intent i = new Intent(HomeActivity.this, CardapioActivity.class);
+                i.putExtra("empresa", empresaSelecionada);
+                startActivity(i);
+
+            }
+
+            @Override
+            public void onLongItemClick(View view, int position) {
+
+            }
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+        }));
     }
 
     private void pesquisarEmpresas(String pesquisa) {

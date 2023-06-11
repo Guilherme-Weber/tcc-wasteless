@@ -52,13 +52,10 @@ public class EmpresaActivity extends AppCompatActivity {
         firebaseRef = ConfigFirebase.getFirebase();
         idUsuarioLogado = Usuario.getIdUsuario();
 
-
         //config toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("Wasteless - Empresa");
         setSupportActionBar(toolbar);
-
-
 
         //configurando o RecycerView
         RecyclerView.LayoutManager recyclerViewProdutos = new LinearLayoutManager(getApplicationContext());

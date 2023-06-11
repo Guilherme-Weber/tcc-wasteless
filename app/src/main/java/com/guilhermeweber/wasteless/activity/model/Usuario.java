@@ -22,10 +22,14 @@ import com.guilhermeweber.wasteless.activity.helper.ConfigFirebase;
 
 public class Usuario {
     private String id;
+    private String urlImagem;
     private String nome;
     private String email;
     private String senha;
     private String tipo;
+    private String cEP;
+    private String endereco;
+    private String Telefone;
 
     public Usuario() {
     }
@@ -87,6 +91,38 @@ public class Usuario {
         DatabaseReference fireRef = ConfigFirebase.getFirebase();
         DatabaseReference usuarios = fireRef.child("usuarios").child(getId());
         usuarios.setValue(this);
+    }
+
+    public String getUrlImagem() {
+        return urlImagem;
+    }
+
+    public void setUrlImagem(String urlImagem) {
+        this.urlImagem = urlImagem;
+    }
+
+    public String getcEP() {
+        return cEP;
+    }
+
+    public void setcEP(String cEP) {
+        this.cEP = cEP;
+    }
+
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
+
+    public String getTelefone() {
+        return Telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        Telefone = telefone;
     }
 
     public String getId() {

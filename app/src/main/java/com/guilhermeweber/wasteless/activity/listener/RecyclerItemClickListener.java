@@ -8,7 +8,6 @@ import android.widget.AdapterView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-
 public class RecyclerItemClickListener implements RecyclerView.OnItemTouchListener {
 
     GestureDetector mGestureDetector;
@@ -30,7 +29,6 @@ public class RecyclerItemClickListener implements RecyclerView.OnItemTouchListen
                 }
             }
         });
-
     }
 
     @Override
@@ -45,12 +43,10 @@ public class RecyclerItemClickListener implements RecyclerView.OnItemTouchListen
 
     @Override
     public void onTouchEvent(RecyclerView rv, MotionEvent e) {
-
     }
 
     @Override
     public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
-
     }
 
     public interface OnItemClickListener extends AdapterView.OnItemClickListener {

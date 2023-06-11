@@ -39,14 +39,19 @@ public class AdapterProduto extends RecyclerView.Adapter<AdapterProduto.MyViewHo
 
         Produto produto = produtos.get(position);
 
+        String tempo = "Por Unidade";
+
         holder.nome.setText(produto.getNomeProduto());
         holder.descricao.setText(produto.getDescricao());
         holder.valor.setValue(produto.getPreco());
+        holder.tipoValor.setText(produto.getTipoValor());
+        if (produto.getTipoPeso() != null) {
+            holder.tipoPeso.setText(produto.getTipoPeso());
+        }
 
         //recuperar imagem
         String urlFotos = produto.getUrlImagem();
         Picasso.get().load(urlFotos).into(holder.produtoImg);
-
     }
 
     @Override
@@ -55,18 +60,20 @@ public class AdapterProduto extends RecyclerView.Adapter<AdapterProduto.MyViewHo
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-
         TextView nome;
         TextView descricao;
+        TextView tipoValor;
+        TextView tipoPeso;
         CurrencyEditText valor;
         ImageView produtoImg;
-
 
         public MyViewHolder(View itemView) {
             super(itemView);
 
             nome = itemView.findViewById(R.id.textNomeRefeicao);
             descricao = itemView.findViewById(R.id.textDescricaoRefeicao);
+            tipoValor = itemView.findViewById(R.id.textViewTipoValor);
+            tipoPeso = itemView.findViewById(R.id.textViewTipoPeso);
             valor = itemView.findViewById(R.id.textPrecoRefeicao);
             produtoImg = itemView.findViewById(R.id.imageProdutoLista);
 
