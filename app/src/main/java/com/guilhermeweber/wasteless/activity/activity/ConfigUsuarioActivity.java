@@ -104,6 +104,9 @@ public class ConfigUsuarioActivity extends AppCompatActivity implements View.OnC
                     if (urlImagemSelecionada != "") {
                         Picasso.get().load(urlImagemSelecionada).into(imageUsuario);
                     }
+
+                    usuario.salvar();
+
                 }
             }
 
