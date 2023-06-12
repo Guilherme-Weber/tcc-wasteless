@@ -1,5 +1,6 @@
 package com.guilhermeweber.wasteless.activity.activity;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -21,10 +22,13 @@ import com.guilhermeweber.wasteless.activity.adapter.AdapterProduto;
 import com.guilhermeweber.wasteless.activity.helper.ConfigFirebase;
 import com.guilhermeweber.wasteless.activity.model.Empresa;
 import com.guilhermeweber.wasteless.activity.model.Produto;
+import com.guilhermeweber.wasteless.activity.model.Usuario;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import dmax.dialog.SpotsDialog;
 
 public class CardapioActivity extends AppCompatActivity {
 
@@ -35,9 +39,11 @@ public class CardapioActivity extends AppCompatActivity {
     private ImageView imageEmpresaCardapio;
     private TextView textNomeEmpresaCardapio;
     private Empresa empresaSelecionada;
+    private Usuario usuario;
     private AdapterProduto adapterProduto;
     private List<Produto> produtos = new ArrayList<>();
-    private String idEmpresa;
+    private String idEmpresa, idUsuarioLogado;
+    private AlertDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +53,7 @@ public class CardapioActivity extends AppCompatActivity {
         inicializarComponentes();
         auth = ConfigFirebase.getFireAuth();
         firebaseRef = ConfigFirebase.getFirebase();
+        idUsuarioLogado = Usuario.getIdUsuario();
 
         //recuperar a empresa selecionada
         Bundle bundle = getIntent().getExtras();
@@ -75,6 +82,31 @@ public class CardapioActivity extends AppCompatActivity {
         //recuperar produtos
         recuperarProdutos();
 
+        recuperarDadosUsuario();
+
+
+    }
+
+    private void recuperarDadosUsuario() {
+
+        dialog = new SpotsDialog.Builder().setContext(this).setMessage("Carregando Dados").setCancelable(false).build();
+        dialog.show();
+
+        DatabaseReference usuarioRef = firebaseRef.child("usuario").child(idUsuarioLogado);
+
+        usuarioRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.getValue() != null) {
+                    usuario = snapshot.getValue(Usuario.class);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
     }
 
