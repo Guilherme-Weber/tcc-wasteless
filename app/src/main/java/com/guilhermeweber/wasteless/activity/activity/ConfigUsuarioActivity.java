@@ -104,9 +104,6 @@ public class ConfigUsuarioActivity extends AppCompatActivity implements View.OnC
                     if (urlImagemSelecionada != "") {
                         Picasso.get().load(urlImagemSelecionada).into(imageUsuario);
                     }
-
-                    usuario.salvar();
-
                 }
             }
 
@@ -175,6 +172,8 @@ public class ConfigUsuarioActivity extends AppCompatActivity implements View.OnC
                                 int tamanhoLista = listaFotosRec.size();
                                 salvarFotoStorage(urlImagem, tamanhoLista, i);
                             }
+
+                            usuario.salvar();
 
                         } else {
                             mensagemToast("Preencha o campo Telefone");

@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -40,6 +41,7 @@ public class EmpresaActivity extends AppCompatActivity {
     private RecyclerView recyclerProdutos;
     private AdapterProduto adapterProduto;
     private List<Produto> produtos = new ArrayList<>();
+    private AlertDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -138,7 +140,6 @@ public class EmpresaActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_empresa, menu);
 
@@ -149,7 +150,6 @@ public class EmpresaActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
         int needif = item.getItemId();
-
         if (needif == R.id.menuSair) {
             deslogarUsuario();
         } else if (needif == R.id.menuConfig) {
@@ -157,6 +157,8 @@ public class EmpresaActivity extends AppCompatActivity {
         } else if (needif == R.id.menuNovoProduto) {
             abrirNovoProduto();
         }
+
+        return super.onOptionsItemSelected(item);
 
         //o jeito certo era fazer com um switch case, porem nas verções mais nova do Android Gradle Plugin (acima de 7.4.2) ele da um erro que só consegui resolver com if else
         //em vez de rodar numa verção mais antiga manterei esse workaround
@@ -175,8 +177,6 @@ public class EmpresaActivity extends AppCompatActivity {
                 break;
         }
         */
-
-        return super.onOptionsItemSelected(item);
     }
 
     private void deslogarUsuario() {

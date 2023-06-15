@@ -2,6 +2,9 @@ package com.guilhermeweber.wasteless.activity.activity;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -84,7 +87,6 @@ public class CardapioActivity extends AppCompatActivity {
 
         recuperarDadosUsuario();
 
-
     }
 
     private void recuperarDadosUsuario() {
@@ -100,13 +102,18 @@ public class CardapioActivity extends AppCompatActivity {
                 if (snapshot.getValue() != null) {
                     usuario = snapshot.getValue(Usuario.class);
                 }
+                recuperarPedido();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
+    }
+
+    private void recuperarPedido() {
+
+        dialog.dismiss();
 
     }
 
@@ -129,6 +136,27 @@ public class CardapioActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_cardapio, menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        int needif = item.getItemId();
+
+        if (needif == R.id.menuPedido) {
+
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     private void inicializarComponentes() {

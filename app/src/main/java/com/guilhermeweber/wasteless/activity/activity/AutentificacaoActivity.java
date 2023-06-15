@@ -1,5 +1,6 @@
 package com.guilhermeweber.wasteless.activity.activity;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -25,14 +26,16 @@ import com.guilhermeweber.wasteless.R;
 import com.guilhermeweber.wasteless.activity.helper.ConfigFirebase;
 import com.guilhermeweber.wasteless.activity.model.Usuario;
 
-public class AutentificacaoActivity extends AppCompatActivity {
+import dmax.dialog.SpotsDialog;
 
+public class AutentificacaoActivity extends AppCompatActivity {
 
     private Button botaoAcessar;
     private EditText campoEmail, campoSenha, campoNome;
     private Switch tipoAcesso, tipoUsuario;
     private LinearLayout linearTipoUsuario;
     private FirebaseAuth auth;
+    private AlertDialog dialog = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +43,10 @@ public class AutentificacaoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_autentificacao);
 
         Usuario usuario = new Usuario();
+
+        //ideia pra a o carregamento mais suave da tela de login
+//        dialog = new SpotsDialog.Builder().setContext(this).setMessage("Carregando Dados").setCancelable(false).build();
+
 
         inicializarComponentes();
         auth = ConfigFirebase.getFireAuth();
@@ -51,6 +58,8 @@ public class AutentificacaoActivity extends AppCompatActivity {
 
         //verifica o usuario logado
         if (usuario.getUsuarioAtual() != null) {
+            //dialog.show();
+
             //adicionar tela de carregando aqui no futuro
             Usuario.redirectUser(AutentificacaoActivity.this);
         }

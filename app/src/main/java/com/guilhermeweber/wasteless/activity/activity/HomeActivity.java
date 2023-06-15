@@ -10,6 +10,7 @@ import android.view.Window;
 import android.widget.AdapterView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.WindowDecorActionBar;
 import androidx.appcompat.widget.Toolbar;
@@ -40,11 +41,14 @@ public class HomeActivity extends AppCompatActivity {
     private List<Empresa> empresas = new ArrayList<>();
     private DatabaseReference firebaseRef;
     private AdapterEmpresa adapterEmpresa;
+    private AlertDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+
 
         inicializarComponentes();
         firebaseRef = ConfigFirebase.getFirebase();
