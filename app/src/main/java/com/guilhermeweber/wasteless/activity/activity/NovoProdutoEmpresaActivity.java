@@ -78,7 +78,7 @@ public class NovoProdutoEmpresaActivity extends AppCompatActivity implements Vie
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("Novo Produto");
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
         switchTipoValor.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

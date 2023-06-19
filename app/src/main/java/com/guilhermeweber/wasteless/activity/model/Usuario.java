@@ -1,7 +1,6 @@
 package com.guilhermeweber.wasteless.activity.model;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.util.Log;
 
@@ -21,7 +20,9 @@ import com.guilhermeweber.wasteless.activity.activity.EmpresaActivity;
 import com.guilhermeweber.wasteless.activity.activity.HomeActivity;
 import com.guilhermeweber.wasteless.activity.helper.ConfigFirebase;
 
-public class Usuario {
+import java.io.Serializable;
+
+public class Usuario implements Serializable {
     private String id;
     private String urlImagem;
     private String nome;

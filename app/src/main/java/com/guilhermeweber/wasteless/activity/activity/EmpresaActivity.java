@@ -156,6 +156,8 @@ public class EmpresaActivity extends AppCompatActivity {
             abrirConfig();
         } else if (needif == R.id.menuNovoProduto) {
             abrirNovoProduto();
+        } else if (needif == R.id.menuPedidos) {
+            abrirPedidos();
         }
 
         return super.onOptionsItemSelected(item);
@@ -195,6 +197,10 @@ public class EmpresaActivity extends AppCompatActivity {
 
     private void abrirNovoProduto() {
         startActivity(new Intent(EmpresaActivity.this, NovoProdutoEmpresaActivity.class));
+    }
+
+    private void abrirPedidos() {
+        startActivity(new Intent(EmpresaActivity.this, PedidoActivity.class));
     }
 
     private void inicializarComponentes() {

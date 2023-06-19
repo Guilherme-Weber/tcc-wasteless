@@ -14,10 +14,11 @@
         android:label="@string/app_name"
         android:roundIcon="@drawable/logo_small"
         android:supportsRtl="true"
-
         android:theme="@style/Theme.WasteLess"
-
         tools:targetApi="28">
+        <activity
+            android:name=".activity.activity.PedidoActivity"
+            android:exported="false" />
         <activity
             android:name=".activity.activity.CardapioActivity"
             android:exported="false"

@@ -70,7 +70,7 @@ public class ConfigUsuarioActivity extends AppCompatActivity implements View.OnC
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("Configurações do Usuário");
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         imageUsuario.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -159,13 +159,14 @@ public class ConfigUsuarioActivity extends AppCompatActivity implements View.OnC
                 if (!endereco.isEmpty()) {
                     if (!cEP.isEmpty()) {
                         if (!telefone.isEmpty() && fone.length() >= 10) {
-
                             Usuario usuario = new Usuario();
 
+                            usuario.setId(idLogUsuario);
                             usuario.setNome(nome);
                             usuario.setEndereco(endereco);
                             usuario.setcEP(cEP);
                             usuario.setTelefone(telefone);
+                            usuario.setTipo("E");
 
                             for (int i = 0; i < listaFotosRec.size(); ++i) {
                                 String urlImagem = listaFotosRec.get(i);
@@ -206,7 +207,6 @@ public class ConfigUsuarioActivity extends AppCompatActivity implements View.OnC
         imageUsuario = findViewById(R.id.imageUsuario);
         imageUsuario.setOnClickListener(this);
     }
-
 
     private void salvarFotoStorage(String urlString, int totalFotos, int contador) {
         final StorageReference imagemUsuario = storageReference.child("imagens").child("usuarios").child(idLogUsuario).child("image" + contador + ".jpg");

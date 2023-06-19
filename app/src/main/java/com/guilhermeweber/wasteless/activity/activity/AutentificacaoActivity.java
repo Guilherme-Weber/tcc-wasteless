@@ -26,8 +26,6 @@ import com.guilhermeweber.wasteless.R;
 import com.guilhermeweber.wasteless.activity.helper.ConfigFirebase;
 import com.guilhermeweber.wasteless.activity.model.Usuario;
 
-import dmax.dialog.SpotsDialog;
-
 public class AutentificacaoActivity extends AppCompatActivity {
 
     private Button botaoAcessar;
@@ -40,13 +38,20 @@ public class AutentificacaoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_autentificacao);
 
         Usuario usuario = new Usuario();
 
+        if (usuario.getUsuarioAtual() != null) {
+            //dialog.show();
+
+            //adicionar tela de carregando aqui no futuro
+            Usuario.redirectUser(AutentificacaoActivity.this);
+        }
+
+        setContentView(R.layout.activity_autentificacao);
+
         //ideia pra a o carregamento mais suave da tela de login
 //        dialog = new SpotsDialog.Builder().setContext(this).setMessage("Carregando Dados").setCancelable(false).build();
-
 
         inicializarComponentes();
         auth = ConfigFirebase.getFireAuth();
@@ -57,12 +62,7 @@ public class AutentificacaoActivity extends AppCompatActivity {
         //usuario = null;
 
         //verifica o usuario logado
-        if (usuario.getUsuarioAtual() != null) {
-            //dialog.show();
 
-            //adicionar tela de carregando aqui no futuro
-            Usuario.redirectUser(AutentificacaoActivity.this);
-        }
 
         tipoAcesso.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
