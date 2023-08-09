@@ -29,8 +29,7 @@
                 android:layout_height="120dp"
                 android:background="@drawable/bg_edit_text"
                 android:ems="10"
-                android:padding="16dp"
-                android:src="@drawable/perfil" />/>
+                android:padding="16dp" />
 
             <EditText
                 android:id="@+id/editTextNomeUsuario"
