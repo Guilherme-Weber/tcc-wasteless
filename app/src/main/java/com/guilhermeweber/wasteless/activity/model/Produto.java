@@ -10,7 +10,6 @@ public class Produto {
     private String nomeProduto;
     private String urlImagem;
     private String descricao;
-
     private String categoria;
     private Integer idCategoria;
     private Long preco;
@@ -23,13 +22,13 @@ public class Produto {
 
     public void salvar(String seed) {
         DatabaseReference firebaseRef = ConfigFirebase.getFirebase();
-        DatabaseReference produtoRef = firebaseRef.child("produto").child(getIdEmpresa()).child(seed);
+        DatabaseReference produtoRef = firebaseRef.child("produto").child(seed);
         produtoRef.setValue(this);
     }
 
     public void remover(String seed) {
         DatabaseReference firebaseRef = ConfigFirebase.getFirebase();
-        DatabaseReference produtoRef = firebaseRef.child("produto").child(getIdEmpresa()).child(seed);
+        DatabaseReference produtoRef = firebaseRef.child("produto").child(seed);
         produtoRef.removeValue();
 
     }

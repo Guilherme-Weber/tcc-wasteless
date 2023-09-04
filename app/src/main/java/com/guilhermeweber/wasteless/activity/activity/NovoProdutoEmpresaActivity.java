@@ -232,7 +232,7 @@ public class NovoProdutoEmpresaActivity extends AppCompatActivity implements Vie
                     @Override
                     public void onComplete(@NonNull Task<Uri> task) {
                         Uri uri = task.getResult();
-                        firebaseRef.child("produto").child(idLogUsuario).child(ramdom).child("urlImagem").setValue(uri.toString());
+                        firebaseRef.child("produto").child(ramdom).child("urlImagem").setValue(uri.toString());
                     }
                 });
             }

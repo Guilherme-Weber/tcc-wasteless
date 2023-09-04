@@ -258,13 +258,15 @@ public class CardapioActivity extends AppCompatActivity {
     private void recuperarProdutos() {
 
         firebaseRef = ConfigFirebase.getFirebase();
-        DatabaseReference produtosRef = firebaseRef.child("produto").child(idEmpresa);
+        DatabaseReference produtosRef = firebaseRef.child("produto");
         produtosRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 produtos.clear();
                 for (DataSnapshot ds : snapshot.getChildren()) {
-                    produtos.add(ds.getValue(Produto.class));
+                    if (ds.getValue(Produto.class).getIdEmpresa() == idEmpresa) {
+                        produtos.add(ds.getValue(Produto.class));
+                    }
                 }
                 adapterProduto.notifyDataSetChanged();
             }

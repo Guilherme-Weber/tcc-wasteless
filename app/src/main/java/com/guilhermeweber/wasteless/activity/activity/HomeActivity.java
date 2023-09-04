@@ -7,6 +7,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -46,7 +47,6 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-
         inicializarComponentes();
         firebaseRef = ConfigFirebase.getFirebase();
         auth = ConfigFirebase.getFireAuth();
@@ -56,6 +56,9 @@ public class HomeActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("Wasteless");
         setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         //configurando o RecycerView
         RecyclerView.LayoutManager recyclerViewEmpresa = new LinearLayoutManager(getApplicationContext());
@@ -104,6 +107,16 @@ public class HomeActivity extends AppCompatActivity {
 
             }
         }));
+    }
+
+    public void onBackPressed() {
+
+        return;
+    }
+
+
+    private void mensagemToast(String texto) {
+        Toast.makeText(this, texto, Toast.LENGTH_SHORT).show();
     }
 
     private void pesquisarEmpresas(String pesquisa) {
@@ -170,6 +183,8 @@ public class HomeActivity extends AppCompatActivity {
             deslogarUsuario();
         } else if (needif == R.id.menuConfig) {
             abrirConfig();
+        } else if (item.getItemId() == android.R.id.home) {
+            finish();
         }
 
         //o jeito certo era fazer com um switch case, porem nas verções mais nova do Android Gradle Plugin (acima de 7.4.2) ele da um erro que só consegui resolver com if else
