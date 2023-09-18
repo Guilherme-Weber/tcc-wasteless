@@ -264,6 +264,7 @@ public class NovoProdutoEmpresaActivity extends AppCompatActivity implements Vie
         builder.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                
                 finish();
             }
         });

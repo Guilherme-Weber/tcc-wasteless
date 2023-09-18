@@ -7,6 +7,7 @@ import android.os.Handler;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.guilhermeweber.wasteless.R;
+import com.guilhermeweber.wasteless.activity.model.Usuario;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -24,8 +25,19 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void abrirAutenticacao() {
-        Intent i = new Intent(SplashActivity.this, AutentificacaoActivity.class);
-        startActivity(i);
-        finish();
+
+        Usuario usuario = new Usuario();
+
+        if (usuario.getUsuarioAtual() != null) {
+            //dialog.show();
+
+            //adicionar tela de carregando aqui no futuro
+            Usuario.redirectUser(SplashActivity.this);
+        } else {
+            Intent i = new Intent(SplashActivity.this, AutentificacaoActivity.class);
+            startActivity(i);
+            finish();
+        }
+
     }
 }

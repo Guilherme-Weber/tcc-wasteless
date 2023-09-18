@@ -1,6 +1,7 @@
 package com.guilhermeweber.wasteless.activity.activity;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -52,6 +53,7 @@ public class ConfigEmpresaActivity extends AppCompatActivity implements View.OnC
     private Spinner spinnerEmpresaCategoria;
     private MaskEditText editTextNumeroTelefone;
     private CurrencyEditText editTextEmpresaTaxa;
+    private Activity configEmpresaActivity = this;
     private CircleImageView imagePerfilEmpresa;
     private StorageReference storageReference;
     private DatabaseReference firebaseRef;
@@ -266,26 +268,27 @@ public class ConfigEmpresaActivity extends AppCompatActivity implements View.OnC
 
         for (int permissaoResultado : grantResults) {
             if (permissaoResultado == PackageManager.PERMISSION_DENIED) {
-                alertPermissao();
+//                alertPermissao();
             }
         }
     }
 
-    private void alertPermissao() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Permissões Negadas");
-        builder.setMessage("Para utilizar o app é necessário aceitar as permissões");
-        builder.setCancelable(false);
-        builder.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                finish();
-            }
-        });
-
-        AlertDialog dialog = builder.create();
-        dialog.show();
-    }
+//    private void alertPermissao() {
+//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//        builder.setTitle("Permissões Negadas");
+//        builder.setMessage("Para utilizar o app é necessário aceitar as permissões");
+//        builder.setCancelable(false);
+//        builder.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                Permissoes.validarPermissoes(permissoes, configEmpresaActivity, 1);
+//                finish();
+//            }
+//        });
+//
+//        AlertDialog dialog = builder.create();
+//        dialog.show();
+//    }
 
     //metodo antigo mais complexo que ja envia logo que o usuario escolhe a foto (n funciona corretamento com a ultimas adições)
 

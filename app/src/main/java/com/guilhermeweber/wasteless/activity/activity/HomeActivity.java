@@ -54,7 +54,7 @@ public class HomeActivity extends AppCompatActivity {
 
         //config toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle("Wasteless");
+        toolbar.setTitle("Wasteless - Home");
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -203,6 +203,11 @@ public class HomeActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+//    public void onBackPressed() {
+//        finish();
+//        return;
+//    }
+
     public void inicializarComponentes() {
         searchView = findViewById(R.id.materialSearchView);
         recyclerEmpresa = findViewById(R.id.recyclerEmpresas);
@@ -216,7 +221,8 @@ public class HomeActivity extends AppCompatActivity {
         try {
             //desloga o usuario atual
             auth.signOut();
-            finish();
+//            finish();
+            startActivity(new Intent(this, AutentificacaoActivity.class));
         } catch (Exception e) {
             e.printStackTrace();
         }

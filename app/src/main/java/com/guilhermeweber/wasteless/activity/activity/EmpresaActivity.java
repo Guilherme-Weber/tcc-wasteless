@@ -185,7 +185,8 @@ public class EmpresaActivity extends AppCompatActivity {
         try {
             //desloga o usuario atual
             auth.signOut();
-            finish();
+//            finish();
+            startActivity(new Intent(this, AutentificacaoActivity.class));
         } catch (Exception e) {
             e.printStackTrace();
         }
