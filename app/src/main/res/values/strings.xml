@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">WasteLess</string>
+    <string name="default_notification_channel_id">com.guilhermeweber.wasteless</string>
 </resources>

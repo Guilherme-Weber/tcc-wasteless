@@ -16,12 +16,15 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.guilhermeweber.wasteless.R;
 import com.guilhermeweber.wasteless.activity.adapter.AdapterProduto;
 import com.guilhermeweber.wasteless.activity.helper.ConfigFirebase;
@@ -53,6 +56,16 @@ public class EmpresaActivity extends AppCompatActivity {
         auth = ConfigFirebase.getFireAuth();
         firebaseRef = ConfigFirebase.getFirebase();
         idUsuarioLogado = Usuario.getIdUsuario();
+
+        FirebaseMessaging.getInstance().subscribeToTopic("Teste").addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                String msg = "Feito";
+                if (!task.isSuccessful()) {
+                    msg = "Falha";
+                }
+            }
+        });
 
         //config toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);

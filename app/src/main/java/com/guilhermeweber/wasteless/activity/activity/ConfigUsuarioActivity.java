@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -50,6 +51,8 @@ public class ConfigUsuarioActivity extends AppCompatActivity implements View.OnC
     private String idLogUsuario, urlImagemSelecionada;
     private List<String> listaFotosRec = new ArrayList<>();
     private String[] permissoes = new String[]{Manifest.permission.READ_EXTERNAL_STORAGE};
+    private String[] permissoes2 = new String[]{Manifest.permission.READ_MEDIA_IMAGES};
+
 
 
     @Override
@@ -58,7 +61,14 @@ public class ConfigUsuarioActivity extends AppCompatActivity implements View.OnC
         setContentView(R.layout.activity_config_usuario);
 
         //Validar Permissões
-        Permissoes.validarPermissoes(permissoes, this, 1);
+
+
+//        Permissoes.validarPermissoes(permissoes, this, 1);
+
+
+
+
+
 
         iniciarComponentes();
 
