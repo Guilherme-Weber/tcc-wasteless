@@ -6,7 +6,7 @@
 
     <color name="primaria">#FFFFFF</color>
     <color name="secundaria">#FF5757</color>
-    <color name="terciaria">#FFA50A15</color>
+    <color name="terciaria">#ADACAC</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 </resources>

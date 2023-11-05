@@ -7,7 +7,7 @@
     android:background="@color/primaria"
     android:gravity="center"
     android:orientation="vertical"
-    android:padding="16dp"
+    android:padding="30dp"
     tools:context=".activity.activity.AutentificacaoActivity">
 
     <ImageView
@@ -18,18 +18,6 @@
         app:srcCompat="@drawable/logo" />
 
     <EditText
-        android:id="@+id/editTextNome"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bg_edit_text"
-        android:ems="10"
-        android:hint="Nome"
-        android:inputType="text|textEmailAddress"
-        android:padding="16dp"
-        android:visibility="gone"
-        tools:visibility="visible" />
-
-    <EditText
         android:id="@+id/editTextNomeEmpresa"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -37,7 +25,8 @@
         android:ems="10"
         android:hint="Email"
         android:inputType="text|textEmailAddress"
-        android:padding="16dp" />
+        android:padding="16dp"
+        android:singleLine="true" />
 
     <EditText
         android:id="@+id/editTextEmpresaCategoria"
@@ -49,36 +38,6 @@
         android:hint="Senha"
         android:inputType="textPassword"
         android:padding="16dp" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:gravity="center"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:text="Logar" />
-
-        <Switch
-            android:id="@+id/switchTipoAcesso"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:thumbTint="@color/secundaria"
-            android:trackTint="@color/terciaria" />
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
-            android:text="Cadastre-se" />
-    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearTipoUsuario"
@@ -119,6 +78,18 @@
         android:backgroundTint="@color/secundaria"
         android:padding="16dp"
         android:text="Acessar"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        android:theme="@style/botaoPadrao"
+        app:cornerRadius="10dp" />
+
+    <Button
+        android:id="@+id/buttonCadastrar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/material_dynamic_neutral70"
+        android:padding="16dp"
+        android:text="Cadastre-se aqui!"
         android:textColor="@color/white"
         android:textSize="12sp"
         android:theme="@style/botaoPadrao"
