@@ -16,7 +16,7 @@
         android:layout_height="45dp"
         android:text="Estamos quase lá..."
         android:textAlignment="center"
-        android:textColor="@color/material_dynamic_neutral30"
+        android:textColor="@color/black"
         android:textSize="24sp"
         android:textStyle="bold" />
 
@@ -30,27 +30,27 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:hint="Digite seu nome"
         android:inputType="text"
-        android:text="Digite seu nome"
-        android:textColor="@color/terciaria" />
+        android:textColor="@color/quad" />
 
     <EditText
         android:id="@+id/TextEmailAddress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:hint="Digite seu e-mail"
         android:inputType="textEmailAddress"
-        android:text="Digite seu e-mail"
-        android:textColor="@color/terciaria" />
+        android:textColor="@color/quad" />
 
     <EditText
         android:id="@+id/TextSenhaCadastro"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:hint="Informe uma senha"
         android:inputType="textPassword"
-        android:text="Informe uma senha"
-        android:textColor="@color/terciaria" />
+        android:textColor="@color/quad" />
 
     <TextView
         android:id="@+id/textView10"
@@ -63,7 +63,7 @@
         android:layout_height="38dp"
         android:text="Qual o tipo de cadastro que deseja realizar?"
         android:textAlignment="center"
-        android:textColor="@color/material_dynamic_neutral40"
+        android:textColor="@color/black"
         android:textSize="14sp" />
 
     <RadioGroup
@@ -75,14 +75,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Cliente"
-            android:textColor="@color/material_dynamic_neutral40" />
+            android:textColor="@color/black" />
 
         <RadioButton
             android:id="@+id/radioButtonEmpresaCadastro"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Empresa"
-            android:textColor="@color/material_dynamic_neutral40" />
+            android:textColor="@color/black" />
 
         <TextView
             android:id="@+id/textView11"

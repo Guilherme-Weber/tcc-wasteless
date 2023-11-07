@@ -22,18 +22,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:hint="E-mail"
         android:inputType="textEmailAddress"
-        android:text="Informe seu e-mail"
-        android:textColor="@color/terciaria" />
+        android:textColor="@color/quad" />
 
     <EditText
         android:id="@+id/editTextSenhaLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:hint="Senha"
         android:inputType="textPassword"
-        android:textColor="@color/terciaria"
-        tools:text="Informe Sua senha" />
+        android:textColor="@color/quad" />
 
     <TextView
         android:id="@+id/textView14"
@@ -56,7 +56,7 @@
         android:id="@+id/buttonCadastrar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/material_dynamic_neutral70"
+        android:backgroundTint="@color/quad"
         android:padding="16dp"
         android:text="Cadastre-se aqui!"
         android:textColor="@color/white"

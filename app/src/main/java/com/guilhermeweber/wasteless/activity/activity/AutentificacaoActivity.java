@@ -1,5 +1,6 @@
 package com.guilhermeweber.wasteless.activity.activity;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -34,6 +35,7 @@ public class AutentificacaoActivity extends AppCompatActivity {
     private LinearLayout linearTipoUsuario;
     private FirebaseAuth auth;
     private AlertDialog dialog = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,12 +96,12 @@ public class AutentificacaoActivity extends AppCompatActivity {
 
                 String email = campoEmail.getText().toString();
                 String senha = campoSenha.getText().toString();
-                String nome = campoNome.getText().toString();
+//                String nome = campoNome.getText().toString();
 
 //                usuario.setNome(nome);
                 usuario.setEmail(email);
                 usuario.setSenha(senha);
-                usuario.setTipo(verificaUsuario());
+//                usuario.setTipo(verificaUsuario());
 
                 //verifica se os campos estão vazios
                 if (!email.isEmpty()) {
