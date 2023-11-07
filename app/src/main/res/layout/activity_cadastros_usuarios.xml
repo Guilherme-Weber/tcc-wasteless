@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primaria"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="30dp"
+    tools:context=".activity.activity.AutentificacaoActivity">
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:text="Estamos quase lá..."
+        android:textAlignment="center"
+        android:textColor="@color/material_dynamic_neutral30"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="match_parent"
+        android:layout_height="38dp" />
+
+    <EditText
+        android:id="@+id/editTextNomeCadastro"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        android:text="Digite seu nome"
+        android:textColor="@color/terciaria" />
+
+    <EditText
+        android:id="@+id/editTextTextEmailAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textEmailAddress"
+        android:text="Digite seu e-mail"
+        android:textColor="@color/terciaria" />
+
+    <EditText
+        android:id="@+id/editTextSenhaCadastro"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:text="Informe uma senha"
+        android:textColor="@color/terciaria" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="match_parent"
+        android:layout_height="38dp"
+        android:text="Qual o tipo de cadastro que deseja realizar?"
+        android:textAlignment="center"
+        android:textColor="@color/material_dynamic_neutral40"
+        android:textSize="14sp" />
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:id="@+id/radioButtonClienteCadastro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cliente"
+            android:textColor="@color/material_dynamic_neutral40" />
+
+        <RadioButton
+            android:id="@+id/radioButtonEmpresaCadastro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Empresa"
+            android:textColor="@color/material_dynamic_neutral40" />
+
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/buttonCadastro"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/secundaria"
+        android:padding="16dp"
+        android:text="Cadastrar"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        android:theme="@style/botaoPadrao"
+        app:cornerRadius="10dp" />
+
+</LinearLayout>
