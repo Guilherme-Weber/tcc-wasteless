@@ -215,7 +215,7 @@ public class ConfigEmpresaActivity extends AppCompatActivity implements View.OnC
     }
 
     private void iniciarComponentes() {
-        editTextEmpresaNome = findViewById(R.id.TextNomeCadastro);
+        editTextEmpresaNome = findViewById(R.id.editTextEmpresaNome);
         editTextEmpresaTempo = findViewById(R.id.editTextEmpresaTempo);
         editTextNumeroTelefone = findViewById(R.id.editTextNumeroTelefone);
         spinnerEmpresaCategoria = findViewById(R.id.spinnerProdutoCategoria);

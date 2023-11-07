@@ -21,6 +21,19 @@ import android.Manifest;
 
 public class SplashActivity extends AppCompatActivity {
 
+    private ActivityResultLauncher<String> requestPermissionLauncher = registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
+        if (isGranted) {
+            // Permission is granted. Continue the action or workflow in your
+            // app.
+        } else {
+            // Explain to the user that the feature is unavailable because the
+            // feature requires a permission that the user has denied. At the
+            // same time, respect the user's decision. Don't link to system
+            // settings in an effort to convince the user to change their
+            // decision.
+        }
+    });
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +59,7 @@ public class SplashActivity extends AppCompatActivity {
                 // Log and toast
 
                 System.out.println(token);
-                Toast.makeText(SplashActivity.this, " Token de registro: " + token, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(SplashActivity.this, " Token de registro: " + token, Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -60,7 +73,7 @@ public class SplashActivity extends AppCompatActivity {
                             msg = "Subscribe failed";
                         }
                         System.out.println(msg);
-                        Toast.makeText(SplashActivity.this, msg, Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(SplashActivity.this, msg, Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -72,20 +85,6 @@ public class SplashActivity extends AppCompatActivity {
             }
         }, 3000);
     }
-
-    private ActivityResultLauncher<String> requestPermissionLauncher = registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
-        if (isGranted) {
-            // Permission is granted. Continue the action or workflow in your
-            // app.
-        } else {
-            // Explain to the user that the feature is unavailable because the
-            // feature requires a permission that the user has denied. At the
-            // same time, respect the user's decision. Don't link to system
-            // settings in an effort to convince the user to change their
-            // decision.
-        }
-    });
-
 
     private void abrirAutenticacao() {
 

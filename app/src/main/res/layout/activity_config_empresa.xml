@@ -33,7 +33,7 @@
                 android:src="@drawable/perfil" />/>
 
             <EditText
-                android:id="@+id/TextNomeCadastro"
+                android:id="@+id/editTextEmpresaNome"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/bg_edit_text"

@@ -195,7 +195,7 @@ public class NovoProdutoEmpresaActivity extends AppCompatActivity implements Vie
     }
 
     private void iniciarComponentes() {
-        editTextNomeProduto = findViewById(R.id.TextNomeCadastro);
+        editTextNomeProduto = findViewById(R.id.editTextNomeProduto);
         editTexTextDescricao = findViewById(R.id.editTextNumeroTelefone);
 
         spinnerNovoProdutoCategoria = findViewById(R.id.spinnerNovoProdutoCategoria);
@@ -264,7 +264,7 @@ public class NovoProdutoEmpresaActivity extends AppCompatActivity implements Vie
         builder.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                
+
                 finish();
             }
         });

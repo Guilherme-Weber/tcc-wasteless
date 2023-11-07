@@ -54,7 +54,6 @@ public class ConfigUsuarioActivity extends AppCompatActivity implements View.OnC
     private String[] permissoes2 = new String[]{Manifest.permission.READ_MEDIA_IMAGES};
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,10 +63,6 @@ public class ConfigUsuarioActivity extends AppCompatActivity implements View.OnC
 
 
 //        Permissoes.validarPermissoes(permissoes, this, 1);
-
-
-
-
 
 
         iniciarComponentes();
