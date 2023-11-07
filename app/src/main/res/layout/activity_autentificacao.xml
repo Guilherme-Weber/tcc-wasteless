@@ -40,28 +40,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <TextView
-        android:id="@+id/textView13"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Você é..."
-        android:textAlignment="textStart"
-        android:textSize="16sp" />
-
-    <RadioButton
-        android:id="@+id/radioButtonClienteCadastro4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Cliente"
-        android:textColor="@color/material_dynamic_neutral40" />
-
-    <RadioButton
-        android:id="@+id/radioButtonEmpresaCadastro4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Empresa"
-        android:textColor="@color/material_dynamic_neutral40" />
-
     <Button
         android:id="@+id/buttonCadastro"
         android:layout_width="match_parent"

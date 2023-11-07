@@ -195,7 +195,7 @@ public class NovoProdutoEmpresaActivity extends AppCompatActivity implements Vie
     }
 
     private void iniciarComponentes() {
-        editTextNomeProduto = findViewById(R.id.editTextNomeCadastro);
+        editTextNomeProduto = findViewById(R.id.TextNomeCadastro);
         editTexTextDescricao = findViewById(R.id.editTextNumeroTelefone);
 
         spinnerNovoProdutoCategoria = findViewById(R.id.spinnerNovoProdutoCategoria);
