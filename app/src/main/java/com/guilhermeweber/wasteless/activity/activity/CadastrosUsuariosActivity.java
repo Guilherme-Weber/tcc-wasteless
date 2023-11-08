@@ -57,7 +57,6 @@ public class CadastrosUsuariosActivity extends AppCompatActivity {
                 usuario.setSenha(senha);
 
 
-
                 if (!nome.isEmpty()) {
                     if (!email.isEmpty()) {
                         if (!senha.isEmpty()) {

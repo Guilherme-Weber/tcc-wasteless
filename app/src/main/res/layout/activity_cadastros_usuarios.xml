@@ -75,14 +75,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Cliente"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:textColorLink="@color/secundaria" />
 
         <RadioButton
             android:id="@+id/radioButtonEmpresaCadastro"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Empresa"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:textColorLink="@color/secundaria" />
 
         <TextView
             android:id="@+id/textView11"
