@@ -22,23 +22,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="E-mail"
+        android:hint="Informe seu e-mail"
         android:inputType="textEmailAddress"
         android:textColor="@color/quad" />
 
     <EditText
         android:id="@+id/editTextSenhaLogin"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="57dp"
         android:ems="10"
-        android:hint="Senha"
+        android:hint="Informe sua senha"
         android:inputType="textPassword"
         android:textColor="@color/quad" />
-
-    <TextView
-        android:id="@+id/textView14"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
 
     <Button
         android:id="@+id/buttonCadastro"

@@ -19,6 +19,9 @@
         android:theme="@style/Theme.WasteLess"
         tools:targetApi="28">
         <activity
+            android:name=".activity.activity.CadastroEnderecoActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.activity.CadastrosUsuariosActivity"
             android:exported="false" />
         <!--

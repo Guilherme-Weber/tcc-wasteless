@@ -2,16 +2,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/btnConsultarCEP"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/primaria"
     android:gravity="center"
     android:orientation="vertical"
     android:padding="30dp"
-    tools:context=".activity.activity.CadastrosUsuariosActivity">
+    tools:context=".activity.activity.CadastroEnderecoActivity">
 
     <TextView
-        android:id="@+id/textView8"
+        android:id="@+id/textView14"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:text="Estamos quase lá..."
@@ -21,25 +22,39 @@
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/textView9"
+        android:id="@+id/textView15"
         android:layout_width="match_parent"
-        android:layout_height="38dp" />
+        android:layout_height="wrap_content"
+        android:text="Precisamos de mais algumas informações para finalizar seu cadastro!"
+        android:textAlignment="center" />
 
     <EditText
         android:id="@+id/txtinpedtCEP"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Informe seu nome"
+        android:hint="CEP"
         android:inputType="text"
         android:textColor="@color/quad" />
+
+    <Button
+        android:id="@+id/btnConsultarCEP"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/quad"
+        android:padding="16dp"
+        android:text="Consultar"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        android:theme="@style/botaoPadrao"
+        app:cornerRadius="10dp" />
 
     <EditText
         android:id="@+id/txtinpedtLogradouro"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Informe seu e-mail"
+        android:hint="Logradouro"
         android:inputType="textEmailAddress"
         android:textColor="@color/quad" />
 
@@ -48,52 +63,40 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Informe sua senha"
+        android:hint="Complemento"
         android:inputType="textPassword"
         android:textColor="@color/quad" />
-
-    <TextView
-        android:id="@+id/textView10"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="match_parent"
-        android:layout_height="38dp"
-        android:text="Qual o tipo de cadastro que deseja realizar?"
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textSize="14sp" />
 
     <RadioGroup
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <RadioButton
-            android:id="@+id/radioButtonClienteCadastro"
+        <EditText
+            android:id="@+id/txtinpedtBairro"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Cliente"
-            android:textColor="@color/black"
-            android:textColorHighlight="@color/secundaria"
-            android:textColorHint="@color/quad"
-            android:textColorLink="@color/secundaria" />
+            android:ems="10"
+            android:hint="Bairro"
+            android:inputType="textPassword"
+            android:textColor="@color/quad" />
 
-        <RadioButton
-            android:id="@+id/radioButtonEmpresaCadastro"
+        <EditText
+            android:id="@+id/txtinpedtUF"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Empresa"
-            android:textColor="@color/black"
-            android:textColorHighlight="@color/secundaria"
-            android:textColorLink="@color/secundaria" />
+            android:ems="10"
+            android:hint="UF"
+            android:inputType="textPassword"
+            android:textColor="@color/quad" />
 
-        <TextView
-            android:id="@+id/textView11"
+        <EditText
+            android:id="@+id/txtinpedtLocalidade"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColorHighlight="@color/secundaria" />
+            android:ems="10"
+            android:hint="Cidade"
+            android:inputType="textPassword"
+            android:textColor="@color/quad" />
     </RadioGroup>
 
     <Button
@@ -102,7 +105,7 @@
         android:layout_height="wrap_content"
         android:backgroundTint="@color/secundaria"
         android:padding="16dp"
-        android:text="Próximo"
+        android:text="Cadastrar"
         android:textColor="@color/white"
         android:textSize="12sp"
         android:theme="@style/botaoPadrao"

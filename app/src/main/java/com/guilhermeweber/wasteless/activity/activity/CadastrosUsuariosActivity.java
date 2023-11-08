@@ -3,12 +3,10 @@ package com.guilhermeweber.wasteless.activity.activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
@@ -83,11 +81,11 @@ public class CadastrosUsuariosActivity extends AppCompatActivity {
                                             if (usuario.getTipo() == "E") {//Empresa
                                                 startActivity(new Intent(getApplicationContext(), EmpresaActivity.class));
                                                 finish();
-                                                Toast.makeText(CadastrosUsuariosActivity.this, "Empresa Cadastrada com Sucesso! ", Toast.LENGTH_LONG).show();
+                                                Toast.makeText(CadastrosUsuariosActivity.this, "Cadastrado realizado com sucesso! ", Toast.LENGTH_LONG).show();
                                             } else {//usuario
                                                 startActivity(new Intent(getApplicationContext(), HomeActivity.class));
                                                 finish();
-                                                Toast.makeText(CadastrosUsuariosActivity.this, "Usuario Cadastrado com Sucesso! ", Toast.LENGTH_LONG).show();
+                                                Toast.makeText(CadastrosUsuariosActivity.this, "Cadastrado realizado com sucesso! ", Toast.LENGTH_LONG).show();
                                             }
                                         } else {
 
@@ -96,11 +94,11 @@ public class CadastrosUsuariosActivity extends AppCompatActivity {
                                             try {
                                                 throw task.getException();
                                             } catch (FirebaseAuthWeakPasswordException e) {
-                                                erroExcecao = "Digite uma senha mais forte!";
+                                                erroExcecao = "Informe uma senha mais forte!";
                                             } catch (FirebaseAuthInvalidCredentialsException e) {
-                                                erroExcecao = "Por Favor, digite um e-mail válido";
+                                                erroExcecao = "Por Favor, informe um e-mail válido";
                                             } catch (FirebaseAuthUserCollisionException e) {
-                                                erroExcecao = "Esta conta já foi cadastrada";
+                                                erroExcecao = "E-mail já cadastrado";
                                             } catch (Exception e) {
                                                 erroExcecao = "Ao Cadastrar usuário: " + e.getMessage();
                                                 e.printStackTrace();
@@ -110,16 +108,16 @@ public class CadastrosUsuariosActivity extends AppCompatActivity {
                                     }
                                 });
                             } else {
-                                Toast.makeText(CadastrosUsuariosActivity.this, "Escolha um tipo de Cadastro!", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(CadastrosUsuariosActivity.this, "Escolha a opção de tipo cadastro", Toast.LENGTH_SHORT).show();
                             }
                         } else {
-                            Toast.makeText(CadastrosUsuariosActivity.this, "Preencha o Senha!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(CadastrosUsuariosActivity.this, "Informe sua senha", Toast.LENGTH_SHORT).show();
                         }
                     } else {
-                        Toast.makeText(CadastrosUsuariosActivity.this, "Preencha o E-mail!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CadastrosUsuariosActivity.this, "Informe seu e-mail", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(CadastrosUsuariosActivity.this, "Preencha o Seu Nome!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CadastrosUsuariosActivity.this, "Informe seu nome", Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -127,9 +125,9 @@ public class CadastrosUsuariosActivity extends AppCompatActivity {
     }
 
     private void inicializarComponentes() {
-        campoNome = findViewById(R.id.textNomeCadastro);
-        campoEmail = findViewById(R.id.textEmailAddress);
-        campoSenha = findViewById(R.id.textSenhaCadastro);
+        campoNome = findViewById(R.id.txtinpedtCEP);
+        campoEmail = findViewById(R.id.txtinpedtLogradouro);
+        campoSenha = findViewById(R.id.txtinpedtComplemento);
         cliente = findViewById(R.id.radioButtonClienteCadastro);
         empresa = findViewById(R.id.radioButtonEmpresaCadastro);
         buttonCadastro = findViewById(R.id.buttonCadastro);
