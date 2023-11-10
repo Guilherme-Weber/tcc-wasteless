@@ -21,12 +21,15 @@ import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.guilhermeweber.wasteless.R;
 import com.guilhermeweber.wasteless.activity.helper.ConfigFirebase;
 import com.guilhermeweber.wasteless.activity.model.Usuario;
+import com.santalu.maskedittext.MaskEditText;
 
 
 public class CadastrosUsuariosActivity extends AppCompatActivity {
 
     //Instanciando RadioButton e textos para o tipo de cadastro que está sendo realizado
     private EditText campoNome, campoEmail, campoSenha;
+
+    private MaskEditText editTextTelefone;
     private String nome, email, senha;
     private RadioButton cliente, empresa;
     private Button buttonCadastro;
@@ -49,63 +52,77 @@ public class CadastrosUsuariosActivity extends AppCompatActivity {
                 String email = campoEmail.getText().toString();
                 String senha = campoSenha.getText().toString();
                 String nome = campoNome.getText().toString();
+                String telefone = editTextTelefone.getText().toString();
+
+                String fone = "";
+                if (editTextTelefone.getRawText() != null) {
+                    fone = editTextTelefone.getRawText().toString();
+                }
 
                 usuario.setNome(nome);
                 usuario.setEmail(email);
                 usuario.setSenha(senha);
+                usuario.setTelefone(telefone);
 
 
                 if (!nome.isEmpty()) {
                     if (!email.isEmpty()) {
                         if (!senha.isEmpty()) {
                             if (cliente.isChecked() || empresa.isChecked()) {
+                                if (!telefone.isEmpty() && fone.length() >= 10) {
 
-                                usuario.setTipo(verificaUsuario());
+                                    usuario.setTipo(verificaUsuario());
 
-//                                Toast.makeText(CadastrosUsuariosActivity.this, "Cliente: " + usuario.getTipo(), Toast.LENGTH_SHORT).show();
+//                                  Toast.makeText(CadastrosUsuariosActivity.this, "Cliente: " + usuario.getTipo(), Toast.LENGTH_SHORT).show();
 
-//                                Toast.makeText(CadastrosUsuariosActivity.this, "Senha: " + usuario.getSenha(), Toast.LENGTH_SHORT).show();
+//                                  Toast.makeText(CadastrosUsuariosActivity.this, "Senha: " + usuario.getSenha(), Toast.LENGTH_SHORT).show();
 
-                                // envia pro servidor o email e senha pra cadastro
-                                auth.createUserWithEmailAndPassword(usuario.getEmail(), usuario.getSenha()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<AuthResult> task) {
+                                    // envia pro servidor o email e senha pra cadastro
+                                    auth.createUserWithEmailAndPassword(usuario.getEmail(), usuario.getSenha()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<AuthResult> task) {
 
-                                        if (task.isSuccessful()) { //Verifica se o processo de cadastro do usuario deu certo
+                                            if (task.isSuccessful()) { //Verifica se o processo de cadastro do usuario deu certo
 
-                                            String idUsuario = task.getResult().getUser().getUid();
+                                                String idUsuario = task.getResult().getUser().getUid();
 
-//                                          String idUsuario = "1";
+//                                              String idUsuario = "1";
 
-                                            usuario.setId(idUsuario);
+                                                usuario.setId(idUsuario);
 
-                                            Intent i = new Intent(CadastrosUsuariosActivity.this, CadastroEnderecoActivity.class);
-                                            i.putExtra("usuario", usuario);
-                                            startActivity(i);
+                                                Intent i = new Intent(CadastrosUsuariosActivity.this, CadastroEnderecoActivity.class);
+                                                i.putExtra("usuario", usuario);
+                                                startActivity(i);
 
-                                        } else {
+                                            } else {
 
-                                            //caso cadastro n seja realizado com sucesso é mostrado uma mensagem de erro
-                                            String erroExcecao = "";
-                                            try {
-                                                throw task.getException();
-                                            } catch (FirebaseAuthWeakPasswordException e) {
-                                                erroExcecao = "Informe uma senha mais forte!";
-                                                campoSenha.setError("Informe uma senha mais forte!");
-                                            } catch (FirebaseAuthInvalidCredentialsException e) {
-                                                erroExcecao = "Por Favor, informe um e-mail válido";
-                                                campoEmail.setError("Por Favor, informe um e-mail válido");
-                                            } catch (FirebaseAuthUserCollisionException e) {
-                                                erroExcecao = "E-mail já cadastrado";
-                                                campoEmail.setError("E-mail já cadastrado");
-                                            } catch (Exception e) {
-                                                erroExcecao = "Ao Cadastrar usuário: " + e.getMessage();
-                                                e.printStackTrace();
+                                                //caso cadastro n seja realizado com sucesso é mostrado uma mensagem de erro
+                                                String erroExcecao = "";
+                                                try {
+                                                    throw task.getException();
+                                                } catch (FirebaseAuthWeakPasswordException e) {
+                                                    erroExcecao = "Informe uma senha mais forte!";
+                                                    campoSenha.setError("Informe uma senha mais forte!");
+                                                } catch (
+                                                        FirebaseAuthInvalidCredentialsException e) {
+                                                    erroExcecao = "Por Favor, informe um e-mail válido";
+                                                    campoEmail.setError("Por Favor, informe um e-mail válido");
+                                                } catch (FirebaseAuthUserCollisionException e) {
+                                                    erroExcecao = "E-mail já cadastrado";
+                                                    campoEmail.setError("E-mail já cadastrado");
+                                                } catch (Exception e) {
+                                                    erroExcecao = "Ao Cadastrar usuário: " + e.getMessage();
+                                                    e.printStackTrace();
+                                                }
+                                                Toast.makeText(CadastrosUsuariosActivity.this, "Erro: " + erroExcecao, Toast.LENGTH_LONG).show();
                                             }
-                                            Toast.makeText(CadastrosUsuariosActivity.this, "Erro: " + erroExcecao, Toast.LENGTH_LONG).show();
                                         }
-                                    }
-                                });
+                                    });
+
+                                } else {
+                                    Toast.makeText(CadastrosUsuariosActivity.this, "Preencha o Campo Telefone", Toast.LENGTH_SHORT).show();
+                                    editTextTelefone.setError("Preencha o Campo Telefone");
+                                }
                             } else {
                                 Toast.makeText(CadastrosUsuariosActivity.this, "Escolha a opção de tipo cadastro", Toast.LENGTH_SHORT).show();
                                 cliente.setError("Escolha a opção de tipo cadastro");
@@ -132,6 +149,8 @@ public class CadastrosUsuariosActivity extends AppCompatActivity {
         campoNome = findViewById(R.id.editTextNome);
         campoEmail = findViewById(R.id.editTextEmail);
         campoSenha = findViewById(R.id.editTextSenha);
+        editTextTelefone = findViewById(R.id.editTextTelefoneAuth);
+
         cliente = findViewById(R.id.radioButtonClienteCadastro);
         empresa = findViewById(R.id.radioButtonEmpresaCadastro);
         buttonCadastro = findViewById(R.id.buttonCadastroProximo);

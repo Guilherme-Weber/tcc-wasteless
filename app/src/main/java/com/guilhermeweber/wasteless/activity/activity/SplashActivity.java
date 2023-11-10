@@ -41,6 +41,10 @@ public class SplashActivity extends AppCompatActivity {
 
         requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS);
         requestPermissionLauncher.launch(Manifest.permission.READ_MEDIA_IMAGES);
+        requestPermissionLauncher.launch(Manifest.permission.INTERNET);
+        requestPermissionLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE);
+        requestPermissionLauncher.launch(Manifest.permission.ACCESS_COARSE_LOCATION);
+        requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION);
 
 
         //https://www.youtube.com/watch?v=M7z2MFoI6MQ

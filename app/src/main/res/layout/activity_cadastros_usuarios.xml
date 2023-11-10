@@ -52,6 +52,17 @@
         android:inputType="textPassword"
         android:textColor="@color/quad" />
 
+    <com.santalu.maskedittext.MaskEditText
+        android:id="@+id/editTextTelefoneAuth"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-2dp"
+        android:ems="10"
+        android:hint="Informe seu telefone"
+        android:inputType="phone"
+        android:textColor="@color/quad"
+        app:met_mask="(##) #####-####" />
+
     <TextView
         android:id="@+id/textView10"
         android:layout_width="match_parent"

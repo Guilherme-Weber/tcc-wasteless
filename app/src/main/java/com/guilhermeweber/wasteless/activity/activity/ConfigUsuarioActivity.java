@@ -44,7 +44,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ConfigUsuarioActivity extends AppCompatActivity implements View.OnClickListener {
     private static final int SELECAO_GALERIA = 200;
     private CircleImageView imageUsuario;
-    private EditText editTextNomeUsuario, editTextUsuarioCEP, editTextUsuarioEndereco;
+    private EditText editTextNomeUsuario, editTextUsuarioCEP, editTextUsuarioEndereco, editTextLogradouroConfig, editTextComplementoConfig, editTextBairroConfig, editTextUFConfig, editTextCidadeConfig;
     private MaskEditText editTextTelefone;
     private StorageReference storageReference;
     private DatabaseReference firebaseRef;
@@ -100,9 +100,15 @@ public class ConfigUsuarioActivity extends AppCompatActivity implements View.OnC
 
                     Usuario usuario = snapshot.getValue(Usuario.class);
                     editTextNomeUsuario.setText(usuario.getNome());
-                    editTextTelefone.setText(usuario.getTelefone());
                     editTextUsuarioCEP.setText(usuario.getcEP());
-                    editTextUsuarioEndereco.setText(usuario.getEndereco());
+//                    editTextUsuarioEndereco.setText(usuario.getEndereco());
+                    editTextLogradouroConfig.setText(usuario.getLogradouro());
+                    editTextComplementoConfig.setText(usuario.getComplemento());
+                    editTextBairroConfig.setText(usuario.getBairro());
+                    editTextUFConfig.setText(usuario.getUF());
+                    editTextCidadeConfig.setText(usuario.getLocalidade());
+
+                    editTextTelefone.setText(usuario.getTelefone());
 
                     urlImagemSelecionada = usuario.getUrlImagem();
 
@@ -147,55 +153,70 @@ public class ConfigUsuarioActivity extends AppCompatActivity implements View.OnC
         listaFotosRec.add(caminhoImagem);
     }
 
+    public void CEP(View view) {
+
+    }
+
     public void validarDadosUsuario(View view) {
 
         String fone = "";
         String nome = editTextNomeUsuario.getText().toString();
-        String endereco = editTextUsuarioEndereco.getText().toString();
+//        String endereco = editTextUsuarioEndereco.getText().toString();
         String cEP = editTextUsuarioCEP.getText().toString();
-
+        String logradouro = editTextLogradouroConfig.getText().toString();
+        String complemento = editTextComplementoConfig.getText().toString();
+        String bairro = editTextBairroConfig.getText().toString();
+        String uF = editTextUFConfig.getText().toString();
+        String cidade = editTextCidadeConfig.getText().toString();
         String telefone = editTextTelefone.getText().toString();
         if (editTextTelefone.getRawText() != null) {
             fone = editTextTelefone.getRawText().toString();
         }
 
-        if (listaFotosRec.size() != 0) {
-            if (!nome.isEmpty()) {
-                if (!endereco.isEmpty()) {
-                    if (!cEP.isEmpty()) {
-                        if (!telefone.isEmpty() && fone.length() >= 10) {
-                            Usuario usuario = new Usuario();
+//      if (listaFotosRec.size() != 0) {
+//      if (!nome.isEmpty()) {
+//      if (!endereco.isEmpty()) {
+//      if (!cEP.isEmpty()) {
+//      if (!telefone.isEmpty() && fone.length() >= 10) {
 
-                            usuario.setId(idLogUsuario);
-                            usuario.setNome(nome);
-                            usuario.setEndereco(endereco);
-                            usuario.setcEP(cEP);
-                            usuario.setTelefone(telefone);
-                            usuario.setTipo("E");
+        Usuario usuario = new Usuario();
 
-                            for (int i = 0; i < listaFotosRec.size(); ++i) {
-                                String urlImagem = listaFotosRec.get(i);
-                                int tamanhoLista = listaFotosRec.size();
-                                salvarFotoStorage(urlImagem, tamanhoLista, i);
-                            }
+        usuario.setId(idLogUsuario);
+        usuario.setNome(nome);
+//      usuario.setEndereco(endereco);
+        usuario.setcEP(cEP);
+        usuario.setLogradouro(logradouro);
+        usuario.setComplemento(complemento);
+        usuario.setBairro(bairro);
+        usuario.setUF(uF);
+        usuario.setLocalidade(cidade);
 
-                            usuario.salvar();
+        usuario.setTelefone(telefone);
+        usuario.setTipo("E");
 
-                        } else {
-                            mensagemToast("Preencha o campo Telefone");
-                        }
-                    } else {
-                        mensagemToast("Preencha o campo CEP");
-                    }
-                } else {
-                    mensagemToast("Preencha o campo Endereço Completo");
-                }
-            } else {
-                mensagemToast("Preencha o campo Nome");
-            }
-        } else {
-            mensagemToast("Selecione uma imagem de perfil");
+        for (int i = 0; i < listaFotosRec.size(); ++i) {
+            String urlImagem = listaFotosRec.get(i);
+            int tamanhoLista = listaFotosRec.size();
+            salvarFotoStorage(urlImagem, tamanhoLista, i);
         }
+
+        usuario.salvar();
+
+//      } else {
+//         mensagemToast("Preencha o campo Telefone");
+//      }
+//      } else {
+//         mensagemToast("Preencha o campo CEP");
+//      }
+//      } else {
+//         mensagemToast("Preencha o campo Endereço Completo");
+//      }
+//      } else {
+//         mensagemToast("Preencha o campo Nome");
+//      }
+//      } else {
+//         mensagemToast("Selecione uma imagem de perfil");
+//      }
 
     }
 
@@ -205,8 +226,13 @@ public class ConfigUsuarioActivity extends AppCompatActivity implements View.OnC
 
     private void iniciarComponentes() {
         editTextNomeUsuario = findViewById(R.id.editTextNomeUsuario);
-        editTextUsuarioEndereco = findViewById(R.id.editTextUsuarioEndereco);
+//        editTextUsuarioEndereco = findViewById(R.id.editTextUsuarioEndereco);
         editTextUsuarioCEP = findViewById(R.id.editTextUsuarioCEP);
+        editTextLogradouroConfig = findViewById(R.id.editTextLogradouroConfig);
+        editTextComplementoConfig = findViewById(R.id.editTextComplementoConfig);
+        editTextBairroConfig = findViewById(R.id.editTextBairroConfig);
+        editTextUFConfig = findViewById(R.id.editTextUFConfig);
+        editTextCidadeConfig = findViewById(R.id.editTextCidadeConfig);
         editTextTelefone = findViewById(R.id.editTextTelefone);
 
         imageUsuario = findViewById(R.id.imageUsuario);
