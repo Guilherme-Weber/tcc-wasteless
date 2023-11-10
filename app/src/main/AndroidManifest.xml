@@ -21,27 +21,26 @@
         android:theme="@style/Theme.WasteLess"
         tools:targetApi="28">
 
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/logo_small" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/colorAccent" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCbqSHON_mZl9qmT1_sUNfB5wPFIQe5FTU" />
+
+        <activity
+            android:name=".activity.activity.MapsActivity"
+            android:exported="false" />
         <activity
             android:name=".activity.activity.CadastroEnderecoActivity"
             android:exported="false" />
         <activity
             android:name=".activity.activity.CadastrosUsuariosActivity"
             android:exported="false" />
-        <!--
-     Set custom default icon. This is used when no icon is set for incoming notification messages.
-     See README(https://goo.gl/l4GJaQ) for more.
-        -->
-        <meta-data
-            android:name="com.google.firebase.messaging.default_notification_icon"
-            android:resource="@drawable/logo_small" />
-        <!--
- Set color used with incoming notification messages. This is used when no color is set for the incoming
-             notification message. See README(https://goo.gl/6BKBk7) for more.
-        -->
-        <meta-data
-            android:name="com.google.firebase.messaging.default_notification_color"
-            android:resource="@color/colorAccent" />
-
         <activity
             android:name=".activity.activity.PedidoActivity"
             android:exported="false" />
