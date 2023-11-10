@@ -93,6 +93,8 @@ public class SplashActivity extends AppCompatActivity {
         if (usuario.getUsuarioAtual() != null) {
             //dialog.show();
 
+//            usuario = null;
+
             //adicionar tela de carregando aqui no futuro
             Usuario.redirectUser(SplashActivity.this);
         } else {

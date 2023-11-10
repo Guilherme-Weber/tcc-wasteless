@@ -43,11 +43,13 @@ public class AutentificacaoActivity extends AppCompatActivity {
 
         Usuario usuario = new Usuario();
 
+
         if (usuario.getUsuarioAtual() != null) {
             //dialog.show();
 
+
             //adicionar tela de carregando aqui no futuro
-            Usuario.redirectUser(AutentificacaoActivity.this);
+//            Usuario.redirectUser(AutentificacaoActivity.this);
         }
 
         setContentView(R.layout.activity_autentificacao);
@@ -61,7 +63,7 @@ public class AutentificacaoActivity extends AppCompatActivity {
         //forsa o usuario ja logado a deslogar
         //auth.signOut();
         //força user null pra casos mais extremos
-        //usuario = null;
+//        usuario = null;
 
         //verifica o usuario logado
 
@@ -101,11 +103,14 @@ public class AutentificacaoActivity extends AppCompatActivity {
 //                usuario.setNome(nome);
                 usuario.setEmail(email);
                 usuario.setSenha(senha);
-//                usuario.setTipo(verificaUsuario());
+                usuario.setTipo(verificaUsuario());
+
 
                 //verifica se os campos estão vazios
                 if (!email.isEmpty()) {
                     if (!senha.isEmpty()) {
+
+                        //TELA DEDICADA DE CADASTRO CRIADA CODIGO ABAIXO APENAS PARA CONSULTA
 
                         //Verifica se o switch esta em login ou cadastro
 //                        if (tipoAcesso.isChecked()) { //cadastro
@@ -173,8 +178,12 @@ public class AutentificacaoActivity extends AppCompatActivity {
                                         throw task.getException();
                                     } catch (FirebaseAuthInvalidUserException e) {
                                         excecao = "Usuario não está cadastrado";
+                                        campoEmail.setError("Usuario não está cadastrado");
+                                        campoSenha.setError("Usuario não está cadastrado");
                                     } catch (FirebaseAuthInvalidCredentialsException e) {
                                         excecao = "E-mail e senha não são validos";
+                                        campoEmail.setError("E-mail e senha não são validos");
+                                        campoSenha.setError("E-mail e senha não são validos");
                                     } catch (Exception e) {
                                         excecao = "erro ao cadastrar usuário" + e.getMessage();
                                         e.printStackTrace();
@@ -186,27 +195,34 @@ public class AutentificacaoActivity extends AppCompatActivity {
                         });
 //                        }
                     } else {
-                        Toast.makeText(AutentificacaoActivity.this, "Preencha o Senha!", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(AutentificacaoActivity.this, "Preencha o Senha!", Toast.LENGTH_SHORT).show();
+                        campoSenha.setError("Informe sua senha");
+
                     }
                 } else {
-                    Toast.makeText(AutentificacaoActivity.this, "Preencha o E-mail!", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(AutentificacaoActivity.this, "Preencha o E-mail!", Toast.LENGTH_SHORT).show();
+                    campoEmail.setError("Informe seu e-mail");
                 }
             }
         });
     }
 
     private void inicializarComponentes() {
+
 //        campoNome = findViewById(R.id.editTextNome);
         campoEmail = findViewById(R.id.editTextEmailLogin);
         campoSenha = findViewById(R.id.editTextSenhaLogin);
 //        tipoAcesso = findViewById(R.id.switchTipoAcesso);
 //        tipoUsuario = findViewById(R.id.switchTipoUsuario);
-        botaoAcessar = findViewById(R.id.buttonCadastro);
+        botaoAcessar = findViewById(R.id.buttonAcesso);
         buttonCadastrar = findViewById(R.id.buttonCadastrar);
 //        linearTipoUsuario = findViewById(R.id.linearTipoUsuario);
     }
 
     public String verificaUsuario() {
-        return tipoUsuario.isChecked() ? "E" : "U";
+        String result = "result";
+
+
+        return result;
     }
 }

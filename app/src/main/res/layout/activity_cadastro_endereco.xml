@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/btnConsultarCEP"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/primaria"
@@ -34,7 +33,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="CEP"
-        android:inputType="text"
+        android:inputType="number"
         android:textColor="@color/quad" />
 
     <Button
@@ -55,7 +54,8 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Logradouro"
-        android:inputType="textEmailAddress"
+        android:focusable="false"
+        android:inputType="none"
         android:textColor="@color/quad" />
 
     <EditText
@@ -63,8 +63,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Complemento"
-        android:inputType="textPassword"
+        android:hint="Complemento (opcional)"
+        android:focusable="false"
+        android:inputType="none"
         android:textColor="@color/quad" />
 
     <RadioGroup
@@ -77,7 +78,8 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Bairro"
-            android:inputType="textPassword"
+            android:focusable="false"
+            android:inputType="none"
             android:textColor="@color/quad" />
 
         <EditText
@@ -86,7 +88,8 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="UF"
-            android:inputType="textPassword"
+            android:focusable="false"
+            android:inputType="none"
             android:textColor="@color/quad" />
 
         <EditText
@@ -95,12 +98,13 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Cidade"
-            android:inputType="textPassword"
+            android:focusable="false"
+            android:inputType="none"
             android:textColor="@color/quad" />
     </RadioGroup>
 
     <Button
-        android:id="@+id/buttonCadastro"
+        android:id="@+id/buttonCadastroEndereco"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/secundaria"

@@ -26,7 +26,7 @@
         android:layout_height="38dp" />
 
     <EditText
-        android:id="@+id/txtinpedtCEP"
+        android:id="@+id/editTextNome"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -35,7 +35,7 @@
         android:textColor="@color/quad" />
 
     <EditText
-        android:id="@+id/txtinpedtLogradouro"
+        android:id="@+id/editTextEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -44,7 +44,7 @@
         android:textColor="@color/quad" />
 
     <EditText
-        android:id="@+id/txtinpedtComplemento"
+        android:id="@+id/editTextSenha"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -97,7 +97,7 @@
     </RadioGroup>
 
     <Button
-        android:id="@+id/buttonCadastro"
+        android:id="@+id/buttonCadastroProximo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/secundaria"

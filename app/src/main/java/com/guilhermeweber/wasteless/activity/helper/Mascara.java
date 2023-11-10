@@ -98,9 +98,11 @@ public abstract class Mascara {
                 ediTxt.setSelection(mascara.length());
             }
 
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+            }
         };
     }
 }

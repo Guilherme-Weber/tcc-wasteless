@@ -61,6 +61,7 @@ public class CadastrosUsuariosActivity extends AppCompatActivity {
                             if (cliente.isChecked() || empresa.isChecked()) {
 
                                 usuario.setTipo(verificaUsuario());
+
 //                                Toast.makeText(CadastrosUsuariosActivity.this, "Cliente: " + usuario.getTipo(), Toast.LENGTH_SHORT).show();
 
 //                                Toast.makeText(CadastrosUsuariosActivity.this, "Senha: " + usuario.getSenha(), Toast.LENGTH_SHORT).show();
@@ -73,20 +74,15 @@ public class CadastrosUsuariosActivity extends AppCompatActivity {
                                         if (task.isSuccessful()) { //Verifica se o processo de cadastro do usuario deu certo
 
                                             String idUsuario = task.getResult().getUser().getUid();
+
+//                                          String idUsuario = "1";
+
                                             usuario.setId(idUsuario);
-                                            usuario.salvar();
 
-                                            //usuario.updateUserName(usuario.getNome());
+                                            Intent i = new Intent(CadastrosUsuariosActivity.this, CadastroEnderecoActivity.class);
+                                            i.putExtra("usuario", usuario);
+                                            startActivity(i);
 
-                                            if (usuario.getTipo() == "E") {//Empresa
-                                                startActivity(new Intent(getApplicationContext(), EmpresaActivity.class));
-                                                finish();
-                                                Toast.makeText(CadastrosUsuariosActivity.this, "Cadastrado realizado com sucesso! ", Toast.LENGTH_LONG).show();
-                                            } else {//usuario
-                                                startActivity(new Intent(getApplicationContext(), HomeActivity.class));
-                                                finish();
-                                                Toast.makeText(CadastrosUsuariosActivity.this, "Cadastrado realizado com sucesso! ", Toast.LENGTH_LONG).show();
-                                            }
                                         } else {
 
                                             //caso cadastro n seja realizado com sucesso é mostrado uma mensagem de erro
@@ -95,10 +91,13 @@ public class CadastrosUsuariosActivity extends AppCompatActivity {
                                                 throw task.getException();
                                             } catch (FirebaseAuthWeakPasswordException e) {
                                                 erroExcecao = "Informe uma senha mais forte!";
+                                                campoSenha.setError("Informe uma senha mais forte!");
                                             } catch (FirebaseAuthInvalidCredentialsException e) {
                                                 erroExcecao = "Por Favor, informe um e-mail válido";
+                                                campoEmail.setError("Por Favor, informe um e-mail válido");
                                             } catch (FirebaseAuthUserCollisionException e) {
                                                 erroExcecao = "E-mail já cadastrado";
+                                                campoEmail.setError("E-mail já cadastrado");
                                             } catch (Exception e) {
                                                 erroExcecao = "Ao Cadastrar usuário: " + e.getMessage();
                                                 e.printStackTrace();
@@ -109,15 +108,20 @@ public class CadastrosUsuariosActivity extends AppCompatActivity {
                                 });
                             } else {
                                 Toast.makeText(CadastrosUsuariosActivity.this, "Escolha a opção de tipo cadastro", Toast.LENGTH_SHORT).show();
+                                cliente.setError("Escolha a opção de tipo cadastro");
+                                empresa.setError("Escolha a opção de tipo cadastro");
                             }
                         } else {
-                            Toast.makeText(CadastrosUsuariosActivity.this, "Informe sua senha", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(CadastrosUsuariosActivity.this, "Informe sua senha", Toast.LENGTH_SHORT).show();
+                            campoSenha.setError("Informe sua senha");
                         }
                     } else {
-                        Toast.makeText(CadastrosUsuariosActivity.this, "Informe seu e-mail", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(CadastrosUsuariosActivity.this, "Informe seu e-mail", Toast.LENGTH_SHORT).show();
+                        campoEmail.setError("Informe seu e-mail");
                     }
                 } else {
-                    Toast.makeText(CadastrosUsuariosActivity.this, "Informe seu nome", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(CadastrosUsuariosActivity.this, "Informe seu nome", Toast.LENGTH_SHORT).show();
+                    campoNome.setError("Informe seu nome");
                 }
 
             }
@@ -125,12 +129,12 @@ public class CadastrosUsuariosActivity extends AppCompatActivity {
     }
 
     private void inicializarComponentes() {
-        campoNome = findViewById(R.id.txtinpedtCEP);
-        campoEmail = findViewById(R.id.txtinpedtLogradouro);
-        campoSenha = findViewById(R.id.txtinpedtComplemento);
+        campoNome = findViewById(R.id.editTextNome);
+        campoEmail = findViewById(R.id.editTextEmail);
+        campoSenha = findViewById(R.id.editTextSenha);
         cliente = findViewById(R.id.radioButtonClienteCadastro);
         empresa = findViewById(R.id.radioButtonEmpresaCadastro);
-        buttonCadastro = findViewById(R.id.buttonCadastro);
+        buttonCadastro = findViewById(R.id.buttonCadastroProximo);
     }
 
     public String verificaUsuario() {

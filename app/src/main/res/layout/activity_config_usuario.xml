@@ -64,6 +64,14 @@
             android:inputType="number"
             android:padding="16dp" />
 
+        <EditText
+            android:id="@+id/editTextText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="text"
+            android:text="Name" />
+
         <com.santalu.maskedittext.MaskEditText
             android:id="@+id/editTextTelefone"
             android:layout_width="match_parent"
