@@ -20,6 +20,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WasteLess"
         tools:targetApi="28">
+        <activity
+            android:name=".activity.activity.CarrinhoActivity"
+            android:exported="false" />
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
@@ -27,7 +30,6 @@
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/colorAccent" />
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCbqSHON_mZl9qmT1_sUNfB5wPFIQe5FTU" />
