@@ -87,8 +87,6 @@ public class Usuario implements Serializable {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 Usuario usuario = snapshot.getValue(Usuario.class);
-                getUsuarioAtual();
-
 
                 try {
 
@@ -184,9 +182,7 @@ public class Usuario implements Serializable {
     }
 
     @Exclude //não salva a senha no bando de dados por segurança
-    public String getSenha() {
-        return senha;
-    }
+    public String getSenha() {return senha;    }
 
     public void setSenha(String senha) {
         this.senha = senha;

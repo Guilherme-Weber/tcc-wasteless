@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -32,6 +33,7 @@ public class CadastroEnderecoActivity extends AppCompatActivity {
 
     private final String URL = "https://viacep.com.br/ws/";
     Usuario usuario = new Usuario();
+    Empresa empresa = new Empresa();
     private Retrofit retrofitCEP;
     private Button btnConsultarCEP, buttonCadastroEndereco;
     private EditText txtCEP, txtLogradouro, txtComplemento, txtBairro, txtUF, txtLocalidade;
@@ -43,7 +45,6 @@ public class CadastroEnderecoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_cadastro_endereco);
 
         inicializarComponentes();
-
 
         //recuperar a usuario
         Bundle bundle = getIntent().getExtras();
@@ -85,10 +86,8 @@ public class CadastroEnderecoActivity extends AppCompatActivity {
                 } else {
                     txtCEP.setError("Verifique o CEP primeiro!");
                 }
-
             }
         });
-
     }
 
     private void inicializarComponentes() {
@@ -137,17 +136,39 @@ public class CadastroEnderecoActivity extends AppCompatActivity {
         usuario.setUF(UF);
         usuario.setLocalidade(Localidade);
 
+        empresa.setLogradouro(Logradouro);
+        empresa.setComplemento(Complemento);
+        empresa.setBairro(Bairro);
+        empresa.setUF(UF);
+        empresa.setLocalidade(Localidade);
+
         usuario.salvar();
 
         if (usuario.getTipo() == "E") {//Empresa
+
+            empresa.setIdEmpresaUsuario(usuario.getId());
+            empresa.salvar();
+
+            Toast.makeText(CadastroEnderecoActivity.this, "Cadastrado realizado com sucesso! ", Toast.LENGTH_LONG).show();
             startActivity(new Intent(getApplicationContext(), EmpresaActivity.class));
             finish();
-            Toast.makeText(CadastroEnderecoActivity.this, "Cadastrado realizado com sucesso! ", Toast.LENGTH_LONG).show();
+
         } else {//usuario
+
+            Toast.makeText(CadastroEnderecoActivity.this, "Cadastrado realizado com sucesso! ", Toast.LENGTH_LONG).show();
             startActivity(new Intent(getApplicationContext(), HomeActivity.class));
             finish();
-            Toast.makeText(CadastroEnderecoActivity.this, "Cadastrado realizado com sucesso! ", Toast.LENGTH_LONG).show();
         }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK)
+            Toast.makeText(getApplicationContext(), "Por favor finalize o seu cadastro!",
+                    Toast.LENGTH_LONG).show();
+
+        return false;
+        // Disable back button..............
     }
 
     private void esconderTeclado() {

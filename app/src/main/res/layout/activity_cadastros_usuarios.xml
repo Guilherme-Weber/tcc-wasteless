@@ -52,6 +52,16 @@
         android:inputType="textPassword"
         android:textColor="@color/quad" />
 
+
+    <EditText
+        android:id="@+id/editTextSenhaDenovo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Informe sua senha outra vez"
+        android:inputType="textPassword"
+        android:textColor="@color/quad" />
+
     <com.santalu.maskedittext.MaskEditText
         android:id="@+id/editTextTelefoneAuth"
         android:layout_width="match_parent"

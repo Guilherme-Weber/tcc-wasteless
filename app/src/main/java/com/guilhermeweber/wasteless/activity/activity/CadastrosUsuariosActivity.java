@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,13 +28,41 @@ import com.santalu.maskedittext.MaskEditText;
 public class CadastrosUsuariosActivity extends AppCompatActivity {
 
     //Instanciando RadioButton e textos para o tipo de cadastro que está sendo realizado
-    private EditText campoNome, campoEmail, campoSenha;
+    private EditText campoNome, campoEmail, campoSenha, campoSenhaDenovo;
 
     private MaskEditText editTextTelefone;
-    private String nome, email, senha;
+    private String nome, email, senha, senhadenovo, telefone;
     private RadioButton cliente, empresa;
     private Button buttonCadastro;
     private FirebaseAuth auth;
+
+    public static boolean stringCompare(String str1, String str2) {
+
+        int l1 = str1.length();
+        int l2 = str2.length();
+        int lmin = Math.min(l1, l2);
+
+        for (int i = 0; i < lmin; i++) {
+            int str1_ch = (int) str1.charAt(i);
+            int str2_ch = (int) str2.charAt(i);
+
+            if (str1_ch != str2_ch) {
+                return false;
+            }
+        }
+
+        // Edge case for strings like
+        // String 1="Geeks" and String 2="Geeksforgeeks"
+        if (l1 != l2) {
+            return false;
+        }
+
+        // If none of the above conditions is true,
+        // it implies both the strings are equal
+        else {
+            return true;
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,10 +78,11 @@ public class CadastrosUsuariosActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                String email = campoEmail.getText().toString();
-                String senha = campoSenha.getText().toString();
-                String nome = campoNome.getText().toString();
-                String telefone = editTextTelefone.getText().toString();
+                email = campoEmail.getText().toString();
+                senha = campoSenha.getText().toString();
+                senhadenovo = campoSenhaDenovo.getText().toString();
+                nome = campoNome.getText().toString();
+                telefone = editTextTelefone.getText().toString();
 
                 String fone = "";
                 if (editTextTelefone.getRawText() != null) {
@@ -63,7 +93,7 @@ public class CadastrosUsuariosActivity extends AppCompatActivity {
                 usuario.setEmail(email);
                 usuario.setSenha(senha);
                 usuario.setTelefone(telefone);
-
+                usuario.setTipo(verificaUsuario());
 
                 if (!nome.isEmpty()) {
                     if (!email.isEmpty()) {
@@ -71,53 +101,64 @@ public class CadastrosUsuariosActivity extends AppCompatActivity {
                             if (cliente.isChecked() || empresa.isChecked()) {
                                 if (!telefone.isEmpty() && fone.length() >= 10) {
 
-                                    usuario.setTipo(verificaUsuario());
+//                                    Toast.makeText(CadastrosUsuariosActivity.this, "senha 1 " + senha, Toast.LENGTH_LONG).show();
+//                                    Toast.makeText(CadastrosUsuariosActivity.this, "senha 2 " + senhadenovo, Toast.LENGTH_SHORT).show();
 
-//                                  Toast.makeText(CadastrosUsuariosActivity.this, "Cliente: " + usuario.getTipo(), Toast.LENGTH_SHORT).show();
+                                    if (stringCompare(senha, senhadenovo)) {
 
-//                                  Toast.makeText(CadastrosUsuariosActivity.this, "Senha: " + usuario.getSenha(), Toast.LENGTH_SHORT).show();
+//                                      Toast.makeText(CadastrosUsuariosActivity.this, "Cliente: " + usuario.getTipo(), Toast.LENGTH_SHORT).show();
 
-                                    // envia pro servidor o email e senha pra cadastro
-                                    auth.createUserWithEmailAndPassword(usuario.getEmail(), usuario.getSenha()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<AuthResult> task) {
+//                                      Toast.makeText(CadastrosUsuariosActivity.this, "Senha: " + usuario.getSenha(), Toast.LENGTH_SHORT).show();
 
-                                            if (task.isSuccessful()) { //Verifica se o processo de cadastro do usuario deu certo
+                                        // envia pro servidor o email e senha pra cadastro
+                                        auth.createUserWithEmailAndPassword(usuario.getEmail(), usuario.getSenha()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<AuthResult> task) {
 
-                                                String idUsuario = task.getResult().getUser().getUid();
+                                                if (task.isSuccessful()) { //Verifica se o processo de cadastro do usuario deu certo
 
-//                                              String idUsuario = "1";
+                                                    String idUsuario = task.getResult().getUser().getUid();
 
-                                                usuario.setId(idUsuario);
+//                                                  String idUsuario = "1";
 
-                                                Intent i = new Intent(CadastrosUsuariosActivity.this, CadastroEnderecoActivity.class);
-                                                i.putExtra("usuario", usuario);
-                                                startActivity(i);
+                                                    usuario.setId(idUsuario);
 
-                                            } else {
+//                                                    Toast.makeText(CadastrosUsuariosActivity.this, usuario.getTipo(), Toast.LENGTH_SHORT).show();
 
-                                                //caso cadastro n seja realizado com sucesso é mostrado uma mensagem de erro
-                                                String erroExcecao = "";
-                                                try {
-                                                    throw task.getException();
-                                                } catch (FirebaseAuthWeakPasswordException e) {
-                                                    erroExcecao = "Informe uma senha mais forte!";
-                                                    campoSenha.setError("Informe uma senha mais forte!");
-                                                } catch (
-                                                        FirebaseAuthInvalidCredentialsException e) {
-                                                    erroExcecao = "Por Favor, informe um e-mail válido";
-                                                    campoEmail.setError("Por Favor, informe um e-mail válido");
-                                                } catch (FirebaseAuthUserCollisionException e) {
-                                                    erroExcecao = "E-mail já cadastrado";
-                                                    campoEmail.setError("E-mail já cadastrado");
-                                                } catch (Exception e) {
-                                                    erroExcecao = "Ao Cadastrar usuário: " + e.getMessage();
-                                                    e.printStackTrace();
+                                                    Intent i = new Intent(CadastrosUsuariosActivity.this, CadastroEnderecoActivity.class);
+                                                    i.putExtra("usuario", usuario);
+                                                    startActivity(i);
+
+                                                } else {
+
+                                                    //caso cadastro n seja realizado com sucesso é mostrado uma mensagem de erro
+                                                    String erroExcecao = "";
+                                                    try {
+                                                        throw task.getException();
+                                                    } catch (FirebaseAuthWeakPasswordException e) {
+                                                        erroExcecao = "Informe uma senha mais forte!";
+                                                        campoSenha.setError("Informe uma senha mais forte!");
+                                                    } catch (
+                                                            FirebaseAuthInvalidCredentialsException e) {
+                                                        erroExcecao = "Por Favor, informe um e-mail válido";
+                                                        campoEmail.setError("Por Favor, informe um e-mail válido");
+                                                    } catch (FirebaseAuthUserCollisionException e) {
+                                                        erroExcecao = "E-mail já cadastrado";
+                                                        campoEmail.setError("E-mail já cadastrado");
+                                                    } catch (Exception e) {
+                                                        erroExcecao = "Ao Cadastrar usuário: " + e.getMessage();
+                                                        e.printStackTrace();
+                                                    }
+                                                    Toast.makeText(CadastrosUsuariosActivity.this, "Erro: " + erroExcecao, Toast.LENGTH_LONG).show();
                                                 }
-                                                Toast.makeText(CadastrosUsuariosActivity.this, "Erro: " + erroExcecao, Toast.LENGTH_LONG).show();
                                             }
-                                        }
-                                    });
+                                        });
+
+                                    } else {
+                                        Toast.makeText(CadastrosUsuariosActivity.this, "Ambas as senhas tem que ser iguais", Toast.LENGTH_SHORT).show();
+                                        campoSenha.setError("Informe sua senha");
+                                        campoSenhaDenovo.setError("Informe sua senha");
+                                    }
 
                                 } else {
                                     Toast.makeText(CadastrosUsuariosActivity.this, "Preencha o Campo Telefone", Toast.LENGTH_SHORT).show();
@@ -149,6 +190,7 @@ public class CadastrosUsuariosActivity extends AppCompatActivity {
         campoNome = findViewById(R.id.editTextNome);
         campoEmail = findViewById(R.id.editTextEmail);
         campoSenha = findViewById(R.id.editTextSenha);
+        campoSenhaDenovo = findViewById(R.id.editTextSenhaDenovo);
         editTextTelefone = findViewById(R.id.editTextTelefoneAuth);
 
         cliente = findViewById(R.id.radioButtonClienteCadastro);

@@ -109,7 +109,7 @@ public class NovoProdutoEmpresaActivity extends AppCompatActivity implements Vie
     @Override
     public void onClick(View v) {
         int needif = v.getId();
-        if (needif == R.id.imageEmpresa1) {
+        if (needif == R.id.imageNovoProduto) {
             escolherImagem(1);
         }
     }
@@ -200,7 +200,7 @@ public class NovoProdutoEmpresaActivity extends AppCompatActivity implements Vie
 
         spinnerNovoProdutoCategoria = findViewById(R.id.spinnerNovoProdutoCategoria);
 
-        ImageViewImageProduto = findViewById(R.id.imageEmpresa1);
+        ImageViewImageProduto = findViewById(R.id.imageNovoProduto);
         ImageViewImageProduto.setOnClickListener(this);
 
         linearTipoPeso = findViewById(R.id.linearTipoPeso);

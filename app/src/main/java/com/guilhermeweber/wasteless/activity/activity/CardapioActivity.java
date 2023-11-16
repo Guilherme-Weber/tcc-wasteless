@@ -79,10 +79,12 @@ public class CardapioActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             empresaSelecionada = (Empresa) bundle.getSerializable("empresa");
-            textNomeEmpresaCardapio.setText(empresaSelecionada.getNome());
-            idEmpresa = empresaSelecionada.getIdEmpresa();
 
-            String url = empresaSelecionada.getUrlImagem();
+            textNomeEmpresaCardapio.setText(usuario.getNome());
+
+            idEmpresa = empresaSelecionada.getIdEmpresaUsuario();
+
+            String url = usuario.getUrlImagem();
             Picasso.get().load(url).into(imageEmpresaCardapio);
         }
 

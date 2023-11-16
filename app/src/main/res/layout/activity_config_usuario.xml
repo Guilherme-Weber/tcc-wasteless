@@ -76,7 +76,7 @@
             android:layout_marginTop="-2dp"
             android:ems="10"
             android:hint="Logradouro"
-            android:inputType="number" />
+            android:inputType="text" />
 
         <EditText
             android:id="@+id/editTextComplementoConfig"
@@ -85,7 +85,7 @@
             android:layout_marginTop="-2dp"
             android:ems="10"
             android:hint="Complemento"
-            android:inputType="number" />
+            android:inputType="text" />
 
         <EditText
             android:id="@+id/editTextBairroConfig"
@@ -94,7 +94,7 @@
             android:layout_marginTop="-2dp"
             android:ems="10"
             android:hint="Bairro"
-            android:inputType="number" />
+            android:inputType="text" />
 
         <EditText
             android:id="@+id/editTextUFConfig"
@@ -112,7 +112,7 @@
             android:layout_marginTop="-2dp"
             android:ems="10"
             android:hint="Cidade"
-            android:inputType="number" />
+            android:inputType="text" />
 
 
         <com.santalu.maskedittext.MaskEditText

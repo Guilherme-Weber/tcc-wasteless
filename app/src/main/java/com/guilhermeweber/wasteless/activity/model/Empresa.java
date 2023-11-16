@@ -7,55 +7,37 @@ import java.io.Serializable;
 
 public class Empresa implements Serializable {
 
-    private String idEmpresa;
-    private String urlImagem;
-    private String nome;
-    private String tempo;
+    private String idEmpresaUsuario;
     private String categoria;
     private Integer idCategoria;
+    private String urlImagem;
+    private String nome;
+    private String email;
+    private String tipo;
     private String Telefone;
-    private Long precoEntrega;
+    private String cEP;
+    private String endereco;
+    private String logradouro;
+    private String complemento;
+    private String bairro;
+    private String UF;
+    private String localidade;
 
     public Empresa() {
     }
 
     public void salvar() {
         DatabaseReference firebaseRef = ConfigFirebase.getFirebase();
-        DatabaseReference empresaRef = firebaseRef.child("empresa").child(getIdEmpresa());
+        DatabaseReference empresaRef = firebaseRef.child("empresa").child(getIdEmpresaUsuario());
         empresaRef.setValue(this);
     }
 
-
-    public String getIdEmpresa() {
-        return idEmpresa;
+    public String getIdEmpresaUsuario() {
+        return idEmpresaUsuario;
     }
 
-    public void setIdEmpresa(String idEmpresa) {
-        this.idEmpresa = idEmpresa;
-    }
-
-    public String getUrlImagem() {
-        return urlImagem;
-    }
-
-    public void setUrlImagem(String urlImagem) {
-        this.urlImagem = urlImagem;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getTempo() {
-        return tempo;
-    }
-
-    public void setTempo(String tempo) {
-        this.tempo = tempo;
+    public void setIdEmpresaUsuario(String idEmpresaUsuario) {
+        this.idEmpresaUsuario = idEmpresaUsuario;
     }
 
     public String getCategoria() {
@@ -74,6 +56,38 @@ public class Empresa implements Serializable {
         this.idCategoria = idCategoria;
     }
 
+    public String getUrlImagem() {
+        return urlImagem;
+    }
+
+    public void setUrlImagem(String urlImagem) {
+        this.urlImagem = urlImagem;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
     public String getTelefone() {
         return Telefone;
     }
@@ -82,11 +96,59 @@ public class Empresa implements Serializable {
         Telefone = telefone;
     }
 
-    public Long getPrecoEntrega() {
-        return precoEntrega;
+    public String getcEP() {
+        return cEP;
     }
 
-    public void setPrecoEntrega(Long precoEntrega) {
-        this.precoEntrega = precoEntrega;
+    public void setcEP(String cEP) {
+        this.cEP = cEP;
+    }
+
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
+
+    public String getLogradouro() {
+        return logradouro;
+    }
+
+    public void setLogradouro(String logradouro) {
+        this.logradouro = logradouro;
+    }
+
+    public String getComplemento() {
+        return complemento;
+    }
+
+    public void setComplemento(String complemento) {
+        this.complemento = complemento;
+    }
+
+    public String getBairro() {
+        return bairro;
+    }
+
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
+    }
+
+    public String getUF() {
+        return UF;
+    }
+
+    public void setUF(String UF) {
+        this.UF = UF;
+    }
+
+    public String getLocalidade() {
+        return localidade;
+    }
+
+    public void setLocalidade(String localidade) {
+        this.localidade = localidade;
     }
 }

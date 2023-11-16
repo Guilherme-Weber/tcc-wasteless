@@ -19,7 +19,7 @@
         android:padding="16dp">
 
         <ImageView
-            android:id="@+id/imageEmpresa1"
+            android:id="@+id/imageNovoProduto"
             android:layout_width="match_parent"
             android:layout_height="198dp"
             android:background="@drawable/bg_edit_text"

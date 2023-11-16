@@ -1,6 +1,7 @@
 package com.guilhermeweber.wasteless.activity.activity;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -10,6 +11,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -31,7 +33,10 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.guilhermeweber.wasteless.R;
 import com.guilhermeweber.wasteless.activity.helper.ConfigFirebase;
+import com.guilhermeweber.wasteless.activity.helper.Mascara;
 import com.guilhermeweber.wasteless.activity.helper.Permissoes;
+import com.guilhermeweber.wasteless.activity.helper.RESTService;
+import com.guilhermeweber.wasteless.activity.model.CEP;
 import com.guilhermeweber.wasteless.activity.model.Usuario;
 import com.santalu.maskedittext.MaskEditText;
 import com.squareup.picasso.Picasso;
@@ -40,9 +45,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ConfigUsuarioActivity extends AppCompatActivity implements View.OnClickListener {
     private static final int SELECAO_GALERIA = 200;
+    private final String URL = "https://viacep.com.br/ws/";
+    Usuario usuario = new Usuario();
+    private Retrofit retrofitCEP;
     private CircleImageView imageUsuario;
     private EditText editTextNomeUsuario, editTextUsuarioCEP, editTextUsuarioEndereco, editTextLogradouroConfig, editTextComplementoConfig, editTextBairroConfig, editTextUFConfig, editTextCidadeConfig;
     private MaskEditText editTextTelefone;
@@ -77,6 +90,14 @@ public class ConfigUsuarioActivity extends AppCompatActivity implements View.OnC
         setSupportActionBar(toolbar);
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+
+        editTextUsuarioCEP.addTextChangedListener(Mascara.insert(Mascara.MASCARA_CEP, editTextUsuarioCEP));
+
+        //configura os recursos do retrofit
+        retrofitCEP = new Retrofit.Builder().baseUrl(URL)                                       //endereço do webservice
+                .addConverterFactory(GsonConverterFactory.create()) //conversor
+                .build();
+
         imageUsuario.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,6 +113,7 @@ public class ConfigUsuarioActivity extends AppCompatActivity implements View.OnC
     }
 
     private void recuperarDados() {
+
         DatabaseReference usuarioRef = firebaseRef.child("usuarios").child(idLogUsuario);
         usuarioRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -99,9 +121,9 @@ public class ConfigUsuarioActivity extends AppCompatActivity implements View.OnC
                 if (snapshot.getValue() != null) {
 
                     Usuario usuario = snapshot.getValue(Usuario.class);
+
                     editTextNomeUsuario.setText(usuario.getNome());
                     editTextUsuarioCEP.setText(usuario.getcEP());
-//                    editTextUsuarioEndereco.setText(usuario.getEndereco());
                     editTextLogradouroConfig.setText(usuario.getLogradouro());
                     editTextComplementoConfig.setText(usuario.getComplemento());
                     editTextBairroConfig.setText(usuario.getBairro());
@@ -155,13 +177,73 @@ public class ConfigUsuarioActivity extends AppCompatActivity implements View.OnC
 
     public void CEP(View view) {
 
+        if (validarCampos()) {
+
+            String cep = editTextUsuarioCEP.getText().toString().trim();
+            usuario.setcEP(cep);
+
+            consultarCEP();
+        }
     }
+
+    private void consultarCEP() {
+
+        String sCep = editTextUsuarioCEP.getText().toString().trim();
+
+        //removendo o ponto e o traço do padrão CEP
+        sCep = sCep.replaceAll("[.-]+", "");
+
+        //instanciando a interface
+        RESTService restService = retrofitCEP.create(RESTService.class);
+
+        //passando os dados para consulta
+        Call<CEP> call = restService.consultarCEP(sCep);
+
+        //colocando a requisição na fila para execução
+        call.enqueue(new Callback<CEP>() {
+            @Override
+            public void onResponse(Call<CEP> call, Response<CEP> response) {
+                if (response.isSuccessful()) {
+                    CEP cep = response.body();
+                    editTextLogradouroConfig.setText(cep.getLogradouro());
+                    editTextComplementoConfig.setText(cep.getComplemento());
+                    editTextBairroConfig.setText(cep.getBairro());
+                    editTextUFConfig.setText(cep.getUf());
+                    editTextCidadeConfig.setText(cep.getLocalidade());
+                    Toast.makeText(getApplicationContext(), "CEP consultado com sucesso", Toast.LENGTH_LONG).show();
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CEP> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "Ocorreu um erro ao tentar consultar o CEP. Erro: " + t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private Boolean validarCampos() {
+
+        Boolean status = true;
+        String cep = editTextUsuarioCEP.getText().toString().trim();
+
+        if (cep.isEmpty()) {
+            editTextUsuarioCEP.setError("Digite um CEP válido.");
+            status = false;
+        }
+
+        if ((cep.length() > 1) && (cep.length() < 10)) {
+            editTextUsuarioCEP.setError("O CEP deve possuir 8 dígitos");
+            status = false;
+        }
+        return status;
+    }
+
 
     public void validarDadosUsuario(View view) {
 
         String fone = "";
         String nome = editTextNomeUsuario.getText().toString();
-//        String endereco = editTextUsuarioEndereco.getText().toString();
         String cEP = editTextUsuarioCEP.getText().toString();
         String logradouro = editTextLogradouroConfig.getText().toString();
         String complemento = editTextComplementoConfig.getText().toString();
@@ -179,11 +261,8 @@ public class ConfigUsuarioActivity extends AppCompatActivity implements View.OnC
 //      if (!cEP.isEmpty()) {
 //      if (!telefone.isEmpty() && fone.length() >= 10) {
 
-        Usuario usuario = new Usuario();
-
         usuario.setId(idLogUsuario);
         usuario.setNome(nome);
-//      usuario.setEndereco(endereco);
         usuario.setcEP(cEP);
         usuario.setLogradouro(logradouro);
         usuario.setComplemento(complemento);
@@ -192,7 +271,6 @@ public class ConfigUsuarioActivity extends AppCompatActivity implements View.OnC
         usuario.setLocalidade(cidade);
 
         usuario.setTelefone(telefone);
-        usuario.setTipo("E");
 
         for (int i = 0; i < listaFotosRec.size(); ++i) {
             String urlImagem = listaFotosRec.get(i);
@@ -226,7 +304,6 @@ public class ConfigUsuarioActivity extends AppCompatActivity implements View.OnC
 
     private void iniciarComponentes() {
         editTextNomeUsuario = findViewById(R.id.editTextNomeUsuario);
-//        editTextUsuarioEndereco = findViewById(R.id.editTextUsuarioEndereco);
         editTextUsuarioCEP = findViewById(R.id.editTextUsuarioCEP);
         editTextLogradouroConfig = findViewById(R.id.editTextLogradouroConfig);
         editTextComplementoConfig = findViewById(R.id.editTextComplementoConfig);
@@ -263,30 +340,30 @@ public class ConfigUsuarioActivity extends AppCompatActivity implements View.OnC
         });
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+//    @Override
+//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+//
+//        for (int permissaoResultado : grantResults) {
+//            if (permissaoResultado == PackageManager.PERMISSION_DENIED) {
+////                alertPermissao();
+//            }
+//        }
+//    }
 
-        for (int permissaoResultado : grantResults) {
-            if (permissaoResultado == PackageManager.PERMISSION_DENIED) {
-                alertPermissao();
-            }
-        }
-    }
-
-    private void alertPermissao() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Permissões Negadas");
-        builder.setMessage("Para utilizar o app é necessário aceitar as permissões");
-        builder.setCancelable(false);
-        builder.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                finish();
-            }
-        });
-
-        AlertDialog dialog = builder.create();
-        dialog.show();
-    }
+//    private void alertPermissao() {
+//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//        builder.setTitle("Permissões Negadas");
+//        builder.setMessage("Para utilizar o app é necessário aceitar as permissões");
+//        builder.setCancelable(false);
+//        builder.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                finish();
+//            }
+//        });
+//
+//        AlertDialog dialog = builder.create();
+//        dialog.show();
+//    }
 }

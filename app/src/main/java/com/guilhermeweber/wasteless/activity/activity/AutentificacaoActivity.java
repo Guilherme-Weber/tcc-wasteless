@@ -1,8 +1,18 @@
 package com.guilhermeweber.wasteless.activity.activity;
 
+import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
+import static android.Manifest.permission.ACCESS_FINE_LOCATION;
+import static android.Manifest.permission.INTERNET;
+import static android.Manifest.permission.POST_NOTIFICATIONS;
+import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
+import static android.Manifest.permission.READ_MEDIA_IMAGES;
+
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -12,8 +22,11 @@ import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -25,17 +38,38 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.guilhermeweber.wasteless.R;
 import com.guilhermeweber.wasteless.activity.helper.ConfigFirebase;
+import com.guilhermeweber.wasteless.activity.helper.Permissoes;
 import com.guilhermeweber.wasteless.activity.model.Usuario;
 
 public class AutentificacaoActivity extends AppCompatActivity {
 
+    private static final int PERMISSION_REQUEST_CODE = 200;
+    private String[] permissoes = new String[]{Manifest.permission.INTERNET};
+    private String[] permissoes2 = new String[]{Manifest.permission.ACCESS_NETWORK_STATE};
+    private String[] permissoes3 = new String[]{READ_EXTERNAL_STORAGE};
+    private String[] permissoes4 = new String[]{POST_NOTIFICATIONS};
+    private String[] permissoes5 = new String[]{READ_MEDIA_IMAGES};
+    private String[] permissoes6 = new String[]{ACCESS_COARSE_LOCATION};
+    private String[] permissoes7 = new String[]{ACCESS_FINE_LOCATION};
     private Button botaoAcessar, buttonCadastrar;
     private EditText campoEmail, campoSenha, campoNome;
     private Switch tipoAcesso, tipoUsuario;
     private LinearLayout linearTipoUsuario;
     private FirebaseAuth auth;
     private AlertDialog dialog = null;
-
+    private ActivityResultLauncher<String> requestPermissionLauncher =
+            registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
+                if (isGranted) {
+                    // Permission is granted. Continue the action or workflow in your
+                    // app.
+                } else {
+                    // Explain to the user that the feature is unavailable because the
+                    // feature requires a permission that the user has denied. At the
+                    // same time, respect the user's decision. Don't link to system
+                    // settings in an effort to convince the user to change their
+                    // decision.
+                }
+            });
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +86,21 @@ public class AutentificacaoActivity extends AppCompatActivity {
 //            Usuario.redirectUser(AutentificacaoActivity.this);
         }
 
+        requestPermissionLauncher.launch(POST_NOTIFICATIONS);
+        requestPermissionLauncher.launch(READ_MEDIA_IMAGES);
+        requestPermissionLauncher.launch(INTERNET);
+        requestPermissionLauncher.launch(READ_EXTERNAL_STORAGE);
+        requestPermissionLauncher.launch(ACCESS_COARSE_LOCATION);
+        requestPermissionLauncher.launch(ACCESS_FINE_LOCATION);
+
+        Permissoes.validarPermissoes(permissoes, this, 1);
+        Permissoes.validarPermissoes(permissoes2, this, 1);
+        Permissoes.validarPermissoes(permissoes3, this, 1);
+        Permissoes.validarPermissoes(permissoes4, this, 1);
+        Permissoes.validarPermissoes(permissoes5, this, 1);
+        Permissoes.validarPermissoes(permissoes6, this, 1);
+        Permissoes.validarPermissoes(permissoes7, this, 1);
+
         setContentView(R.layout.activity_autentificacao);
 
         //ideia pra a o carregamento mais suave da tela de login
@@ -59,6 +108,8 @@ public class AutentificacaoActivity extends AppCompatActivity {
 
         inicializarComponentes();
         auth = ConfigFirebase.getFireAuth();
+
+        ActivityCompat.requestPermissions(this, new String[]{POST_NOTIFICATIONS, READ_MEDIA_IMAGES, INTERNET, READ_EXTERNAL_STORAGE, ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION}, PERMISSION_REQUEST_CODE);
 
         //forsa o usuario ja logado a deslogar
         //auth.signOut();
@@ -104,8 +155,7 @@ public class AutentificacaoActivity extends AppCompatActivity {
                 usuario.setEmail(email);
                 usuario.setSenha(senha);
                 usuario.setTipo(verificaUsuario());
-
-
+                
                 //verifica se os campos estão vazios
                 if (!email.isEmpty()) {
                     if (!senha.isEmpty()) {
@@ -224,5 +274,32 @@ public class AutentificacaoActivity extends AppCompatActivity {
 
 
         return result;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        for (int permissaoResultado : grantResults) {
+            if (permissaoResultado == PackageManager.PERMISSION_DENIED) {
+//                alertPermissao();
+            }
+        }
+    }
+
+    private void alertPermissao() {
+        androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(this);
+        builder.setTitle("Permissões Negadas");
+        builder.setMessage("Para utilizar o app é necessário aceitar as permissões");
+        builder.setCancelable(false);
+        builder.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+            }
+        });
+
+        androidx.appcompat.app.AlertDialog dialog = builder.create();
+        dialog.show();
     }
 }

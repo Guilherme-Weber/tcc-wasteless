@@ -1,6 +1,15 @@
 package com.guilhermeweber.wasteless.activity.activity;
 
+import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
+import static android.Manifest.permission.ACCESS_FINE_LOCATION;
+import static android.Manifest.permission.INTERNET;
+import static android.Manifest.permission.POST_NOTIFICATIONS;
+import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
+import static android.Manifest.permission.READ_MEDIA_IMAGES;
+
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -9,45 +18,26 @@ import android.widget.Toast;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.guilhermeweber.wasteless.R;
+import com.guilhermeweber.wasteless.activity.helper.Permissoes;
 import com.guilhermeweber.wasteless.activity.model.Usuario;
 
 import android.Manifest;
 
 public class SplashActivity extends AppCompatActivity {
 
-    private ActivityResultLauncher<String> requestPermissionLauncher = registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
-        if (isGranted) {
-            // Permission is granted. Continue the action or workflow in your
-            // app.
-        } else {
-            // Explain to the user that the feature is unavailable because the
-            // feature requires a permission that the user has denied. At the
-            // same time, respect the user's decision. Don't link to system
-            // settings in an effort to convince the user to change their
-            // decision.
-        }
-    });
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-
-        requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS);
-        requestPermissionLauncher.launch(Manifest.permission.READ_MEDIA_IMAGES);
-        requestPermissionLauncher.launch(Manifest.permission.INTERNET);
-        requestPermissionLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE);
-        requestPermissionLauncher.launch(Manifest.permission.ACCESS_COARSE_LOCATION);
-        requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION);
-
-
-        //https://www.youtube.com/watch?v=M7z2MFoI6MQ
 
         FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
             @Override
@@ -106,6 +96,5 @@ public class SplashActivity extends AppCompatActivity {
             startActivity(i);
             finish();
         }
-
     }
 }

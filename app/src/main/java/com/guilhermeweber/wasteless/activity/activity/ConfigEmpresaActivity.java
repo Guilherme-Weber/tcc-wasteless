@@ -47,7 +47,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ConfigEmpresaActivity extends AppCompatActivity implements View.OnClickListener {
     private static final int SELECAO_GALERIA = 200;
-    private EditText editTextEmpresaNome, editTextEmpresaTempo;
+    private EditText editTextNomeEmpresa, editTextEmpresaCEP, editTextEmpresaTempo, editTextNomeUsuario, editTextUsuarioCEP, editTextUsuarioEndereco, editTextLogradouroConfig, editTextComplementoConfig, editTextBairroConfig, editTextUFConfig, editTextCidadeConfig;
     private Spinner spinnerEmpresaCategoria;
     private MaskEditText editTextNumeroTelefone;
     private CurrencyEditText editTextEmpresaTaxa;
@@ -65,7 +65,7 @@ public class ConfigEmpresaActivity extends AppCompatActivity implements View.OnC
         setContentView(R.layout.activity_config_empresa);
 
         //Validar Permissões
-        Permissoes.validarPermissoes(permissoes, this, 1);
+//        Permissoes.validarPermissoes(permissoes, this, 1);
 
         iniciarComponentes();
 
@@ -77,7 +77,7 @@ public class ConfigEmpresaActivity extends AppCompatActivity implements View.OnC
 
         //config toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle("Configurações");
+        toolbar.setTitle("Configurações da Empresa");
         setSupportActionBar(toolbar);
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -104,13 +104,21 @@ public class ConfigEmpresaActivity extends AppCompatActivity implements View.OnC
                 if (snapshot.getValue() != null) {
 
                     Empresa empresa = snapshot.getValue(Empresa.class);
-                    editTextEmpresaNome.setText(empresa.getNome());
-                    spinnerEmpresaCategoria.setSelection(empresa.getIdCategoria());
-                    editTextEmpresaTaxa.setValue(empresa.getPrecoEntrega());
-                    editTextNumeroTelefone.setText(empresa.getTelefone());
-                    editTextEmpresaTempo.setText(empresa.getTempo());
+                    Usuario usuario = snapshot.getValue(Usuario.class);
 
-                    urlImagemSelecionada = empresa.getUrlImagem();
+                    spinnerEmpresaCategoria.setSelection(empresa.getIdCategoria());
+
+                    editTextNomeEmpresa.setText(usuario.getNome());
+                    editTextEmpresaCEP.setText(usuario.getcEP());
+                    editTextLogradouroConfig.setText(usuario.getLogradouro());
+                    editTextComplementoConfig.setText(usuario.getComplemento());
+                    editTextBairroConfig.setText(usuario.getBairro());
+                    editTextUFConfig.setText(usuario.getUF());
+                    editTextCidadeConfig.setText(usuario.getLocalidade());
+
+                    editTextNumeroTelefone.setText(usuario.getTelefone());
+
+                    urlImagemSelecionada = usuario.getUrlImagem();
 
                     if (urlImagemSelecionada != "") {
                         Picasso.get().load(urlImagemSelecionada).into(imagePerfilEmpresa);
@@ -129,7 +137,7 @@ public class ConfigEmpresaActivity extends AppCompatActivity implements View.OnC
     public void onClick(View v) {
 
         int needif = v.getId();
-        if (needif == R.id.imageEmpresa1) {
+        if (needif == R.id.imageEmpresa2) {
             escolherImagem(1);
         }
     }
@@ -153,61 +161,86 @@ public class ConfigEmpresaActivity extends AppCompatActivity implements View.OnC
         listaFotosRec.add(caminhoImagem);
     }
 
+    public void CEP(View view) {
+
+    }
+
     public void validarDadosEmpresa(View view) {
 
         String fone = "";
-        String nome = editTextEmpresaNome.getText().toString();
+        String nome = editTextNomeUsuario.getText().toString();
+        String cEP = editTextEmpresaCEP.getText().toString();
+        String logradouro = editTextLogradouroConfig.getText().toString();
+        String complemento = editTextComplementoConfig.getText().toString();
+        String bairro = editTextBairroConfig.getText().toString();
+        String uF = editTextUFConfig.getText().toString();
+        String cidade = editTextCidadeConfig.getText().toString();
+
         String categoriaText = spinnerEmpresaCategoria.getSelectedItem().toString();
         Integer categoria = spinnerEmpresaCategoria.getSelectedItemPosition();
-        String taxa = String.valueOf(editTextEmpresaTaxa.getRawValue());
-        String tempo = editTextEmpresaTempo.getText().toString();
 
         String telefone = editTextNumeroTelefone.getText().toString();
         if (editTextNumeroTelefone.getRawText() != null) {
             fone = editTextNumeroTelefone.getRawText().toString();
         }
 
-        if (listaFotosRec.size() != 0) {
-            if (!nome.isEmpty()) {
-                if (categoria != null) {
-                    if (!taxa.isEmpty() && !taxa.equals("0")) {
-                        if (!tempo.isEmpty()) {
-                            if (!telefone.isEmpty() && fone.length() >= 10) {
-                                Empresa empresa = new Empresa();
+//      if (listaFotosRec.size() != 0) {
+//      if (!nome.isEmpty()) {
+//      if (categoria != null) {
+//      if (!taxa.isEmpty() && !taxa.equals("0")) {
+//      if (!tempo.isEmpty()) {
+//      if (!telefone.isEmpty() && fone.length() >= 10) {
 
-                                empresa.setIdEmpresa(idLogUsuario);
-                                empresa.setNome(nome);
-                                empresa.setPrecoEntrega(Long.parseLong(taxa));
-                                empresa.setCategoria(categoriaText);
-                                empresa.setIdCategoria(categoria);
-                                empresa.setTempo(tempo);
-                                empresa.setTelefone(telefone);
+        Empresa empresa = new Empresa();
+        Usuario usuario = new Usuario();
 
-                                for (int i = 0; i < listaFotosRec.size(); ++i) {
-                                    String urlImagem = listaFotosRec.get(i);
-                                    int tamanhoLista = listaFotosRec.size();
-                                    salvarFotoStorage(urlImagem, tamanhoLista, i);
-                                }
-                                empresa.salvar();
+        usuario.setId(idLogUsuario);
+        usuario.setNome(nome);
+        usuario.setcEP(cEP);
+        usuario.setLogradouro(logradouro);
+        usuario.setComplemento(complemento);
+        usuario.setBairro(bairro);
+        usuario.setUF(uF);
+        usuario.setLocalidade(cidade);
 
-                            } else {
-                                mensagemToast("Preencha o campo telefone");
-                            }
-                        } else {
-                            mensagemToast("Digite o tempo de entrega");
-                        }
-                    } else {
-                        mensagemToast("Digite a taxa de entrega da empresa");
-                    }
-                } else {
-                    mensagemToast("Selecione a categoria em que a empresa opera");
-                }
-            } else {
-                mensagemToast("Preencha o nome para a empresa");
-            }
-        } else {
-            mensagemToast("Selecione uma imagem para a empresa");
+        empresa.setCategoria(categoriaText);
+        empresa.setIdCategoria(categoria);
+
+        empresa.setNome(nome);
+        empresa.setcEP(cEP);
+        empresa.setLogradouro(logradouro);
+        empresa.setComplemento(complemento);
+        empresa.setBairro(bairro);
+        empresa.setUF(uF);
+        empresa.setLocalidade(cidade);
+
+        for (int i = 0; i < listaFotosRec.size(); ++i) {
+            String urlImagem = listaFotosRec.get(i);
+            int tamanhoLista = listaFotosRec.size();
+            salvarFotoStorage(urlImagem, tamanhoLista, i);
         }
+
+        usuario.salvar();
+        empresa.salvar();
+
+//      } else {
+//          mensagemToast("Preencha o campo telefone");
+//      }
+//      } else {
+//          mensagemToast("Digite o tempo de entrega");
+//      }
+//      } else {
+//          mensagemToast("Digite a taxa de entrega da empresa");
+//      }
+//      } else {
+//          mensagemToast("Selecione a categoria em que a empresa opera");
+//      }
+//      } else {
+//          mensagemToast("Preencha o nome para a empresa");
+//      }
+//      } else {
+//          mensagemToast("Selecione uma imagem para a empresa");
+//      }
     }
 
     private void mensagemToast(String texto) {
@@ -215,25 +248,30 @@ public class ConfigEmpresaActivity extends AppCompatActivity implements View.OnC
     }
 
     private void iniciarComponentes() {
-        editTextEmpresaNome = findViewById(R.id.editTextEmpresaNome);
-        editTextEmpresaTempo = findViewById(R.id.editTextEmpresaTempo);
-        editTextNumeroTelefone = findViewById(R.id.editTextNumeroTelefone);
-        spinnerEmpresaCategoria = findViewById(R.id.spinnerProdutoCategoria);
 
-        imagePerfilEmpresa = findViewById(R.id.imageEmpresa1);
+        editTextNomeEmpresa = findViewById(R.id.editTextNomeEmpresa);
+        editTextEmpresaCEP = findViewById(R.id.editTextEmpresaCEP);
+        editTextLogradouroConfig = findViewById(R.id.editTextLogradouroConfig);
+        editTextComplementoConfig = findViewById(R.id.editTextComplementoConfig);
+        editTextBairroConfig = findViewById(R.id.editTextBairroConfig);
+        editTextUFConfig = findViewById(R.id.editTextUFConfig);
+        editTextCidadeConfig = findViewById(R.id.editTextCidadeConfig);
+        editTextNumeroTelefone = findViewById(R.id.editTextTelefone);
+
+        imagePerfilEmpresa = findViewById(R.id.imageEmpresa2);
         imagePerfilEmpresa.setOnClickListener(this);
 
-        editTextEmpresaTaxa = findViewById(R.id.editTextPrecoProduto);
-        Locale locale = new Locale("pt", "BR");
-        editTextEmpresaTaxa.setLocale(locale);
+        spinnerEmpresaCategoria = findViewById(R.id.spinnerEmpresaCategoria);
+
     }
 
     private void carregarDadosSpinner() {
 
-        String[] categorias = new String[]{"Padaria", "Comercio em Geral", "Opção 3", "Opção 4", "Opção 5"};
+        String[] categorias = new String[]{"Padaria", "Comercio em Geral", "Autônomo", "Hotelaria"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, categorias);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerEmpresaCategoria.setAdapter(adapter);
+
     }
 
     private void salvarFotoStorage(String urlString, int totalFotos, int contador) {
@@ -260,16 +298,16 @@ public class ConfigEmpresaActivity extends AppCompatActivity implements View.OnC
         });
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-        for (int permissaoResultado : grantResults) {
-            if (permissaoResultado == PackageManager.PERMISSION_DENIED) {
-//                alertPermissao();
-            }
-        }
-    }
+//    @Override
+//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+//
+//        for (int permissaoResultado : grantResults) {
+//            if (permissaoResultado == PackageManager.PERMISSION_DENIED) {
+////                alertPermissao();
+//            }
+//        }
+//    }
 
 //    private void alertPermissao() {
 //        AlertDialog.Builder builder = new AlertDialog.Builder(this);

@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.guilhermeweber.wasteless.R;
 import com.guilhermeweber.wasteless.activity.model.Empresa;
+import com.guilhermeweber.wasteless.activity.model.Usuario;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -40,7 +41,7 @@ public class AdapterEmpresa extends RecyclerView.Adapter<AdapterEmpresa.MyViewHo
 
         holder.nomeEmpresa.setText(empresa.getNome());
         holder.categoria.setText(empresa.getCategoria() + " - ");
-        holder.tempo.setText(empresa.getTempo() + " Min");
+        holder.tempo.setText(empresa.getBairro());
 //        holder.entrega.setText("R$ " + empresa.getPrecoEntrega().toString());
 
         //recuperar imagem
