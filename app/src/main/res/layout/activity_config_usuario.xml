@@ -70,6 +70,15 @@
 
         </LinearLayout>
 
+        <EditText
+            android:id="@+id/editTextEmailUsuConfig"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-2dp"
+            android:ems="10"
+            android:hint="Email"
+            android:inputType="text"
+            android:textColor="@color/quad" />
 
         <EditText
             android:id="@+id/editTextLogradouroConfig"

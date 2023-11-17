@@ -137,6 +137,7 @@ public class CadastroEnderecoActivity extends AppCompatActivity {
         usuario.setLocalidade(Localidade);
 
         empresa.setLogradouro(Logradouro);
+        empresa.setEmail(usuario.getEmail());
         empresa.setComplemento(Complemento);
         empresa.setBairro(Bairro);
         empresa.setUF(UF);

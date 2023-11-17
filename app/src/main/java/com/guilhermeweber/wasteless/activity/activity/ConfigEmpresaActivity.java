@@ -48,7 +48,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ConfigEmpresaActivity extends AppCompatActivity implements View.OnClickListener {
     private static final int SELECAO_GALERIA = 200;
-    private EditText editTextNomeEmpresa, editTextEmpresaCEP, editTextEmpresaTempo, editTextNomeUsuario, editTextUsuarioCEP, editTextUsuarioEndereco, editTextLogradouroConfig, editTextComplementoConfig, editTextBairroConfig, editTextUFConfig, editTextCidadeConfig;
+    private EditText editTextEmailEmpConfig, editTextNomeEmpresa, editTextEmpresaCEP, editTextEmpresaTempo, editTextNomeUsuario, editTextUsuarioCEP, editTextUsuarioEndereco, editTextLogradouroConfig, editTextComplementoConfig, editTextBairroConfig, editTextUFConfig, editTextCidadeConfig;
     private Spinner spinnerEmpresaCategoria;
     private MaskEditText editTextNumeroTelefone;
     private CurrencyEditText editTextEmpresaTaxa;
@@ -139,7 +139,7 @@ public class ConfigEmpresaActivity extends AppCompatActivity implements View.OnC
 
         if (v.getId() == R.id.imageEmpresa2) {
             escolherImagem(1);
-        }else if (v.getId() == android.R.id.home) {
+        } else if (v.getId() == android.R.id.home) {
             Intent intent = new Intent(ConfigEmpresaActivity.this, HomeActivity.class);
             startActivity(intent);
         }
@@ -178,6 +178,7 @@ public class ConfigEmpresaActivity extends AppCompatActivity implements View.OnC
         String bairro = editTextBairroConfig.getText().toString();
         String uF = editTextUFConfig.getText().toString();
         String cidade = editTextCidadeConfig.getText().toString();
+        String email = editTextEmailEmpConfig.getText().toString();
 
         String categoriaText = spinnerEmpresaCategoria.getSelectedItem().toString();
         Integer categoria = spinnerEmpresaCategoria.getSelectedItemPosition();
@@ -199,6 +200,7 @@ public class ConfigEmpresaActivity extends AppCompatActivity implements View.OnC
 
         usuario.setId(idLogUsuario);
         usuario.setNome(nome);
+        usuario.setEmail(email);
         usuario.setcEP(cEP);
         usuario.setLogradouro(logradouro);
         usuario.setComplemento(complemento);
@@ -206,10 +208,13 @@ public class ConfigEmpresaActivity extends AppCompatActivity implements View.OnC
         usuario.setUF(uF);
         usuario.setLocalidade(cidade);
 
+        usuario.setTipo("E");
+
         empresa.setCategoria(categoriaText);
         empresa.setIdCategoria(categoria);
 
         empresa.setNome(nome);
+        empresa.setEmail(email);
         empresa.setcEP(cEP);
         empresa.setLogradouro(logradouro);
         empresa.setComplemento(complemento);
@@ -260,6 +265,8 @@ public class ConfigEmpresaActivity extends AppCompatActivity implements View.OnC
         editTextUFConfig = findViewById(R.id.editTextUFConfig);
         editTextCidadeConfig = findViewById(R.id.editTextCidadeConfig);
         editTextNumeroTelefone = findViewById(R.id.editTextTelefone);
+
+        editTextEmailEmpConfig = findViewById(R.id.editTextEmailEmpConfig);
 
         imagePerfilEmpresa = findViewById(R.id.imageEmpresa2);
         imagePerfilEmpresa.setOnClickListener(this);

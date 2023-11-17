@@ -58,7 +58,7 @@ public class ConfigUsuarioActivity extends AppCompatActivity implements View.OnC
     Usuario usuario = new Usuario();
     private Retrofit retrofitCEP;
     private CircleImageView imageUsuario;
-    private EditText editTextNomeUsuario, editTextUsuarioCEP, editTextUsuarioEndereco, editTextLogradouroConfig, editTextComplementoConfig, editTextBairroConfig, editTextUFConfig, editTextCidadeConfig;
+    private EditText editTextEmailUsuConfig, editTextNomeUsuario, editTextUsuarioCEP, editTextUsuarioEndereco, editTextLogradouroConfig, editTextComplementoConfig, editTextBairroConfig, editTextUFConfig, editTextCidadeConfig;
     private MaskEditText editTextTelefone;
     private StorageReference storageReference;
     private DatabaseReference firebaseRef;
@@ -252,6 +252,8 @@ public class ConfigUsuarioActivity extends AppCompatActivity implements View.OnC
         String uF = editTextUFConfig.getText().toString();
         String cidade = editTextCidadeConfig.getText().toString();
         String telefone = editTextTelefone.getText().toString();
+        String email = editTextEmailUsuConfig.getText().toString();
+
         if (editTextTelefone.getRawText() != null) {
             fone = editTextTelefone.getRawText().toString();
         }
@@ -264,12 +266,15 @@ public class ConfigUsuarioActivity extends AppCompatActivity implements View.OnC
 
         usuario.setId(idLogUsuario);
         usuario.setNome(nome);
+        usuario.setEmail(email);
         usuario.setcEP(cEP);
         usuario.setLogradouro(logradouro);
         usuario.setComplemento(complemento);
         usuario.setBairro(bairro);
         usuario.setUF(uF);
         usuario.setLocalidade(cidade);
+
+        usuario.setTipo("U");
 
         usuario.setTelefone(telefone);
 
@@ -312,6 +317,8 @@ public class ConfigUsuarioActivity extends AppCompatActivity implements View.OnC
         editTextUFConfig = findViewById(R.id.editTextUFConfig);
         editTextCidadeConfig = findViewById(R.id.editTextCidadeConfig);
         editTextTelefone = findViewById(R.id.editTextTelefone);
+
+        editTextEmailUsuConfig = findViewById(R.id.editTextEmailUsuConfig);
 
         imageUsuario = findViewById(R.id.imageUsuario);
         imageUsuario.setOnClickListener(this);
