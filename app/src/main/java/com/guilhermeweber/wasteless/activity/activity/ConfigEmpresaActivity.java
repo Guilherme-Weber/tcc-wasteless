@@ -10,6 +10,7 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -64,6 +65,16 @@ public class ConfigEmpresaActivity extends AppCompatActivity implements View.OnC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_config_empresa);
 
+        //Botão voltar para a tela inicial
+        Button buttonVoltarConfigEmp = findViewById(R.id.buttonVoltarConfigEmp);
+
+        buttonVoltarConfigEmp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ConfigEmpresaActivity.this, HomeActivity.class);
+                startActivity(intent);
+            }
+        });
         //Validar Permissões
 //        Permissoes.validarPermissoes(permissoes, this, 1);
 

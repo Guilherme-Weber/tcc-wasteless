@@ -12,6 +12,7 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -71,6 +72,17 @@ public class ConfigUsuarioActivity extends AppCompatActivity implements View.OnC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_config_usuario);
+
+        //Botão voltar para tela inicial
+        Button buttonVoltarConfigUsu = findViewById(R.id.buttonVoltarConfigUsu);
+
+        buttonVoltarConfigUsu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ConfigUsuarioActivity.this, HomeActivity.class);
+                startActivity(intent);
+            }
+        });
 
         //Validar Permissões
 

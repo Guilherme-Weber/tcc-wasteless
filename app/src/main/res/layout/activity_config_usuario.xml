@@ -35,7 +35,8 @@
                 android:layout_height="match_parent"
                 android:ems="10"
                 android:hint="Nome"
-                android:inputType="text" />
+                android:inputType="text"
+                android:textColor="@color/quad" />
 
         </LinearLayout>
 
@@ -43,6 +44,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/editTextUsuarioCEP"
+                android:layout_width="268dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-2dp"
+                android:ems="10"
+                android:hint="CEP"
+                android:inputType="number"
+                android:textColor="@color/quad" />
 
             <Button
                 android:id="@+id/btnConsultarCEPConfig"
@@ -57,15 +68,6 @@
                 android:theme="@style/botaoPadrao"
                 app:cornerRadius="10dp" />
 
-            <EditText
-                android:id="@+id/editTextUsuarioCEP"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="-2dp"
-                android:ems="10"
-                android:hint="CEP"
-                android:inputType="number" />
-
         </LinearLayout>
 
 
@@ -76,7 +78,8 @@
             android:layout_marginTop="-2dp"
             android:ems="10"
             android:hint="Logradouro"
-            android:inputType="text" />
+            android:inputType="text"
+            android:textColor="@color/quad" />
 
         <EditText
             android:id="@+id/editTextComplementoConfig"
@@ -85,7 +88,8 @@
             android:layout_marginTop="-2dp"
             android:ems="10"
             android:hint="Complemento"
-            android:inputType="text" />
+            android:inputType="text"
+            android:textColor="@color/quad" />
 
         <EditText
             android:id="@+id/editTextBairroConfig"
@@ -94,26 +98,33 @@
             android:layout_marginTop="-2dp"
             android:ems="10"
             android:hint="Bairro"
-            android:inputType="text" />
+            android:inputType="text"
+            android:textColor="@color/quad" />
 
-        <EditText
-            android:id="@+id/editTextUFConfig"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="-2dp"
-            android:ems="10"
-            android:hint="UF"
-            android:inputType="number" />
+            android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/editTextCidadeConfig"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="-2dp"
-            android:ems="10"
-            android:hint="Cidade"
-            android:inputType="text" />
+            <EditText
+                android:id="@+id/editTextCidadeConfig"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-2dp"
+                android:ems="10"
+                android:hint="Cidade"
+                android:inputType="text" />
 
+            <EditText
+                android:id="@+id/editTextUFConfig"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-2dp"
+                android:ems="10"
+                android:hint="UF"
+                android:inputType="number" />
+
+        </LinearLayout>
 
         <com.santalu.maskedittext.MaskEditText
             android:id="@+id/editTextTelefone"
@@ -142,6 +153,17 @@
             android:textColor="@color/white"
             android:textSize="12sp"
             android:theme="@style/botaoPadrao"
+            app:cornerRadius="10dp" />
+
+        <Button
+            android:id="@+id/buttonVoltarConfigUsu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:padding="16dp"
+            android:text="Voltar"
+            android:textColor="@color/white"
+            android:textSize="12sp"
             app:cornerRadius="10dp" />
 
     </LinearLayout>

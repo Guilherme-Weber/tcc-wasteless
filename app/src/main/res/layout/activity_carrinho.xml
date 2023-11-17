@@ -27,7 +27,7 @@
 
             <ImageView
                 android:id="@+id/voltarCardapio"
-                android:layout_width="wrap_content"
+                android:layout_width="16dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Button"
@@ -35,9 +35,9 @@
 
             <TextView
                 android:id="@+id/textView12"
-                android:layout_width="282dp"
+                android:layout_width="228dp"
                 android:layout_height="43dp"
-                android:text="Carrinho"
+                android:text="Sacola de Compras"
                 android:textAlignment="center"
                 android:textColor="@color/quad"
                 android:textSize="20sp"
@@ -67,8 +67,17 @@
             android:layout_width="match_parent"
             android:layout_height="731dp" />
 
+        <TextView
+            android:id="@+id/Retirada"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Horário de Retirada:"
+            android:textAlignment="center"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
         <Button
-            android:id="@+id/ConfirmarPedido"
+            android:id="@+id/continuarPedidoButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/secundaria"

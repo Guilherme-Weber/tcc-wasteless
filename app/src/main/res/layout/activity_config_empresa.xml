@@ -45,7 +45,7 @@
                 <Spinner
                     android:id="@+id/spinnerEmpresaCategoria"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"/>
 
             </LinearLayout>
 
@@ -56,6 +56,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/editTextEmpresaCEP"
+                android:layout_width="264dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-2dp"
+                android:ems="10"
+                android:hint="CEP"
+                android:inputType="number" />
 
             <Button
                 android:id="@+id/btnConsultarCEPConfig"
@@ -69,15 +78,6 @@
                 android:textSize="12sp"
                 android:theme="@style/botaoPadrao"
                 app:cornerRadius="10dp" />
-
-            <EditText
-                android:id="@+id/editTextEmpresaCEP"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="-2dp"
-                android:ems="10"
-                android:hint="CEP"
-                android:inputType="number" />
 
         </LinearLayout>
 
@@ -109,24 +109,31 @@
             android:hint="Bairro"
             android:inputType="number" />
 
-        <EditText
-            android:id="@+id/editTextUFConfig"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="-2dp"
-            android:ems="10"
-            android:hint="UF"
-            android:inputType="number" />
+            android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/editTextCidadeConfig"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="-2dp"
-            android:ems="10"
-            android:hint="Cidade"
-            android:inputType="number" />
+            <EditText
+                android:id="@+id/editTextCidadeConfig"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-2dp"
+                android:ems="10"
+                android:hint="Cidade"
+                android:inputType="number" />
 
+            <EditText
+                android:id="@+id/editTextUFConfig"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-2dp"
+                android:ems="10"
+                android:hint="UF"
+                android:inputType="number" />
+
+
+        </LinearLayout>
 
         <com.santalu.maskedittext.MaskEditText
             android:id="@+id/editTextTelefone"
@@ -157,6 +164,17 @@
             android:textColor="@color/white"
             android:textSize="12sp"
             android:theme="@style/botaoPadrao"
+            app:cornerRadius="10dp" />
+
+        <Button
+            android:id="@+id/buttonVoltarConfigEmp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:padding="16dp"
+            android:text="Voltar"
+            android:textColor="@color/white"
+            android:textSize="12sp"
             app:cornerRadius="10dp" />
 
     </LinearLayout>
