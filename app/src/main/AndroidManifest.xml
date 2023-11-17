@@ -21,6 +21,9 @@
         android:theme="@style/Theme.WasteLess"
         tools:targetApi="28">
         <activity
+            android:name=".activity.activity.PedidoConfirmadoActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.activity.PagamentoActivity"
             android:exported="false" />
         <activity
