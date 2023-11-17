@@ -65,16 +65,6 @@ public class ConfigEmpresaActivity extends AppCompatActivity implements View.OnC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_config_empresa);
 
-        //Botão voltar para a tela inicial
-        Button buttonVoltarConfigEmp = findViewById(R.id.buttonVoltarConfigEmp);
-
-        buttonVoltarConfigEmp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(ConfigEmpresaActivity.this, HomeActivity.class);
-                startActivity(intent);
-            }
-        });
         //Validar Permissões
 //        Permissoes.validarPermissoes(permissoes, this, 1);
 
@@ -147,9 +137,11 @@ public class ConfigEmpresaActivity extends AppCompatActivity implements View.OnC
     @Override
     public void onClick(View v) {
 
-        int needif = v.getId();
-        if (needif == R.id.imageEmpresa2) {
+        if (v.getId() == R.id.imageEmpresa2) {
             escolherImagem(1);
+        }else if (v.getId() == android.R.id.home) {
+            Intent intent = new Intent(ConfigEmpresaActivity.this, HomeActivity.class);
+            startActivity(intent);
         }
     }
 

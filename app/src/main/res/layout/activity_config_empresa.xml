@@ -45,7 +45,7 @@
                 <Spinner
                     android:id="@+id/spinnerEmpresaCategoria"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content" />
 
             </LinearLayout>
 
@@ -164,17 +164,6 @@
             android:textColor="@color/white"
             android:textSize="12sp"
             android:theme="@style/botaoPadrao"
-            app:cornerRadius="10dp" />
-
-        <Button
-            android:id="@+id/buttonVoltarConfigEmp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:padding="16dp"
-            android:text="Voltar"
-            android:textColor="@color/white"
-            android:textSize="12sp"
             app:cornerRadius="10dp" />
 
     </LinearLayout>

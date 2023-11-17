@@ -73,22 +73,8 @@ public class ConfigUsuarioActivity extends AppCompatActivity implements View.OnC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_config_usuario);
 
-        //Botão voltar para tela inicial
-        Button buttonVoltarConfigUsu = findViewById(R.id.buttonVoltarConfigUsu);
-
-        buttonVoltarConfigUsu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(ConfigUsuarioActivity.this, HomeActivity.class);
-                startActivity(intent);
-            }
-        });
-
         //Validar Permissões
-
-
 //        Permissoes.validarPermissoes(permissoes, this, 1);
-
 
         iniciarComponentes();
 
@@ -100,7 +86,8 @@ public class ConfigUsuarioActivity extends AppCompatActivity implements View.OnC
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("Configurações do Usuário");
         setSupportActionBar(toolbar);
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
 
         editTextUsuarioCEP.addTextChangedListener(Mascara.insert(Mascara.MASCARA_CEP, editTextUsuarioCEP));
@@ -162,9 +149,11 @@ public class ConfigUsuarioActivity extends AppCompatActivity implements View.OnC
     @Override
     public void onClick(View v) {
 
-        int needif = v.getId();
-        if (needif == R.id.imageUsuario) {
+        if (v.getId() == R.id.imageUsuario) {
             escolherImagem(1);
+        } else if (v.getId() == android.R.id.home) {
+            Intent intent = new Intent(ConfigUsuarioActivity.this, HomeActivity.class);
+            startActivity(intent);
         }
     }
 
