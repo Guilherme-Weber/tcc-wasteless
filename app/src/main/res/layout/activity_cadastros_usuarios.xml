@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/primaria"
     android:gravity="center"
+    android:onClick="abrirDialog"
     android:orientation="vertical"
     android:padding="30dp"
     tools:context=".activity.activity.CadastrosUsuariosActivity">
@@ -58,7 +59,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Informe sua senha outra vez"
+        android:hint="Confirme sua senha"
         android:inputType="textPassword"
         android:textColor="@color/quad" />
 
@@ -82,7 +83,7 @@
         android:id="@+id/textView6"
         android:layout_width="match_parent"
         android:layout_height="38dp"
-        android:text="Qual o tipo de cadastro que deseja realizar?"
+        android:text="Qual o tipo de cadastro deseja realizar?"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="14sp" />
@@ -110,11 +111,44 @@
             android:textColorHighlight="@color/secundaria"
             android:textColorLink="@color/secundaria" />
 
-        <TextView
-            android:id="@+id/textView11"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColorHighlight="@color/secundaria" />
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColorHighlight="@color/secundaria" />
+
+            <CheckBox
+                android:id="@+id/checkBoxTermos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="Li e aceito os termos de uso de condições"
+                android:textColor="@color/quad" />
+
+            <TextView
+                android:id="@+id/textTermos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="Termos de uso aqui"
+                android:textAlignment="viewStart"
+                android:textAllCaps="false"
+                android:textSize="11sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView13"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColorHighlight="@color/secundaria" />
+
+        </LinearLayout>
+
     </RadioGroup>
 
     <Button

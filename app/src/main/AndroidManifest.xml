@@ -20,6 +20,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WasteLess"
         tools:targetApi="28">
+        <meta-data
+            android:name="com.google.android.actions"
+            android:resource="@xml/edittext_rounded_bg.xml" />
+
         <activity
             android:name=".activity.activity.PedidoConfirmadoActivity"
             android:exported="false" />

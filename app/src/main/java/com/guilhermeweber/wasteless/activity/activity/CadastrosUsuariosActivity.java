@@ -1,15 +1,20 @@
 package com.guilhermeweber.wasteless.activity.activity;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -35,6 +40,7 @@ public class CadastrosUsuariosActivity extends AppCompatActivity {
     private RadioButton cliente, empresa;
     private Button buttonCadastro;
     private FirebaseAuth auth;
+    private CheckBox checkBoxTermos;
 
     public static boolean stringCompare(String str1, String str2) {
 
@@ -65,11 +71,28 @@ public class CadastrosUsuariosActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastros_usuarios);
 
         Usuario usuario = new Usuario();
+
+        TextView textTermos = findViewById(R.id.textTermos);
+        checkBoxTermos = findViewById(R.id.checkBoxTermos);
+
+        textTermos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Site com os "termos"
+                String url = "https://drive.google.com/drive/folders/1wq6Yj2T7tOTTprB1Mx4pvffnsdeZL1cj";
+
+                //Criando a Intent que irá abrir a URL no navegador
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+
+                //Iniciando a Intent
+                startActivity(intent);
+            }
+        });
 
         inicializarComponentes();
         auth = ConfigFirebase.getFireAuth();
@@ -109,8 +132,20 @@ public class CadastrosUsuariosActivity extends AppCompatActivity {
 //                                      Toast.makeText(CadastrosUsuariosActivity.this, "Cliente: " + usuario.getTipo(), Toast.LENGTH_SHORT).show();
 
 //                                      Toast.makeText(CadastrosUsuariosActivity.this, "Senha: " + usuario.getSenha(), Toast.LENGTH_SHORT).show();
+                                        // Se tudo estiver válido, verifica o CheckBox
+                                        if (checkBoxTermos.isChecked()) {
+                                            // Continua com o restante da lógica para verificar senhadenovo, enviar para o servidor, etc.
+                                            // ...
+
+                                        } else {
+                                            // Se o CheckBox não estiver marcado, exibe um alerta
+                                            exibirAlerta();
+                                        }
+
 
                                         // envia pro servidor o email e senha pra cadastro
+                                        // Verifica se o CheckBox está marcado antes de ir para a próxima tela
+
                                         auth.createUserWithEmailAndPassword(usuario.getEmail(), usuario.getSenha()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                             @Override
                                             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -200,6 +235,22 @@ public class CadastrosUsuariosActivity extends AppCompatActivity {
 
     public String verificaUsuario() {
         return cliente.isChecked() ? "U" : "E";
+    }
+
+    private void exibirAlerta() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Alerta");
+        builder.setMessage("Você precisa concordar com os termos de uso");
+
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Ação a ser tomada ao clicar em OK no alerta
+            }
+        });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 
 }
