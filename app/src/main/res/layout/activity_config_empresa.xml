@@ -19,47 +19,35 @@
         android:padding="16dp">
 
         <LinearLayout
-            android:layout_width="271dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imageEmpresa2"
+                android:layout_width="107dp"
+                android:layout_height="92dp"
+                android:ems="10" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <com.google.android.material.textfield.TextInputLayout
+                <EditText
+                    android:id="@+id/editTextNomeEmpresa"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:boxCornerRadiusBottomEnd="8dp"
-                    app:boxCornerRadiusBottomStart="8dp"
-                    app:boxCornerRadiusTopEnd="8dp"
-                    app:boxCornerRadiusTopStart="8dp">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/editTextNomeEmpresa"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Nome"
-                        android:inputType="text" />
-
-                </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_height="match_parent"
+                    android:ems="10"
+                    android:hint="Nome"
+                    android:inputType="text" />
 
                 <Spinner
                     android:id="@+id/spinnerEmpresaCategoria"
-                    android:layout_width="267dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp" />
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
             </LinearLayout>
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/imageEmpresa2"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginEnd="16dp"
-                android:src="@drawable/ic_launcher_foreground" />
 
 
         </LinearLayout>
@@ -72,7 +60,7 @@
             <EditText
                 android:id="@+id/editTextEmpresaCEP"
                 android:layout_width="264dp"
-                android:layout_height="39dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="-2dp"
                 android:ems="10"
                 android:hint="CEP"
@@ -80,7 +68,7 @@
 
             <Button
                 android:id="@+id/btnConsultarCEPConfig"
-                android:layout_width="114dp"
+                android:layout_width="107dp"
                 android:layout_height="50dp"
                 android:backgroundTint="@color/quad"
                 android:onClick="CEP"
@@ -96,58 +84,50 @@
         <EditText
             android:id="@+id/editTextEmailEmpConfig"
             android:layout_width="match_parent"
-            android:layout_height="39dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="-2dp"
             android:ems="10"
             android:hint="Email"
             android:inputType="text"
-            android:layout_marginBottom="8dp"
             android:textColor="@color/quad" />
 
         <EditText
             android:id="@+id/editTextLogradouroConfig"
             android:layout_width="match_parent"
-            android:layout_height="39dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="-2dp"
             android:ems="10"
             android:hint="Logradouro"
-            android:inputType="text"
-            android:layout_marginBottom="8dp"
-            />
+            android:inputType="number" />
 
         <EditText
             android:id="@+id/editTextComplementoConfig"
             android:layout_width="match_parent"
-            android:layout_height="39dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="-2dp"
             android:ems="10"
             android:hint="Complemento"
-            android:inputType="number"
-            android:layout_marginBottom="8dp"
-            />
+            android:inputType="number" />
 
         <EditText
             android:id="@+id/editTextBairroConfig"
             android:layout_width="match_parent"
-            android:layout_height="39dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="-2dp"
             android:ems="10"
             android:hint="Bairro"
-            android:inputType="number"
-            android:layout_marginBottom="8dp"
-            />
+            android:inputType="number" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="49dp"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <EditText
                 android:id="@+id/editTextCidadeConfig"
                 android:layout_width="300dp"
-                android:layout_height="39dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="-2dp"
-                android:layout_marginBottom="8dp"
                 android:ems="10"
                 android:hint="Cidade"
                 android:inputType="number" />
@@ -155,12 +135,11 @@
             <EditText
                 android:id="@+id/editTextUFConfig"
                 android:layout_width="match_parent"
-                android:layout_height="39dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="-2dp"
                 android:ems="10"
                 android:hint="UF"
-                android:inputType="number"
-                android:layout_marginStart="8dp"/>
+                android:inputType="number" />
 
 
         </LinearLayout>
@@ -168,13 +147,12 @@
         <com.santalu.maskedittext.MaskEditText
             android:id="@+id/editTextTelefone"
             android:layout_width="match_parent"
-            android:layout_height="39dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="-2dp"
             android:ems="10"
             android:hint="Telefone"
             android:inputType="phone"
-            app:met_mask="(##) #####-####"
-            android:layout_marginBottom="8dp" />
+            app:met_mask="(##) #####-####" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -187,13 +165,15 @@
             android:id="@+id/buttonAcesso2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:backgroundTint="@color/secundaria"
             android:onClick="validarDadosEmpresa"
+            android:padding="16dp"
             android:text="Salvar"
             android:textColor="@color/white"
-            android:textSize="14sp"
+            android:textSize="12sp"
             android:theme="@style/botaoPadrao"
-            android:layout_marginTop="16dp" />
+            app:cornerRadius="10dp" />
 
     </LinearLayout>
 
