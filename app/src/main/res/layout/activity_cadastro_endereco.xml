@@ -60,8 +60,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Logradouro"
         android:focusable="false"
+        android:hint="Logradouro"
         android:inputType="none"
         android:textColor="@color/quad" />
 
@@ -70,8 +70,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Complemento (opcional)"
         android:focusable="false"
+        android:hint="Complemento (opcional)"
         android:inputType="none"
         android:textColor="@color/quad" />
 
@@ -84,8 +84,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Bairro"
             android:focusable="false"
+            android:hint="Bairro"
             android:inputType="none"
             android:textColor="@color/quad" />
 
@@ -94,8 +94,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="UF"
             android:focusable="false"
+            android:hint="UF"
             android:inputType="none"
             android:textColor="@color/quad" />
 
@@ -104,8 +104,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Cidade"
             android:focusable="false"
+            android:hint="Cidade"
             android:inputType="none"
             android:textColor="@color/quad" />
     </RadioGroup>

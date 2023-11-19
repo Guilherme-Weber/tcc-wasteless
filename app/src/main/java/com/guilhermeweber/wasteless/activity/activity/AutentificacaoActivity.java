@@ -57,19 +57,18 @@ public class AutentificacaoActivity extends AppCompatActivity {
     private LinearLayout linearTipoUsuario;
     private FirebaseAuth auth;
     private AlertDialog dialog = null;
-    private ActivityResultLauncher<String> requestPermissionLauncher =
-            registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
-                if (isGranted) {
-                    // Permission is granted. Continue the action or workflow in your
-                    // app.
-                } else {
-                    // Explain to the user that the feature is unavailable because the
-                    // feature requires a permission that the user has denied. At the
-                    // same time, respect the user's decision. Don't link to system
-                    // settings in an effort to convince the user to change their
-                    // decision.
-                }
-            });
+    private ActivityResultLauncher<String> requestPermissionLauncher = registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
+        if (isGranted) {
+            // Permission is granted. Continue the action or workflow in your
+            // app.
+        } else {
+            // Explain to the user that the feature is unavailable because the
+            // feature requires a permission that the user has denied. At the
+            // same time, respect the user's decision. Don't link to system
+            // settings in an effort to convince the user to change their
+            // decision.
+        }
+    });
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -212,8 +211,7 @@ public class AutentificacaoActivity extends AppCompatActivity {
 //                        } else { //login
 
                         auth.signInWithEmailAndPassword( // envia pro servidor email e senha pra logar
-                                email, senha
-                        ).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                email, senha).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) { // verifica se o retorno foi um sucesso

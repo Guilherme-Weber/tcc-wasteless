@@ -3,7 +3,6 @@ plugins {
     id 'com.google.gms.google-services'
 }
 
-
 android {
     namespace 'com.guilhermeweber.wasteless'
     compileSdk 34
@@ -38,9 +37,6 @@ dependencies {
     implementation 'com.google.android.material:material:1.10.0'
     implementation 'com.google.android.gms:play-services-maps:18.2.0'
 
-    //NÃO USAR ISSO!!!!
-    //implementation 'com.google.android.gms:play-services-ads-lite:22.5.0'
-
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
@@ -57,7 +53,6 @@ dependencies {
 
     //MaterialSearchView
     implementation 'boxresin.android:materialsearchview:2.0.0'
-//    implementation 'com.miguelcatalan:materialsearchview:1.4.0'
 
     //CircleImageView
     implementation 'de.hdodenhof:circleimageview:3.1.0'
@@ -67,7 +62,6 @@ dependencies {
 
     //MaskEditText
     implementation 'com.github.santalu:mask-edittext:1.1.1'
-//    implementation 'com.github.santalu:maskara:1.0.0'
 
     //Picasso
     implementation 'com.squareup.picasso:picasso:2.71828'

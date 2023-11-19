@@ -168,8 +168,7 @@ public class CadastroEnderecoActivity extends AppCompatActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK)
-            Toast.makeText(getApplicationContext(), "Por favor finalize o seu cadastro!",
-                    Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Por favor finalize o seu cadastro!", Toast.LENGTH_LONG).show();
 
         return false;
         // Disable back button..............

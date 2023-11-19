@@ -5,20 +5,20 @@
     <item
         android:id="@+id/menuPesquisa"
         android:icon="@drawable/baseline_search_24"
-        android:title="Novo Produto"
+        android:title="@string/novo_produto"
         app:showAsAction="always" />
 
     <item
         android:id="@+id/menuConfig"
-        android:title="Configurações"
+        android:title="@string/configura_es"
         app:showAsAction="never" />
     <item
         android:id="@+id/maps"
-        android:title="Maps"
+        android:title="@string/maps"
         app:showAsAction="never" />
     <item
         android:id="@+id/menuSair"
-        android:title="Sair"
+        android:title="@string/sair"
         app:showAsAction="never" />
 
 

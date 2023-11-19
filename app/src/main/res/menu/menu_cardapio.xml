@@ -4,6 +4,6 @@
 
     <item
         android:id="@+id/menuPedido"
-        android:title="Confirmar Pedido"
+        android:title="@string/confirmar_pedido"
         app:showAsAction="always" />
 </menu>

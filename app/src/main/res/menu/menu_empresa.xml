@@ -5,21 +5,21 @@
     <item
         android:id="@+id/menuNovoProduto"
         android:icon="@drawable/baseline_add_circle_24"
-        android:title="Novo Produto"
+        android:title="@string/novo_produto"
         app:showAsAction="always" />
 
     <item
         android:id="@+id/menuPedidos"
         android:icon="@drawable/baseline_assignment_24"
-        android:title="Pedidos"
+        android:title="@string/pedidos"
         app:showAsAction="always" />
     <item
         android:id="@+id/menuConfig"
-        android:title="Configurações"
+        android:title="@string/configura_es"
         app:showAsAction="never" />
     <item
         android:id="@+id/menuSair"
-        android:title="Sair"
+        android:title="@string/sair"
         app:showAsAction="never" />
 
 </menu>

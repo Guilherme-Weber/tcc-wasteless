@@ -9,13 +9,7 @@ public abstract class Mascara {
 
     public static String unmask(String s) {
 
-        return s.replaceAll("[.]", "")
-                .replaceAll("[-]", "")
-                .replaceAll("[/]", "")
-                .replaceAll("[(]", "")
-                .replaceAll("[)]", "")
-                .replaceAll(" ", "")
-                .replaceAll(",", "");
+        return s.replaceAll("[.]", "").replaceAll("[-]", "").replaceAll("[/]", "").replaceAll("[(]", "").replaceAll("[)]", "").replaceAll(" ", "").replaceAll(",", "");
     }
 
     public static boolean isASign(char c) {

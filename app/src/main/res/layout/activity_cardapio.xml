@@ -78,9 +78,9 @@
                 android:id="@+id/textCarrinhoTotal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="8dp"
                 android:focusable="false"
                 android:inputType="none"
+                android:padding="8dp"
                 android:text="R$ 0"
                 android:textColor="@color/white" />
 

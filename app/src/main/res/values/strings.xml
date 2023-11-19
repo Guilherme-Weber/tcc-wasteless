@@ -1,5 +1,20 @@
 <resources>
+
     <string name="app_name">WasteLess</string>
     <string name="default_notification_channel_id">com.guilhermeweber.wasteless</string>
     <string name="title_activity_maps">Map</string>
+
+    <string name="pedidos">Pedidos</string>
+    <string name="novo_produto">Novo Produto</string>
+    <string name="configura_es">Configurações</string>
+    <string name="sair">Sair</string>
+
+    <string name="confirmar_pedido">Confirmar Pedido</string>
+    <string name="maps">Maps</string>
+
+    <string name="informe_seu_e_mail">Informe seu e-mail</string>
+    <string name="informe_sua_senha">Informe sua senha</string>
+    <string name="acessar">Acessar</string>
+    <string name="cadastre_se_aqui">Cadastre-se aqui!</string>
+
 </resources>

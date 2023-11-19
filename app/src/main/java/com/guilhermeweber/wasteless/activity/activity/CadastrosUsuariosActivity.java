@@ -34,7 +34,6 @@ public class CadastrosUsuariosActivity extends AppCompatActivity {
 
     //Instanciando RadioButton e textos para o tipo de cadastro que está sendo realizado
     private EditText campoNome, campoEmail, campoSenha, campoSenhaDenovo;
-
     private MaskEditText editTextTelefone;
     private String nome, email, senha, senhadenovo, telefone;
     private RadioButton cliente, empresa;

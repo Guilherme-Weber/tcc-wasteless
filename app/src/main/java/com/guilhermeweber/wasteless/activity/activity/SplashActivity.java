@@ -58,18 +58,17 @@ public class SplashActivity extends AppCompatActivity {
             }
         });
 
-        FirebaseMessaging.getInstance().subscribeToTopic("Main")
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        String msg = "Subscribed";
-                        if (!task.isSuccessful()) {
-                            msg = "Subscribe failed";
-                        }
-                        System.out.println(msg);
+        FirebaseMessaging.getInstance().subscribeToTopic("Main").addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                String msg = "Subscribed";
+                if (!task.isSuccessful()) {
+                    msg = "Subscribe failed";
+                }
+                System.out.println(msg);
 //                        Toast.makeText(SplashActivity.this, msg, Toast.LENGTH_SHORT).show();
-                    }
-                });
+            }
+        });
 
 
         new Handler().postDelayed(new Runnable() {
