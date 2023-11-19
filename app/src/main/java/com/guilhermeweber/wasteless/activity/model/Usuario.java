@@ -182,7 +182,9 @@ public class Usuario implements Serializable {
     }
 
     @Exclude //não salva a senha no bando de dados por segurança
-    public String getSenha() {return senha;    }
+    public String getSenha() {
+        return senha;
+    }
 
     public void setSenha(String senha) {
         this.senha = senha;

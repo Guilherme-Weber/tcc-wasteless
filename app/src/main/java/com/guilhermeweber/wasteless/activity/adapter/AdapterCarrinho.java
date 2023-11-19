@@ -22,23 +22,24 @@ public class AdapterCarrinho extends RecyclerView.Adapter<AdapterCarrinho.MyView
 
     }
 
-  //  @Override
+    //  @Override
     //public void onBindViewHolder(@NonNull Adapter.MyViewHolder holder, int position) {
 
-   // }
+    // }
 
     @Override
     public int getItemCount() {
         return 0;
     }
 
-    public class  MyViewHolder extends RecyclerView.ViewHolder{
+    public class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView nome;
         TextView descricao;
         TextView tipoValor;
         TextView tipoPeso;
         CurrencyEditText valor;
+
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
         }

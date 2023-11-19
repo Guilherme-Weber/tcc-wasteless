@@ -184,7 +184,7 @@ public class HomeActivity extends AppCompatActivity {
             deslogarUsuario();
         } else if (needif == R.id.menuConfig) {
             abrirConfig();
-        }else if(needif == R.id.maps){
+        } else if (needif == R.id.maps) {
             abrirMaps();
         } else if (item.getItemId() == android.R.id.home) {
             deslogarUsuario();

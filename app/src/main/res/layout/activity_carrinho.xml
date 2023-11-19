@@ -59,8 +59,7 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:gravity="center"
-            android:orientation="horizontal">
-        </LinearLayout>
+            android:orientation="horizontal"></LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerCarrinho"
@@ -88,7 +87,6 @@
             android:theme="@style/botaoPadrao"
             app:cornerRadius="10dp" />
     </LinearLayout>
-
 
 
 </LinearLayout>

@@ -155,7 +155,7 @@ public class AutentificacaoActivity extends AppCompatActivity {
                 usuario.setEmail(email);
                 usuario.setSenha(senha);
                 usuario.setTipo(verificaUsuario());
-                
+
                 //verifica se os campos estão vazios
                 if (!email.isEmpty()) {
                     if (!senha.isEmpty()) {
