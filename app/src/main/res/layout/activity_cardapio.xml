@@ -42,12 +42,6 @@
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
-            <ImageView
-                android:id="@+id/carrinho"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0"
-                app:srcCompat="@drawable/icon_carrinho_de_compras" />
         </LinearLayout>
 
         <LinearLayout
