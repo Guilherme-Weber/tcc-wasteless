@@ -20,7 +20,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WasteLess"
         tools:targetApi="28">
-
+        <activity
+            android:name=".activity.activity.HistoricoPedidosActivity"
+            android:exported="false" />
         <activity
             android:name=".activity.activity.PedidoConfirmadoActivity"
             android:exported="false" />

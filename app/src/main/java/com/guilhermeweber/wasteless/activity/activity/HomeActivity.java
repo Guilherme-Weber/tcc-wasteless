@@ -7,6 +7,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -50,6 +51,26 @@ public class HomeActivity extends AppCompatActivity {
         inicializarComponentes();
         firebaseRef = ConfigFirebase.getFirebase();
         auth = ConfigFirebase.getFireAuth();
+
+        //configurando menu inferior
+        ImageButton btnHome = findViewById(R.id.btnHome);
+        ImageButton btnPedido = findViewById(R.id.btnPedido);
+
+        btnHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(HomeActivity.this, HomeActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btnPedido.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(HomeActivity.this, HistoricoPedidosActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
         //config toolbar
