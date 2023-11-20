@@ -1,10 +1,19 @@
 package com.guilhermeweber.wasteless.activity.activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -14,10 +23,12 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.guilhermeweber.wasteless.R;
 import com.guilhermeweber.wasteless.activity.helper.Mascara;
+import com.guilhermeweber.wasteless.activity.helper.Permissoes;
 import com.guilhermeweber.wasteless.activity.helper.RESTService;
 import com.guilhermeweber.wasteless.activity.model.CEP;
 import com.guilhermeweber.wasteless.activity.model.Empresa;
@@ -31,7 +42,6 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class CadastroEnderecoActivity extends AppCompatActivity {
-
     private final String URL = "https://viacep.com.br/ws/";
     Usuario usuario = new Usuario();
     Empresa empresa = new Empresa();
@@ -39,8 +49,11 @@ public class CadastroEnderecoActivity extends AppCompatActivity {
     private Button btnConsultarCEP, buttonCadastroEndereco;
     private EditText txtCEP, txtLogradouro, txtComplemento, txtBairro, txtUF, txtLocalidade;
     private TextInputLayout layCEP;
+    private String[] permissoes = new String[]{Manifest.permission.ACCESS_FINE_LOCATION};
+    private LocationManager locationManager;
+    private LocationListener locationListener;
 
-
+    @SuppressLint("ServiceCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,13 +61,22 @@ public class CadastroEnderecoActivity extends AppCompatActivity {
 
         inicializarComponentes();
 
+        Permissoes.validarPermissoes(permissoes, this, 1);
+
+        locationManager = (LocationManager) this.getSystemService(Context.LOCALE_SERVICE);
+
+        locationListener = new LocationListener() {
+            @Override
+            public void onLocationChanged(@NonNull Location location) {
+                Log.d("Localizacao", "onLocationChanged: " + location.toString());
+            }
+        };
 
         //recuperar a usuario
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             usuario = (Usuario) bundle.getSerializable("usuario");
         }
-
 
         //Aplicando a máscara para CEP
         txtCEP.addTextChangedListener(Mascara.insert(Mascara.MASCARA_CEP, txtCEP));
@@ -64,6 +86,8 @@ public class CadastroEnderecoActivity extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create()) //conversor
                 .build();
 
+
+
         btnConsultarCEP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,7 +96,6 @@ public class CadastroEnderecoActivity extends AppCompatActivity {
                     String cep = txtCEP.getText().toString().trim();
                     usuario.setcEP(cep);
 
-                    esconderTeclado();
                     consultarCEP();
                 }
             }
@@ -91,6 +114,14 @@ public class CadastroEnderecoActivity extends AppCompatActivity {
                 }
             }
         });
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            locationManager.requestLocationUpdates(
+                    LocationManager.GPS_PROVIDER, 1000, 10, locationListener
+            );
+        }
+
+
     }
 
     private void inicializarComponentes() {
@@ -124,8 +155,6 @@ public class CadastroEnderecoActivity extends AppCompatActivity {
     }
 
     private void cadastroUser() {
-
-//        Toast.makeText(this, "botão", Toast.LENGTH_SHORT).show();
 
         String Logradouro = txtLogradouro.getText().toString();
         String Complemento = txtComplemento.getText().toString();
@@ -171,13 +200,6 @@ public class CadastroEnderecoActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Por favor finalize o seu cadastro!", Toast.LENGTH_LONG).show();
 
         return false;
-        // Disable back button..............
-    }
-
-    private void esconderTeclado() {
-        InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-
-        inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
     }
 
     private void consultarCEP() {

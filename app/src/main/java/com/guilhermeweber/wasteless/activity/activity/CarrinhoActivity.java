@@ -23,8 +23,8 @@ public class CarrinhoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_carrinho);
 
         //deixando o botão do carrinho visivel
-        ImageView carrinho = findViewById(R.id.carrinho);
-        carrinho.setVisibility(View.VISIBLE);
+//        ImageView carrinho = findViewById(R.id.carrinho);
+//        carrinho.setVisibility(View.VISIBLE);
 
         Button continuarPedidoButton = findViewById(R.id.continuarPedidoButton);
         recyclerViewCarrinho = findViewById(R.id.recyclerCarrinho);

@@ -32,7 +32,6 @@ import com.santalu.maskedittext.MaskEditText;
 
 public class CadastrosUsuariosActivity extends AppCompatActivity {
 
-    //Instanciando RadioButton e textos para o tipo de cadastro que está sendo realizado
     private EditText campoNome, campoEmail, campoSenha, campoSenhaDenovo;
     private MaskEditText editTextTelefone;
     private String nome, email, senha, senhadenovo, telefone;
@@ -56,15 +55,9 @@ public class CadastrosUsuariosActivity extends AppCompatActivity {
             }
         }
 
-        // Edge case for strings like
-        // String 1="Geeks" and String 2="Geeksforgeeks"
         if (l1 != l2) {
             return false;
-        }
-
-        // If none of the above conditions is true,
-        // it implies both the strings are equal
-        else {
+        } else {
             return true;
         }
     }
@@ -122,78 +115,58 @@ public class CadastrosUsuariosActivity extends AppCompatActivity {
                         if (!senha.isEmpty()) {
                             if (cliente.isChecked() || empresa.isChecked()) {
                                 if (!telefone.isEmpty() && fone.length() >= 10) {
-
-//                                    Toast.makeText(CadastrosUsuariosActivity.this, "senha 1 " + senha, Toast.LENGTH_LONG).show();
-//                                    Toast.makeText(CadastrosUsuariosActivity.this, "senha 2 " + senhadenovo, Toast.LENGTH_SHORT).show();
-
                                     if (stringCompare(senha, senhadenovo)) {
-
-//                                      Toast.makeText(CadastrosUsuariosActivity.this, "Cliente: " + usuario.getTipo(), Toast.LENGTH_SHORT).show();
-
-//                                      Toast.makeText(CadastrosUsuariosActivity.this, "Senha: " + usuario.getSenha(), Toast.LENGTH_SHORT).show();
-                                        // Se tudo estiver válido, verifica o CheckBox
                                         if (checkBoxTermos.isChecked()) {
-                                            // Continua com o restante da lógica para verificar senhadenovo, enviar para o servidor, etc.
-                                            // ...
 
-                                        } else {
-                                            // Se o CheckBox não estiver marcado, exibe um alerta
-                                            exibirAlerta();
-                                        }
+                                            auth.createUserWithEmailAndPassword(usuario.getEmail(), usuario.getSenha()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<AuthResult> task) {
 
+                                                    if (task.isSuccessful()) { //Verifica se o processo de cadastro do usuario deu certo
 
-                                        // envia pro servidor o email e senha pra cadastro
-                                        // Verifica se o CheckBox está marcado antes de ir para a próxima tela
+                                                        String idUsuario = task.getResult().getUser().getUid();
 
-                                        auth.createUserWithEmailAndPassword(usuario.getEmail(), usuario.getSenha()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                                        usuario.setId(idUsuario);
 
-                                                if (task.isSuccessful()) { //Verifica se o processo de cadastro do usuario deu certo
+                                                        Intent i = new Intent(CadastrosUsuariosActivity.this, CadastroEnderecoActivity.class);
+                                                        i.putExtra("usuario", usuario);
+                                                        startActivity(i);
 
-                                                    String idUsuario = task.getResult().getUser().getUid();
+                                                    } else {
 
-//                                                  String idUsuario = "1";
-
-                                                    usuario.setId(idUsuario);
-
-//                                                    Toast.makeText(CadastrosUsuariosActivity.this, usuario.getTipo(), Toast.LENGTH_SHORT).show();
-
-                                                    Intent i = new Intent(CadastrosUsuariosActivity.this, CadastroEnderecoActivity.class);
-                                                    i.putExtra("usuario", usuario);
-                                                    startActivity(i);
-
-                                                } else {
-
-                                                    //caso cadastro n seja realizado com sucesso é mostrado uma mensagem de erro
-                                                    String erroExcecao = "";
-                                                    try {
-                                                        throw task.getException();
-                                                    } catch (FirebaseAuthWeakPasswordException e) {
-                                                        erroExcecao = "Informe uma senha mais forte!";
-                                                        campoSenha.setError("Informe uma senha mais forte!");
-                                                    } catch (
-                                                            FirebaseAuthInvalidCredentialsException e) {
-                                                        erroExcecao = "Por Favor, informe um e-mail válido";
-                                                        campoEmail.setError("Por Favor, informe um e-mail válido");
-                                                    } catch (FirebaseAuthUserCollisionException e) {
-                                                        erroExcecao = "E-mail já cadastrado";
-                                                        campoEmail.setError("E-mail já cadastrado");
-                                                    } catch (Exception e) {
-                                                        erroExcecao = "Ao Cadastrar usuário: " + e.getMessage();
-                                                        e.printStackTrace();
+                                                        //caso cadastro n seja realizado com sucesso é mostrado uma mensagem de erro
+                                                        String erroExcecao = "";
+                                                        try {
+                                                            throw task.getException();
+                                                        } catch (
+                                                                FirebaseAuthWeakPasswordException e) {
+                                                            erroExcecao = "Informe uma senha mais forte!";
+                                                            campoSenha.setError("Informe uma senha mais forte!");
+                                                        } catch (
+                                                                FirebaseAuthInvalidCredentialsException e) {
+                                                            erroExcecao = "Por Favor, informe um e-mail válido";
+                                                            campoEmail.setError("Por Favor, informe um e-mail válido");
+                                                        } catch (
+                                                                FirebaseAuthUserCollisionException e) {
+                                                            erroExcecao = "E-mail já cadastrado";
+                                                            campoEmail.setError("E-mail já cadastrado");
+                                                        } catch (Exception e) {
+                                                            erroExcecao = "Ao Cadastrar usuário: " + e.getMessage();
+                                                            e.printStackTrace();
+                                                        }
+                                                        Toast.makeText(CadastrosUsuariosActivity.this, "Erro: " + erroExcecao, Toast.LENGTH_LONG).show();
                                                     }
-                                                    Toast.makeText(CadastrosUsuariosActivity.this, "Erro: " + erroExcecao, Toast.LENGTH_LONG).show();
                                                 }
-                                            }
-                                        });
-
+                                            });
+                                        } else {
+                                            Toast.makeText(CadastrosUsuariosActivity.this, "Você deve conconcordar com os termos e condições", Toast.LENGTH_SHORT).show();
+                                            checkBoxTermos.setError("Concorde com os termos e condições");
+                                        }
                                     } else {
                                         Toast.makeText(CadastrosUsuariosActivity.this, "Ambas as senhas tem que ser iguais", Toast.LENGTH_SHORT).show();
                                         campoSenha.setError("Informe sua senha");
                                         campoSenhaDenovo.setError("Informe sua senha");
                                     }
-
                                 } else {
                                     Toast.makeText(CadastrosUsuariosActivity.this, "Preencha o Campo Telefone", Toast.LENGTH_SHORT).show();
                                     editTextTelefone.setError("Preencha o Campo Telefone");
@@ -204,52 +177,33 @@ public class CadastrosUsuariosActivity extends AppCompatActivity {
                                 empresa.setError("Escolha a opção de tipo cadastro");
                             }
                         } else {
-//                            Toast.makeText(CadastrosUsuariosActivity.this, "Informe sua senha", Toast.LENGTH_SHORT).show();
                             campoSenha.setError("Informe sua senha");
                         }
                     } else {
-//                        Toast.makeText(CadastrosUsuariosActivity.this, "Informe seu e-mail", Toast.LENGTH_SHORT).show();
                         campoEmail.setError("Informe seu e-mail");
                     }
                 } else {
-//                    Toast.makeText(CadastrosUsuariosActivity.this, "Informe seu nome", Toast.LENGTH_SHORT).show();
                     campoNome.setError("Informe seu nome");
                 }
-
             }
         });
     }
 
     private void inicializarComponentes() {
+
         campoNome = findViewById(R.id.editTextNome);
         campoEmail = findViewById(R.id.editTextEmail);
         campoSenha = findViewById(R.id.editTextSenha);
         campoSenhaDenovo = findViewById(R.id.editTextSenhaDenovo);
         editTextTelefone = findViewById(R.id.editTextTelefoneAuth);
-
         cliente = findViewById(R.id.radioButtonClienteCadastro);
         empresa = findViewById(R.id.radioButtonEmpresaCadastro);
         buttonCadastro = findViewById(R.id.buttonCadastroProximo);
+        checkBoxTermos = findViewById(R.id.checkBoxTermos);
+
     }
 
     public String verificaUsuario() {
         return cliente.isChecked() ? "U" : "E";
     }
-
-    private void exibirAlerta() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Alerta");
-        builder.setMessage("Você precisa concordar com os termos de uso");
-
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                // Ação a ser tomada ao clicar em OK no alerta
-            }
-        });
-
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();
-    }
-
 }

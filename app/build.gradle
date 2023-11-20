@@ -50,7 +50,6 @@ dependencies {
     implementation 'com.google.firebase:firebase-messaging:23.3.1'
     implementation 'com.google.firebase:firebase-messaging-directboot:23.3.1'
 
-
     //MaterialSearchView
     implementation 'boxresin.android:materialsearchview:2.0.0'
 

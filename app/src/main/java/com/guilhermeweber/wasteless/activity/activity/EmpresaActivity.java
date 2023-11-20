@@ -51,21 +51,11 @@ public class EmpresaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_empresa);
 
-
         inicializarComponentes();
+
         auth = ConfigFirebase.getFireAuth();
         firebaseRef = ConfigFirebase.getFirebase();
         idUsuarioLogado = Usuario.getIdUsuario();
-
-        FirebaseMessaging.getInstance().subscribeToTopic("Teste").addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                String msg = "Feito";
-                if (!task.isSuccessful()) {
-                    msg = "Falha";
-                }
-            }
-        });
 
         //config toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);

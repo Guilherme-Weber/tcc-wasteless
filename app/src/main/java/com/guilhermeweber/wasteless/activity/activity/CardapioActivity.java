@@ -96,8 +96,8 @@ public class CardapioActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        ImageView carrinho = findViewById(R.id.carrinho);
-        carrinho.setVisibility(View.VISIBLE);
+//        ImageView carrinho = findViewById(R.id.carrinho);
+//        carrinho.setVisibility(View.VISIBLE);
 
         //recyclerview
         RecyclerView.LayoutManager recyclerViewProdutos = new LinearLayoutManager(getApplicationContext());

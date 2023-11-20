@@ -48,31 +48,6 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        inicializarComponentes();
-        firebaseRef = ConfigFirebase.getFirebase();
-        auth = ConfigFirebase.getFireAuth();
-
-        //configurando menu inferior
-        ImageButton btnHome = findViewById(R.id.btnHome);
-        ImageButton btnPedido = findViewById(R.id.btnPedido);
-
-        btnHome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(HomeActivity.this, HomeActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        btnPedido.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(HomeActivity.this, HistoricoPedidosActivity.class);
-                startActivity(intent);
-            }
-        });
-
-
         //config toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("Wasteless - Home");
@@ -80,6 +55,28 @@ public class HomeActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        inicializarComponentes();
+        firebaseRef = ConfigFirebase.getFirebase();
+        auth = ConfigFirebase.getFireAuth();
+
+        //configurando menu inferior
+        ImageButton btnHome = findViewById(R.id.btnHome);
+        ImageButton btnPedido = findViewById(R.id.btnPedido);
+        btnHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(HomeActivity.this, HomeActivity.class);
+                startActivity(intent);
+            }
+        });
+        btnPedido.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(HomeActivity.this, HistoricoPedidosActivity.class);
+                startActivity(intent);
+            }
+        });
 
         //configurando o RecycerView
         RecyclerView.LayoutManager recyclerViewEmpresa = new LinearLayoutManager(getApplicationContext());
@@ -233,14 +230,9 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
-//    public void onBackPressed() {
-//        finish();
-//        return;
-//    }
-
     public void inicializarComponentes() {
-        searchView = findViewById(R.id.materialSearchView);
-        recyclerEmpresa = findViewById(R.id.recyclerEmpresas);
+        searchView = findViewById(R.id.materialSearchViewId);
+        recyclerEmpresa = findViewById(R.id.recyclerEmpresa);
     }
 
     private void abrirConfig() {
@@ -252,7 +244,6 @@ public class HomeActivity extends AppCompatActivity {
         try {
             //desloga o usuario atual
             auth.signOut();
-//            finish();
             startActivity(new Intent(this, AutentificacaoActivity.class));
         } catch (Exception e) {
             e.printStackTrace();

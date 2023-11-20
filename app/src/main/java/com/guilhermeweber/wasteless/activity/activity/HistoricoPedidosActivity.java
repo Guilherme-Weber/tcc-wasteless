@@ -34,6 +34,5 @@ public class HistoricoPedidosActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
     }
 }

@@ -22,7 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="@string/informe_seu_e_mail"
+        android:hint="Informe seu e-mail"
         android:inputType="textEmailAddress"
         android:textColor="@color/quad" />
 
@@ -31,7 +31,7 @@
         android:layout_width="match_parent"
         android:layout_height="57dp"
         android:ems="10"
-        android:hint="@string/informe_sua_senha"
+        android:hint="Informe sua senha"
         android:inputType="textPassword"
         android:textColor="@color/quad" />
 
@@ -41,7 +41,7 @@
         android:layout_height="wrap_content"
         android:backgroundTint="@color/secundaria"
         android:padding="16dp"
-        android:text="@string/acessar"
+        android:text="Acessar"
         android:textColor="@color/white"
         android:textSize="12sp"
         android:theme="@style/botaoPadrao"
@@ -53,7 +53,7 @@
         android:layout_height="wrap_content"
         android:backgroundTint="@color/quad"
         android:padding="16dp"
-        android:text="@string/cadastre_se_aqui"
+        android:text="Cadastre-se aqui!"
         android:textColor="@color/white"
         android:textSize="12sp"
         android:theme="@style/botaoPadrao"
