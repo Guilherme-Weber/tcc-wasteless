@@ -75,6 +75,7 @@ public class CardapioActivity extends AppCompatActivity {
         firebaseRef = ConfigFirebase.getFirebase();
         idUsuarioLogado = Usuario.getIdUsuario();
 
+
         //recuperar a empresa selecionada
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
@@ -94,6 +95,9 @@ public class CardapioActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        ImageView carrinho = findViewById(R.id.carrinho);
+        carrinho.setVisibility(View.VISIBLE);
 
         //recyclerview
         RecyclerView.LayoutManager recyclerViewProdutos = new LinearLayoutManager(getApplicationContext());

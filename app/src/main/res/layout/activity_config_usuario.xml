@@ -23,20 +23,20 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/imageUsuario"
-                android:layout_width="107dp"
-                android:layout_height="92dp"
-                android:ems="10" />
-
             <EditText
                 android:id="@+id/editTextNomeUsuario"
-                android:layout_width="match_parent"
+                android:layout_width="274dp"
                 android:layout_height="match_parent"
                 android:ems="10"
                 android:hint="Nome"
                 android:inputType="text"
                 android:textColor="@color/quad" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imageUsuario"
+                android:layout_width="107dp"
+                android:layout_height="92dp"
+                android:ems="10" />
 
         </LinearLayout>
 
