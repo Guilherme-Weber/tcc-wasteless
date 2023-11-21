@@ -16,7 +16,7 @@
         android:layout_height="45dp"
         android:text="Estamos quase lá..."
         android:textAlignment="center"
-        android:textColor="@color/black"
+        android:textColor="@color/grey"
         android:textSize="24sp"
         android:textStyle="bold" />
 
@@ -115,7 +115,7 @@
                     android:layout_weight="1"
                     android:text="Qual o tipo de cadastro deseja realizar?"
                     android:textAlignment="center"
-                    android:textColor="@color/black"
+                    android:textColor="@color/grey"
                     android:textSize="14sp" />
 
                 <RadioGroup
@@ -129,7 +129,7 @@
                         android:backgroundTint="@color/grey"
                         android:buttonTint="@color/grey"
                         android:text="Cliente"
-                        android:textColor="@color/black"
+                        android:textColor="@color/quad"
                         android:textColorHighlight="@color/secundaria"
                         android:textColorHint="@color/quad"
                         android:textColorLink="@color/secundaria" />
@@ -141,7 +141,7 @@
                         android:backgroundTint="@color/grey"
                         android:buttonTint="@color/grey"
                         android:text="Empresa"
-                        android:textColor="@color/black"
+                        android:textColor="@color/quad"
                         android:textColorHighlight="@color/secundaria"
                         android:textColorLink="@color/secundaria" />
                 </RadioGroup>
@@ -175,7 +175,7 @@
                         android:text="Termos de uso aqui"
                         android:textAlignment="viewStart"
                         android:textAllCaps="false"
-                        android:textSize="11sp"
+                        android:textSize="12sp"
                         android:textStyle="bold" />
 
                     <TextView

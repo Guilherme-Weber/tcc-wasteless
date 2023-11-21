@@ -12,171 +12,156 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <EditText
-                android:id="@+id/editTextNomeUsuario"
-                android:layout_width="274dp"
-                android:layout_height="match_parent"
-                android:ems="10"
-                android:hint="Nome"
-                android:inputType="text"
-                android:textColor="@color/quad" />
-
-            <ImageView
-                android:id="@+id/imageUsuario"
-                android:layout_width="107dp"
-                android:layout_height="92dp"
-                android:layout_weight="1"
-                android:background="@drawable/bg_edit_text"
-                android:ems="10"
-                android:scaleType="centerCrop"
-                app:srcCompat="@drawable/perfil" />
-
-            <!--Image View Redondo-->
-            <!--<de.hdodenhof.circleimageview.CircleImageView-->
-            <!--    android:id="@+id/imageUsuario"-->
-            <!--    android:layout_width="107dp"-->
-            <!--    android:layout_height="92dp"-->
-            <!--    android:ems="10" />-->
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <EditText
-                android:id="@+id/editTextUsuarioCEP"
-                android:layout_width="272dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="-2dp"
-                android:ems="10"
-                android:hint="CEP"
-                android:inputType="number"
-                android:textColor="@color/quad" />
-
-            <Button
-                android:id="@+id/btnConsultarCEPConfig"
-                android:layout_width="107dp"
-                android:layout_height="50dp"
-                android:backgroundTint="@color/quad"
-                android:onClick="CEP"
-                android:padding="16dp"
-                android:text="Consultar"
-                android:textColor="@color/white"
-                android:textSize="12sp"
-                android:theme="@style/botaoPadrao"
-                app:cornerRadius="10dp" />
-
-        </LinearLayout>
-
-        <EditText
-            android:id="@+id/editTextEmailUsuConfig"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="-2dp"
-            android:ems="10"
-            android:hint="Email"
-            android:inputType="text"
-            android:textColor="@color/quad" />
-
-        <EditText
-            android:id="@+id/editTextLogradouroConfig"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="-2dp"
-            android:ems="10"
-            android:hint="Logradouro"
-            android:inputType="text"
-            android:textColor="@color/quad" />
-
-        <EditText
-            android:id="@+id/editTextComplementoConfig"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="-2dp"
-            android:ems="10"
-            android:hint="Complemento"
-            android:inputType="text"
-            android:textColor="@color/quad" />
-
-        <EditText
-            android:id="@+id/editTextBairroConfig"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="-2dp"
-            android:ems="10"
-            android:hint="Bairro"
-            android:inputType="text"
-            android:textColor="@color/quad" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <EditText
-                android:id="@+id/editTextCidadeConfig"
-                android:layout_width="272dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="-2dp"
-                android:ems="10"
-                android:hint="Cidade"
-                android:inputType="text"
-                android:textColor="@color/quad" />
-
-            <EditText
-                android:id="@+id/editTextUFConfig"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="-2dp"
-                android:ems="10"
-                android:hint="UF"
-                android:inputType="number"
-                android:textColor="@color/quad" />
-
-        </LinearLayout>
-
-        <com.santalu.maskedittext.MaskEditText
-            android:id="@+id/editTextTelefone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="-2dp"
-            android:ems="10"
-            android:hint="Telefone"
-            android:inputType="phone"
-            android:textColor="@color/quad"
-            app:met_mask="(##) #####-####" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" />
-
-        <Button
-            android:id="@+id/buttonAcesso2"
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:backgroundTint="@color/secundaria"
-            android:onClick="validarDadosUsuario"
-            android:padding="16dp"
-            android:text="Salvar"
-            android:textColor="@color/white"
-            android:textSize="12sp"
-            android:theme="@style/botaoPadrao"
-            app:cornerRadius="10dp" />
+            app:cardCornerRadius="8dp">
 
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/editTextNomeUsuario"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="8dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_edit_text"
+                        android:ems="10"
+                        android:hint="Nome"
+                        android:inputType="text"
+                        android:padding="16dp"
+                        android:textColor="@color/quad" />
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/imageUsuario"
+                        android:layout_width="110dp"
+                        android:layout_height="95dp"
+                        android:ems="10" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/editTextUsuarioCEP"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="8dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_edit_text"
+                        android:ems="10"
+                        android:hint="CEP"
+                        android:inputType="number"
+                        android:padding="16dp"
+                        android:textColor="@color/quad" />
+
+                    <Button
+                        android:id="@+id/btnConsultarCEPConfig"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:backgroundTint="@color/quad"
+                        android:onClick="CEP"
+                        android:padding="16dp"
+                        android:text="Consultar"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        android:theme="@style/botaoPadrao"
+                        app:cornerRadius="10dp" />
+                </LinearLayout>
+
+                <EditText
+                    android:id="@+id/editTextEmailUsuConfig"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_edit_text"
+                    android:ems="10"
+                    android:hint="Email"
+                    android:inputType="text"
+                    android:padding="16dp"
+                    android:textColor="@color/quad" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/editTextCidadeConfig"
+                        android:layout_width="300dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginRight="8dp"
+                        android:background="@drawable/bg_edit_text"
+                        android:ems="10"
+                        android:hint="Cidade"
+                        android:inputType="text"
+                        android:padding="16dp" />
+
+                    <EditText
+
+                        android:id="@+id/editTextUFConfig"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/bg_edit_text"
+                        android:ems="10"
+                        android:hint="UF"
+                        android:inputType="number"
+                        android:padding="16dp" />
+                </LinearLayout>
+
+                <com.santalu.maskedittext.MaskEditText
+                    android:id="@+id/editTextTelefone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_edit_text"
+                    android:ems="10"
+                    android:hint="Telefone"
+                    android:inputType="phone"
+                    android:padding="16dp"
+                    app:met_mask="(##) #####-####" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" />
+
+                <Button
+                    android:id="@+id/buttonAcesso2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:backgroundTint="@color/secundaria"
+                    android:onClick="validarDadosUsuario"
+                    android:padding="16dp"
+                    android:text="Salvar"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:theme="@style/botaoPadrao"
+                    app:cornerRadius="50dp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </ScrollView>
 </androidx.appcompat.widget.LinearLayoutCompat>
