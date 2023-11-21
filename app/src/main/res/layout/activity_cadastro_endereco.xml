@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -20,106 +20,147 @@
         android:textSize="24sp"
         android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/textView15"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Precisamos de mais algumas informações para finalizar seu cadastro!"
-        android:textAlignment="center" />
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <EditText
-            android:id="@+id/txtinpedtCEP"
-            android:layout_width="242dp"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="CEP"
-            android:inputType="number"
-            android:textColor="@color/quad" />
-
-        <Button
-            android:id="@+id/btnConsultarCEP"
-            android:layout_width="107dp"
-            android:layout_height="50dp"
-            android:backgroundTint="@color/quad"
-            android:padding="16dp"
-            android:text="Consultar"
-            android:textColor="@color/white"
-            android:textSize="12sp"
-            android:theme="@style/botaoPadrao"
-            app:cornerRadius="10dp" />
-
-    </LinearLayout>
-
-    <EditText
-        android:id="@+id/txtinpedtLogradouro"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:focusable="false"
-        android:hint="Logradouro"
-        android:inputType="none"
-        android:textColor="@color/quad" />
-
-    <EditText
-        android:id="@+id/txtinpedtComplemento"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:focusable="false"
-        android:hint="Complemento (opcional)"
-        android:inputType="none"
-        android:textColor="@color/quad" />
-
-    <RadioGroup
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <EditText
-            android:id="@+id/txtinpedtBairro"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:focusable="false"
-            android:hint="Bairro"
-            android:inputType="none"
-            android:textColor="@color/quad" />
+            android:orientation="vertical"
+            android:padding="16dp">
 
-        <EditText
-            android:id="@+id/txtinpedtUF"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center_vertical">
+
+                <EditText
+                    android:id="@+id/txtinpedtCEP"
+                    android:layout_width="202dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_edit_text"
+                    android:ems="10"
+                    android:hint="CEP"
+                    android:inputType="number"
+                    android:padding="16dp"
+                    android:textColor="@color/quad"
+                    android:textSize="14sp" />
+
+                <Button
+                    android:id="@+id/btnConsultarCEP"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:backgroundTint="@color/quad"
+                    android:padding="16dp"
+                    android:text="Consultar"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    android:theme="@style/botaoPadrao"
+                    app:cornerRadius="10dp" />
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/txtinpedtLogradouro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_edit_text"
+                android:ems="10"
+                android:focusable="false"
+                android:hint="Logradouro"
+                android:inputType="none"
+                android:padding="16dp"
+                android:textColor="@color/quad"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/txtinpedtComplemento"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_edit_text"
+                android:ems="10"
+                android:focusable="false"
+                android:hint="Complemento (opcional)"
+                android:inputType="none"
+                android:padding="16dp"
+                android:textColor="@color/quad"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/txtinpedtBairro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_edit_text"
+                android:ems="10"
+                android:focusable="false"
+                android:hint="Bairro"
+                android:inputType="none"
+                android:padding="16dp"
+                android:textColor="@color/quad"
+                android:textSize="14sp" />
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:focusable="false"
-            android:hint="UF"
-            android:inputType="none"
-            android:textColor="@color/quad" />
+            android:orientation="horizontal"
+            android:layout_gravity="center_vertical">
 
-        <EditText
-            android:id="@+id/txtinpedtLocalidade"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:focusable="false"
-            android:hint="Cidade"
-            android:inputType="none"
-            android:textColor="@color/quad" />
-    </RadioGroup>
+            <EditText
+                android:id="@+id/txtinpedtLocalidade"
+                android:layout_width="445dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_edit_text"
+                android:ems="10"
+                android:focusable="false"
+                android:hint="Cidade"
+                android:inputType="none"
+                android:padding="16dp"
+                android:textColor="@color/quad"
+                android:textSize="14sp"
+                android:layout_marginRight="8dp"/>
 
-    <Button
-        android:id="@+id/buttonCadastroEndereco"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/secundaria"
-        android:padding="16dp"
-        android:text="Cadastrar"
-        android:textColor="@color/white"
-        android:textSize="12sp"
-        android:theme="@style/botaoPadrao"
-        app:cornerRadius="10dp" />
+            <EditText
+                android:id="@+id/txtinpedtUF"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_edit_text"
+                android:ems="10"
+                android:focusable="false"
+                android:hint="UF"
+                android:inputType="none"
+                android:padding="16dp"
+                android:textColor="@color/quad"
+                android:textSize="14sp" />
+        </LinearLayout>
 
-</LinearLayout>
+            <Button
+                android:id="@+id/buttonCadastroEndereco"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/secundaria"
+                android:padding="16dp"
+                android:text="Cadastrar"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:theme="@style/botaoPadrao"
+                app:cornerRadius="10dp" />
+
+        </LinearLayout>
+    </ScrollView>
+</androidx.appcompat.widget.LinearLayoutCompat>
