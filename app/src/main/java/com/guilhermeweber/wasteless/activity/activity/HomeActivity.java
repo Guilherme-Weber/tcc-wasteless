@@ -35,8 +35,9 @@ import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
 
+    ImageButton btnHome, btnPedido;
     private FirebaseAuth auth;
-    private MaterialSearchView searchView;
+    private MaterialSearchView searchView, searchViewTudo;
     private RecyclerView recyclerEmpresa;
     private List<Empresa> empresas = new ArrayList<>();
     private DatabaseReference firebaseRef;
@@ -60,9 +61,6 @@ public class HomeActivity extends AppCompatActivity {
         firebaseRef = ConfigFirebase.getFirebase();
         auth = ConfigFirebase.getFireAuth();
 
-        //configurando menu inferior
-        ImageButton btnHome = findViewById(R.id.btnHome);
-        ImageButton btnPedido = findViewById(R.id.btnPedido);
         btnHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -103,6 +101,21 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+        searchViewTudo.setHint("Pesquisar Estabelecimentos Pelo Bairro");
+        searchViewTudo.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(@NonNull String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(@NonNull String newText) {
+                pesquisarTudo(newText);
+                return true;
+            }
+        });
+
+
         //evento de click
         recyclerEmpresa.addOnItemTouchListener(new RecyclerItemClickListener(this, recyclerEmpresa, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
@@ -136,6 +149,27 @@ public class HomeActivity extends AppCompatActivity {
 
     private void mensagemToast(String texto) {
         Toast.makeText(this, texto, Toast.LENGTH_SHORT).show();
+    }
+
+    private void pesquisarTudo(String pesquisa) {
+        firebaseRef = ConfigFirebase.getFirebase();
+        DatabaseReference empresaRef = firebaseRef.child("empresa");
+        Query query = empresaRef.orderByChild("bairro").startAt(pesquisa).endAt(pesquisa + "\uf8ff");
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                empresas.clear();
+                for (DataSnapshot ds : snapshot.getChildren()) {
+                    empresas.add(ds.getValue(Empresa.class));
+                }
+                adapterEmpresa.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private void pesquisarEmpresas(String pesquisa) {
@@ -188,6 +222,9 @@ public class HomeActivity extends AppCompatActivity {
         MenuItem item = menu.findItem(R.id.menuPesquisa);
         searchView.setMenuItem(item);
 
+        MenuItem item2 = menu.findItem(R.id.menuPesquisaTudo);
+        searchViewTudo.setMenuItem(item2);
+
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -231,8 +268,13 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void inicializarComponentes() {
-        searchView = findViewById(R.id.materialSearchViewId);
+        searchView = findViewById(R.id.materialSearchViewIdTudo);
+        searchViewTudo = findViewById(R.id.materialSearchViewIdTudo);
         recyclerEmpresa = findViewById(R.id.recyclerEmpresa);
+
+        //configurando menu inferior
+        btnHome = findViewById(R.id.btnHome);
+        btnPedido = findViewById(R.id.btnPedido);
     }
 
     private void abrirConfig() {

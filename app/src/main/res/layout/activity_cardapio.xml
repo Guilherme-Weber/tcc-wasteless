@@ -34,13 +34,21 @@
 
             <TextView
                 android:id="@+id/textNomeEmpresaCardapio"
-                android:layout_width="257dp"
+                android:layout_width="215dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
                 android:text="China in box"
                 android:textColor="@color/common_google_signin_btn_text_dark_focused"
                 android:textSize="16sp"
                 android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/buttonMaisInfo"
+                android:layout_width="64dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Button" />
 
         </LinearLayout>
 
@@ -77,6 +85,14 @@
                 android:padding="8dp"
                 android:text="R$ 0"
                 android:textColor="@color/white" />
+
+            <Button
+                android:id="@+id/buttonCarrinho"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Button" />
+
 
         </LinearLayout>
 

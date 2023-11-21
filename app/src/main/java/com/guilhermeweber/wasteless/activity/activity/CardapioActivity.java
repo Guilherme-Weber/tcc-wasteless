@@ -1,5 +1,9 @@
 package com.guilhermeweber.wasteless.activity.activity;
 
+import static java.security.AccessController.getContext;
+
+import android.content.Context;
+
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -8,8 +12,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +35,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.guilhermeweber.wasteless.R;
 import com.guilhermeweber.wasteless.activity.adapter.AdapterProduto;
 import com.guilhermeweber.wasteless.activity.helper.ConfigFirebase;
+import com.guilhermeweber.wasteless.activity.helper.CustomAlertDialog;
 import com.guilhermeweber.wasteless.activity.listener.RecyclerItemClickListener;
 import com.guilhermeweber.wasteless.activity.model.Empresa;
 import com.guilhermeweber.wasteless.activity.model.ItemPedido;
@@ -46,6 +53,7 @@ import dmax.dialog.SpotsDialog;
 
 public class CardapioActivity extends AppCompatActivity {
     private RecyclerView recyclerProdutosCardapio;
+    private Button buttonMaisInfo;
     private FirebaseAuth auth;
     private DatabaseReference firebaseRef;
     private FirebaseDatabase firebaseDatabase;
@@ -53,6 +61,7 @@ public class CardapioActivity extends AppCompatActivity {
     private TextView textNomeEmpresaCardapio, textCarrinhoQtd;
     private CurrencyEditText textCarrinhoTotal;
     private Empresa empresaSelecionada;
+    private Empresa empresa;
     private Usuario usuario;
     private Pedido pedidoRecuperado;
     private AdapterProduto adapterProduto;
@@ -81,6 +90,8 @@ public class CardapioActivity extends AppCompatActivity {
             empresaSelecionada = (Empresa) bundle.getSerializable("empresa");
 
             textNomeEmpresaCardapio.setText(empresaSelecionada.getNome());
+
+//            empresa.setNome(empresaSelecionada.getNome());
 
             idEmpresa = empresaSelecionada.getIdEmpresaUsuario();
 
@@ -126,6 +137,36 @@ public class CardapioActivity extends AppCompatActivity {
 
         recuperarDadosUsuario();
 
+        buttonMaisInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                maisInfo();
+            }
+        });
+
+    }
+
+
+    private void maisInfo() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(empresaSelecionada.getNome());
+
+        // Layout para armazenar os TextViews
+        LinearLayout linearLayout = new LinearLayout(this);
+        linearLayout.setOrientation(LinearLayout.VERTICAL);
+
+        // Criar TextViews e adicionar ao layout
+        for (int i = 1; i <= 5; i++) {
+            TextView textView = new TextView(this);
+            textView.setText("TextView " + i);
+            linearLayout.addView(textView);
+        }
+
+        builder.setView(linearLayout);
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     private void confirmarQuantidade(int position) {
@@ -352,6 +393,8 @@ public class CardapioActivity extends AppCompatActivity {
         recyclerProdutosCardapio = findViewById(R.id.recyclerProdutosCardapio);
         imageEmpresaCardapio = findViewById(R.id.imageEmpresaCardapio);
         textNomeEmpresaCardapio = findViewById(R.id.textNomeEmpresaCardapio);
+
+        buttonMaisInfo = findViewById(R.id.buttonMaisInfo);
 
         textCarrinhoQtd = findViewById(R.id.textCarrinhoQtd);
         textCarrinhoTotal = findViewById(R.id.textCarrinhoTotal);

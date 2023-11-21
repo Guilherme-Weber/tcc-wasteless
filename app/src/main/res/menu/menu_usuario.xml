@@ -3,9 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/menuPesquisaTudo"
+        android:icon="@drawable/search_map"
+        android:title="Pesquisar todos"
+        app:showAsAction="always" />
+    <item
         android:id="@+id/menuPesquisa"
-        android:icon="@drawable/baseline_search_24"
-        android:title="Novo Produto"
+        android:icon="@drawable/search"
+        android:title="Pesquisar"
         app:showAsAction="always" />
 
     <item
