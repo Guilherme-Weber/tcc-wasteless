@@ -30,7 +30,6 @@
                 android:id="@+id/textNomeEmpresa"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="China in box"
                 android:textColor="@color/common_google_signin_btn_text_dark_focused"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -44,16 +43,14 @@
                     android:id="@+id/textCategoriaEmpresa"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="Chinesa" />
+                    android:gravity="center" />
 
                 <TextView
                     android:id="@+id/textTempoEmpresa"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="4dp"
-                    android:gravity="center"
-                    android:text="- 25-30 min" />
+                    android:gravity="center" />
 
             </LinearLayout>
 

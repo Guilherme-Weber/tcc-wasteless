@@ -51,7 +51,6 @@ public class NovoProdutoEmpresaActivity extends AppCompatActivity implements Vie
     private String idLogUsuario, ramdom, urlImagem1, TipoValor = "Unidade";
     private EditText editTextNomeProduto, editTexTextDescricao;
     private Spinner spinnerNovoProdutoCategoria;
-    //private Switch switchTipoValor, switchTipoPeso;
     private LinearLayout linearTipoPeso;
     private ImageView ImageViewImageProduto;
     private CurrencyEditText editTextPrecoProduto;
@@ -68,15 +67,6 @@ public class NovoProdutoEmpresaActivity extends AppCompatActivity implements Vie
         Permissoes.validarPermissoes(permissoes, this, 1);
 
         iniciarComponentes();
-        // carregarDadosSpinner();
-
-        //Radio Button opções
-        salgado = findViewById(R.id.radioButtonSalgado);
-        doce = findViewById(R.id.radioButtonDoce);
-        mista = findViewById(R.id.radioButtonMista);
-        pequena = findViewById(R.id.radioButtonPequena);
-        media = findViewById(R.id.radioButtonMedia);
-        grande = findViewById(R.id.radioButtonGrande);
 
         ramdom = String.valueOf(System.currentTimeMillis());
 
@@ -90,22 +80,6 @@ public class NovoProdutoEmpresaActivity extends AppCompatActivity implements Vie
         setSupportActionBar(toolbar);
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-/*
-        switchTipoValor.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-               if (isChecked) { // se estiver selecionado é por peso
-                   linearTipoPeso.setVisibility(View.VISIBLE);
-                   TipoValor = "Peso";
-               } else { // se n estiver selecionado é por unidade
-                   linearTipoPeso.setVisibility(View.GONE);
-                    TipoValor = "Unidade";
-                }
-            }
-        });
-        */
-
-
         ImageViewImageProduto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -116,7 +90,6 @@ public class NovoProdutoEmpresaActivity extends AppCompatActivity implements Vie
             }
         });
     }
-
 
     @Override
     public void onClick(View v) {
@@ -145,94 +118,125 @@ public class NovoProdutoEmpresaActivity extends AppCompatActivity implements Vie
         listaFotosRec.add(caminhoImagem);
     }
 
-
     public void validarDadosProduto(View view) {
 
         String nome = editTextNomeProduto.getText().toString();
-       // String categoriaText = spinnerNovoProdutoCategoria.getSelectedItem().toString();
-        // Integer categoria = spinnerNovoProdutoCategoria.getSelectedItemPosition();
         String descricao = editTexTextDescricao.getText().toString();
+        // String categoriaText = spinnerNovoProdutoCategoria.getSelectedItem().toString();
+        // Integer categoria = spinnerNovoProdutoCategoria.getSelectedItemPosition();
         Long preco = editTextPrecoProduto.getRawValue();
 
-        if (listaFotosRec.size() != 0) {
-            if (!nome.isEmpty()) {
-                //if (categoria != null) {
+        if (preco == null) {
+            preco = Long.valueOf("0");
+        }
 
-                    Produto produto = new Produto();
+        if (!nome.isEmpty()) {
+            if (!descricao.isEmpty()) {
+                if (salgado.isChecked() || doce.isChecked() || mista.isChecked()) {
+                    if (pequena.isChecked() || media.isChecked() || grande.isChecked()) {
+                        if (!(preco == 0)) {
 
-                    produto.setIdEmpresa(idLogUsuario);
-                    produto.setNomeProduto(nome);
-                    produto.setDescricao(descricao);
-                   // produto.setIdCategoria(categoria);
-                    // produto.setCategoria(categoriaText);
-                    produto.setPreco(preco);
-/*
-                    if (switchTipoValor.isChecked()) { // se estiver selecionado é por peso
-                        produto.setTipoValor("Por Peso");
-                        if (switchTipoPeso.isChecked()) { // se estiver selecionado é por gramas
-                            produto.setTipoPeso("Em Grama");
-                        } else { // se não estiver selecionado é por kilos
-                            produto.setTipoPeso("Em Kilos");
+                            Produto produto = new Produto();
+
+                            produto.setIdEmpresa(idLogUsuario);
+                            produto.setNomeProduto(nome);
+                            produto.setDescricao(descricao);
+
+                            if (salgado.isChecked()) {
+                                produto.setTipoPacote(salgado.getText().toString());
+                                produto.setIdTipoPacote("1");
+                            } else if (doce.isChecked()) {
+                                produto.setTipoPacote(doce.getText().toString());
+                                produto.setIdTipoPacote("2");
+                            } else if (mista.isChecked()) {
+                                produto.setTipoPacote(mista.getText().toString());
+                                produto.setIdTipoPacote("3");
+                            }
+
+                            if (pequena.isChecked()) {
+                                produto.setTamanhoPacote(pequena.getText().toString());
+                                produto.setIdTamanhoPacote("1");
+                            } else if (media.isChecked()) {
+                                produto.setTamanhoPacote(media.getText().toString());
+                                produto.setIdTamanhoPacote("2");
+                            } else if (grande.isChecked()) {
+                                produto.setTamanhoPacote(grande.getText().toString());
+                                produto.setIdTamanhoPacote("3");
+                            }
+
+                            produto.setPreco(preco);
+
+                            for (int i = 0; i < listaFotosRec.size(); ++i) {
+                                String urlImagem = listaFotosRec.get(i);
+                                int tamanhoLista = listaFotosRec.size();
+                                salvarFotoStorage(urlImagem, tamanhoLista, i);
+                            }
+
+                            produto.setIdProduto(ramdom);
+
+                            produto.salvar(ramdom);
+                            finish();
+                            mensagemToast("Produto Salvo Com Sucesso! " + preco);
+
+                        } else {
+                            mensagemToast("Preencha o preço do produto");
+                            editTextPrecoProduto.setError("Preencha o preço do produto");
                         }
-                    } else { // se n estiver selecionado é por unidade
-                        produto.setTipoValor("Por Unidade");
+
+                    } else {
+                        mensagemToast("Preencha o tamanho do seu pacote");
+                        pequena.setError("Preencha o tamanho do seu pacote");
+                        media.setError("Preencha o tamanho do seu pacote");
+                        grande.setError("Preencha o tamanho do seu pacote");
                     }
-*/
-                    for (int i = 0; i < listaFotosRec.size(); ++i) {
-                        String urlImagem = listaFotosRec.get(i);
-                        int tamanhoLista = listaFotosRec.size();
-                        salvarFotoStorage(urlImagem, tamanhoLista, i);
-                    }
-
-                    produto.setIdProduto(ramdom);
-
-                    produto.salvar(ramdom);
-                    finish();
-                    mensagemToast("Produto Salvo Com Sucesso! ");
-
-
                 } else {
-                    mensagemToast("Selecione a categoria em que a produto condiz");
+                    mensagemToast("Preencha o tipo de pacote");
+                    salgado.setError("Preencha o tipo de pacote");
+                    doce.setError("Preencha o tipo de pacote");
+                    mista.setError("Preencha o tipo de pacote");
                 }
             } else {
-                mensagemToast("Preencha o nome do produto");
+                mensagemToast("Preencha a descrição do produto");
+                editTexTextDescricao.setError("Preencha a descrição do produto");
             }
-        } //else {
-            //mensagemToast("Selecione uma imagem para a produto");
-       // }
-
+        } else {
+            mensagemToast("Preencha o nome do produto");
+            editTextNomeProduto.setError("Preencha o nome do produto");
+        }
+    }
 
     private void mensagemToast(String texto) {
         Toast.makeText(this, texto, Toast.LENGTH_SHORT).show();
     }
 
     private void iniciarComponentes() {
-        editTextNomeProduto = findViewById(R.id.editTextNomeProduto);
-        editTexTextDescricao = findViewById(R.id.editTextNumeroTelefone);
-
-        //spinnerNovoProdutoCategoria = findViewById(R.id.spinnerNovoProdutoCategoria);
 
         ImageViewImageProduto = findViewById(R.id.imageNovoProduto);
         ImageViewImageProduto.setOnClickListener(this);
-/*
-        linearTipoPeso = findViewById(R.id.linearTipoPeso);
 
-        switchTipoValor = findViewById(R.id.switchTipoValor);
-        switchTipoPeso = findViewById(R.id.switchTipoPeso);
-*/
+        editTextNomeProduto = findViewById(R.id.editTextNomeProduto);
+        editTexTextDescricao = findViewById(R.id.editTextDescrição);
+
+        //spinnerNovoProdutoCategoria = findViewById(R.id.spinnerNovoProdutoCategoria);
+
+//        linearTipoPeso = findViewById(R.id.linearTipoPeso);
+//
+//        switchTipoValor = findViewById(R.id.switchTipoValor);
+//        switchTipoPeso = findViewById(R.id.switchTipoPeso);
+
         editTextPrecoProduto = findViewById(R.id.editTextPrecoProduto);
         Locale locale = new Locale("pt", "BR");
         editTextPrecoProduto.setLocale(locale);
-    }
-/*
-    private void carregarDadosSpinner() {
 
-        String[] categorias = new String[]{"Doce", "Salgado", "Outros", "Opção 4", "Opção 5"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, categorias);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerNovoProdutoCategoria.setAdapter(adapter);
+        //Radio Button opções
+        salgado = findViewById(R.id.radioButtonSalgado);
+        doce = findViewById(R.id.radioButtonDoce);
+        mista = findViewById(R.id.radioButtonMista);
+        pequena = findViewById(R.id.radioButtonPequena);
+        media = findViewById(R.id.radioButtonMedia);
+        grande = findViewById(R.id.radioButtonGrande);
     }
-*/
+
     private void salvarFotoStorage(String urlString, int totalFotos, int contador) {
         final StorageReference imagemProduto = storageReference.child("imagens").child("produto").child(ramdom).child(idLogUsuario).child("image" + contador + ".jpg");
 
@@ -244,7 +248,8 @@ public class NovoProdutoEmpresaActivity extends AppCompatActivity implements Vie
                     @Override
                     public void onComplete(@NonNull Task<Uri> task) {
                         Uri uri = task.getResult();
-                        firebaseRef.child("produto").child(ramdom).child("urlImagem").setValue(uri.toString());
+                        firebaseRef.child("produto").child("tudo").child(ramdom).child("urlImagem").setValue(uri.toString());
+                        firebaseRef.child("produto").child(idLogUsuario).child(ramdom).child("urlImagem").setValue(uri.toString());
                     }
                 });
             }
@@ -257,8 +262,8 @@ public class NovoProdutoEmpresaActivity extends AppCompatActivity implements Vie
         });
     }
 
-    public void radiobuttonTipo(){
-        if(salgado.isChecked()){
+    public void radiobuttonTipo() {
+        if (salgado.isChecked()) {
 
         } else if (doce.isChecked()) {
 
@@ -266,8 +271,9 @@ public class NovoProdutoEmpresaActivity extends AppCompatActivity implements Vie
 
         }
     }
-    public void radiobuttonTamanho(){
-        if(pequena.isChecked()){
+
+    public void radiobuttonTamanho() {
+        if (pequena.isChecked()) {
 
         } else if (media.isChecked()) {
 
@@ -275,10 +281,12 @@ public class NovoProdutoEmpresaActivity extends AppCompatActivity implements Vie
 
         }
     }
-        public void enviar(View view){
+
+    public void enviar(View view) {
         radiobuttonTipo();
         radiobuttonTamanho();
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);

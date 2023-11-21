@@ -45,7 +45,6 @@ import java.util.Locale;
 import dmax.dialog.SpotsDialog;
 
 public class CardapioActivity extends AppCompatActivity {
-
     private RecyclerView recyclerProdutosCardapio;
     private FirebaseAuth auth;
     private DatabaseReference firebaseRef;
@@ -81,11 +80,11 @@ public class CardapioActivity extends AppCompatActivity {
         if (bundle != null) {
             empresaSelecionada = (Empresa) bundle.getSerializable("empresa");
 
-            textNomeEmpresaCardapio.setText(usuario.getNome());
+            textNomeEmpresaCardapio.setText(empresaSelecionada.getNome());
 
             idEmpresa = empresaSelecionada.getIdEmpresaUsuario();
 
-            String url = usuario.getUrlImagem();
+            String url = empresaSelecionada.getUrlImagem();
             Picasso.get().load(url).into(imageEmpresaCardapio);
         }
 

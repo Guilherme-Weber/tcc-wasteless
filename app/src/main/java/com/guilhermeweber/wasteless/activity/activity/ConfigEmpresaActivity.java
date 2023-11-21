@@ -34,6 +34,8 @@ import com.google.firebase.storage.UploadTask;
 import com.guilhermeweber.wasteless.R;
 import com.guilhermeweber.wasteless.activity.helper.ConfigFirebase;
 import com.guilhermeweber.wasteless.activity.helper.Permissoes;
+import com.guilhermeweber.wasteless.activity.helper.RESTService;
+import com.guilhermeweber.wasteless.activity.model.CEP;
 import com.guilhermeweber.wasteless.activity.model.Empresa;
 import com.guilhermeweber.wasteless.activity.model.Usuario;
 import com.santalu.maskedittext.MaskEditText;
@@ -44,11 +46,18 @@ import java.util.List;
 import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 
 public class ConfigEmpresaActivity extends AppCompatActivity implements View.OnClickListener {
     private static final int SELECAO_GALERIA = 200;
-    private EditText editTextEmailEmpConfig, editTextNomeEmpresa, editTextEmpresaCEP, editTextEmpresaTempo, editTextNomeUsuario, editTextUsuarioCEP, editTextUsuarioEndereco, editTextLogradouroConfig, editTextComplementoConfig, editTextBairroConfig, editTextUFConfig, editTextCidadeConfig;
+    Empresa empresa = new Empresa();
+    Usuario usuario = new Usuario();
+    private Retrofit retrofitCEP;
+    private EditText editTextEmailEmpConfig, editTextNomeEmpresa, editTextEmpresaCEP, editTextEmpresaTempo, editTextLogradouroConfig, editTextComplementoConfig, editTextBairroConfig, editTextUFConfig, editTextCidadeConfig;
     private Spinner spinnerEmpresaCategoria;
     private MaskEditText editTextNumeroTelefone;
     private CurrencyEditText editTextEmpresaTaxa;
@@ -98,16 +107,44 @@ public class ConfigEmpresaActivity extends AppCompatActivity implements View.OnC
     }
 
     private void recuperarDados() {
+
         DatabaseReference empresaRef = firebaseRef.child("empresa").child(idLogUsuario);
+
         empresaRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.getValue() != null) {
 
                     Empresa empresa = snapshot.getValue(Empresa.class);
-                    Usuario usuario = snapshot.getValue(Usuario.class);
 
-                    spinnerEmpresaCategoria.setSelection(empresa.getIdCategoria());
+                    if (!(empresa.getCategoria() == null)) {
+                        spinnerEmpresaCategoria.setSelection(empresa.getIdCategoria());
+                    }
+
+                    urlImagemSelecionada = empresa.getUrlImagem();
+
+                    editTextNumeroTelefone.setText(empresa.getTelefone());
+
+                    if (urlImagemSelecionada != "") {
+                        Picasso.get().load(urlImagemSelecionada).into(imagePerfilEmpresa);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        DatabaseReference empresaRef2 = firebaseRef.child("usuarios").child(idLogUsuario);
+
+        empresaRef2.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.getValue() != null) {
+
+                    usuario = snapshot.getValue(Usuario.class);
 
                     editTextNomeEmpresa.setText(usuario.getNome());
                     editTextEmpresaCEP.setText(usuario.getcEP());
@@ -116,14 +153,8 @@ public class ConfigEmpresaActivity extends AppCompatActivity implements View.OnC
                     editTextBairroConfig.setText(usuario.getBairro());
                     editTextUFConfig.setText(usuario.getUF());
                     editTextCidadeConfig.setText(usuario.getLocalidade());
+                    editTextEmailEmpConfig.setText(usuario.getEmail());
 
-                    editTextNumeroTelefone.setText(usuario.getTelefone());
-
-                    urlImagemSelecionada = usuario.getUrlImagem();
-
-                    if (urlImagemSelecionada != "") {
-                        Picasso.get().load(urlImagemSelecionada).into(imagePerfilEmpresa);
-                    }
                 }
             }
 
@@ -166,12 +197,72 @@ public class ConfigEmpresaActivity extends AppCompatActivity implements View.OnC
 
     public void CEP(View view) {
 
+        if (validarCampos()) {
+
+            String cep = editTextEmpresaCEP.getText().toString().trim();
+            empresa.setcEP(cep);
+
+            consultarCEP();
+        }
+    }
+
+    private void consultarCEP() {
+
+        String sCep = editTextEmpresaCEP.getText().toString().trim();
+
+        //removendo o ponto e o traço do padrão CEP
+        sCep = sCep.replaceAll("[.-]+", "");
+
+        //instanciando a interface
+        RESTService restService = retrofitCEP.create(RESTService.class);
+
+        //passando os dados para consulta
+        Call<CEP> call = restService.consultarCEP(sCep);
+
+        //colocando a requisição na fila para execução
+        call.enqueue(new Callback<CEP>() {
+            @Override
+            public void onResponse(Call<CEP> call, Response<CEP> response) {
+                if (response.isSuccessful()) {
+                    CEP cep = response.body();
+                    editTextLogradouroConfig.setText(cep.getLogradouro());
+                    editTextComplementoConfig.setText(cep.getComplemento());
+                    editTextBairroConfig.setText(cep.getBairro());
+                    editTextUFConfig.setText(cep.getUf());
+                    editTextCidadeConfig.setText(cep.getLocalidade());
+                    Toast.makeText(getApplicationContext(), "CEP consultado com sucesso", Toast.LENGTH_LONG).show();
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CEP> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "Ocorreu um erro ao tentar consultar o CEP. Erro: " + t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private Boolean validarCampos() {
+
+        Boolean status = true;
+        String cep = editTextEmpresaCEP.getText().toString().trim();
+
+        if (cep.isEmpty()) {
+            editTextEmpresaCEP.setError("Digite um CEP válido.");
+            status = false;
+        }
+
+        if ((cep.length() > 1) && (cep.length() < 10)) {
+            editTextEmpresaCEP.setError("O CEP deve possuir 8 dígitos");
+            status = false;
+        }
+        return status;
     }
 
     public void validarDadosEmpresa(View view) {
 
         String fone = "";
-        String nome = editTextNomeUsuario.getText().toString();
+        String nome = editTextNomeEmpresa.getText().toString();
         String cEP = editTextEmpresaCEP.getText().toString();
         String logradouro = editTextLogradouroConfig.getText().toString();
         String complemento = editTextComplementoConfig.getText().toString();
@@ -195,9 +286,6 @@ public class ConfigEmpresaActivity extends AppCompatActivity implements View.OnC
 //      if (!tempo.isEmpty()) {
 //      if (!telefone.isEmpty() && fone.length() >= 10) {
 
-        Empresa empresa = new Empresa();
-        Usuario usuario = new Usuario();
-
         usuario.setId(idLogUsuario);
         usuario.setNome(nome);
         usuario.setEmail(email);
@@ -213,6 +301,7 @@ public class ConfigEmpresaActivity extends AppCompatActivity implements View.OnC
         empresa.setCategoria(categoriaText);
         empresa.setIdCategoria(categoria);
 
+        empresa.setIdEmpresaUsuario(idLogUsuario);
         empresa.setNome(nome);
         empresa.setEmail(email);
         empresa.setcEP(cEP);
@@ -227,6 +316,7 @@ public class ConfigEmpresaActivity extends AppCompatActivity implements View.OnC
             int tamanhoLista = listaFotosRec.size();
             salvarFotoStorage(urlImagem, tamanhoLista, i);
         }
+
 
         usuario.salvar();
         empresa.salvar();
@@ -296,6 +386,7 @@ public class ConfigEmpresaActivity extends AppCompatActivity implements View.OnC
                     public void onComplete(@NonNull Task<Uri> task) {
                         Uri uri = task.getResult();
                         firebaseRef.child("empresa").child(idLogUsuario).child("urlImagem").setValue(uri.toString());
+                        firebaseRef.child("usuarios").child(idLogUsuario).child("urlImagem").setValue(uri.toString());
                     }
                 });
             }

@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/primaria"
-    android:gravity="center"
     android:onClick="abrirDialog"
+    android:orientation="vertical"
     android:padding="30dp"
     tools:context=".activity.activity.CadastrosUsuariosActivity">
 
@@ -43,82 +41,82 @@
                     android:id="@+id/editTextNome"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_edit_text"
                     android:ems="10"
                     android:hint="Informe seu nome"
                     android:inputType="text"
-                    android:textColor="@color/quad"
-                    android:background="@drawable/bg_edit_text"
                     android:padding="16dp"
-                    android:textSize="14sp"
-                    android:layout_weight="1"/>
+                    android:textColor="@color/quad"
+                    android:textSize="14sp" />
 
                 <EditText
                     android:id="@+id/editTextEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_edit_text"
                     android:ems="10"
                     android:hint="Informe seu e-mail"
                     android:inputType="textEmailAddress"
-                    android:textColor="@color/quad"
-                    android:background="@drawable/bg_edit_text"
                     android:padding="16dp"
-                    android:textSize="14sp"
-                    android:layout_marginTop="8dp"
-                    android:layout_weight="1"/>
+                    android:textColor="@color/quad"
+                    android:textSize="14sp" />
 
                 <EditText
                     android:id="@+id/editTextSenha"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_edit_text"
                     android:ems="10"
                     android:hint="Informe sua senha"
                     android:inputType="textPassword"
-                    android:textColor="@color/quad"
-                    android:background="@drawable/bg_edit_text"
                     android:padding="16dp"
-                    android:textSize="14sp"
-                    android:layout_marginTop="8dp"
-                    android:layout_weight="1"/>
+                    android:textColor="@color/quad"
+                    android:textSize="14sp" />
 
                 <EditText
                     android:id="@+id/editTextSenhaDenovo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_edit_text"
                     android:ems="10"
                     android:hint="Confirme sua senha"
                     android:inputType="textPassword"
-                    android:textColor="@color/quad"
-                    android:background="@drawable/bg_edit_text"
                     android:padding="16dp"
-                    android:textSize="14sp"
-                    android:layout_marginTop="8dp"
-                    android:layout_weight="1"/>
+                    android:textColor="@color/quad"
+                    android:textSize="14sp" />
 
                 <com.santalu.maskedittext.MaskEditText
                     android:id="@+id/editTextTelefoneAuth"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_edit_text"
                     android:ems="10"
                     android:hint="Informe seu telefone"
                     android:inputType="phone"
-                    android:textColor="@color/quad"
-                    android:background="@drawable/bg_edit_text"
                     android:padding="16dp"
+                    android:textColor="@color/quad"
                     android:textSize="14sp"
-                    app:met_mask="(##) #####-####"
-                    android:layout_marginTop="8dp"
-                    android:layout_weight="1"/>
+                    app:met_mask="(##) #####-####" />
 
                 <TextView
                     android:id="@+id/textView6"
                     android:layout_width="match_parent"
                     android:layout_height="38dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_weight="1"
                     android:text="Qual o tipo de cadastro deseja realizar?"
                     android:textAlignment="center"
                     android:textColor="@color/black"
-                    android:textSize="14sp"
-                    android:layout_marginTop="8dp"
-                    android:layout_weight="1"/>
+                    android:textSize="14sp" />
 
                 <RadioGroup
                     android:layout_width="match_parent"
@@ -128,9 +126,9 @@
                         android:id="@+id/radioButtonClienteCadastro"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Cliente"
                         android:backgroundTint="@color/grey"
                         android:buttonTint="@color/grey"
+                        android:text="Cliente"
                         android:textColor="@color/black"
                         android:textColorHighlight="@color/secundaria"
                         android:textColorHint="@color/quad"

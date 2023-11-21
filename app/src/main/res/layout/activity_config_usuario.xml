@@ -32,11 +32,22 @@
                 android:inputType="text"
                 android:textColor="@color/quad" />
 
-            <de.hdodenhof.circleimageview.CircleImageView
+            <ImageView
                 android:id="@+id/imageUsuario"
                 android:layout_width="107dp"
                 android:layout_height="92dp"
-                android:ems="10" />
+                android:layout_weight="1"
+                android:background="@drawable/bg_edit_text"
+                android:ems="10"
+                android:scaleType="centerCrop"
+                app:srcCompat="@drawable/perfil" />
+
+            <!--Image View Redondo-->
+            <!--<de.hdodenhof.circleimageview.CircleImageView-->
+            <!--    android:id="@+id/imageUsuario"-->
+            <!--    android:layout_width="107dp"-->
+            <!--    android:layout_height="92dp"-->
+            <!--    android:ems="10" />-->
 
         </LinearLayout>
 
@@ -47,7 +58,7 @@
 
             <EditText
                 android:id="@+id/editTextUsuarioCEP"
-                android:layout_width="268dp"
+                android:layout_width="272dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="-2dp"
                 android:ems="10"
@@ -117,12 +128,13 @@
 
             <EditText
                 android:id="@+id/editTextCidadeConfig"
-                android:layout_width="300dp"
+                android:layout_width="272dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="-2dp"
                 android:ems="10"
                 android:hint="Cidade"
-                android:inputType="text" />
+                android:inputType="text"
+                android:textColor="@color/quad" />
 
             <EditText
                 android:id="@+id/editTextUFConfig"
@@ -131,7 +143,8 @@
                 android:layout_marginTop="-2dp"
                 android:ems="10"
                 android:hint="UF"
-                android:inputType="number" />
+                android:inputType="number"
+                android:textColor="@color/quad" />
 
         </LinearLayout>
 
@@ -143,6 +156,7 @@
             android:ems="10"
             android:hint="Telefone"
             android:inputType="phone"
+            android:textColor="@color/quad"
             app:met_mask="(##) #####-####" />
 
         <LinearLayout

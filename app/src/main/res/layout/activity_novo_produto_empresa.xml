@@ -52,7 +52,7 @@
                     android:textSize="14sp" />
 
                 <EditText
-                    android:id="@+id/editTextNumeroTelefone"
+                    android:id="@+id/editTextDescrição"
                     android:layout_width="match_parent"
                     android:layout_height="112dp"
                     android:layout_marginTop="8dp"

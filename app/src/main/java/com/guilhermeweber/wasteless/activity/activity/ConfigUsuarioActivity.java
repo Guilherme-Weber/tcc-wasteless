@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -57,7 +58,7 @@ public class ConfigUsuarioActivity extends AppCompatActivity implements View.OnC
     private final String URL = "https://viacep.com.br/ws/";
     Usuario usuario = new Usuario();
     private Retrofit retrofitCEP;
-    private CircleImageView imageUsuario;
+    private ImageView imageUsuario;
     private EditText editTextEmailUsuConfig, editTextNomeUsuario, editTextUsuarioCEP, editTextUsuarioEndereco, editTextLogradouroConfig, editTextComplementoConfig, editTextBairroConfig, editTextUFConfig, editTextCidadeConfig;
     private MaskEditText editTextTelefone;
     private StorageReference storageReference;
@@ -128,6 +129,7 @@ public class ConfigUsuarioActivity extends AppCompatActivity implements View.OnC
                     editTextBairroConfig.setText(usuario.getBairro());
                     editTextUFConfig.setText(usuario.getUF());
                     editTextCidadeConfig.setText(usuario.getLocalidade());
+                    editTextEmailUsuConfig.setText(usuario.getEmail());
 
                     editTextTelefone.setText(usuario.getTelefone());
 
@@ -309,6 +311,7 @@ public class ConfigUsuarioActivity extends AppCompatActivity implements View.OnC
     }
 
     private void iniciarComponentes() {
+
         editTextNomeUsuario = findViewById(R.id.editTextNomeUsuario);
         editTextUsuarioCEP = findViewById(R.id.editTextUsuarioCEP);
         editTextLogradouroConfig = findViewById(R.id.editTextLogradouroConfig);
@@ -322,6 +325,7 @@ public class ConfigUsuarioActivity extends AppCompatActivity implements View.OnC
 
         imageUsuario = findViewById(R.id.imageUsuario);
         imageUsuario.setOnClickListener(this);
+
     }
 
     private void salvarFotoStorage(String urlString, int totalFotos, int contador) {

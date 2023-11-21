@@ -10,11 +10,11 @@ public class Produto {
     private String nomeProduto;
     private String urlImagem;
     private String descricao;
-    private String categoria;
-    private Integer idCategoria;
     private Long preco;
-    private String TipoValor;
-    private String TipoPeso;
+    private String tipoPacote;
+    private String idTipoPacote;
+    private String tamanhoPacote;
+    private String idTamanhoPacote;
 
     public Produto() {
 
@@ -22,14 +22,18 @@ public class Produto {
 
     public void salvar(String seed) {
         DatabaseReference firebaseRef = ConfigFirebase.getFirebase();
-        DatabaseReference produtoRef = firebaseRef.child("produto").child(seed);
+        DatabaseReference produtoRef = firebaseRef.child("produto").child("tudo").child(seed);
+        DatabaseReference produtoRef2 = firebaseRef.child("produto").child(getIdEmpresa()).child(seed);
         produtoRef.setValue(this);
+        produtoRef2.setValue(this);
     }
 
     public void remover(String seed) {
         DatabaseReference firebaseRef = ConfigFirebase.getFirebase();
-        DatabaseReference produtoRef = firebaseRef.child("produto").child(seed);
+        DatabaseReference produtoRef = firebaseRef.child("produto").child("tudo").child(seed);
+        DatabaseReference produtoRef2 = firebaseRef.child("produto").child(getIdEmpresa()).child(seed);
         produtoRef.removeValue();
+        produtoRef2.removeValue();
 
     }
 
@@ -73,22 +77,6 @@ public class Produto {
         this.descricao = descricao;
     }
 
-    public String getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(String categoria) {
-        this.categoria = categoria;
-    }
-
-    public Integer getIdCategoria() {
-        return idCategoria;
-    }
-
-    public void setIdCategoria(Integer idCategoria) {
-        this.idCategoria = idCategoria;
-    }
-
     public Long getPreco() {
         return preco;
     }
@@ -97,19 +85,35 @@ public class Produto {
         this.preco = preco;
     }
 
-    public String getTipoValor() {
-        return TipoValor;
+    public String getTipoPacote() {
+        return tipoPacote;
     }
 
-    public void setTipoValor(String tipoValor) {
-        TipoValor = tipoValor;
+    public void setTipoPacote(String tipoPacote) {
+        this.tipoPacote = tipoPacote;
     }
 
-    public String getTipoPeso() {
-        return TipoPeso;
+    public String getIdTipoPacote() {
+        return idTipoPacote;
     }
 
-    public void setTipoPeso(String tipoPeso) {
-        TipoPeso = tipoPeso;
+    public void setIdTipoPacote(String idTipoPacote) {
+        this.idTipoPacote = idTipoPacote;
+    }
+
+    public String getTamanhoPacote() {
+        return tamanhoPacote;
+    }
+
+    public void setTamanhoPacote(String tamanhoPacote) {
+        this.tamanhoPacote = tamanhoPacote;
+    }
+
+    public String getIdTamanhoPacote() {
+        return idTamanhoPacote;
+    }
+
+    public void setIdTamanhoPacote(String idTamanhoPacote) {
+        this.idTamanhoPacote = idTamanhoPacote;
     }
 }

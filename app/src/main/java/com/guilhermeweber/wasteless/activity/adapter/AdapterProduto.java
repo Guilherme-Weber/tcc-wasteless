@@ -44,10 +44,9 @@ public class AdapterProduto extends RecyclerView.Adapter<AdapterProduto.MyViewHo
         holder.nome.setText(produto.getNomeProduto());
         holder.descricao.setText(produto.getDescricao());
         holder.valor.setValue(produto.getPreco());
-        holder.tipoValor.setText(produto.getTipoValor());
-        if (produto.getTipoPeso() != null) {
-            holder.tipoPeso.setText(produto.getTipoPeso());
-        }
+        holder.tipoValor.setText(produto.getTamanhoPacote());
+        holder.tipoPeso.setText(produto.getTipoPacote());
+
 
         //recuperar imagem
         String urlFotos = produto.getUrlImagem();

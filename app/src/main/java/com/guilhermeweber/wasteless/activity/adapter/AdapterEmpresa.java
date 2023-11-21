@@ -40,8 +40,14 @@ public class AdapterEmpresa extends RecyclerView.Adapter<AdapterEmpresa.MyViewHo
         Empresa empresa = empresas.get(position);
 
         holder.nomeEmpresa.setText(empresa.getNome());
-        holder.categoria.setText(empresa.getCategoria() + " - ");
-        holder.tempo.setText(empresa.getBairro());
+
+        if (!(empresa.getCategoria() == null)) {
+            holder.categoria.setText(empresa.getCategoria());
+        } else {
+            holder.categoria.setText("Empresa");
+        }
+
+        holder.tempo.setText(" - " + empresa.getBairro());
 //        holder.entrega.setText("R$ " + empresa.getPrecoEntrega().toString());
 
         //recuperar imagem

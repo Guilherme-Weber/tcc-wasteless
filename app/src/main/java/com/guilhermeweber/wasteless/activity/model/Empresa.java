@@ -1,5 +1,10 @@
 package com.guilhermeweber.wasteless.activity.model;
 
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+
+import android.util.Log;
+import android.widget.Toast;
+
 import com.google.firebase.database.DatabaseReference;
 import com.guilhermeweber.wasteless.activity.helper.ConfigFirebase;
 
@@ -28,6 +33,7 @@ public class Empresa implements Serializable {
 
     public void salvar() {
         DatabaseReference firebaseRef = ConfigFirebase.getFirebase();
+
         DatabaseReference empresaRef = firebaseRef.child("empresa").child(getIdEmpresaUsuario());
         empresaRef.setValue(this);
     }

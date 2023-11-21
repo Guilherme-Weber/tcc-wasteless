@@ -53,7 +53,6 @@ public class CadastroEnderecoActivity extends AppCompatActivity {
     private LocationManager locationManager;
     private LocationListener locationListener;
 
-    @SuppressLint("ServiceCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,14 +62,14 @@ public class CadastroEnderecoActivity extends AppCompatActivity {
 
         Permissoes.validarPermissoes(permissoes, this, 1);
 
-        locationManager = (LocationManager) this.getSystemService(Context.LOCALE_SERVICE);
-
-        locationListener = new LocationListener() {
-            @Override
-            public void onLocationChanged(@NonNull Location location) {
-                Log.d("Localizacao", "onLocationChanged: " + location.toString());
-            }
-        };
+//        locationManager = (LocationManager) this.getSystemService(Context.LOCALE_SERVICE);
+//
+//        locationListener = new LocationListener() {
+//            @Override
+//            public void onLocationChanged(@NonNull Location location) {
+//                Log.d("Localizacao", "onLocationChanged: " + location.toString());
+//            }
+//        };
 
         //recuperar a usuario
         Bundle bundle = getIntent().getExtras();
@@ -87,7 +86,6 @@ public class CadastroEnderecoActivity extends AppCompatActivity {
                 .build();
 
 
-
         btnConsultarCEP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -95,6 +93,7 @@ public class CadastroEnderecoActivity extends AppCompatActivity {
 
                     String cep = txtCEP.getText().toString().trim();
                     usuario.setcEP(cep);
+                    empresa.setcEP(cep);
 
                     consultarCEP();
                 }
@@ -115,12 +114,11 @@ public class CadastroEnderecoActivity extends AppCompatActivity {
             }
         });
 
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            locationManager.requestLocationUpdates(
-                    LocationManager.GPS_PROVIDER, 1000, 10, locationListener
-            );
-        }
-
+//        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+//            locationManager.requestLocationUpdates(
+//                    LocationManager.GPS_PROVIDER, 1000, 10, locationListener
+//            );
+//        }
 
     }
 
@@ -168,6 +166,8 @@ public class CadastroEnderecoActivity extends AppCompatActivity {
         usuario.setUF(UF);
         usuario.setLocalidade(Localidade);
 
+        empresa.setTelefone(usuario.getTelefone());
+        empresa.setNome(usuario.getNome());
         empresa.setLogradouro(Logradouro);
         empresa.setEmail(usuario.getEmail());
         empresa.setComplemento(Complemento);
@@ -177,18 +177,20 @@ public class CadastroEnderecoActivity extends AppCompatActivity {
 
         usuario.salvar();
 
-        if (usuario.getTipo() == "E") {//Empresa
+        String tipoUser = usuario.getTipo();
+
+        if (tipoUser.equals("E")) {//Empresa
 
             empresa.setIdEmpresaUsuario(usuario.getId());
             empresa.salvar();
 
-            Toast.makeText(CadastroEnderecoActivity.this, "Cadastrado realizado com sucesso! ", Toast.LENGTH_LONG).show();
+            Toast.makeText(CadastroEnderecoActivity.this, "Empresa cadastrada com sucesso! ", Toast.LENGTH_LONG).show();
             startActivity(new Intent(getApplicationContext(), EmpresaActivity.class));
             finish();
 
         } else {//usuario
 
-            Toast.makeText(CadastroEnderecoActivity.this, "Cadastrado realizado com sucesso! ", Toast.LENGTH_LONG).show();
+            Toast.makeText(CadastroEnderecoActivity.this, "Cadastrado realizado com sucesso! " + usuario.getTipo(), Toast.LENGTH_LONG).show();
             startActivity(new Intent(getApplicationContext(), HomeActivity.class));
             finish();
         }
