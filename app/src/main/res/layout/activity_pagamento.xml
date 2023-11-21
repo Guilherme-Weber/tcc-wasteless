@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,64 +8,101 @@
     android:padding="16dp"
     tools:context=".activity.activity.PagamentoActivity">
 
+    <include
+        layout="@layout/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <RadioGroup
+        android:id="@+id/radioGroupMetodoPagamento"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="16dp">
+
+        <RadioButton
+            android:id="@+id/radioButtonCredito"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/grey"
+            android:buttonTint="@color/grey"
+            android:checked="true"
+            android:text="Cartão de Crédito" />
+
+        <RadioButton
+            android:id="@+id/radioButtonDebito"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/grey"
+            android:buttonTint="@color/grey"
+            android:text="Cartão de Débito" />
+
+        <RadioButton
+            android:id="@+id/radioButtonPix"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/grey"
+            android:buttonTint="@color/grey"
+            android:text="Pix" />
+    </RadioGroup>
+
     <!-- Informações do Cartão de Crédito -->
-
-    <EditText
-        android:id="@+id/textNumeroCartao"
+    <LinearLayout
+        android:id="@+id/layoutCartaoCredito"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Número do Cartão de Crédito"
-        android:inputType="number"
-        android:maxLength="16" />
+        android:orientation="vertical"
+        android:visibility="visible"
+        android:layout_marginTop="8dp">
 
-    <EditText
-        android:id="@+id/textDataExpiracao"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Data de Expiração (MM/YY)"
-        android:inputType="number"
-        android:maxLength="5" />
+        <EditText
+            android:id="@+id/textNumeroCartao"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@drawable/bg_edit_text"
+            android:hint="Número do Cartão de Crédito"
+            android:inputType="number"
+            android:maxLength="16"
+            android:textSize="14sp"
+            android:textColor="@color/quad"/>
 
-    <EditText
-        android:id="@+id/textCVV"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="CVV"
-        android:inputType="number"
-        android:maxLength="3" />
+        <EditText
+            android:id="@+id/textDataExpiracao"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@drawable/bg_edit_text"
+            android:hint="Data de Expiração (MM/YY)"
+            android:inputType="number"
+            android:maxLength="5"
+            android:padding="12dp"
+            android:textSize="14sp"
+            android:layout_marginTop="16dp"
+            android:textColor="@color/quad"/>
 
-    <!-- Botão de Pagar com Cartão de Crédito -->
+        <EditText
+            android:id="@+id/textCVV"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@drawable/bg_edit_text"
+            android:hint="CVV"
+            android:inputType="number"
+            android:maxLength="3"
+            android:padding="12dp"
+            android:textSize="14sp"
+            android:layout_marginTop="16dp"
+            android:textColor="@color/quad"/>
+    </LinearLayout>
+
+    <!-- Botão de Pagar -->
     <Button
-        android:id="@+id/buttonCredito"
+        android:id="@+id/buttonPagar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Pagar com Cartão de Crédito" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        android:background="#ccc" />
-
-    <!-- Seção de Pagamento com Débito -->
-    <Button
-        android:id="@+id/buttonDebito"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Pagar com Débito" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        android:background="#ccc" />
-
-    <!-- Pagamento com Pix -->
-    <Button
-        android:id="@+id/buttonPix"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Pagar com Pix" />
-</LinearLayout>
+        android:layout_height="40dp"
+        android:backgroundTint="@color/secundaria"
+        android:padding="12dp"
+        android:text="Pagar"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        android:theme="@style/botaoPadrao"
+        android:layout_marginTop="16dp"/>
+</androidx.appcompat.widget.LinearLayoutCompat>
