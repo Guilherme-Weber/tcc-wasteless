@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="@color/primaria"
     android:gravity="center"
     android:onClick="abrirDialog"
-    android:orientation="vertical"
     android:padding="30dp"
     tools:context=".activity.activity.CadastrosUsuariosActivity">
 
@@ -21,152 +22,185 @@
         android:textSize="24sp"
         android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/textView9"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="38dp" />
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
-    <EditText
-        android:id="@+id/editTextNome"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Informe seu nome"
-        android:inputType="text"
-        android:textColor="@color/quad" />
-
-    <EditText
-        android:id="@+id/editTextEmail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Informe seu e-mail"
-        android:inputType="textEmailAddress"
-        android:textColor="@color/quad" />
-
-    <EditText
-        android:id="@+id/editTextSenha"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Informe sua senha"
-        android:inputType="textPassword"
-        android:textColor="@color/quad" />
-
-
-    <EditText
-        android:id="@+id/editTextSenhaDenovo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Confirme sua senha"
-        android:inputType="textPassword"
-        android:textColor="@color/quad" />
-
-    <com.santalu.maskedittext.MaskEditText
-        android:id="@+id/editTextTelefoneAuth"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="-2dp"
-        android:ems="10"
-        android:hint="Informe seu telefone"
-        android:inputType="phone"
-        android:textColor="@color/quad"
-        app:met_mask="(##) #####-####" />
-
-    <TextView
-        android:id="@+id/textView10"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="match_parent"
-        android:layout_height="38dp"
-        android:text="Qual o tipo de cadastro deseja realizar?"
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textSize="14sp" />
-
-    <RadioGroup
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <RadioButton
-            android:id="@+id/radioButtonClienteCadastro"
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Cliente"
-            android:backgroundTint="@color/grey"
-            android:buttonTint="@color/grey"
-            android:textColor="@color/black"
-            android:textColorHighlight="@color/secundaria"
-            android:textColorHint="@color/quad"
-            android:textColorLink="@color/secundaria" />
+            android:layout_marginTop="16dp"
+            app:cardCornerRadius="8dp">
 
-        <RadioButton
-            android:id="@+id/radioButtonEmpresaCadastro"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/grey"
-            android:buttonTint="@color/grey"
-            android:text="Empresa"
-            android:textColor="@color/black"
-            android:textColorHighlight="@color/secundaria"
-            android:textColorLink="@color/secundaria" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/textView11"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColorHighlight="@color/secundaria" />
+                android:orientation="vertical"
+                android:padding="16dp">
 
-            <CheckBox
-                android:id="@+id/checkBoxTermos"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:backgroundTint="@color/grey"
-                android:buttonTint="@color/grey"
-                android:text="Li e aceito os termos de uso de condições"
-                android:textColor="@color/quad" />
+                <EditText
+                    android:id="@+id/editTextNome"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="Informe seu nome"
+                    android:inputType="text"
+                    android:textColor="@color/quad"
+                    android:background="@drawable/bg_edit_text"
+                    android:padding="16dp"
+                    android:textSize="14sp"
+                    android:layout_weight="1"/>
 
-            <TextView
-                android:id="@+id/textTermos"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:text="Termos de uso aqui"
-                android:textAlignment="viewStart"
-                android:textAllCaps="false"
-                android:textSize="11sp"
-                android:textStyle="bold" />
+                <EditText
+                    android:id="@+id/editTextEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="Informe seu e-mail"
+                    android:inputType="textEmailAddress"
+                    android:textColor="@color/quad"
+                    android:background="@drawable/bg_edit_text"
+                    android:padding="16dp"
+                    android:textSize="14sp"
+                    android:layout_marginTop="8dp"
+                    android:layout_weight="1"/>
 
-            <TextView
-                android:id="@+id/textView13"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColorHighlight="@color/secundaria" />
+                <EditText
+                    android:id="@+id/editTextSenha"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="Informe sua senha"
+                    android:inputType="textPassword"
+                    android:textColor="@color/quad"
+                    android:background="@drawable/bg_edit_text"
+                    android:padding="16dp"
+                    android:textSize="14sp"
+                    android:layout_marginTop="8dp"
+                    android:layout_weight="1"/>
 
-        </LinearLayout>
+                <EditText
+                    android:id="@+id/editTextSenhaDenovo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="Confirme sua senha"
+                    android:inputType="textPassword"
+                    android:textColor="@color/quad"
+                    android:background="@drawable/bg_edit_text"
+                    android:padding="16dp"
+                    android:textSize="14sp"
+                    android:layout_marginTop="8dp"
+                    android:layout_weight="1"/>
 
-    </RadioGroup>
+                <com.santalu.maskedittext.MaskEditText
+                    android:id="@+id/editTextTelefoneAuth"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="Informe seu telefone"
+                    android:inputType="phone"
+                    android:textColor="@color/quad"
+                    android:background="@drawable/bg_edit_text"
+                    android:padding="16dp"
+                    android:textSize="14sp"
+                    app:met_mask="(##) #####-####"
+                    android:layout_marginTop="8dp"
+                    android:layout_weight="1"/>
 
-    <Button
-        android:id="@+id/buttonCadastroProximo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/secundaria"
-        android:padding="16dp"
-        android:text="Próximo"
-        android:textColor="@color/white"
-        android:textSize="12sp"
-        android:theme="@style/botaoPadrao"
-        app:cornerRadius="10dp" />
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="match_parent"
+                    android:layout_height="38dp"
+                    android:text="Qual o tipo de cadastro deseja realizar?"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:layout_marginTop="8dp"
+                    android:layout_weight="1"/>
 
-</LinearLayout>
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <RadioButton
+                        android:id="@+id/radioButtonClienteCadastro"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Cliente"
+                        android:backgroundTint="@color/grey"
+                        android:buttonTint="@color/grey"
+                        android:textColor="@color/black"
+                        android:textColorHighlight="@color/secundaria"
+                        android:textColorHint="@color/quad"
+                        android:textColorLink="@color/secundaria" />
+
+                    <RadioButton
+                        android:id="@+id/radioButtonEmpresaCadastro"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/grey"
+                        android:buttonTint="@color/grey"
+                        android:text="Empresa"
+                        android:textColor="@color/black"
+                        android:textColorHighlight="@color/secundaria"
+                        android:textColorLink="@color/secundaria" />
+                </RadioGroup>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textView11"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColorHighlight="@color/secundaria" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxTermos"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:backgroundTint="@color/grey"
+                        android:buttonTint="@color/grey"
+                        android:text="Li e aceito os termos de uso de condições"
+                        android:textColor="@color/quad" />
+
+                    <TextView
+                        android:id="@+id/textTermos"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="Termos de uso aqui"
+                        android:textAlignment="viewStart"
+                        android:textAllCaps="false"
+                        android:textSize="11sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/textView13"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColorHighlight="@color/secundaria" />
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/buttonCadastroProximo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/secundaria"
+                    android:padding="16dp"
+                    android:text="Próximo"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    android:theme="@style/botaoPadrao"
+                    app:cornerRadius="10dp" />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </ScrollView>
+</androidx.appcompat.widget.LinearLayoutCompat>
