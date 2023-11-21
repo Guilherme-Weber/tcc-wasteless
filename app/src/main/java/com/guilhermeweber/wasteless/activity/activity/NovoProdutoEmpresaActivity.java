@@ -14,6 +14,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
@@ -50,12 +51,13 @@ public class NovoProdutoEmpresaActivity extends AppCompatActivity implements Vie
     private String idLogUsuario, ramdom, urlImagem1, TipoValor = "Unidade";
     private EditText editTextNomeProduto, editTexTextDescricao;
     private Spinner spinnerNovoProdutoCategoria;
-    private Switch switchTipoValor, switchTipoPeso;
+    //private Switch switchTipoValor, switchTipoPeso;
     private LinearLayout linearTipoPeso;
     private ImageView ImageViewImageProduto;
     private CurrencyEditText editTextPrecoProduto;
     private List<String> listaFotosRec = new ArrayList<>();
     private String[] permissoes = new String[]{Manifest.permission.READ_EXTERNAL_STORAGE};
+    private RadioButton salgado, doce, mista, pequena, media, grande;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +68,15 @@ public class NovoProdutoEmpresaActivity extends AppCompatActivity implements Vie
         Permissoes.validarPermissoes(permissoes, this, 1);
 
         iniciarComponentes();
-        carregarDadosSpinner();
+        // carregarDadosSpinner();
+
+        //Radio Button opções
+        salgado = findViewById(R.id.radioButtonSalgado);
+        doce = findViewById(R.id.radioButtonDoce);
+        mista = findViewById(R.id.radioButtonMista);
+        pequena = findViewById(R.id.radioButtonPequena);
+        media = findViewById(R.id.radioButtonMedia);
+        grande = findViewById(R.id.radioButtonGrande);
 
         ramdom = String.valueOf(System.currentTimeMillis());
 
@@ -80,19 +90,21 @@ public class NovoProdutoEmpresaActivity extends AppCompatActivity implements Vie
         setSupportActionBar(toolbar);
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-
+/*
         switchTipoValor.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) { // se estiver selecionado é por peso
-                    linearTipoPeso.setVisibility(View.VISIBLE);
-                    TipoValor = "Peso";
-                } else { // se n estiver selecionado é por unidade
-                    linearTipoPeso.setVisibility(View.GONE);
+               if (isChecked) { // se estiver selecionado é por peso
+                   linearTipoPeso.setVisibility(View.VISIBLE);
+                   TipoValor = "Peso";
+               } else { // se n estiver selecionado é por unidade
+                   linearTipoPeso.setVisibility(View.GONE);
                     TipoValor = "Unidade";
                 }
             }
         });
+        */
+
 
         ImageViewImageProduto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -137,24 +149,24 @@ public class NovoProdutoEmpresaActivity extends AppCompatActivity implements Vie
     public void validarDadosProduto(View view) {
 
         String nome = editTextNomeProduto.getText().toString();
-        String categoriaText = spinnerNovoProdutoCategoria.getSelectedItem().toString();
-        Integer categoria = spinnerNovoProdutoCategoria.getSelectedItemPosition();
+       // String categoriaText = spinnerNovoProdutoCategoria.getSelectedItem().toString();
+        // Integer categoria = spinnerNovoProdutoCategoria.getSelectedItemPosition();
         String descricao = editTexTextDescricao.getText().toString();
         Long preco = editTextPrecoProduto.getRawValue();
 
         if (listaFotosRec.size() != 0) {
             if (!nome.isEmpty()) {
-                if (categoria != null) {
+                //if (categoria != null) {
 
                     Produto produto = new Produto();
 
                     produto.setIdEmpresa(idLogUsuario);
                     produto.setNomeProduto(nome);
                     produto.setDescricao(descricao);
-                    produto.setIdCategoria(categoria);
-                    produto.setCategoria(categoriaText);
+                   // produto.setIdCategoria(categoria);
+                    // produto.setCategoria(categoriaText);
                     produto.setPreco(preco);
-
+/*
                     if (switchTipoValor.isChecked()) { // se estiver selecionado é por peso
                         produto.setTipoValor("Por Peso");
                         if (switchTipoPeso.isChecked()) { // se estiver selecionado é por gramas
@@ -165,7 +177,7 @@ public class NovoProdutoEmpresaActivity extends AppCompatActivity implements Vie
                     } else { // se n estiver selecionado é por unidade
                         produto.setTipoValor("Por Unidade");
                     }
-
+*/
                     for (int i = 0; i < listaFotosRec.size(); ++i) {
                         String urlImagem = listaFotosRec.get(i);
                         int tamanhoLista = listaFotosRec.size();
@@ -183,12 +195,12 @@ public class NovoProdutoEmpresaActivity extends AppCompatActivity implements Vie
                     mensagemToast("Selecione a categoria em que a produto condiz");
                 }
             } else {
-                mensagemToast("Preencha o nome para a produto");
+                mensagemToast("Preencha o nome do produto");
             }
-        } else {
-            mensagemToast("Selecione uma imagem para a produto");
-        }
-    }
+        } //else {
+            //mensagemToast("Selecione uma imagem para a produto");
+       // }
+
 
     private void mensagemToast(String texto) {
         Toast.makeText(this, texto, Toast.LENGTH_SHORT).show();
@@ -198,21 +210,21 @@ public class NovoProdutoEmpresaActivity extends AppCompatActivity implements Vie
         editTextNomeProduto = findViewById(R.id.editTextNomeProduto);
         editTexTextDescricao = findViewById(R.id.editTextNumeroTelefone);
 
-        spinnerNovoProdutoCategoria = findViewById(R.id.spinnerNovoProdutoCategoria);
+        //spinnerNovoProdutoCategoria = findViewById(R.id.spinnerNovoProdutoCategoria);
 
         ImageViewImageProduto = findViewById(R.id.imageNovoProduto);
         ImageViewImageProduto.setOnClickListener(this);
-
+/*
         linearTipoPeso = findViewById(R.id.linearTipoPeso);
 
         switchTipoValor = findViewById(R.id.switchTipoValor);
         switchTipoPeso = findViewById(R.id.switchTipoPeso);
-
+*/
         editTextPrecoProduto = findViewById(R.id.editTextPrecoProduto);
         Locale locale = new Locale("pt", "BR");
         editTextPrecoProduto.setLocale(locale);
     }
-
+/*
     private void carregarDadosSpinner() {
 
         String[] categorias = new String[]{"Doce", "Salgado", "Outros", "Opção 4", "Opção 5"};
@@ -220,7 +232,7 @@ public class NovoProdutoEmpresaActivity extends AppCompatActivity implements Vie
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerNovoProdutoCategoria.setAdapter(adapter);
     }
-
+*/
     private void salvarFotoStorage(String urlString, int totalFotos, int contador) {
         final StorageReference imagemProduto = storageReference.child("imagens").child("produto").child(ramdom).child(idLogUsuario).child("image" + contador + ".jpg");
 
@@ -245,6 +257,28 @@ public class NovoProdutoEmpresaActivity extends AppCompatActivity implements Vie
         });
     }
 
+    public void radiobuttonTipo(){
+        if(salgado.isChecked()){
+
+        } else if (doce.isChecked()) {
+
+        } else if (mista.isChecked()) {
+
+        }
+    }
+    public void radiobuttonTamanho(){
+        if(pequena.isChecked()){
+
+        } else if (media.isChecked()) {
+
+        } else if (grande.isChecked()) {
+
+        }
+    }
+        public void enviar(View view){
+        radiobuttonTipo();
+        radiobuttonTamanho();
+    }
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -258,7 +292,7 @@ public class NovoProdutoEmpresaActivity extends AppCompatActivity implements Vie
 
     private void alertPermissao() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Permissões Negadas");
+        builder.setTitle("Permissões negadas");
         builder.setMessage("Para utilizar o app é necessário aceitar as permissões");
         builder.setCancelable(false);
         builder.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {

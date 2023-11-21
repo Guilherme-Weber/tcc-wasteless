@@ -217,7 +217,7 @@ public class AutentificacaoActivity extends AppCompatActivity {
                                 if (task.isSuccessful()) { // verifica se o retorno foi um sucesso
 
                                     usuario.redirectUser(AutentificacaoActivity.this);
-                                    Toast.makeText(AutentificacaoActivity.this, "Logado com Sucesso", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(AutentificacaoActivity.this, "Login realizado com Sucesso", Toast.LENGTH_SHORT).show();
 
                                 } else {// caso login tenha dado falha ele informa ao usuario o erro
 
@@ -225,15 +225,15 @@ public class AutentificacaoActivity extends AppCompatActivity {
                                     try {
                                         throw task.getException();
                                     } catch (FirebaseAuthInvalidUserException e) {
-                                        excecao = "Usuario não está cadastrado";
-                                        campoEmail.setError("Usuario não está cadastrado");
-                                        campoSenha.setError("Usuario não está cadastrado");
+                                        excecao = "Usuario não cadastrado";
+                                        campoEmail.setError("Usuario não cadastrado");
+                                        campoSenha.setError("Usuario não cadastrado");
                                     } catch (FirebaseAuthInvalidCredentialsException e) {
-                                        excecao = "E-mail e senha não são validos";
-                                        campoEmail.setError("E-mail e senha não são validos");
-                                        campoSenha.setError("E-mail e senha não são validos");
+                                        excecao = "E-mail e senha inválidos";
+                                        campoEmail.setError("E-mail inválida");
+                                        campoSenha.setError("Senha inválida");
                                     } catch (Exception e) {
-                                        excecao = "erro ao cadastrar usuário" + e.getMessage();
+                                        excecao = "Erro ao cadastrar usuário" + e.getMessage();
                                         e.printStackTrace();
                                     }
                                     Toast.makeText(AutentificacaoActivity.this, excecao, Toast.LENGTH_LONG).show();

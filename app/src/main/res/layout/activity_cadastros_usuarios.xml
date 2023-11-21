@@ -97,6 +97,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Cliente"
+            android:backgroundTint="@color/grey"
+            android:buttonTint="@color/grey"
             android:textColor="@color/black"
             android:textColorHighlight="@color/secundaria"
             android:textColorHint="@color/quad"
@@ -106,6 +108,8 @@
             android:id="@+id/radioButtonEmpresaCadastro"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/grey"
+            android:buttonTint="@color/grey"
             android:text="Empresa"
             android:textColor="@color/black"
             android:textColorHighlight="@color/secundaria"
@@ -127,6 +131,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
+                android:backgroundTint="@color/grey"
+                android:buttonTint="@color/grey"
                 android:text="Li e aceito os termos de uso de condições"
                 android:textColor="@color/quad" />
 
