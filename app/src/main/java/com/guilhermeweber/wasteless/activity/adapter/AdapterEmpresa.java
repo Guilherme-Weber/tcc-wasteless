@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -70,6 +71,7 @@ public class AdapterEmpresa extends RecyclerView.Adapter<AdapterEmpresa.MyViewHo
         TextView entrega;
 
 
+
         public MyViewHolder(View itemView) {
             super(itemView);
 
@@ -80,7 +82,10 @@ public class AdapterEmpresa extends RecyclerView.Adapter<AdapterEmpresa.MyViewHo
 //            entrega = itemView.findViewById(R.id.textEntregaEmpresa);
 
         }
+
     }
+
+}
 
 
 //    private List<Produto> produtos;
@@ -125,4 +130,4 @@ public class AdapterEmpresa extends RecyclerView.Adapter<AdapterEmpresa.MyViewHo
 //            valor = itemView.findViewById(R.id.textPreco);
 //        }
 //    }
-}
+
