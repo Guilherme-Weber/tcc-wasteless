@@ -22,6 +22,12 @@ public class CarrinhoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_carrinho);
 
+        //Configuração RecyclerView
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerViewCarrinho.setLayoutManager(layoutManager);
+        recyclerViewCarrinho.setHasFixedSize(true);
+        //recyclerViewCarrinho.setAdapter();
+
         //deixando o botão do carrinho visivel
 //        ImageView carrinho = findViewById(R.id.carrinho);
 //        carrinho.setVisibility(View.VISIBLE);
@@ -29,22 +35,17 @@ public class CarrinhoActivity extends AppCompatActivity {
         Button continuarPedidoButton = findViewById(R.id.continuarPedidoButton);
         recyclerViewCarrinho = findViewById(R.id.recyclerCarrinho);
 
-        continuarPedidoButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //Iniciar a tela de forma de pagamento
-                Intent intent = new Intent(CarrinhoActivity.this, PagamentoActivity.class);
-                startActivity(intent);
-            }
-        });
+//        continuarPedidoButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                //Iniciar a tela de forma de pagamento
+//                Intent intent = new Intent(CarrinhoActivity.this, PagamentoActivity.class);
+//                startActivity(intent);
+//            }
+//        });
 
         //Adapter
 
 
-        //Configuração RecyclerView
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-        recyclerViewCarrinho.setLayoutManager(layoutManager);
-        recyclerViewCarrinho.setHasFixedSize(true);
-        //recyclerViewCarrinho.setAdapter();
     }
 }

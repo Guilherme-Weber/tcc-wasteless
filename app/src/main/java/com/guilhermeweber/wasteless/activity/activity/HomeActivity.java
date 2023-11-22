@@ -239,8 +239,8 @@ public class HomeActivity extends AppCompatActivity {
             deslogarUsuario();
         } else if (needif == R.id.menuConfig) {
             abrirConfig();
-        } else if (needif == R.id.maps) {
-            abrirMaps();
+        } else if (needif == R.id.pedidos) {
+            abrirPedidos();
         } else if (item.getItemId() == android.R.id.home) {
             deslogarUsuario();
         }
@@ -261,10 +261,8 @@ public class HomeActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void abrirMaps() {
-
-        startActivity(new Intent(HomeActivity.this, MapsActivity.class));
-
+    private void abrirPedidos() {
+        startActivity(new Intent(HomeActivity.this, PedidoUsuarioActivity.class));
     }
 
     public void inicializarComponentes() {

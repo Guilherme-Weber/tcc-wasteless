@@ -62,6 +62,9 @@ public class EmpresaActivity extends AppCompatActivity {
         toolbar.setTitle("Wasteless - Empresa");
         setSupportActionBar(toolbar);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         //configurando o RecycerView
         RecyclerView.LayoutManager recyclerViewProdutos = new LinearLayoutManager(getApplicationContext());
         recyclerProdutos.setLayoutManager(recyclerViewProdutos);
@@ -152,15 +155,16 @@ public class EmpresaActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
-        int needif = item.getItemId();
-        if (needif == R.id.menuSair) {
+        if (item.getItemId() == R.id.menuSair) {
             deslogarUsuario();
-        } else if (needif == R.id.menuConfig) {
+        } else if (item.getItemId() == R.id.menuConfig) {
             abrirConfig();
-        } else if (needif == R.id.menuNovoProduto) {
+        } else if (item.getItemId() == R.id.menuNovoProduto) {
             abrirNovoProduto();
-        } else if (needif == R.id.menuPedidos) {
+        } else if (item.getItemId() == R.id.menuPedidos) {
             abrirPedidos();
+        } else if (item.getItemId() == android.R.id.home) {
+            deslogarUsuario();
         }
 
         return super.onOptionsItemSelected(item);

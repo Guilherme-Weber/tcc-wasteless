@@ -89,7 +89,8 @@ public class ConfigEmpresaActivity extends AppCompatActivity implements View.OnC
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("Configurações da Empresa");
         setSupportActionBar(toolbar);
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         imagePerfilEmpresa.setOnClickListener(new View.OnClickListener() {
             @Override

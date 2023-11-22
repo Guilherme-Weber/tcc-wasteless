@@ -53,7 +53,7 @@ import dmax.dialog.SpotsDialog;
 
 public class CardapioActivity extends AppCompatActivity {
     private RecyclerView recyclerProdutosCardapio;
-    private Button buttonMaisInfo;
+    private Button buttonMaisInfo, buttonCarrinho;
     private FirebaseAuth auth;
     private DatabaseReference firebaseRef;
     private FirebaseDatabase firebaseDatabase;
@@ -90,13 +90,10 @@ public class CardapioActivity extends AppCompatActivity {
             empresaSelecionada = (Empresa) bundle.getSerializable("empresa");
 
             textNomeEmpresaCardapio.setText(empresaSelecionada.getNome());
-
-//            empresa.setNome(empresaSelecionada.getNome());
-
             idEmpresa = empresaSelecionada.getIdEmpresaUsuario();
-
             String url = empresaSelecionada.getUrlImagem();
             Picasso.get().load(url).into(imageEmpresaCardapio);
+
         }
 
         //config toolbar
@@ -105,9 +102,6 @@ public class CardapioActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-
-//        ImageView carrinho = findViewById(R.id.carrinho);
-//        carrinho.setVisibility(View.VISIBLE);
 
         //recyclerview
         RecyclerView.LayoutManager recyclerViewProdutos = new LinearLayoutManager(getApplicationContext());
@@ -143,6 +137,7 @@ public class CardapioActivity extends AppCompatActivity {
                 maisInfo();
             }
         });
+
 
     }
 
@@ -192,23 +187,32 @@ public class CardapioActivity extends AppCompatActivity {
                 itemPedido.setNomeProduto(produtoSelecionado.getNomeProduto());
                 itemPedido.setPreco(Double.parseDouble(String.valueOf(produtoSelecionado.getPreco())));
 
+                int teste = 0;
+
                 if (!quantidade.isEmpty() && !quantidade.equals("0")) {
 
-                    //futuramente seria legal adicionar uma logica onde ele percorre os itens carrinho e verifica se ja n tem o mesmo, caso tenha almentando a quantidade em vez de duplicando
-//                    if (itensCarrinho.size() != 0) {
-//                        for (int x = 0; x < itensCarrinho.size(); x++) {
-//                            if (itensCarrinho.get(x).getIdProduto().equals(itemPedido.getIdProduto())) {
-//                                itemPedido.setQuantidade(Integer.parseInt(quantidade));
-//                            }
-//                        }
-//                    } else {
-//                        itemPedido.setQuantidade(Integer.parseInt(quantidade));
-//                        itensCarrinho.add(itemPedido);
-//                    }
+                    if (itensCarrinho.size() != 0) {
+                        for (int x = 0; x < itensCarrinho.size(); x++) {
+                            if (itensCarrinho.get(x).getIdProduto().equals(itemPedido.getIdProduto())) {
 
-                    //jeito simples
-                    itemPedido.setQuantidade(Integer.parseInt(quantidade));
-                    itensCarrinho.add(itemPedido);
+                                int tamanhoCarrinho = itensCarrinho.get(x).getQuantidade();
+                                itensCarrinho.get(x).setQuantidade(tamanhoCarrinho + Integer.parseInt(quantidade));
+                                teste = 1;
+
+                            }
+                        }
+                        if (teste != 1) {
+                            itemPedido.setQuantidade(Integer.parseInt(quantidade));
+                            itensCarrinho.add(itemPedido);
+                        }
+                    } else {
+                        itemPedido.setQuantidade(Integer.parseInt(quantidade));
+                        itensCarrinho.add(itemPedido);
+                    }
+
+                    //jeito simples - adiciona sem ver se ja tem o item no carrinho
+//                    itemPedido.setQuantidade(Integer.parseInt(quantidade));
+//                    itensCarrinho.add(itemPedido);
 
                     if (pedidoRecuperado == null) {
                         pedidoRecuperado = new Pedido(idUsuarioLogado, idEmpresa);
@@ -289,7 +293,7 @@ public class CardapioActivity extends AppCompatActivity {
 
                 DecimalFormat df = new DecimalFormat("0.00");
 
-                textCarrinhoQtd.setText("qtd: " + String.valueOf(qtdItensCarrinho));
+                textCarrinhoQtd.setText("Carrinho: " + String.valueOf(qtdItensCarrinho));
                 textCarrinhoTotal.setValue(Double.valueOf(totalCarrinho).longValue());
 
                 dialog.dismiss();
@@ -305,15 +309,13 @@ public class CardapioActivity extends AppCompatActivity {
     private void recuperarProdutos() {
 
         firebaseRef = ConfigFirebase.getFirebase();
-        DatabaseReference produtosRef = firebaseRef.child("produto");
+        DatabaseReference produtosRef = firebaseRef.child("produto").child(idEmpresa);
         produtosRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 produtos.clear();
                 for (DataSnapshot ds : snapshot.getChildren()) {
-                    if (ds.getValue(Produto.class).getIdEmpresa() == idEmpresa) {
-                        produtos.add(ds.getValue(Produto.class));
-                    }
+                    produtos.add(ds.getValue(Produto.class));
                 }
                 adapterProduto.notifyDataSetChanged();
             }
@@ -323,7 +325,6 @@ public class CardapioActivity extends AppCompatActivity {
             }
         });
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -344,6 +345,22 @@ public class CardapioActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void inicializarComponentes() {
+
+        recyclerProdutosCardapio = findViewById(R.id.recyclerProdutosCardapio);
+        imageEmpresaCardapio = findViewById(R.id.imageEmpresaCardapio);
+        textNomeEmpresaCardapio = findViewById(R.id.textNomeEmpresaCardapio);
+
+        buttonMaisInfo = findViewById(R.id.buttonMaisInfo);
+        buttonCarrinho = findViewById(R.id.buttonCarrinho);
+
+        textCarrinhoQtd = findViewById(R.id.textCarrinhoQtd);
+        textCarrinhoTotal = findViewById(R.id.textCarrinhoTotal);
+        Locale locale = new Locale("pt", "BR");
+        textCarrinhoTotal.setLocale(locale);
+
     }
 
     private void confirmarPedido() {
@@ -389,16 +406,4 @@ public class CardapioActivity extends AppCompatActivity {
 
     }
 
-    private void inicializarComponentes() {
-        recyclerProdutosCardapio = findViewById(R.id.recyclerProdutosCardapio);
-        imageEmpresaCardapio = findViewById(R.id.imageEmpresaCardapio);
-        textNomeEmpresaCardapio = findViewById(R.id.textNomeEmpresaCardapio);
-
-        buttonMaisInfo = findViewById(R.id.buttonMaisInfo);
-
-        textCarrinhoQtd = findViewById(R.id.textCarrinhoQtd);
-        textCarrinhoTotal = findViewById(R.id.textCarrinhoTotal);
-        Locale locale = new Locale("pt", "BR");
-        textCarrinhoTotal.setLocale(locale);
-    }
 }

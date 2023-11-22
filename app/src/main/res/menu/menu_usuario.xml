@@ -18,13 +18,12 @@
         android:title="Configurações"
         app:showAsAction="never" />
     <item
-        android:id="@+id/maps"
-        android:title="Maps"
+        android:id="@+id/pedidos"
+        android:title="Historico"
         app:showAsAction="never" />
     <item
         android:id="@+id/menuSair"
         android:title="Sair"
         app:showAsAction="never" />
-
 
 </menu>

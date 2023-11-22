@@ -56,6 +56,9 @@
             android:name=".activity.activity.PedidoActivity"
             android:exported="false" />
         <activity
+            android:name=".activity.activity.PedidoUsuarioActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.activity.CardapioActivity"
             android:exported="false"
             android:parentActivityName=".activity.activity.HomeActivity" />
