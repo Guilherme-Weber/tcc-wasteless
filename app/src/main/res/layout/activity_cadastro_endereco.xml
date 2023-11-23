@@ -88,9 +88,8 @@
                 android:layout_weight="1"
                 android:background="@drawable/bg_edit_text"
                 android:ems="10"
-                android:focusable="false"
+                android:inputType="text"
                 android:hint="Complemento (opcional)"
-                android:inputType="none"
                 android:padding="16dp"
                 android:textColor="@color/quad"
                 android:textSize="14sp" />
