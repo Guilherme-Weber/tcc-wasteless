@@ -6,6 +6,7 @@ import android.content.Context;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -110,6 +111,11 @@ public class CardapioActivity extends AppCompatActivity {
         adapterProduto = new AdapterProduto(produtos, this);
         recyclerProdutosCardapio.setAdapter(adapterProduto);
 
+        //recuperar produtos
+        recuperarProdutos();
+
+        recuperarDadosUsuario();
+
         //config evento click
         recyclerProdutosCardapio.addOnItemTouchListener(new RecyclerItemClickListener(this, recyclerProdutosCardapio, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
@@ -126,11 +132,6 @@ public class CardapioActivity extends AppCompatActivity {
             }
         }));
 
-        //recuperar produtos
-        recuperarProdutos();
-
-        recuperarDadosUsuario();
-
         buttonMaisInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -138,7 +139,25 @@ public class CardapioActivity extends AppCompatActivity {
             }
         });
 
+        buttonCarrinho.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                abrirCarrinho();
+            }
+        });
 
+    }
+
+    private void abrirCarrinho() {
+//        startActivity(new Intent(this, CarrinhoActivity.class));
+        Intent i = new Intent(this, CarrinhoActivity.class);
+        i.putExtra("empresaSelecionada", empresaSelecionada);
+        startActivity(i);
+
+//        CardapioActivity.this.startActivity(new Intent(CardapioActivity.this, CardapioActivity.class).putExtra("idEmpresa", idEmpresa));
+//        CardapioActivity.this.startActivity(new Intent(CardapioActivity.this, CarrinhoActivity.class));
+
+//        mensagemToast("wtf");
     }
 
 
@@ -231,6 +250,7 @@ public class CardapioActivity extends AppCompatActivity {
                 }
             }
         });
+
         builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -239,10 +259,6 @@ public class CardapioActivity extends AppCompatActivity {
         AlertDialog dialog = builder.create();
         dialog.show();
 
-    }
-
-    private void mensagemToast(String texto) {
-        Toast.makeText(this, texto, Toast.LENGTH_SHORT).show();
     }
 
     private void recuperarDadosUsuario() {
@@ -406,4 +422,7 @@ public class CardapioActivity extends AppCompatActivity {
 
     }
 
+    private void mensagemToast(String texto) {
+        Toast.makeText(this, texto, Toast.LENGTH_SHORT).show();
+    }
 }

@@ -31,7 +31,8 @@
             android:exported="false" />
         <activity
             android:name=".activity.activity.CarrinhoActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".activity.activity.CardapioActivity" />
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"

@@ -104,7 +104,6 @@ public class PedidoUsuarioActivity extends AppCompatActivity {
         dialog.show();
 
         firebaseRef = ConfigFirebase.getFirebase();
-        DatabaseReference pedidoRef2 = firebaseRef.child("pedido").child(idUsuario);
         DatabaseReference pedidoRef = firebaseRef.child("pedido_usuario_terminado").child(getIdUsuario());
 
         Query pedidoPesquisa = pedidoRef.orderByChild("status").equalTo("confirmado");

@@ -18,7 +18,6 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 public class AdapterProduto extends RecyclerView.Adapter<AdapterProduto.MyViewHolder> {
-
     private List<Produto> produtos;
     private Context context;
 
