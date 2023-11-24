@@ -76,7 +76,7 @@ public class NovoProdutoEmpresaActivity extends AppCompatActivity implements Vie
 
         //config toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle("Novo Produto");
+        toolbar.setTitle("Cadastro de Produto");
         setSupportActionBar(toolbar);
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 

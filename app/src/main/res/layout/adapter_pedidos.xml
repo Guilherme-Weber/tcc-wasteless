@@ -2,15 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_edit_text"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/textPedidoNome"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:padding="2dp"
         android:text="Jamilton damasceno"
-        android:textColor="@color/common_google_signin_btn_text_dark_focused"
+        android:textColor="@color/grey"
         android:textSize="16sp"
         android:textStyle="bold" />
 
@@ -18,6 +19,7 @@
         android:id="@+id/textPedidoEndereco"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="1dp"
         android:text="Endereço: rua almeida prado, 1300"
         android:textSize="14sp" />
 
@@ -25,6 +27,7 @@
         android:id="@+id/textPedidoPgto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="1dp"
         android:text="Pgto: Dinheiro"
         android:textSize="14sp" />
 
@@ -32,7 +35,7 @@
         android:id="@+id/textPedidoObs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:padding="1dp"
         android:text="Obs: teste"
         android:textSize="14sp" />
 
@@ -40,8 +43,9 @@
         android:id="@+id/textPedidoItens"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="1dp"
         android:text="1) Filé Cinco Queijos (1 X R$ 16.50)"
-        android:textColor="@color/black"
+        android:textColor="@color/grey"
         android:textSize="16sp"
         android:textStyle="bold" />
 
