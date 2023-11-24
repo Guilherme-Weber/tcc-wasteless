@@ -1,68 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-
-    <LinearLayout
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:id="@+id/imageProdutoLista"
-            android:layout_width="318dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/baseline_downloading_24"
-            tools:srcCompat="@drawable/baseline_downloading_24" />
-
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:padding="8dp">
+            android:orientation="horizontal">
 
+            <ImageView
+                android:id="@+id/imageProdutoLista"
+                android:layout_width="318dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/bg_edit_text"
+                android:padding="16dp"
+                android:src="@drawable/ic_comida" />
 
-            <TextView
-                android:id="@+id/textNomeItem"
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="105dp"
-                android:layout_marginBottom="8dp"
-                android:gravity="center_horizontal"
-                android:text="Sushi de salmão"
-                android:textColor="@color/common_google_signin_btn_text_dark_focused"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                android:layout_height="match_parent"
+                android:layout_weight="1">
 
-            <TextView
-                android:id="@+id/textQuantidade"
-                android:layout_width="match_parent"
-                android:layout_height="39dp"
-                android:layout_marginBottom="8dp"
-                android:gravity="center_horizontal"
-                android:text="Quantidade: 8"
-                android:textSize="20sp" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="8dp">
 
-            <com.blackcat.currencyedittext.CurrencyEditText
-                android:id="@+id/textPrecoCarrinho"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:focusable="false"
-                android:gravity="center_horizontal"
-                android:inputType="none"
-                android:textColor="@android:color/holo_green_light"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/textNomeItem"
+                        android:layout_width="match_parent"
+                        android:layout_height="105dp"
+                        android:background="@drawable/bg_edit_text"
+                        android:gravity="center_horizontal"
+                        android:padding="16dp"
+                        android:text="Sushi de salmão"
+                        android:textColor="@color/grey"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
 
+                    <TextView
+                        android:id="@+id/textQuantidade"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:padding="10dp"
+                        android:background="@drawable/bg_edit_text"
+                        android:gravity="center_horizontal"
+                        android:text="Quantidade: 8"
+                        android:textColor="@color/quad"
+                        android:textSize="14sp" />
+
+                    <com.blackcat.currencyedittext.CurrencyEditText
+                        android:id="@+id/textPrecoCarrinho"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:padding="10dp"
+                        android:background="@drawable/bg_edit_text"
+                        android:focusable="false"
+                        android:gravity="center_horizontal"
+                        android:inputType="none"
+                        android:textColor="@color/secundaria"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+            </ScrollView>
         </LinearLayout>
-    </LinearLayout>
-
-
-</androidx.cardview.widget.CardView>
+    </androidx.cardview.widget.CardView>
+</ScrollView>

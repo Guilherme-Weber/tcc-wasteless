@@ -58,7 +58,7 @@
         </LinearLayout>
 
         <ImageButton
-            android:id="@+id/imageButton"
+            android:id="@+id/imageButtonFavoritar"
             android:layout_width="18dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
