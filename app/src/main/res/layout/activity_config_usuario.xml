@@ -53,6 +53,7 @@
                         android:layout_width="110dp"
                         android:layout_height="95dp"
                         android:ems="10" />
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -100,6 +101,40 @@
                     android:inputType="text"
                     android:padding="16dp"
                     android:textColor="@color/quad" />
+
+                <EditText
+
+                    android:id="@+id/editTextLogradouroConfig"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_edit_text"
+                    android:ems="10"
+                    android:hint="Logradouro"
+                    android:inputType="text"
+                    android:padding="16dp" />
+
+                <EditText
+                    android:id="@+id/editTextComplementoConfig"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_edit_text"
+                    android:ems="10"
+                    android:hint="Complemento"
+                    android:inputType="text"
+                    android:padding="16dp" />
+
+                <EditText
+                    android:id="@+id/editTextBairroConfig"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_edit_text"
+                    android:ems="10"
+                    android:hint="Bairro"
+                    android:inputType="text"
+                    android:padding="16dp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"

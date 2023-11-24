@@ -299,6 +299,8 @@ public class ConfigEmpresaActivity extends AppCompatActivity implements View.OnC
 
         usuario.setTipo("E");
 
+        usuario.setTelefone(telefone);
+
         empresa.setCategoria(categoriaText);
         empresa.setIdCategoria(categoria);
 
@@ -311,6 +313,8 @@ public class ConfigEmpresaActivity extends AppCompatActivity implements View.OnC
         empresa.setBairro(bairro);
         empresa.setUF(uF);
         empresa.setLocalidade(cidade);
+        empresa.setTelefone(telefone);
+
 
         for (int i = 0; i < listaFotosRec.size(); ++i) {
             String urlImagem = listaFotosRec.get(i);

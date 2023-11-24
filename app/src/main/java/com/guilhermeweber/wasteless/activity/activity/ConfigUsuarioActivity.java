@@ -58,7 +58,8 @@ public class ConfigUsuarioActivity extends AppCompatActivity implements View.OnC
     private final String URL = "https://viacep.com.br/ws/";
     Usuario usuario = new Usuario();
     private Retrofit retrofitCEP;
-    private ImageView imageUsuario;
+//    private ImageView imageUsuario;
+    private CircleImageView imageUsuario;
     private EditText editTextEmailUsuConfig, editTextNomeUsuario, editTextUsuarioCEP, editTextUsuarioEndereco, editTextLogradouroConfig, editTextComplementoConfig, editTextBairroConfig, editTextUFConfig, editTextCidadeConfig;
     private MaskEditText editTextTelefone;
     private StorageReference storageReference;
@@ -253,8 +254,8 @@ public class ConfigUsuarioActivity extends AppCompatActivity implements View.OnC
         String bairro = editTextBairroConfig.getText().toString();
         String uF = editTextUFConfig.getText().toString();
         String cidade = editTextCidadeConfig.getText().toString();
-        String telefone = editTextTelefone.getText().toString();
         String email = editTextEmailUsuConfig.getText().toString();
+        String telefone = editTextTelefone.getText().toString();
 
         if (editTextTelefone.getRawText() != null) {
             fone = editTextTelefone.getRawText().toString();
