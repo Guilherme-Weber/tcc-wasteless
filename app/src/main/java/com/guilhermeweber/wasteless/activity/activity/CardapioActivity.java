@@ -1,9 +1,5 @@
 package com.guilhermeweber.wasteless.activity.activity;
 
-import static java.security.AccessController.getContext;
-
-import android.content.Context;
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -36,7 +32,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.guilhermeweber.wasteless.R;
 import com.guilhermeweber.wasteless.activity.adapter.AdapterProduto;
 import com.guilhermeweber.wasteless.activity.helper.ConfigFirebase;
-import com.guilhermeweber.wasteless.activity.helper.CustomAlertDialog;
 import com.guilhermeweber.wasteless.activity.listener.RecyclerItemClickListener;
 import com.guilhermeweber.wasteless.activity.model.Empresa;
 import com.guilhermeweber.wasteless.activity.model.ItemPedido;
@@ -45,6 +40,7 @@ import com.guilhermeweber.wasteless.activity.model.Produto;
 import com.guilhermeweber.wasteless.activity.model.Usuario;
 import com.squareup.picasso.Picasso;
 
+import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,7 +49,7 @@ import java.util.Locale;
 import dmax.dialog.SpotsDialog;
 
 public class CardapioActivity extends AppCompatActivity {
-    private RecyclerView recyclerProdutosCardapio;
+    private RecyclerView recyclerProdutosCardapio, recyclerProdutosCardapioTeste;
     private Button buttonMaisInfo, buttonCarrinho;
     private FirebaseAuth auth;
     private DatabaseReference firebaseRef;
@@ -88,6 +84,7 @@ public class CardapioActivity extends AppCompatActivity {
         //recuperar a empresa selecionada
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
+
             empresaSelecionada = (Empresa) bundle.getSerializable("empresa");
 
             textNomeEmpresaCardapio.setText(empresaSelecionada.getNome());
@@ -150,8 +147,10 @@ public class CardapioActivity extends AppCompatActivity {
 
     private void abrirCarrinho() {
 //        startActivity(new Intent(this, CarrinhoActivity.class));
+
         Intent i = new Intent(this, CarrinhoActivity.class);
         i.putExtra("empresaSelecionada", empresaSelecionada);
+        i.putExtra("itensCarrinho", (Serializable) itensCarrinho);
         startActivity(i);
 
 //        CardapioActivity.this.startActivity(new Intent(CardapioActivity.this, CardapioActivity.class).putExtra("idEmpresa", idEmpresa));
@@ -164,23 +163,60 @@ public class CardapioActivity extends AppCompatActivity {
     private void maisInfo() {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(empresaSelecionada.getNome());
+        builder.setTitle("Informações Sobre " + empresaSelecionada.getNome());
 
         // Layout para armazenar os TextViews
         LinearLayout linearLayout = new LinearLayout(this);
         linearLayout.setOrientation(LinearLayout.VERTICAL);
 
-        // Criar TextViews e adicionar ao layout
-        for (int i = 1; i <= 5; i++) {
-            TextView textView = new TextView(this);
-            textView.setText("TextView " + i);
-            linearLayout.addView(textView);
-        }
+        LinearLayout linearLayoutP = new LinearLayout(this);
+        linearLayoutP.setOrientation(LinearLayout.VERTICAL);
 
-        builder.setView(linearLayout);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+
+        linearLayoutP.setPadding(20, 20, 20, 20);
+        linearLayoutP.addView(linearLayout, layoutParams);
+
+        TextView textViewVazio = new TextView(this);
+
+        linearLayout.setBackgroundResource(R.drawable.bg_edit_text);
+        linearLayout.setPadding(20, 20, 20, 20);
+
+        linearLayout.addView(alertText("Email: ", empresaSelecionada.getEmail()), layoutParams);
+        linearLayout.addView(alertText("Endereço: ", ""), layoutParams);
+        linearLayout.addView(alertText("CEP: ", empresaSelecionada.getcEP()), layoutParams);
+        linearLayout.addView(alertText("Cidade: ", empresaSelecionada.getLocalidade()), layoutParams);
+        linearLayout.addView(alertText("Estado: ", empresaSelecionada.getUF()), layoutParams);
+        linearLayout.addView(alertText("Bairro: ", empresaSelecionada.getBairro()), layoutParams);
+        linearLayout.addView(alertText("Logradouro: ", empresaSelecionada.getLogradouro()), layoutParams);
+        linearLayout.addView(alertText("Complemento(opcional): ", empresaSelecionada.getComplemento()), layoutParams);
+
+        // jeito feio de antes, aqui apenas pra exemplo
+//        TextView textViewEmail = new TextView(this);
+//        textViewEmail.setText("Email: " + empresaSelecionada.getEmail());
+//        linearLayout.addView(textViewEmail);
+//
+//        TextView textViewEndereco = new TextView(this);
+//        textViewEndereco.setText("Endereço: ");
+//        linearLayout.addView(textViewEndereco);
+//
+//        TextView textViewCEP = new TextView(this);
+//        textViewEndereco.setText("CEP: " + empresaSelecionada.getcEP());
+//        linearLayout.addView(textViewCEP);
+
+        builder.setView(linearLayoutP);
 
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+
+    private TextView alertText(String texto, String info) {
+
+        TextView textView = new TextView(this);
+        textView.setText(texto + info);
+
+        textView.setPadding(20, 20, 20, 20);
+        return textView;
     }
 
     private void confirmarQuantidade(int position) {

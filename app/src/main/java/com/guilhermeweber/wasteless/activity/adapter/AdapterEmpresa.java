@@ -48,7 +48,7 @@ public class AdapterEmpresa extends RecyclerView.Adapter<AdapterEmpresa.MyViewHo
             holder.categoria.setText("Empresa");
         }
 
-        holder.tempo.setText(" - " + empresa.getBairro());
+        holder.tempo.setText(empresa.getBairro());
 //        holder.entrega.setText("R$ " + empresa.getPrecoEntrega().toString());
 
         //recuperar imagem
@@ -69,7 +69,6 @@ public class AdapterEmpresa extends RecyclerView.Adapter<AdapterEmpresa.MyViewHo
         TextView categoria;
         TextView tempo;
         TextView entrega;
-
 
 
         public MyViewHolder(View itemView) {

@@ -48,7 +48,6 @@ public class CarrinhoActivity extends AppCompatActivity {
     private RecyclerView recyclerProdutosCarrinho;
     private List<ItemPedido> itemPedidos = new ArrayList<>();
     private List<Pedido> pedidos = new ArrayList<>();
-
     private RecyclerView recyclerProdutosCardapio;
     private Button buttonMaisInfo, buttonCarrinho;
     private ImageView imageEmpresaCardapio;
@@ -93,11 +92,11 @@ public class CarrinhoActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             empresaSelecionada = (Empresa) bundle.getSerializable("empresaSelecionada");
+            itensCarrinho = (List<ItemPedido>) bundle.get("itensCarrinho");
 
             idEmpresa = empresaSelecionada.getIdEmpresaUsuario();
         }
 
-        recuperarPedido();
 //        recuperarCarrinho();
     }
 
@@ -108,29 +107,12 @@ public class CarrinhoActivity extends AppCompatActivity {
     private void inicializarComponentes() {
 
         recyclerProdutosCarrinho = findViewById(R.id.recyclerProdutosCarrinho);
+
     }
 
     private void recuperarCarrinho() {
 
-        firebaseRef = ConfigFirebase.getFirebase();
-        DatabaseReference pedidoRef = firebaseRef.child("pedido_usuario").child(idEmpresa).child(idUsuarioLogado).child("itens");
 
-        pedidoRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                itemPedidos.clear();
-                if (snapshot != null) {
-                    for (DataSnapshot ds : snapshot.getChildren()) {
-                        ItemPedido itemPedidos = ds.getValue(ItemPedido.class);
-                    }
-                    adapterCarrinho.notifyDataSetChanged();
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-            }
-        });
     }
 
 
@@ -145,46 +127,4 @@ public class CarrinhoActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
-    private void recuperarPedido() {
-
-        DatabaseReference pedidoRef = firebaseRef.child("pedido_usuario").child(idEmpresa).child(idUsuarioLogado);
-        pedidoRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                qtdItensCarrinho = 0;
-                totalCarrinho = 0.0;
-                itensCarrinho = new ArrayList<>();
-
-                if (snapshot.getValue() != null) {
-                    itemPedidos.clear();
-                    pedidoRecuperado = snapshot.getValue(Pedido.class);
-                    itensCarrinho = pedidoRecuperado.getItens();
-                    for (ItemPedido itemPedido : itensCarrinho) {
-
-                        itemPedidos.add(itemPedido);
-
-                        String nomeProduto = itemPedido.getNomeProduto();
-                        int qtde = itemPedido.getQuantidade();
-                        Double preco = itemPedido.getPreco();
-                    }
-                    adapterCarrinho.notifyDataSetChanged();
-                }
-
-                DecimalFormat df = new DecimalFormat("0.00");
-
-                textCarrinhoQtd.setText("Carrinho: " + String.valueOf(qtdItensCarrinho));
-                textCarrinhoTotal.setValue(Double.valueOf(totalCarrinho).longValue());
-
-                dialog.dismiss();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-            }
-        });
-
-    }
-
 }
