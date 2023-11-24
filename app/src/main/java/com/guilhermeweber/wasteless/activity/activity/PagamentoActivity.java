@@ -52,6 +52,9 @@ public class PagamentoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Lógica de pagamento aqui
+
+                Intent intent = new Intent(PagamentoActivity.this, PedidoConfirmadoActivity.class);
+                startActivity(intent);
             }
         });
 /*
