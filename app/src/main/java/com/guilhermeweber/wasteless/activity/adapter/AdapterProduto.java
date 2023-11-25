@@ -16,6 +16,7 @@ import com.guilhermeweber.wasteless.activity.model.Produto;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+import java.util.Locale;
 
 public class AdapterProduto extends RecyclerView.Adapter<AdapterProduto.MyViewHolder> {
     private List<Produto> produtos;
@@ -72,6 +73,8 @@ public class AdapterProduto extends RecyclerView.Adapter<AdapterProduto.MyViewHo
             tipoValor = itemView.findViewById(R.id.textViewTipoValor);
             tipoPeso = itemView.findViewById(R.id.textViewTipoPeso);
             valor = itemView.findViewById(R.id.textPrecoRefeicao);
+            Locale locale = new Locale("pt", "BR");
+            valor.setLocale(locale);
             produtoImg = itemView.findViewById(R.id.imageProdutoLista);
 
         }
