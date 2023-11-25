@@ -211,7 +211,8 @@
                         android:id="@+id/textView3"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Qual horário para retirada do produto?" />
+                        android:text="Qual horário para retirada do produto?"
+                        android:textColor="@color/grey" />
 
                 </LinearLayout>
 

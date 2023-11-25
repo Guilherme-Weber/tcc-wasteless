@@ -110,81 +110,85 @@ public class CadastrosUsuariosActivity extends AppCompatActivity {
                 usuario.setTelefone(telefone);
                 usuario.setTipo(verificaUsuario());
 
-                if (!nome.isEmpty()) {
-                    if (!email.isEmpty()) {
-                        if (!senha.isEmpty()) {
-                            if (cliente.isChecked() || empresa.isChecked()) {
-                                if (!telefone.isEmpty() && fone.length() >= 10) {
-                                    if (stringCompare(senha, senhadenovo)) {
-                                        if (checkBoxTermos.isChecked()) {
+                if (nome.isEmpty()) {
+                    campoNome.setError("Informe seu nome");
+                    return;
+                }
 
-                                            auth.createUserWithEmailAndPassword(usuario.getEmail(), usuario.getSenha()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                                                @Override
-                                                public void onComplete(@NonNull Task<AuthResult> task) {
+                if (email.isEmpty()) {
+                    campoEmail.setError("Informe seu e-mail");
+                    return;
+                }
 
-                                                    if (task.isSuccessful()) { //Verifica se o processo de cadastro do usuario deu certo
+                if (senha.isEmpty()) {
+                    campoSenha.setError("Informe sua senha");
+                    return;
+                }
 
-                                                        String idUsuario = task.getResult().getUser().getUid();
+                if (cliente.isChecked() || empresa.isChecked()) {
+                    if (!telefone.isEmpty() && fone.length() >= 10) {
+                        if (stringCompare(senha, senhadenovo)) {
+                            if (checkBoxTermos.isChecked()) {
 
-                                                        usuario.setId(idUsuario);
+                                auth.createUserWithEmailAndPassword(usuario.getEmail(), usuario.getSenha()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<AuthResult> task) {
 
-                                                        Intent i = new Intent(CadastrosUsuariosActivity.this, CadastroEnderecoActivity.class);
-                                                        i.putExtra("usuario", usuario);
-                                                        startActivity(i);
+                                        if (task.isSuccessful()) { //Verifica se o processo de cadastro do usuario deu certo
 
-                                                    } else {
+                                            String idUsuario = task.getResult().getUser().getUid();
 
-                                                        //caso cadastro n seja realizado com sucesso é mostrado uma mensagem de erro
-                                                        String erroExcecao = "";
-                                                        try {
-                                                            throw task.getException();
-                                                        } catch (
-                                                                FirebaseAuthWeakPasswordException e) {
-                                                            erroExcecao = "Informe uma senha mais forte!";
-                                                            campoSenha.setError("Informe uma senha mais forte!");
-                                                        } catch (
-                                                                FirebaseAuthInvalidCredentialsException e) {
-                                                            erroExcecao = "Por Favor, informe um e-mail válido";
-                                                            campoEmail.setError("Por Favor, informe um e-mail válido");
-                                                        } catch (
-                                                                FirebaseAuthUserCollisionException e) {
-                                                            erroExcecao = "E-mail já cadastrado";
-                                                            campoEmail.setError("E-mail já cadastrado");
-                                                        } catch (Exception e) {
-                                                            erroExcecao = "Ao Cadastrar usuário: " + e.getMessage();
-                                                            e.printStackTrace();
-                                                        }
-                                                        Toast.makeText(CadastrosUsuariosActivity.this, "Erro: " + erroExcecao, Toast.LENGTH_LONG).show();
-                                                    }
-                                                }
-                                            });
+                                            usuario.setId(idUsuario);
+
+                                            Intent i = new Intent(CadastrosUsuariosActivity.this, CadastroEnderecoActivity.class);
+                                            i.putExtra("usuario", usuario);
+                                            startActivity(i);
+
                                         } else {
-                                            Toast.makeText(CadastrosUsuariosActivity.this, "Você deve conconcordar com os termos e condições", Toast.LENGTH_SHORT).show();
-                                            checkBoxTermos.setError("Concorde com os termos e condições");
+
+                                            //caso cadastro n seja realizado com sucesso é mostrado uma mensagem de erro
+                                            String erroExcecao = "";
+                                            try {
+                                                throw task.getException();
+                                            } catch (
+                                                    FirebaseAuthWeakPasswordException e) {
+                                                erroExcecao = "Informe uma senha mais forte!";
+                                                campoSenha.setError("Informe uma senha mais forte!");
+                                            } catch (
+                                                    FirebaseAuthInvalidCredentialsException e) {
+                                                erroExcecao = "Por Favor, informe um e-mail válido";
+                                                campoEmail.setError("Por Favor, informe um e-mail válido");
+                                            } catch (
+                                                    FirebaseAuthUserCollisionException e) {
+                                                erroExcecao = "E-mail já cadastrado";
+                                                campoEmail.setError("E-mail já cadastrado");
+                                            } catch (Exception e) {
+                                                erroExcecao = "Ao Cadastrar usuário: " + e.getMessage();
+                                                e.printStackTrace();
+                                            }
+                                            Toast.makeText(CadastrosUsuariosActivity.this, "Erro: " + erroExcecao, Toast.LENGTH_LONG).show();
                                         }
-                                    } else {
-                                        Toast.makeText(CadastrosUsuariosActivity.this, "Ambas as senhas tem que ser iguais", Toast.LENGTH_SHORT).show();
-                                        campoSenha.setError("Informe sua senha");
-                                        campoSenhaDenovo.setError("Informe sua senha");
                                     }
-                                } else {
-                                    Toast.makeText(CadastrosUsuariosActivity.this, "Preencha o Campo Telefone", Toast.LENGTH_SHORT).show();
-                                    editTextTelefone.setError("Preencha o Campo Telefone");
-                                }
+                                });
                             } else {
-                                Toast.makeText(CadastrosUsuariosActivity.this, "Escolha a opção de tipo cadastro", Toast.LENGTH_SHORT).show();
-                                cliente.setError("Escolha a opção de tipo cadastro");
-                                empresa.setError("Escolha a opção de tipo cadastro");
+                                Toast.makeText(CadastrosUsuariosActivity.this, "Você deve conconcordar com os termos e condições", Toast.LENGTH_SHORT).show();
+                                checkBoxTermos.setError("Concorde com os termos e condições");
                             }
                         } else {
+                            Toast.makeText(CadastrosUsuariosActivity.this, "Ambas as senhas tem que ser iguais", Toast.LENGTH_SHORT).show();
                             campoSenha.setError("Informe sua senha");
+                            campoSenhaDenovo.setError("Informe sua senha");
                         }
                     } else {
-                        campoEmail.setError("Informe seu e-mail");
+                        Toast.makeText(CadastrosUsuariosActivity.this, "Preencha o Campo Telefone", Toast.LENGTH_SHORT).show();
+                        editTextTelefone.setError("Preencha o Campo Telefone");
                     }
                 } else {
-                    campoNome.setError("Informe seu nome");
+                    Toast.makeText(CadastrosUsuariosActivity.this, "Escolha a opção de tipo cadastro", Toast.LENGTH_SHORT).show();
+                    cliente.setError("Escolha a opção de tipo cadastro");
+                    empresa.setError("Escolha a opção de tipo cadastro");
                 }
+
             }
         });
     }
