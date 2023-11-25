@@ -14,6 +14,7 @@ public class Pedido {
     private String nome;
     private String telefone;
     private String endereco;
+    private String email;
     private String cEP;
     private List<ItemPedido> itens;
     private Double total;
@@ -160,5 +161,13 @@ public class Pedido {
 
     public void setObservacao(String observacao) {
         this.observacao = observacao;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

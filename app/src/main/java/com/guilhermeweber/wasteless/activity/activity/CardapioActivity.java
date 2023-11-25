@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -168,6 +169,8 @@ public class CardapioActivity extends AppCompatActivity {
         LinearLayout linearLayoutP = new LinearLayout(this);
         linearLayoutP.setOrientation(LinearLayout.VERTICAL);
 
+        ScrollView scrollView = new ScrollView(this);
+
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
         linearLayoutP.setPadding(20, 20, 20, 20);
@@ -177,7 +180,6 @@ public class CardapioActivity extends AppCompatActivity {
 
         linearLayout.setBackgroundResource(R.drawable.bg_edit_text);
         linearLayout.setPadding(20, 20, 20, 20);
-
 
         for (int x = 0; x < itensCarrinho.size(); x++) {
 
@@ -195,7 +197,7 @@ public class CardapioActivity extends AppCompatActivity {
             preco = preco / 100;
             linearLayoutD.addView(alertText("Preço: R$", String.valueOf(preco)));
 
-            linearLayoutD.addView(alertText("Quantidade: ", itensCarrinho.get(x).getNomeProduto()), layoutParams);
+            linearLayoutD.addView(alertText("Quantidade: ", String.valueOf(itensCarrinho.get(x).getQuantidade())), layoutParams);
 
             linearLayout.addView(linearLayoutD);
         }
@@ -230,7 +232,7 @@ public class CardapioActivity extends AppCompatActivity {
         }).setNegativeButton("Limpar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
+                pedidoRecuperado.remover();
             }
         });
 
@@ -426,7 +428,7 @@ public class CardapioActivity extends AppCompatActivity {
 
                 DecimalFormat df = new DecimalFormat("0.00");
 
-                textCarrinhoQtd.setText("Carrinho: " + String.valueOf(qtdItensCarrinho));
+                textCarrinhoQtd.setText("Itens no Carrinho: " + String.valueOf(qtdItensCarrinho));
                 textCarrinhoTotal.setValue(Double.valueOf(totalCarrinho).longValue());
 
                 dialog.dismiss();

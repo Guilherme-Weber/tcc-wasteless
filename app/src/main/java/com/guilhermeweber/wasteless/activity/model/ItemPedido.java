@@ -7,6 +7,8 @@ public class ItemPedido implements Serializable {
     private String idProduto;
     private String nomeProduto;
     private int quantidade;
+
+    private String email;
     private Double preco;
     private String urlImagem;
 
@@ -51,5 +53,13 @@ public class ItemPedido implements Serializable {
 
     public void setUrlImagem(String urlImagem) {
         this.urlImagem = urlImagem;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
