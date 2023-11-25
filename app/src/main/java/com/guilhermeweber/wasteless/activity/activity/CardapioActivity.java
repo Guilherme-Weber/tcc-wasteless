@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -53,7 +54,8 @@ import dmax.dialog.SpotsDialog;
 
 public class CardapioActivity extends AppCompatActivity {
     private RecyclerView recyclerProdutosCardapio, recyclerProdutosCardapioTeste;
-    private Button buttonMaisInfo, buttonCarrinho;
+    private Button buttonMaisInfo;
+    private ImageButton buttonCarrinho;
     private FirebaseAuth auth;
     private DatabaseReference firebaseRef;
     private FirebaseDatabase firebaseDatabase;
@@ -222,7 +224,8 @@ public class CardapioActivity extends AppCompatActivity {
         builder.setPositiveButton("Finalizar Pedido", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                confirmarPedido();
+                //confirmarPedido();
+                confirmarPedidoNovo();
             }
         }).setNeutralButton("Voltar", new DialogInterface.OnClickListener() {
             @Override
@@ -498,50 +501,56 @@ public class CardapioActivity extends AppCompatActivity {
 
     }
 
+    private void confirmarPedidoNovo(){
+        Intent intent = new Intent(CardapioActivity.this, PagamentoActivity.class);
+        intent.putExtra("pedido", pedidoRecuperado);
+        startActivity(intent);
+    }
+
     private void confirmarPedido() {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Selecione um método de pagamento");
 
-        CharSequence[] itens = new CharSequence[]{"Dinheiro", "PIX", "Máquina de Cartão"};
-        builder.setSingleChoiceItems(itens, 0, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                metodoPagamento = which;
-            }
-        });
+         CharSequence[] itens = new CharSequence[]{"Dinheiro", "PIX", "Máquina de Cartão"};
+         builder.setSingleChoiceItems(itens, 0, new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick (DialogInterface dialog,int which){
+            metodoPagamento = which;
+        }
+    });
 
-        EditText editObservacao = new EditText(this);
-        editObservacao.setHint("Digite uma observação (opcional)");
-        builder.setView(editObservacao);
+    EditText editObservacao = new EditText(this);
+    editObservacao.setHint("Digite uma observação (opcional)");
+    builder.setView(editObservacao);
 
-        builder.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
+    builder.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+    @Override
+    public void onClick(DialogInterface dialog, int which) {
 
-                String observacao = editObservacao.getText().toString();
-                pedidoRecuperado.setMetodoPagamento(metodoPagamento);
-                pedidoRecuperado.setObservacao(observacao);
-                pedidoRecuperado.setStatus("confirmado");
-                pedidoRecuperado.confirmar();
-                pedidoRecuperado.remover();
-                pedidoRecuperado = null;
-
-            }
-        });
-        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-            }
-        });
-
-        AlertDialog dialog = builder.create();
-        dialog.show();
+        String observacao = editObservacao.getText().toString();
+        pedidoRecuperado.setMetodoPagamento(metodoPagamento);
+        pedidoRecuperado.setObservacao(observacao);
+        pedidoRecuperado.setStatus("confirmado");
+        pedidoRecuperado.confirmar();
+        pedidoRecuperado.remover();
+        pedidoRecuperado = null;
 
     }
+});
+        builder.setNegativeButton("Cancelar",new DialogInterface.OnClickListener(){
+        @Override
+        public void onClick(DialogInterface dialog,int which){
 
-    private void mensagemToast(String texto) {
-        Toast.makeText(this, texto, Toast.LENGTH_SHORT).show();
+        }
+        });
+
+        AlertDialog dialog=builder.create();
+        dialog.show();
+
+        }
+
+        private void mensagemToast(String texto){
+            Toast.makeText(this,texto,Toast.LENGTH_SHORT).show();
     }
 }

@@ -54,7 +54,7 @@
                     android:id="@+id/editTextDescrição"
                     android:layout_width="match_parent"
                     android:layout_height="112dp"
-
+                    android:layout_marginTop="8dp"
                     android:background="@drawable/bg_edit_text"
                     android:ems="10"
                     android:hint="Descrição"

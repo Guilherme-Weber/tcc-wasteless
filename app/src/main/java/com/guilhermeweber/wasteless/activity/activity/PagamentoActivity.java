@@ -14,6 +14,8 @@ import android.widget.RadioGroup;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.guilhermeweber.wasteless.R;
+import com.guilhermeweber.wasteless.activity.model.Empresa;
+import com.guilhermeweber.wasteless.activity.model.Pedido;
 
 public class PagamentoActivity extends AppCompatActivity {
 
@@ -23,6 +25,7 @@ public class PagamentoActivity extends AppCompatActivity {
     private EditText textDataExpiracao;
     private EditText textCVV;
     private Button buttonPagar;
+    private Pedido pedido;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +38,10 @@ public class PagamentoActivity extends AppCompatActivity {
         textDataExpiracao = findViewById(R.id.textDataExpiracao);
         textCVV = findViewById(R.id.textCVV);
         buttonPagar = findViewById(R.id.buttonPagar);
+
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null)
+            pedido = (Pedido) bundle.getSerializable("pedido");
 
         radioGroupMetodoPagamento.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -96,9 +103,16 @@ public class PagamentoActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Pedido Confirmado");
         builder.setMessage("Seu pedido foi confirmado com sucesso!");
+
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                pedido.setMetodoPagamento(0);
+                pedido.setStatus("confirmado");
+                pedido.confirmar();
+                pedido.remover();
+                pedido = null;
+
                 // Fecha o alerta e retorna para a tela de histórico de pedidos
                 Intent intent = new Intent(PagamentoActivity.this, HistoricoPedidosActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

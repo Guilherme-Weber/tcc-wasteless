@@ -58,6 +58,7 @@
             android:id="@+id/textNumeroCartao"
             android:layout_width="match_parent"
             android:layout_height="40dp"
+            android:padding="8dp"
             android:background="@drawable/bg_edit_text"
             android:hint="Número do Cartão de Crédito"
             android:inputType="number"

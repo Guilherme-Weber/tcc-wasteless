@@ -3,10 +3,11 @@ package com.guilhermeweber.wasteless.activity.model;
 import com.google.firebase.database.DatabaseReference;
 import com.guilhermeweber.wasteless.activity.helper.ConfigFirebase;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 
-public class Pedido {
+public class Pedido implements Serializable {
 
     private String idUsuario;
     private String idEmpresa;
