@@ -3,7 +3,9 @@ package com.guilhermeweber.wasteless.activity.activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.util.AttributeSet;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -148,15 +150,94 @@ public class CardapioActivity extends AppCompatActivity {
     private void abrirCarrinho() {
 //        startActivity(new Intent(this, CarrinhoActivity.class));
 
-        Intent i = new Intent(this, CarrinhoActivity.class);
-        i.putExtra("empresaSelecionada", empresaSelecionada);
-        i.putExtra("itensCarrinho", (Serializable) itensCarrinho);
-        startActivity(i);
-
+//        Intent i = new Intent(this, CarrinhoActivity.class);
+//        i.putExtra("empresaSelecionada", empresaSelecionada);
+//        i.putExtra("itensCarrinho", (Serializable) itensCarrinho);
+//        startActivity(i);
 //        CardapioActivity.this.startActivity(new Intent(CardapioActivity.this, CardapioActivity.class).putExtra("idEmpresa", idEmpresa));
 //        CardapioActivity.this.startActivity(new Intent(CardapioActivity.this, CarrinhoActivity.class));
 
-//        mensagemToast("wtf");
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Carrinho ");
+
+        // Layout para armazenar os TextViews
+        LinearLayout linearLayout = new LinearLayout(this);
+        linearLayout.setOrientation(LinearLayout.VERTICAL);
+
+        LinearLayout linearLayoutP = new LinearLayout(this);
+        linearLayoutP.setOrientation(LinearLayout.VERTICAL);
+
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+
+        linearLayoutP.setPadding(20, 20, 20, 20);
+        linearLayoutP.addView(linearLayout, layoutParams);
+
+        TextView textViewVazio = new TextView(this);
+
+        linearLayout.setBackgroundResource(R.drawable.bg_edit_text);
+        linearLayout.setPadding(20, 20, 20, 20);
+
+
+        for (int x = 0; x < itensCarrinho.size(); x++) {
+
+            LinearLayout linearLayoutD = new LinearLayout(this);
+            linearLayoutD.setOrientation(LinearLayout.VERTICAL);
+            linearLayoutD.setBackgroundResource(R.drawable.bg_edit_text);
+            linearLayoutD.setPadding(20, 20, 20, 20);
+
+            itensCarrinho.get(x).getNomeProduto();
+
+            linearLayoutD.addView(alertText("Nome: ", itensCarrinho.get(x).getNomeProduto()), layoutParams);
+
+            TextView textView = new TextView(this);
+            Double preco = itensCarrinho.get(x).getPreco();
+            preco = preco / 100;
+            linearLayoutD.addView(alertText("Preço: R$", String.valueOf(preco)));
+
+            linearLayoutD.addView(alertText("Quantidade: ", itensCarrinho.get(x).getNomeProduto()), layoutParams);
+
+            linearLayout.addView(linearLayoutD);
+        }
+
+        LinearLayout linearLayoutD = new LinearLayout(this);
+        linearLayoutD.setOrientation(LinearLayout.VERTICAL);
+        linearLayoutD.setBackgroundResource(R.drawable.bg_edit_text);
+        linearLayoutD.setPadding(20, 20, 20, 20);
+
+        String total;
+
+        total = String.valueOf(textCarrinhoTotal.getText());
+
+        linearLayoutD.addView(alertText("Total: ", total));
+
+        linearLayout.addView(linearLayoutD);
+
+
+//        int tamanhoCarrinho = itensCarrinho.get(x).getQuantidade();
+//        itensCarrinho.get(x).setQuantidade(tamanhoCarrinho + Integer.parseInt(quantidade));
+
+        builder.setPositiveButton("Finalizar Pedido", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                confirmarPedido();
+            }
+        }).setNeutralButton("Voltar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        }).setNegativeButton("Limpar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+
+        builder.setView(linearLayoutP);
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
 

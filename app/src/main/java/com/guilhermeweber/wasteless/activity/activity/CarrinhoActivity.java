@@ -37,6 +37,9 @@ import com.squareup.picasso.Picasso;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+
+import dmax.dialog.SpotsDialog;
 
 public class CarrinhoActivity extends AppCompatActivity {
     private FirebaseAuth auth;
@@ -46,7 +49,6 @@ public class CarrinhoActivity extends AppCompatActivity {
     private Empresa empresaSelecionada;
     private String idEmpresa, idUsuarioLogado;
     private RecyclerView recyclerProdutosCarrinho;
-    private List<ItemPedido> itemPedidos = new ArrayList<>();
     private List<Pedido> pedidos = new ArrayList<>();
     private RecyclerView recyclerProdutosCardapio;
     private Button buttonMaisInfo, buttonCarrinho;
@@ -58,6 +60,8 @@ public class CarrinhoActivity extends AppCompatActivity {
     private Pedido pedidoRecuperado;
     private AdapterProduto adapterProduto;
     private List<Produto> produtos = new ArrayList<>();
+    private List<ItemPedido> itemPedido = new ArrayList<>();
+    private List<ItemPedido> itemPedidos = new ArrayList<>();
     private List<ItemPedido> itensCarrinho = new ArrayList<>();
     private AlertDialog dialog;
     private int qtdItensCarrinho, metodoPagamento;
@@ -85,19 +89,89 @@ public class CarrinhoActivity extends AppCompatActivity {
         RecyclerView.LayoutManager recyclerViewCarrinho = new LinearLayoutManager(getApplicationContext());
         recyclerProdutosCarrinho.setLayoutManager(recyclerViewCarrinho);
         recyclerProdutosCarrinho.setHasFixedSize(true);
-        adapterCarrinho = new AdapterCarrinho(pedidos);
+        adapterCarrinho = new AdapterCarrinho(itemPedidos, this);
         recyclerProdutosCarrinho.setAdapter(adapterCarrinho);
 
 //      recuperar a empresa selecionada
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             empresaSelecionada = (Empresa) bundle.getSerializable("empresaSelecionada");
-            itensCarrinho = (List<ItemPedido>) bundle.get("itensCarrinho");
+            itemPedido = (List<ItemPedido>) bundle.get("itensCarrinho");
 
             idEmpresa = empresaSelecionada.getIdEmpresaUsuario();
         }
 
+        recuperarDadosUsuario();
 //        recuperarCarrinho();
+    }
+
+    private void recuperarDadosUsuario() {
+
+        dialog = new SpotsDialog.Builder().setContext(this).setMessage("Carregando Dados").setCancelable(false).build();
+        dialog.show();
+
+        DatabaseReference usuarioRef = firebaseRef.child("usuarios").child(idUsuarioLogado);
+
+        usuarioRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.getValue() != null) {
+                    usuario = snapshot.getValue(Usuario.class);
+                }
+                recuperarPedido();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+    }
+
+    private void recuperarPedido() {
+
+        DatabaseReference pedidoRef = firebaseRef.child("pedido_usuario").child(idEmpresa).child(idUsuarioLogado);
+        pedidoRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                qtdItensCarrinho = 0;
+                totalCarrinho = 0.0;
+                itemPedido = new ArrayList<>();
+
+                if (snapshot.getValue() != null) {
+
+                    pedidoRecuperado = snapshot.getValue(Pedido.class);
+                    itemPedido = pedidoRecuperado.getItens();
+                    for (ItemPedido itemPedido : itemPedido) {
+
+                        itemPedidos.add(itemPedido);
+
+                        int qtde = itemPedido.getQuantidade();
+                        Double preco = itemPedido.getPreco();
+
+                        totalCarrinho += (qtde * preco);
+                        qtdItensCarrinho += qtde;
+                    }
+                    adapterCarrinho.notifyDataSetChanged();
+                }
+
+                DecimalFormat df = new DecimalFormat("0.00");
+
+                textCarrinhoQtd.setText("Carrinho: " + String.valueOf(qtdItensCarrinho));
+                textCarrinhoTotal.setValue(Double.valueOf(totalCarrinho).longValue());
+
+                dialog.dismiss();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+
+    }
+
+    private void recuperarProdutos() {
+
     }
 
     private void mensagemToast(String texto) {
@@ -108,13 +182,12 @@ public class CarrinhoActivity extends AppCompatActivity {
 
         recyclerProdutosCarrinho = findViewById(R.id.recyclerProdutosCarrinho);
 
+        textCarrinhoQtd = findViewById(R.id.textCarrinhoQtd);
+        textCarrinhoTotal = findViewById(R.id.textCarrinhoTotal);
+        Locale locale = new Locale("pt", "BR");
+        textCarrinhoTotal.setLocale(locale);
+
     }
-
-    private void recuperarCarrinho() {
-
-
-    }
-
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

@@ -54,8 +54,9 @@
                 <Button
                     android:id="@+id/btnConsultarCEP"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:background="@drawable/bg_edit_text_gray"
                     android:backgroundTint="@color/quad"
                     android:padding="16dp"
                     android:text="Consultar"
