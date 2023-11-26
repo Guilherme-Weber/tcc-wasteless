@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.guilhermeweber.wasteless.R;
+import com.guilhermeweber.wasteless.activity.helper.ConfigFirebase;
 import com.guilhermeweber.wasteless.activity.model.Empresa;
 import com.guilhermeweber.wasteless.activity.model.Pedido;
 
@@ -34,12 +35,16 @@ public class PagamentoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pagamento);
 
-        radioGroupMetodoPagamento = findViewById(R.id.radioGroupMetodoPagamento);
-        layoutCartaoCredito = findViewById(R.id.layoutCartaoCredito);
-        textNumeroCartao = findViewById(R.id.textNumeroCartao);
-        textDataExpiracao = findViewById(R.id.textDataExpiracao);
-        textCVV = findViewById(R.id.textCVV);
-        buttonPagar = findViewById(R.id.buttonPagar);
+        //config toolbar
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle("Wasteless - Home");
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        inicializarComponentes();
+
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) pedido = (Pedido) bundle.getSerializable("pedido");
@@ -122,6 +127,17 @@ public class PagamentoActivity extends AppCompatActivity {
         });
     }
 
+    private void inicializarComponentes() {
+
+        radioGroupMetodoPagamento = findViewById(R.id.radioGroupMetodoPagamento);
+        layoutCartaoCredito = findViewById(R.id.layoutCartaoCredito);
+        textNumeroCartao = findViewById(R.id.textNumeroCartao);
+        textDataExpiracao = findViewById(R.id.textDataExpiracao);
+        textCVV = findViewById(R.id.textCVV);
+        buttonPagar = findViewById(R.id.buttonPagar);
+
+    }
+
     private boolean realizarPagamento() {
         if (radioGroupMetodoPagamento.getCheckedRadioButtonId() == -1) {
             exibirMensagemErro("Selecione um método de pagamento");
@@ -159,6 +175,7 @@ public class PagamentoActivity extends AppCompatActivity {
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+
                 pedido.setMetodoPagamento(0);
                 pedido.setStatus("confirmado");
                 pedido.confirmar();

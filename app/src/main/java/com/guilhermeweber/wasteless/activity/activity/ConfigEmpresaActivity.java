@@ -33,6 +33,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.guilhermeweber.wasteless.R;
 import com.guilhermeweber.wasteless.activity.helper.ConfigFirebase;
+import com.guilhermeweber.wasteless.activity.helper.Mascara;
 import com.guilhermeweber.wasteless.activity.helper.Permissoes;
 import com.guilhermeweber.wasteless.activity.helper.RESTService;
 import com.guilhermeweber.wasteless.activity.model.CEP;
@@ -91,6 +92,8 @@ public class ConfigEmpresaActivity extends AppCompatActivity implements View.OnC
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        editTextEmpresaCEP.addTextChangedListener(Mascara.insert(Mascara.MASCARA_CEP, editTextEmpresaCEP));
 
         imagePerfilEmpresa.setOnClickListener(new View.OnClickListener() {
             @Override

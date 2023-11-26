@@ -129,6 +129,7 @@
                         android:inputType="none"
                         android:padding="8dp"
                         android:text="R$ 0"
+                        android:background="@color/quad"
                         android:textColor="@color/white" />
                 </LinearLayout>
 

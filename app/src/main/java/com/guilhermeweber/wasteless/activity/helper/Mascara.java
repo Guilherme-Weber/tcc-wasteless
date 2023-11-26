@@ -6,14 +6,15 @@ import android.widget.EditText;
 
 public abstract class Mascara {
     public static String MASCARA_CEP = "##.###-###";
+    public static String MASCARA_TIME = "##:##";
 
     public static String unmask(String s) {
 
-        return s.replaceAll("[.]", "").replaceAll("[-]", "").replaceAll("[/]", "").replaceAll("[(]", "").replaceAll("[)]", "").replaceAll(" ", "").replaceAll(",", "");
+        return s.replaceAll("[:]", "").replaceAll("[.]", "").replaceAll("[-]", "").replaceAll("[/]", "").replaceAll("[(]", "").replaceAll("[)]", "").replaceAll(" ", "").replaceAll(",", "");
     }
 
     public static boolean isASign(char c) {
-        if (c == '.' || c == '-' || c == '/' || c == '(' || c == ')' || c == ',' || c == ' ') {
+        if (c == '.' || c == '-' || c == '/' || c == '(' || c == ')' || c == ',' || c == ' ' || c == ':') {
             return true;
         } else {
             return false;

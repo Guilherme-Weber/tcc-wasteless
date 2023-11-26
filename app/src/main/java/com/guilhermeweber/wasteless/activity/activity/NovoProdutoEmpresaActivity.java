@@ -35,6 +35,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.guilhermeweber.wasteless.R;
 import com.guilhermeweber.wasteless.activity.helper.ConfigFirebase;
+import com.guilhermeweber.wasteless.activity.helper.Mascara;
 import com.guilhermeweber.wasteless.activity.helper.Permissoes;
 import com.guilhermeweber.wasteless.activity.model.Produto;
 import com.guilhermeweber.wasteless.activity.model.Usuario;
@@ -78,7 +79,12 @@ public class NovoProdutoEmpresaActivity extends AppCompatActivity implements Vie
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("Cadastro de Produto");
         setSupportActionBar(toolbar);
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        editTextHoraRetDe.addTextChangedListener(Mascara.insert(Mascara.MASCARA_TIME, editTextHoraRetDe));
+        editTextHoraRetAte.addTextChangedListener(Mascara.insert(Mascara.MASCARA_TIME, editTextHoraRetAte));
 
         ImageViewImageProduto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,6 +102,9 @@ public class NovoProdutoEmpresaActivity extends AppCompatActivity implements Vie
         int needif = v.getId();
         if (needif == R.id.imageNovoProduto) {
             escolherImagem(1);
+        } else if (v.getId() == android.R.id.home) {
+            Intent intent = new Intent(this, EmpresaActivity.class);
+            startActivity(intent);
         }
     }
 
@@ -141,6 +150,8 @@ public class NovoProdutoEmpresaActivity extends AppCompatActivity implements Vie
                             produto.setIdEmpresa(idLogUsuario);
                             produto.setNomeProduto(nome);
                             produto.setDescricao(descricao);
+                            produto.setTempoDe(horarioDe);
+                            produto.setTempoAte(horarioAte);
 
                             if (salgado.isChecked()) {
                                 produto.setTipoPacote(salgado.getText().toString());
@@ -176,7 +187,7 @@ public class NovoProdutoEmpresaActivity extends AppCompatActivity implements Vie
 
                             produto.salvar(ramdom);
                             finish();
-                            mensagemToast("Produto Salvo Com Sucesso! " + preco);
+                            mensagemToast("Produto Salvo Com Sucesso!");
 
                         } else {
                             String pc = "Preencha o preço do produto";

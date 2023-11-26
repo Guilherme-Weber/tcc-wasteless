@@ -112,16 +112,19 @@ public class CadastrosUsuariosActivity extends AppCompatActivity {
 
                 if (nome.isEmpty()) {
                     campoNome.setError("Informe seu nome");
+                    Toast.makeText(CadastrosUsuariosActivity.this, "Informe seu nome", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 if (email.isEmpty()) {
                     campoEmail.setError("Informe seu e-mail");
+                    Toast.makeText(CadastrosUsuariosActivity.this, "Informe seu e-mail", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 if (senha.isEmpty()) {
                     campoSenha.setError("Informe sua senha");
+                    Toast.makeText(CadastrosUsuariosActivity.this, "Informe sua senha", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -150,16 +153,13 @@ public class CadastrosUsuariosActivity extends AppCompatActivity {
                                             String erroExcecao = "";
                                             try {
                                                 throw task.getException();
-                                            } catch (
-                                                    FirebaseAuthWeakPasswordException e) {
+                                            } catch (FirebaseAuthWeakPasswordException e) {
                                                 erroExcecao = "Informe uma senha mais forte!";
                                                 campoSenha.setError("Informe uma senha mais forte!");
-                                            } catch (
-                                                    FirebaseAuthInvalidCredentialsException e) {
+                                            } catch (FirebaseAuthInvalidCredentialsException e) {
                                                 erroExcecao = "Por Favor, informe um e-mail válido";
                                                 campoEmail.setError("Por Favor, informe um e-mail válido");
-                                            } catch (
-                                                    FirebaseAuthUserCollisionException e) {
+                                            } catch (FirebaseAuthUserCollisionException e) {
                                                 erroExcecao = "E-mail já cadastrado";
                                                 campoEmail.setError("E-mail já cadastrado");
                                             } catch (Exception e) {
@@ -175,20 +175,22 @@ public class CadastrosUsuariosActivity extends AppCompatActivity {
                                 checkBoxTermos.setError("Concorde com os termos e condições");
                             }
                         } else {
-                            Toast.makeText(CadastrosUsuariosActivity.this, "Ambas as senhas tem que ser iguais", Toast.LENGTH_SHORT).show();
-                            campoSenha.setError("Informe sua senha");
-                            campoSenhaDenovo.setError("Informe sua senha");
+                            String pw = "Ambas as senhas tem que ser iguais";
+                            Toast.makeText(CadastrosUsuariosActivity.this, pw, Toast.LENGTH_SHORT).show();
+                            campoSenha.setError(pw);
+                            campoSenhaDenovo.setError(pw);
                         }
                     } else {
-                        Toast.makeText(CadastrosUsuariosActivity.this, "Preencha o Campo Telefone", Toast.LENGTH_SHORT).show();
-                        editTextTelefone.setError("Preencha o Campo Telefone");
+                        String tf = "Preencha o Campo Telefone";
+                        Toast.makeText(CadastrosUsuariosActivity.this, tf, Toast.LENGTH_SHORT).show();
+                        editTextTelefone.setError(tf);
                     }
                 } else {
-                    Toast.makeText(CadastrosUsuariosActivity.this, "Escolha a opção de tipo cadastro", Toast.LENGTH_SHORT).show();
-                    cliente.setError("Escolha a opção de tipo cadastro");
-                    empresa.setError("Escolha a opção de tipo cadastro");
+                    String t = "Escolha a opção de tipo cadastro";
+                    Toast.makeText(CadastrosUsuariosActivity.this, t, Toast.LENGTH_SHORT).show();
+                    cliente.setError(t);
+                    empresa.setError(t);
                 }
-
             }
         });
     }

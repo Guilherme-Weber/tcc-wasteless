@@ -15,6 +15,8 @@ public class Produto {
     private String idTipoPacote;
     private String tamanhoPacote;
     private String idTamanhoPacote;
+    private String tempoDe;
+    private String tempoAte;
 
     public Produto() {
 
@@ -115,5 +117,21 @@ public class Produto {
 
     public void setIdTamanhoPacote(String idTamanhoPacote) {
         this.idTamanhoPacote = idTamanhoPacote;
+    }
+
+    public String getTempoDe() {
+        return tempoDe;
+    }
+
+    public void setTempoDe(String tempoDe) {
+        this.tempoDe = tempoDe;
+    }
+
+    public String getTempoAte() {
+        return tempoAte;
+    }
+
+    public void setTempoAte(String tempoAte) {
+        this.tempoAte = tempoAte;
     }
 }

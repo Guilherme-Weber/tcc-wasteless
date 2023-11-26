@@ -236,13 +236,11 @@ public class HomeActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
 
-        int needif = item.getItemId();
-
-        if (needif == R.id.menuSair) {
+        if (item.getItemId() == R.id.menuSair) {
             deslogarUsuario();
-        } else if (needif == R.id.menuConfig) {
+        } else if (item.getItemId() == R.id.menuConfig) {
             abrirConfig();
-        } else if (needif == R.id.pedidos) {
+        } else if (item.getItemId() == R.id.pedidos) {
             abrirPedidos();
         } else if (item.getItemId() == android.R.id.home) {
             deslogarUsuario();
