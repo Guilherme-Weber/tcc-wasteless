@@ -49,7 +49,7 @@ public class NovoProdutoEmpresaActivity extends AppCompatActivity implements Vie
     private StorageReference storageReference;
     private DatabaseReference firebaseRef;
     private String idLogUsuario, ramdom, urlImagem1, TipoValor = "Unidade";
-    private EditText editTextNomeProduto, editTexTextDescricao;
+    private EditText editTextNomeProduto, editTexTextDescricao, editTextHoraRetDe, editTextHoraRetAte;
     private Spinner spinnerNovoProdutoCategoria;
     private LinearLayout linearTipoPeso;
     private ImageView ImageViewImageProduto;
@@ -122,9 +122,9 @@ public class NovoProdutoEmpresaActivity extends AppCompatActivity implements Vie
 
         String nome = editTextNomeProduto.getText().toString();
         String descricao = editTexTextDescricao.getText().toString();
-        // String categoriaText = spinnerNovoProdutoCategoria.getSelectedItem().toString();
-        // Integer categoria = spinnerNovoProdutoCategoria.getSelectedItemPosition();
         Long preco = editTextPrecoProduto.getRawValue();
+        String horarioDe = editTextHoraRetDe.getText().toString();
+        String horarioAte = editTextHoraRetAte.getText().toString();
 
         if (preco == null) {
             preco = Long.valueOf("0");
@@ -179,25 +179,29 @@ public class NovoProdutoEmpresaActivity extends AppCompatActivity implements Vie
                             mensagemToast("Produto Salvo Com Sucesso! " + preco);
 
                         } else {
-                            mensagemToast("Preencha o preço do produto");
-                            editTextPrecoProduto.setError("Preencha o preço do produto");
+                            String pc = "Preencha o preço do produto";
+                            mensagemToast(pc);
+                            editTextPrecoProduto.setError(pc);
                         }
 
                     } else {
-                        mensagemToast("Preencha o tamanho do seu pacote");
-                        pequena.setError("Preencha o tamanho do seu pacote");
-                        media.setError("Preencha o tamanho do seu pacote");
-                        grande.setError("Preencha o tamanho do seu pacote");
+                        String tm = "Preencha o tamanho do seu pacote";
+                        mensagemToast(tm);
+                        pequena.setError(tm);
+                        media.setError(tm);
+                        grande.setError(tm);
                     }
                 } else {
-                    mensagemToast("Preencha o tipo de pacote");
-                    salgado.setError("Preencha o tipo de pacote");
-                    doce.setError("Preencha o tipo de pacote");
-                    mista.setError("Preencha o tipo de pacote");
+                    String tp = "Preencha o tipo de pacote";
+                    mensagemToast(tp);
+                    salgado.setError(tp);
+                    doce.setError(tp);
+                    mista.setError(tp);
                 }
             } else {
-                mensagemToast("Preencha a descrição do produto");
-                editTexTextDescricao.setError("Preencha a descrição do produto");
+                String des = "Preencha a descrição do produto";
+                mensagemToast(des);
+                editTexTextDescricao.setError(des);
             }
         } else {
             mensagemToast("Preencha o nome do produto");
@@ -217,12 +221,8 @@ public class NovoProdutoEmpresaActivity extends AppCompatActivity implements Vie
         editTextNomeProduto = findViewById(R.id.editTextNomeProduto);
         editTexTextDescricao = findViewById(R.id.editTextDescrição);
 
-        //spinnerNovoProdutoCategoria = findViewById(R.id.spinnerNovoProdutoCategoria);
-
-//        linearTipoPeso = findViewById(R.id.linearTipoPeso);
-//
-//        switchTipoValor = findViewById(R.id.switchTipoValor);
-//        switchTipoPeso = findViewById(R.id.switchTipoPeso);
+        editTextHoraRetDe = findViewById(R.id.editTextHoraRetDe);
+        editTextHoraRetAte = findViewById(R.id.editTextHoraRetAte);
 
         editTextPrecoProduto = findViewById(R.id.editTextPrecoProduto);
         Locale locale = new Locale("pt", "BR");
@@ -262,56 +262,14 @@ public class NovoProdutoEmpresaActivity extends AppCompatActivity implements Vie
         });
     }
 
-    public void radiobuttonTipo() {
-        if (salgado.isChecked()) {
-
-        } else if (doce.isChecked()) {
-
-        } else if (mista.isChecked()) {
-
-        }
-    }
-
-    public void radiobuttonTamanho() {
-        if (pequena.isChecked()) {
-
-        } else if (media.isChecked()) {
-
-        } else if (grande.isChecked()) {
-
-        }
-    }
-
-    public void enviar(View view) {
-        radiobuttonTipo();
-        radiobuttonTamanho();
-    }
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
         for (int permissaoResultado : grantResults) {
             if (permissaoResultado == PackageManager.PERMISSION_DENIED) {
-                alertPermissao();
+
             }
         }
-    }
-
-    private void alertPermissao() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Permissões negadas");
-        builder.setMessage("Para utilizar o app é necessário aceitar as permissões");
-        builder.setCancelable(false);
-        builder.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-                finish();
-            }
-        });
-
-        AlertDialog dialog = builder.create();
-        dialog.show();
     }
 }
