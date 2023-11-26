@@ -55,7 +55,7 @@ import dmax.dialog.SpotsDialog;
 public class CardapioActivity extends AppCompatActivity {
     private RecyclerView recyclerProdutosCardapio, recyclerProdutosCardapioTeste;
     private Button buttonMaisInfo;
-    private ImageButton buttonCarrinho;
+    private ImageButton buttonCarrinho, imageButtonFavoritar;
     private FirebaseAuth auth;
     private DatabaseReference firebaseRef;
     private FirebaseDatabase firebaseDatabase;
@@ -148,6 +148,12 @@ public class CardapioActivity extends AppCompatActivity {
             }
         });
 
+        imageButtonFavoritar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                usuario.manageEmpresaFavorita(empresaSelecionada);
+            }
+        });
     }
 
     private void abrirCarrinho() {
@@ -491,6 +497,7 @@ public class CardapioActivity extends AppCompatActivity {
 
         buttonMaisInfo = findViewById(R.id.buttonMaisInfo);
         buttonCarrinho = findViewById(R.id.buttonCarrinho);
+        imageButtonFavoritar = findViewById(R.id.imageButtonFavoritar);
 
         textCarrinhoQtd = findViewById(R.id.textCarrinhoQtd);
         textCarrinhoTotal = findViewById(R.id.textCarrinhoTotal);

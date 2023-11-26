@@ -38,6 +38,15 @@ public class Empresa implements Serializable {
         empresaRef.setValue(this);
     }
 
+    @Override
+    public boolean equals(Object empresa) {
+        if (empresa instanceof Empresa) {
+            return this.getIdEmpresaUsuario().equals(((Empresa)empresa).getIdEmpresaUsuario());
+        }
+
+        return false;
+    }
+
     public String getIdEmpresaUsuario() {
         return idEmpresaUsuario;
     }

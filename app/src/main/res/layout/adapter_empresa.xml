@@ -8,26 +8,25 @@
     android:orientation="vertical">
 
     <ScrollView
-        android:layout_width="match_parent"
+        android:layout_width="356dp"
         android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/bg_edit_text"
             android:gravity="center"
             android:orientation="vertical"
-            android:background="@drawable/bg_edit_text"
             android:padding="16dp">
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="337dp"
                 android:layout_height="match_parent"
-
                 android:orientation="horizontal">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/imageEmpresa"
-                    android:layout_width="60dp"
+                    android:layout_width="67dp"
                     android:layout_height="60dp"
                     android:background="@drawable/bg_edit_text"
                     android:padding="4dp"
@@ -35,7 +34,7 @@
                     tools:src="@drawable/baseline_downloading_24" />
 
                 <LinearLayout
-                    android:layout_width="250dp"
+                    android:layout_width="211dp"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="12dp"
                     android:gravity="center"
@@ -45,8 +44,8 @@
                         android:id="@+id/textNomeEmpresa"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingStart="20dp"
                         android:background="@drawable/bg_edit_text"
+                        android:paddingStart="20dp"
                         android:text="Nome da empresa"
                         android:textColor="@color/grey"
                         android:textSize="16sp"
@@ -89,15 +88,6 @@
 
                 </LinearLayout>
 
-                <ImageButton
-                    android:id="@+id/imageButtonFavoritar"
-                    android:layout_width="11dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="1"
-                    android:backgroundTint="@color/primaria"
-                    android:scaleType="centerInside"
-                    app:srcCompat="@drawable/ic_favorito" />
 
             </LinearLayout>
         </LinearLayout>

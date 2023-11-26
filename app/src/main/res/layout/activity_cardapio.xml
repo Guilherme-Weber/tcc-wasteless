@@ -73,14 +73,34 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <ImageButton
-                android:id="@+id/buttonCarrinho"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:backgroundTint="@color/primaria"
-                android:src="@drawable/icon_carrinho_de_compras" />
+                android:layout_height="61dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageButton
+                    android:id="@+id/buttonCarrinho"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/primaria"
+                    android:src="@drawable/icon_carrinho_de_compras" />
+
+                <ImageButton
+                    android:id="@+id/imageButtonFavoritar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/primaria"
+                    android:scaleType="centerInside"
+                    app:srcCompat="@drawable/ic_favorito" />
+
+            </LinearLayout>
 
         </LinearLayout>
 

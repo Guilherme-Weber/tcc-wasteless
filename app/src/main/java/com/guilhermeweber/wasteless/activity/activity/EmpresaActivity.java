@@ -46,6 +46,7 @@ public class EmpresaActivity extends AppCompatActivity {
     private List<Produto> produtos = new ArrayList<>();
     private AlertDialog dialog;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

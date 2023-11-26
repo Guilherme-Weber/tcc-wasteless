@@ -7,11 +7,13 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.guilhermeweber.wasteless.R;
+import com.guilhermeweber.wasteless.activity.activity.HomeActivity;
 import com.guilhermeweber.wasteless.activity.model.Empresa;
 import com.guilhermeweber.wasteless.activity.model.Usuario;
 import com.squareup.picasso.Picasso;
@@ -64,6 +66,7 @@ public class AdapterEmpresa extends RecyclerView.Adapter<AdapterEmpresa.MyViewHo
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
+        ImageButton btnFavoritar;
         ImageView imagemEmpresa;
         TextView nomeEmpresa;
         TextView categoria;
@@ -79,6 +82,7 @@ public class AdapterEmpresa extends RecyclerView.Adapter<AdapterEmpresa.MyViewHo
             tempo = itemView.findViewById(R.id.textTempoEmpresa);
             imagemEmpresa = itemView.findViewById(R.id.imageEmpresa);
 //            entrega = itemView.findViewById(R.id.textEntregaEmpresa);
+
 
         }
 

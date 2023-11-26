@@ -29,6 +29,8 @@ import com.guilhermeweber.wasteless.activity.activity.HomeActivity;
 import com.guilhermeweber.wasteless.activity.helper.ConfigFirebase;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Usuario implements Serializable {
     private String id;
@@ -38,8 +40,10 @@ public class Usuario implements Serializable {
     private String senha;
     private String tipo;
     private String Telefone;
+    private List<Empresa> EmpresasFavoritas;
 
     public Usuario() {
+        EmpresasFavoritas = new ArrayList<Empresa>();
     }
 
     public static FirebaseUser getUsuarioAtual() {
@@ -118,6 +122,19 @@ public class Usuario implements Serializable {
         usuarios.setValue(this);
     }
 
+    public void manageEmpresaFavorita(Empresa empresa) {
+        if (EmpresasFavoritas.contains(empresa)) {
+            EmpresasFavoritas.remove(empresa);
+            System.out.println("Empresa " + empresa.getNome() + " removida dos favoritos!");
+        }
+        else {
+            EmpresasFavoritas.add(empresa);
+            System.out.println("Empresa " + empresa.getNome() + " adicionada dos favoritos!");
+        }
+
+        salvar();
+    }
+
     public String getUrlImagem() {
         return urlImagem;
     }
@@ -175,4 +192,7 @@ public class Usuario implements Serializable {
         this.tipo = tipo;
     }
 
+    public List<Empresa> getEmpresasFavoritas() { return EmpresasFavoritas;  }
+
+    public void setEmpresasFavoritas(List<Empresa> empresasFavoritas) { EmpresasFavoritas = empresasFavoritas; }
 }
