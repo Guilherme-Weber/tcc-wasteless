@@ -4,7 +4,9 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -33,14 +35,6 @@ public class PagamentoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pagamento);
 
-        //config toolbar
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle("Pagamento");
-        setSupportActionBar(toolbar);
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-
         radioGroupMetodoPagamento = findViewById(R.id.radioGroupMetodoPagamento);
         layoutCartaoCredito = findViewById(R.id.layoutCartaoCredito);
         textNumeroCartao = findViewById(R.id.textNumeroCartao);
@@ -62,6 +56,58 @@ public class PagamentoActivity extends AppCompatActivity {
                 } else {
                     // Esconde os campos do cartão de crédito se selecionar Pix
                     layoutCartaoCredito.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        // Adiciona espaçamento a cada 4 dígitos no número do cartão
+        textNumeroCartao.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String cleanText = s.toString().replace(" ", "");
+
+                StringBuilder formattedText = new StringBuilder();
+                for (int i = 0; i < cleanText.length(); i++) {
+                    if (i > 0 && i % 4 == 0) {
+                        formattedText.append(" ");
+                    }
+                    formattedText.append(cleanText.charAt(i));
+                }
+
+                textNumeroCartao.removeTextChangedListener(this);
+                textNumeroCartao.setText(formattedText.toString());
+                textNumeroCartao.setSelection(formattedText.length());
+                textNumeroCartao.addTextChangedListener(this);
+            }
+        });
+
+        // Formata a data como MM/YY
+        textDataExpiracao.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String cleanText = s.toString().replace("/", "");
+                if (cleanText.length() > 2) {
+                    String formattedText = cleanText.substring(0, 2) + "/" + cleanText.substring(2);
+                    textDataExpiracao.removeTextChangedListener(this);
+                    textDataExpiracao.setText(formattedText);
+                    textDataExpiracao.setSelection(formattedText.length());
+                    textDataExpiracao.addTextChangedListener(this);
                 }
             }
         });
