@@ -229,7 +229,7 @@
                     android:background="@drawable/bg_edit_text"
                     android:ems="10"
                     android:hint="De"
-                    android:inputType="time"
+                    android:inputType="number"
                     android:padding="12dp"
                     android:textSize="14sp" />
 
@@ -241,7 +241,7 @@
                     android:background="@drawable/bg_edit_text"
                     android:ems="10"
                     android:hint="Até"
-                    android:inputType="timer"
+                    android:inputType="number"
                     android:padding="12dp"
                     android:textSize="14sp" />
 
