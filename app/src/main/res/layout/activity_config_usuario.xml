@@ -60,35 +60,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
 
-                    android:orientation="horizontal">
-
-                    <EditText
-                        android:id="@+id/editTextUsuarioCEP"
-                        android:layout_width="150dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="8dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/bg_edit_text"
-                        android:ems="10"
-                        android:hint="CEP"
-                        android:inputType="number"
-                        android:padding="16dp"
-                        android:textColor="@color/quad" />
-
-                    <Button
-                        android:id="@+id/btnConsultarCEPConfig"
-                        android:layout_width="0dp"
-                        android:layout_height="50dp"
-                        android:layout_weight="1"
-                        android:backgroundTint="@color/quad"
-                        android:onClick="CEP"
-                        android:padding="16dp"
-                        android:text="Consultar"
-                        android:textColor="@color/white"
-                        android:textSize="12sp"
-                        android:theme="@style/botaoPadrao"
-                        app:cornerRadius="10dp" />
-                </LinearLayout>
+                    android:orientation="horizontal"/>
 
                 <EditText
                     android:id="@+id/editTextEmailUsuConfig"
@@ -101,70 +73,6 @@
                     android:inputType="text"
                     android:padding="16dp"
                     android:textColor="@color/quad" />
-
-                <EditText
-
-                    android:id="@+id/editTextLogradouroConfig"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:background="@drawable/bg_edit_text"
-                    android:ems="10"
-                    android:hint="Logradouro"
-                    android:inputType="text"
-                    android:padding="16dp" />
-
-                <EditText
-                    android:id="@+id/editTextComplementoConfig"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:background="@drawable/bg_edit_text"
-                    android:ems="10"
-                    android:hint="Complemento"
-                    android:inputType="text"
-                    android:padding="16dp" />
-
-                <EditText
-                    android:id="@+id/editTextBairroConfig"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:background="@drawable/bg_edit_text"
-                    android:ems="10"
-                    android:hint="Bairro"
-                    android:inputType="text"
-                    android:padding="16dp" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <EditText
-                        android:id="@+id/editTextCidadeConfig"
-                        android:layout_width="300dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginRight="8dp"
-                        android:background="@drawable/bg_edit_text"
-                        android:ems="10"
-                        android:hint="Cidade"
-                        android:inputType="text"
-                        android:padding="16dp" />
-
-                    <EditText
-
-                        android:id="@+id/editTextUFConfig"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:background="@drawable/bg_edit_text"
-                        android:ems="10"
-                        android:hint="UF"
-                        android:inputType="number"
-                        android:padding="16dp" />
-                </LinearLayout>
 
                 <com.santalu.maskedittext.MaskEditText
                     android:id="@+id/editTextTelefone"

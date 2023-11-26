@@ -41,8 +41,8 @@
                     android:id="@+id/txtinpedtCEP"
                     android:layout_width="202dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:layout_marginRight="8dp"
+                    android:layout_weight="1"
                     android:background="@drawable/bg_edit_text"
                     android:ems="10"
                     android:hint="CEP"
@@ -64,6 +64,7 @@
                     android:textSize="12sp"
                     android:theme="@style/botaoPadrao"
                     app:cornerRadius="10dp" />
+
             </LinearLayout>
 
             <EditText
@@ -89,8 +90,8 @@
                 android:layout_weight="1"
                 android:background="@drawable/bg_edit_text"
                 android:ems="10"
-                android:inputType="text"
                 android:hint="Complemento (opcional)"
+                android:inputType="text"
                 android:padding="16dp"
                 android:textColor="@color/quad"
                 android:textSize="14sp" />

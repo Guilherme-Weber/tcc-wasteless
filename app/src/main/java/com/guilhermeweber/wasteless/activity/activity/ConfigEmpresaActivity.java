@@ -129,6 +129,14 @@ public class ConfigEmpresaActivity extends AppCompatActivity implements View.OnC
                     if (urlImagemSelecionada != "") {
                         Picasso.get().load(urlImagemSelecionada).into(imagePerfilEmpresa);
                     }
+
+                    editTextEmpresaCEP.setText(empresa.getcEP());
+                    editTextLogradouroConfig.setText(empresa.getLogradouro());
+                    editTextComplementoConfig.setText(empresa.getComplemento());
+                    editTextBairroConfig.setText(empresa.getBairro());
+                    editTextUFConfig.setText(empresa.getUF());
+                    editTextCidadeConfig.setText(empresa.getLocalidade());
+                    editTextEmailEmpConfig.setText(empresa.getEmail());
                 }
             }
 
@@ -148,13 +156,6 @@ public class ConfigEmpresaActivity extends AppCompatActivity implements View.OnC
                     usuario = snapshot.getValue(Usuario.class);
 
                     editTextNomeEmpresa.setText(usuario.getNome());
-                    editTextEmpresaCEP.setText(usuario.getcEP());
-                    editTextLogradouroConfig.setText(usuario.getLogradouro());
-                    editTextComplementoConfig.setText(usuario.getComplemento());
-                    editTextBairroConfig.setText(usuario.getBairro());
-                    editTextUFConfig.setText(usuario.getUF());
-                    editTextCidadeConfig.setText(usuario.getLocalidade());
-                    editTextEmailEmpConfig.setText(usuario.getEmail());
 
                 }
             }
@@ -290,12 +291,6 @@ public class ConfigEmpresaActivity extends AppCompatActivity implements View.OnC
         usuario.setId(idLogUsuario);
         usuario.setNome(nome);
         usuario.setEmail(email);
-        usuario.setcEP(cEP);
-        usuario.setLogradouro(logradouro);
-        usuario.setComplemento(complemento);
-        usuario.setBairro(bairro);
-        usuario.setUF(uF);
-        usuario.setLocalidade(cidade);
 
         usuario.setTipo("E");
 

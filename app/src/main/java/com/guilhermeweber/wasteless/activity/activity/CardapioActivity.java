@@ -360,8 +360,6 @@ public class CardapioActivity extends AppCompatActivity {
                     }
 
                     pedidoRecuperado.setNome(usuario.getNome());
-                    pedidoRecuperado.setEndereco(usuario.getEndereco());
-                    pedidoRecuperado.setcEP(usuario.getcEP());
                     pedidoRecuperado.setTelefone(usuario.getTelefone());
                     pedidoRecuperado.setItens(itensCarrinho);
 

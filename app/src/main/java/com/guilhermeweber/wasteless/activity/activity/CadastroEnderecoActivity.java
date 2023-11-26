@@ -77,6 +77,14 @@ public class CadastroEnderecoActivity extends AppCompatActivity {
             usuario = (Usuario) bundle.getSerializable("usuario");
         }
 
+        String tipoUser = usuario.getTipo();
+
+        if (tipoUser.equals("E")) {//Empresa
+
+        } else {
+            cadastroUser();
+        }
+
         //Aplicando a máscara para CEP
         txtCEP.addTextChangedListener(Mascara.insert(Mascara.MASCARA_CEP, txtCEP));
 
@@ -92,7 +100,6 @@ public class CadastroEnderecoActivity extends AppCompatActivity {
                 if (validarCampos()) {
 
                     String cep = txtCEP.getText().toString().trim();
-                    usuario.setcEP(cep);
                     empresa.setcEP(cep);
 
                     consultarCEP();
@@ -159,12 +166,6 @@ public class CadastroEnderecoActivity extends AppCompatActivity {
         String Bairro = txtBairro.getText().toString();
         String UF = txtUF.getText().toString();
         String Localidade = txtLocalidade.getText().toString();
-
-        usuario.setLogradouro(Logradouro);
-        usuario.setComplemento(Complemento);
-        usuario.setBairro(Bairro);
-        usuario.setUF(UF);
-        usuario.setLocalidade(Localidade);
 
         empresa.setTelefone(usuario.getTelefone());
         empresa.setNome(usuario.getNome());

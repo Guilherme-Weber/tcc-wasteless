@@ -38,13 +38,6 @@ public class Usuario implements Serializable {
     private String senha;
     private String tipo;
     private String Telefone;
-    private String cEP;
-    private String endereco;
-    private String logradouro;
-    private String complemento;
-    private String bairro;
-    private String UF;
-    private String localidade;
 
     public Usuario() {
     }
@@ -133,22 +126,6 @@ public class Usuario implements Serializable {
         this.urlImagem = urlImagem;
     }
 
-    public String getcEP() {
-        return cEP;
-    }
-
-    public void setcEP(String cEP) {
-        this.cEP = cEP;
-    }
-
-    public String getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
-    }
-
     public String getTelefone() {
         return Telefone;
     }
@@ -198,43 +175,4 @@ public class Usuario implements Serializable {
         this.tipo = tipo;
     }
 
-    public String getLogradouro() {
-        return logradouro;
-    }
-
-    public void setLogradouro(String logradouro) {
-        this.logradouro = logradouro;
-    }
-
-    public String getComplemento() {
-        return complemento;
-    }
-
-    public void setComplemento(String complemento) {
-        this.complemento = complemento;
-    }
-
-    public String getBairro() {
-        return bairro;
-    }
-
-    public void setBairro(String bairro) {
-        this.bairro = bairro;
-    }
-
-    public String getUF() {
-        return UF;
-    }
-
-    public void setUF(String UF) {
-        this.UF = UF;
-    }
-
-    public String getLocalidade() {
-        return localidade;
-    }
-
-    public void setLocalidade(String localidade) {
-        this.localidade = localidade;
-    }
 }

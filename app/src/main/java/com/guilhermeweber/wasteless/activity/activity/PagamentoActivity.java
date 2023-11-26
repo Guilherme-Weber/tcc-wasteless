@@ -21,7 +21,6 @@ import com.guilhermeweber.wasteless.activity.model.Empresa;
 import com.guilhermeweber.wasteless.activity.model.Pedido;
 
 public class PagamentoActivity extends AppCompatActivity {
-
     private RadioGroup radioGroupMetodoPagamento;
     private LinearLayout layoutCartaoCredito;
     private EditText textNumeroCartao;
@@ -43,8 +42,7 @@ public class PagamentoActivity extends AppCompatActivity {
         buttonPagar = findViewById(R.id.buttonPagar);
 
         Bundle bundle = getIntent().getExtras();
-        if (bundle != null)
-            pedido = (Pedido) bundle.getSerializable("pedido");
+        if (bundle != null) pedido = (Pedido) bundle.getSerializable("pedido");
 
         radioGroupMetodoPagamento.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -130,8 +128,7 @@ public class PagamentoActivity extends AppCompatActivity {
             return false;
         }
 
-        if (radioGroupMetodoPagamento.getCheckedRadioButtonId() == R.id.radioButtonCredito
-                || radioGroupMetodoPagamento.getCheckedRadioButtonId() == R.id.radioButtonDebito) {
+        if (radioGroupMetodoPagamento.getCheckedRadioButtonId() == R.id.radioButtonCredito || radioGroupMetodoPagamento.getCheckedRadioButtonId() == R.id.radioButtonDebito) {
             // Se o pagamento for cartão de crédito ou débito, validar os campos do cartão
             String numeroCartao = textNumeroCartao.getText().toString().trim();
             String dataExpiracao = textDataExpiracao.getText().toString().trim();

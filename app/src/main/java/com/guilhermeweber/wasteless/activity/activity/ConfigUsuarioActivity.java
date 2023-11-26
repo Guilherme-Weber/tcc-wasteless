@@ -91,9 +91,6 @@ public class ConfigUsuarioActivity extends AppCompatActivity implements View.OnC
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-
-        editTextUsuarioCEP.addTextChangedListener(Mascara.insert(Mascara.MASCARA_CEP, editTextUsuarioCEP));
-
         //configura os recursos do retrofit
         retrofitCEP = new Retrofit.Builder().baseUrl(URL)                                       //endereço do webservice
                 .addConverterFactory(GsonConverterFactory.create()) //conversor
@@ -124,12 +121,12 @@ public class ConfigUsuarioActivity extends AppCompatActivity implements View.OnC
                     Usuario usuario = snapshot.getValue(Usuario.class);
 
                     editTextNomeUsuario.setText(usuario.getNome());
-                    editTextUsuarioCEP.setText(usuario.getcEP());
-                    editTextLogradouroConfig.setText(usuario.getLogradouro());
-                    editTextComplementoConfig.setText(usuario.getComplemento());
-                    editTextBairroConfig.setText(usuario.getBairro());
-                    editTextUFConfig.setText(usuario.getUF());
-                    editTextCidadeConfig.setText(usuario.getLocalidade());
+//                    editTextUsuarioCEP.setText(usuario.getcEP());
+//                    editTextLogradouroConfig.setText(usuario.getLogradouro());
+//                    editTextComplementoConfig.setText(usuario.getComplemento());
+//                    editTextBairroConfig.setText(usuario.getBairro());
+//                    editTextUFConfig.setText(usuario.getUF());
+//                    editTextCidadeConfig.setText(usuario.getLocalidade());
                     editTextEmailUsuConfig.setText(usuario.getEmail());
 
                     editTextTelefone.setText(usuario.getTelefone());
@@ -177,17 +174,6 @@ public class ConfigUsuarioActivity extends AppCompatActivity implements View.OnC
 
         imageUsuario.setImageURI(imagemSelecionada);
         listaFotosRec.add(caminhoImagem);
-    }
-
-    public void CEP(View view) {
-
-        if (validarCampos()) {
-
-            String cep = editTextUsuarioCEP.getText().toString().trim();
-            usuario.setcEP(cep);
-
-            consultarCEP();
-        }
     }
 
     private void consultarCEP() {
@@ -270,12 +256,6 @@ public class ConfigUsuarioActivity extends AppCompatActivity implements View.OnC
         usuario.setId(idLogUsuario);
         usuario.setNome(nome);
         usuario.setEmail(email);
-        usuario.setcEP(cEP);
-        usuario.setLogradouro(logradouro);
-        usuario.setComplemento(complemento);
-        usuario.setBairro(bairro);
-        usuario.setUF(uF);
-        usuario.setLocalidade(cidade);
 
         usuario.setTipo("U");
 
@@ -314,12 +294,12 @@ public class ConfigUsuarioActivity extends AppCompatActivity implements View.OnC
     private void iniciarComponentes() {
 
         editTextNomeUsuario = findViewById(R.id.editTextNomeUsuario);
-        editTextUsuarioCEP = findViewById(R.id.editTextUsuarioCEP);
-        editTextLogradouroConfig = findViewById(R.id.editTextLogradouroConfig);
-        editTextComplementoConfig = findViewById(R.id.editTextComplementoConfig);
-        editTextBairroConfig = findViewById(R.id.editTextBairroConfig);
-        editTextUFConfig = findViewById(R.id.editTextUFConfig);
-        editTextCidadeConfig = findViewById(R.id.editTextCidadeConfig);
+//        editTextUsuarioCEP = findViewById(R.id.editTextUsuarioCEP);
+//        editTextLogradouroConfig = findViewById(R.id.editTextLogradouroConfig);
+//        editTextComplementoConfig = findViewById(R.id.editTextComplementoConfig);
+//        editTextBairroConfig = findViewById(R.id.editTextBairroConfig);
+//        editTextUFConfig = findViewById(R.id.editTextUFConfig);
+//        editTextCidadeConfig = findViewById(R.id.editTextCidadeConfig);
         editTextTelefone = findViewById(R.id.editTextTelefone);
 
         editTextEmailUsuConfig = findViewById(R.id.editTextEmailUsuConfig);
