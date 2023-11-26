@@ -119,6 +119,7 @@ public class PagamentoActivity extends AppCompatActivity {
         buttonPagar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 // Lógica de pagamento aqui
                 if (realizarPagamento()) {
                     mostrarAlertaPedidoConfirmado();

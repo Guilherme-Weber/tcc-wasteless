@@ -126,8 +126,7 @@ public class Usuario implements Serializable {
         if (EmpresasFavoritas.contains(empresa)) {
             EmpresasFavoritas.remove(empresa);
             System.out.println("Empresa " + empresa.getNome() + " removida dos favoritos!");
-        }
-        else {
+        } else {
             EmpresasFavoritas.add(empresa);
             System.out.println("Empresa " + empresa.getNome() + " adicionada dos favoritos!");
         }
@@ -192,7 +191,11 @@ public class Usuario implements Serializable {
         this.tipo = tipo;
     }
 
-    public List<Empresa> getEmpresasFavoritas() { return EmpresasFavoritas;  }
+    public List<Empresa> getEmpresasFavoritas() {
+        return EmpresasFavoritas;
+    }
 
-    public void setEmpresasFavoritas(List<Empresa> empresasFavoritas) { EmpresasFavoritas = empresasFavoritas; }
+    public void setEmpresasFavoritas(List<Empresa> empresasFavoritas) {
+        EmpresasFavoritas = empresasFavoritas;
+    }
 }

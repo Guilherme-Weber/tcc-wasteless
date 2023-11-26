@@ -1,9 +1,11 @@
 package com.guilhermeweber.wasteless.activity.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -45,7 +47,17 @@ public class AdapterProduto extends RecyclerView.Adapter<AdapterProduto.MyViewHo
         holder.descricao.setText(produto.getDescricao());
         holder.valor.setValue(produto.getPreco());
         holder.tipoValor.setText(produto.getTamanhoPacote());
-        holder.tipoPeso.setText(produto.getTipoPacote());
+        holder.tipoPacote.setText(produto.getTipoPacote());
+        if (TextUtils.isEmpty(produto.getTempoDe())) {
+            holder.ViewDe.setText("~");
+        } else {
+            holder.ViewDe.setText(produto.getTempoDe() + "h");
+        }
+        if (TextUtils.isEmpty(produto.getTempoAte())) {
+            holder.ViewAte.setText("~");
+        } else {
+            holder.ViewAte.setText(produto.getTempoAte() + "h");
+        }
 
         //recuperar imagem
         String urlFotos = produto.getUrlImagem();
@@ -61,7 +73,9 @@ public class AdapterProduto extends RecyclerView.Adapter<AdapterProduto.MyViewHo
         TextView nome;
         TextView descricao;
         TextView tipoValor;
-        TextView tipoPeso;
+        TextView tipoPacote;
+        EditText ViewDe;
+        EditText ViewAte;
         CurrencyEditText valor;
         ImageView produtoImg;
 
@@ -71,7 +85,10 @@ public class AdapterProduto extends RecyclerView.Adapter<AdapterProduto.MyViewHo
             nome = itemView.findViewById(R.id.textNomeRefeicao);
             descricao = itemView.findViewById(R.id.textDescricaoRefeicao);
             tipoValor = itemView.findViewById(R.id.textViewTipoValor);
+            tipoPacote = itemView.findViewById(R.id.tipoPacote);
             valor = itemView.findViewById(R.id.textPrecoRefeicao);
+            ViewDe = itemView.findViewById(R.id.textViewDe);
+            ViewAte = itemView.findViewById(R.id.textViewAte);
             Locale locale = new Locale("pt", "BR");
             valor.setLocale(locale);
             produtoImg = itemView.findViewById(R.id.imageProdutoLista);
