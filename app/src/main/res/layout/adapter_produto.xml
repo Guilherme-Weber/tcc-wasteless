@@ -101,6 +101,7 @@
                         android:gravity="center"/>
 
                     <TextView
+                        android:id="@+id/TextViewTempo2"
                         android:layout_width="110dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
