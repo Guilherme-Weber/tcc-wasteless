@@ -16,6 +16,7 @@ public class HistoricoPedidosActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_historico_pedidos);
 
+        /*
         //configurando os botões do menu inferior
         ImageButton btnHome = findViewById(R.id.btnHome);
         ImageButton btnPedido = findViewById(R.id.btnPedido);
@@ -34,5 +35,6 @@ public class HistoricoPedidosActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+         */
     }
 }

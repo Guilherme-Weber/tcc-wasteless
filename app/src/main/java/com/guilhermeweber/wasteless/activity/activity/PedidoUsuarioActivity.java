@@ -53,7 +53,7 @@ public class PedidoUsuarioActivity extends AppCompatActivity {
 
         //config toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle("Historico");
+        toolbar.setTitle("Histórico de Pedidos");
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

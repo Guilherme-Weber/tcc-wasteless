@@ -61,6 +61,7 @@ public class HomeActivity extends AppCompatActivity {
         firebaseRef = ConfigFirebase.getFirebase();
         auth = ConfigFirebase.getFireAuth();
 
+        /*
         btnHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -75,6 +76,8 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+         */
 
         //configurando o RecycerView
         RecyclerView.LayoutManager recyclerViewEmpresa = new LinearLayoutManager(getApplicationContext());

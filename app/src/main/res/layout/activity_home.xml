@@ -36,7 +36,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
-
+<!--
         <ImageButton
             android:id="@+id/btnHome"
             android:layout_width="0dp"
@@ -54,7 +54,7 @@
             android:background="?android:attr/selectableItemBackgroundBorderless"
             android:contentDescription="pedido"
             android:src="@drawable/ic_pedido" />
-
+-->
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.guilhermeweber.wasteless.R;
 import com.guilhermeweber.wasteless.activity.model.Empresa;
@@ -31,6 +32,14 @@ public class PagamentoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pagamento);
+
+        //config toolbar
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle("Pagamento");
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         radioGroupMetodoPagamento = findViewById(R.id.radioGroupMetodoPagamento);
         layoutCartaoCredito = findViewById(R.id.layoutCartaoCredito);
