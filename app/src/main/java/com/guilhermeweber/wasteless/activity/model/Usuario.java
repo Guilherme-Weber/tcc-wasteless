@@ -1,6 +1,7 @@
 package com.guilhermeweber.wasteless.activity.model;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
@@ -9,8 +10,6 @@ import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -21,9 +20,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Exclude;
 import com.google.firebase.database.ValueEventListener;
 import com.guilhermeweber.wasteless.activity.activity.AutentificacaoActivity;
-import com.guilhermeweber.wasteless.activity.activity.CadastroEnderecoActivity;
-import com.guilhermeweber.wasteless.activity.activity.CadastrosUsuariosActivity;
-import com.guilhermeweber.wasteless.activity.activity.CardapioActivity;
 import com.guilhermeweber.wasteless.activity.activity.EmpresaActivity;
 import com.guilhermeweber.wasteless.activity.activity.HomeActivity;
 import com.guilhermeweber.wasteless.activity.helper.ConfigFirebase;
@@ -86,7 +82,6 @@ public class Usuario implements Serializable {
                 Usuario usuario = snapshot.getValue(Usuario.class);
 
                 try {
-
                     String tipoUser = usuario.getTipo();
 
                     if (tipoUser.equals("E")) {
@@ -106,12 +101,10 @@ public class Usuario implements Serializable {
 
                     activity.startActivity(new Intent(activity, AutentificacaoActivity.class));
                 }
-
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
     }
@@ -122,16 +115,19 @@ public class Usuario implements Serializable {
         usuarios.setValue(this);
     }
 
-    public void manageEmpresaFavorita(Empresa empresa) {
+    public String manageEmpresaFavorita(Empresa empresa, Context context) {
+        String result;
         if (EmpresasFavoritas.contains(empresa)) {
             EmpresasFavoritas.remove(empresa);
-            System.out.println("Empresa " + empresa.getNome() + " removida dos favoritos!");
+            Toast.makeText(context, "Empresa " + empresa.getNome() + " removida dos favoritos!", Toast.LENGTH_SHORT).show();
+            salvar();
+            return result = "1";
         } else {
             EmpresasFavoritas.add(empresa);
-            System.out.println("Empresa " + empresa.getNome() + " adicionada dos favoritos!");
+            Toast.makeText(context, "Empresa " + empresa.getNome() + " adicionada dos favoritos!", Toast.LENGTH_SHORT).show();
+            salvar();
+            return result = "2";
         }
-
-        salvar();
     }
 
     public String getUrlImagem() {

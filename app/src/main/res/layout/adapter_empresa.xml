@@ -44,7 +44,7 @@
                         android:id="@+id/textNomeEmpresa"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingStart="20dp"
+                        android:textAlignment="center"
                         android:text="Nome da empresa"
                         android:textColor="@color/grey"
                         android:textSize="16sp"

@@ -31,7 +31,6 @@ import com.santalu.maskedittext.MaskEditText;
 
 
 public class CadastrosUsuariosActivity extends AppCompatActivity {
-
     private EditText campoNome, campoEmail, campoSenha, campoSenhaDenovo;
     private MaskEditText editTextTelefone;
     private String nome, email, senha, senhadenovo, telefone;
@@ -39,6 +38,7 @@ public class CadastrosUsuariosActivity extends AppCompatActivity {
     private Button buttonCadastro;
     private FirebaseAuth auth;
     private CheckBox checkBoxTermos;
+    private TextView textTermos;
 
     public static boolean stringCompare(String str1, String str2) {
 
@@ -69,8 +69,8 @@ public class CadastrosUsuariosActivity extends AppCompatActivity {
 
         Usuario usuario = new Usuario();
 
-        TextView textTermos = findViewById(R.id.textTermos);
-        checkBoxTermos = findViewById(R.id.checkBoxTermos);
+        inicializarComponentes();
+        auth = ConfigFirebase.getFireAuth();
 
         textTermos.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,9 +85,6 @@ public class CadastrosUsuariosActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        inicializarComponentes();
-        auth = ConfigFirebase.getFireAuth();
 
         buttonCadastro.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -195,8 +192,14 @@ public class CadastrosUsuariosActivity extends AppCompatActivity {
         });
     }
 
+    public String verificaUsuario() {
+        return cliente.isChecked() ? "U" : "E";
+    }
+
     private void inicializarComponentes() {
 
+        textTermos = findViewById(R.id.textTermos);
+        checkBoxTermos = findViewById(R.id.checkBoxTermos);
         campoNome = findViewById(R.id.editTextNome);
         campoEmail = findViewById(R.id.editTextEmail);
         campoSenha = findViewById(R.id.editTextSenha);
@@ -207,9 +210,5 @@ public class CadastrosUsuariosActivity extends AppCompatActivity {
         buttonCadastro = findViewById(R.id.buttonCadastroProximo);
         checkBoxTermos = findViewById(R.id.checkBoxTermos);
 
-    }
-
-    public String verificaUsuario() {
-        return cliente.isChecked() ? "U" : "E";
     }
 }

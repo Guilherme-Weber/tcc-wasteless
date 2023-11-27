@@ -74,7 +74,6 @@ public class CardapioActivity extends AppCompatActivity {
     private int qtdItensCarrinho, metodoPagamento;
     private Double totalCarrinho;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,18 +84,15 @@ public class CardapioActivity extends AppCompatActivity {
         firebaseRef = ConfigFirebase.getFirebase();
         idUsuarioLogado = Usuario.getIdUsuario();
 
-
         //recuperar a empresa selecionada
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
-
             empresaSelecionada = (Empresa) bundle.getSerializable("empresa");
 
             textNomeEmpresaCardapio.setText(empresaSelecionada.getNome());
             idEmpresa = empresaSelecionada.getIdEmpresaUsuario();
             String url = empresaSelecionada.getUrlImagem();
             Picasso.get().load(url).into(imageEmpresaCardapio);
-
         }
 
         //config toolbar
@@ -115,7 +111,6 @@ public class CardapioActivity extends AppCompatActivity {
 
         //recuperar produtos
         recuperarProdutos();
-
         recuperarDadosUsuario();
 
         //config evento click
@@ -151,41 +146,31 @@ public class CardapioActivity extends AppCompatActivity {
         imageButtonFavoritar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                usuario.manageEmpresaFavorita(empresaSelecionada);
+                String result = usuario.manageEmpresaFavorita(empresaSelecionada, CardapioActivity.this);
+
+                if (result.equals("1"))
+                    imageButtonFavoritar.setImageResource(R.drawable.ic_favorito);
+                else {
+                    imageButtonFavoritar.setImageResource(R.drawable.ic_favorito_red);
+                }
             }
         });
     }
 
     private void abrirCarrinho() {
-//        startActivity(new Intent(this, CarrinhoActivity.class));
-
-//        Intent i = new Intent(this, CarrinhoActivity.class);
-//        i.putExtra("empresaSelecionada", empresaSelecionada);
-//        i.putExtra("itensCarrinho", (Serializable) itensCarrinho);
-//        startActivity(i);
-//        CardapioActivity.this.startActivity(new Intent(CardapioActivity.this, CardapioActivity.class).putExtra("idEmpresa", idEmpresa));
-//        CardapioActivity.this.startActivity(new Intent(CardapioActivity.this, CarrinhoActivity.class));
-
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Carrinho ");
 
         // Layout para armazenar os TextViews
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         LinearLayout linearLayout = new LinearLayout(this);
         linearLayout.setOrientation(LinearLayout.VERTICAL);
-
         LinearLayout linearLayoutP = new LinearLayout(this);
         linearLayoutP.setOrientation(LinearLayout.VERTICAL);
-
-        ScrollView scrollView = new ScrollView(this);
-
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-
         linearLayoutP.setPadding(20, 20, 20, 20);
         linearLayoutP.addView(linearLayout, layoutParams);
-
         TextView textViewVazio = new TextView(this);
-
         linearLayout.setBackgroundResource(R.drawable.bg_edit_text);
         linearLayout.setPadding(20, 20, 20, 20);
 
@@ -196,17 +181,13 @@ public class CardapioActivity extends AppCompatActivity {
             linearLayoutD.setBackgroundResource(R.drawable.bg_edit_text);
             linearLayoutD.setPadding(20, 20, 20, 20);
 
-            itensCarrinho.get(x).getNomeProduto();
-
-            linearLayoutD.addView(alertText("Nome: ", itensCarrinho.get(x).getNomeProduto()), layoutParams);
-
             TextView textView = new TextView(this);
             Double preco = itensCarrinho.get(x).getPreco();
             preco = preco / 100;
+
+            linearLayoutD.addView(alertText("Nome: ", itensCarrinho.get(x).getNomeProduto()), layoutParams);
             linearLayoutD.addView(alertText("Preço: R$", String.valueOf(preco)));
-
             linearLayoutD.addView(alertText("Quantidade: ", String.valueOf(itensCarrinho.get(x).getQuantidade())), layoutParams);
-
             linearLayout.addView(linearLayoutD);
         }
 
@@ -222,10 +203,6 @@ public class CardapioActivity extends AppCompatActivity {
         linearLayoutD.addView(alertText("Total: ", total));
 
         linearLayout.addView(linearLayoutD);
-
-
-//        int tamanhoCarrinho = itensCarrinho.get(x).getQuantidade();
-//        itensCarrinho.get(x).setQuantidade(tamanhoCarrinho + Integer.parseInt(quantidade));
 
         builder.setPositiveButton("Finalizar Pedido", new DialogInterface.OnClickListener() {
             @Override
@@ -251,21 +228,17 @@ public class CardapioActivity extends AppCompatActivity {
         dialog.show();
     }
 
-
     private void maisInfo() {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Informações Sobre " + empresaSelecionada.getNome());
 
         // Layout para armazenar os TextViews
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         LinearLayout linearLayout = new LinearLayout(this);
         linearLayout.setOrientation(LinearLayout.VERTICAL);
-
         LinearLayout linearLayoutP = new LinearLayout(this);
         linearLayoutP.setOrientation(LinearLayout.VERTICAL);
-
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-
         linearLayoutP.setPadding(20, 20, 20, 20);
         linearLayoutP.addView(linearLayout, layoutParams);
 
@@ -282,19 +255,6 @@ public class CardapioActivity extends AppCompatActivity {
         linearLayout.addView(alertText("Bairro: ", empresaSelecionada.getBairro()), layoutParams);
         linearLayout.addView(alertText("Logradouro: ", empresaSelecionada.getLogradouro()), layoutParams);
         linearLayout.addView(alertText("Complemento(opcional): ", empresaSelecionada.getComplemento()), layoutParams);
-
-        // jeito feio de antes, aqui apenas pra exemplo
-//        TextView textViewEmail = new TextView(this);
-//        textViewEmail.setText("Email: " + empresaSelecionada.getEmail());
-//        linearLayout.addView(textViewEmail);
-//
-//        TextView textViewEndereco = new TextView(this);
-//        textViewEndereco.setText("Endereço: ");
-//        linearLayout.addView(textViewEndereco);
-//
-//        TextView textViewCEP = new TextView(this);
-//        textViewEndereco.setText("CEP: " + empresaSelecionada.getcEP());
-//        linearLayout.addView(textViewCEP);
 
         builder.setView(linearLayoutP);
 
@@ -341,11 +301,9 @@ public class CardapioActivity extends AppCompatActivity {
                     if (itensCarrinho.size() != 0) {
                         for (int x = 0; x < itensCarrinho.size(); x++) {
                             if (itensCarrinho.get(x).getIdProduto().equals(itemPedido.getIdProduto())) {
-
                                 int tamanhoCarrinho = itensCarrinho.get(x).getQuantidade();
                                 itensCarrinho.get(x).setQuantidade(tamanhoCarrinho + Integer.parseInt(quantidade));
                                 teste = 1;
-
                             }
                         }
                         if (teste != 1) {
@@ -357,15 +315,12 @@ public class CardapioActivity extends AppCompatActivity {
                         itensCarrinho.add(itemPedido);
                     }
 
-                    //jeito simples - adiciona sem ver se ja tem o item no carrinho
-//                    itemPedido.setQuantidade(Integer.parseInt(quantidade));
-//                    itensCarrinho.add(itemPedido);
-
                     if (pedidoRecuperado == null) {
                         pedidoRecuperado = new Pedido(idUsuarioLogado, idEmpresa);
                     }
 
                     pedidoRecuperado.setNome(usuario.getNome());
+                    pedidoRecuperado.setEmail(usuario.getEmail());
                     pedidoRecuperado.setTelefone(usuario.getTelefone());
                     pedidoRecuperado.setItens(itensCarrinho);
 
@@ -375,16 +330,14 @@ public class CardapioActivity extends AppCompatActivity {
                     mensagemToast("Quantidade inválida de itens!");
                 }
             }
-        });
-
-        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+        }).setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
             }
         });
+
         AlertDialog dialog = builder.create();
         dialog.show();
-
     }
 
     private void recuperarDadosUsuario() {
@@ -445,7 +398,6 @@ public class CardapioActivity extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
-
     }
 
     private void recuperarProdutos() {
@@ -479,14 +431,21 @@ public class CardapioActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
-        int needif = item.getItemId();
-        if (needif == R.id.menuPedido) {
-            confirmarPedido();
-        } else if (item.getItemId() == android.R.id.home) {
+        if (item.getItemId() == android.R.id.home) {
             finish();
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void confirmarPedidoNovo() {
+        Intent intent = new Intent(CardapioActivity.this, PagamentoActivity.class);
+        intent.putExtra("pedido", pedidoRecuperado);
+        startActivity(intent);
+    }
+
+    private void mensagemToast(String texto) {
+        Toast.makeText(this, texto, Toast.LENGTH_SHORT).show();
     }
 
     private void inicializarComponentes() {
@@ -506,55 +465,46 @@ public class CardapioActivity extends AppCompatActivity {
 
     }
 
-    private void confirmarPedidoNovo() {
-        Intent intent = new Intent(CardapioActivity.this, PagamentoActivity.class);
-        intent.putExtra("pedido", pedidoRecuperado);
-        startActivity(intent);
-    }
+//    private void confirmarPedido() {
+//
+//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//        builder.setTitle("Selecione um método de pagamento");
+//
+//        CharSequence[] itens = new CharSequence[]{"Dinheiro", "PIX", "Máquina de Cartão"};
+//        builder.setSingleChoiceItems(itens, 0, new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                metodoPagamento = which;
+//            }
+//        });
+//
+//        EditText editObservacao = new EditText(this);
+//        editObservacao.setHint("Digite uma observação (opcional)");
+//        builder.setView(editObservacao);
+//
+//        builder.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//
+//                String observacao = editObservacao.getText().toString();
+//                pedidoRecuperado.setMetodoPagamento(metodoPagamento);
+//                pedidoRecuperado.setObservacao(observacao);
+//                pedidoRecuperado.setStatus("confirmado");
+//                pedidoRecuperado.confirmar();
+//                pedidoRecuperado.remover();
+//                pedidoRecuperado = null;
+//
+//            }
+//        }).setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//
+//            }
+//        });
+//
+//        AlertDialog dialog = builder.create();
+//        dialog.show();
+//
+//    }
 
-    private void confirmarPedido() {
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Selecione um método de pagamento");
-
-        CharSequence[] itens = new CharSequence[]{"Dinheiro", "PIX", "Máquina de Cartão"};
-        builder.setSingleChoiceItems(itens, 0, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                metodoPagamento = which;
-            }
-        });
-
-        EditText editObservacao = new EditText(this);
-        editObservacao.setHint("Digite uma observação (opcional)");
-        builder.setView(editObservacao);
-
-        builder.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-                String observacao = editObservacao.getText().toString();
-                pedidoRecuperado.setMetodoPagamento(metodoPagamento);
-                pedidoRecuperado.setObservacao(observacao);
-                pedidoRecuperado.setStatus("confirmado");
-                pedidoRecuperado.confirmar();
-                pedidoRecuperado.remover();
-                pedidoRecuperado = null;
-
-            }
-        }).setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-            }
-        });
-
-        AlertDialog dialog = builder.create();
-        dialog.show();
-
-    }
-
-    private void mensagemToast(String texto) {
-        Toast.makeText(this, texto, Toast.LENGTH_SHORT).show();
-    }
 }

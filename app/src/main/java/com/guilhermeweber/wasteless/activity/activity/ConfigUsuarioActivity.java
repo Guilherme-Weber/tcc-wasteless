@@ -10,6 +10,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -27,6 +30,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -55,33 +59,27 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ConfigUsuarioActivity extends AppCompatActivity implements View.OnClickListener {
     private static final int SELECAO_GALERIA = 200;
-    private final String URL = "https://viacep.com.br/ws/";
     Usuario usuario = new Usuario();
-    private Retrofit retrofitCEP;
-//    private ImageView imageUsuario;
     private CircleImageView imageUsuario;
-    private EditText editTextEmailUsuConfig, editTextNomeUsuario, editTextUsuarioCEP, editTextUsuarioEndereco, editTextLogradouroConfig, editTextComplementoConfig, editTextBairroConfig, editTextUFConfig, editTextCidadeConfig;
+    private EditText editTextEmailUsuConfig, editTextNomeUsuario;
     private MaskEditText editTextTelefone;
     private StorageReference storageReference;
     private DatabaseReference firebaseRef;
     private String idLogUsuario, urlImagemSelecionada;
     private List<String> listaFotosRec = new ArrayList<>();
-    private String[] permissoes = new String[]{Manifest.permission.READ_EXTERNAL_STORAGE};
-    private String[] permissoes2 = new String[]{Manifest.permission.READ_MEDIA_IMAGES};
 
+    private FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_config_usuario);
 
-        //Validar Permissões
-//        Permissoes.validarPermissoes(permissoes, this, 1);
-
         iniciarComponentes();
 
         storageReference = ConfigFirebase.getRefStorage();
         firebaseRef = ConfigFirebase.getFirebase();
+        auth = ConfigFirebase.getFireAuth();
         idLogUsuario = Usuario.getIdUsuario();
 
         //config toolbar
@@ -90,11 +88,6 @@ public class ConfigUsuarioActivity extends AppCompatActivity implements View.OnC
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-
-        //configura os recursos do retrofit
-        retrofitCEP = new Retrofit.Builder().baseUrl(URL)                                       //endereço do webservice
-                .addConverterFactory(GsonConverterFactory.create()) //conversor
-                .build();
 
         imageUsuario.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -121,16 +114,8 @@ public class ConfigUsuarioActivity extends AppCompatActivity implements View.OnC
                     Usuario usuario = snapshot.getValue(Usuario.class);
 
                     editTextNomeUsuario.setText(usuario.getNome());
-//                    editTextUsuarioCEP.setText(usuario.getcEP());
-//                    editTextLogradouroConfig.setText(usuario.getLogradouro());
-//                    editTextComplementoConfig.setText(usuario.getComplemento());
-//                    editTextBairroConfig.setText(usuario.getBairro());
-//                    editTextUFConfig.setText(usuario.getUF());
-//                    editTextCidadeConfig.setText(usuario.getLocalidade());
                     editTextEmailUsuConfig.setText(usuario.getEmail());
-
                     editTextTelefone.setText(usuario.getTelefone());
-
                     urlImagemSelecionada = usuario.getUrlImagem();
 
                     if (urlImagemSelecionada != "") {
@@ -141,7 +126,6 @@ public class ConfigUsuarioActivity extends AppCompatActivity implements View.OnC
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
     }
@@ -171,75 +155,14 @@ public class ConfigUsuarioActivity extends AppCompatActivity implements View.OnC
         String caminhoImagem = imagemSelecionada.toString();
 
         //config umagem no ImageView
-
         imageUsuario.setImageURI(imagemSelecionada);
         listaFotosRec.add(caminhoImagem);
     }
-
-    private void consultarCEP() {
-
-        String sCep = editTextUsuarioCEP.getText().toString().trim();
-
-        //removendo o ponto e o traço do padrão CEP
-        sCep = sCep.replaceAll("[.-]+", "");
-
-        //instanciando a interface
-        RESTService restService = retrofitCEP.create(RESTService.class);
-
-        //passando os dados para consulta
-        Call<CEP> call = restService.consultarCEP(sCep);
-
-        //colocando a requisição na fila para execução
-        call.enqueue(new Callback<CEP>() {
-            @Override
-            public void onResponse(Call<CEP> call, Response<CEP> response) {
-                if (response.isSuccessful()) {
-                    CEP cep = response.body();
-                    editTextLogradouroConfig.setText(cep.getLogradouro());
-                    editTextComplementoConfig.setText(cep.getComplemento());
-                    editTextBairroConfig.setText(cep.getBairro());
-                    editTextUFConfig.setText(cep.getUf());
-                    editTextCidadeConfig.setText(cep.getLocalidade());
-                    Toast.makeText(getApplicationContext(), "CEP consultado com sucesso", Toast.LENGTH_LONG).show();
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<CEP> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "Ocorreu um erro ao tentar consultar o CEP. Erro: " + t.getMessage(), Toast.LENGTH_LONG).show();
-            }
-        });
-    }
-
-    private Boolean validarCampos() {
-
-        Boolean status = true;
-        String cep = editTextUsuarioCEP.getText().toString().trim();
-
-        if (cep.isEmpty()) {
-            editTextUsuarioCEP.setError("Informe um CEP válido.");
-            status = false;
-        }
-
-        if ((cep.length() > 1) && (cep.length() < 10)) {
-            editTextUsuarioCEP.setError("O CEP deve possuir 8 dígitos");
-            status = false;
-        }
-        return status;
-    }
-
 
     public void validarDadosUsuario(View view) {
 
         String fone = "";
         String nome = editTextNomeUsuario.getText().toString();
-        String cEP = editTextUsuarioCEP.getText().toString();
-        String logradouro = editTextLogradouroConfig.getText().toString();
-        String complemento = editTextComplementoConfig.getText().toString();
-        String bairro = editTextBairroConfig.getText().toString();
-        String uF = editTextUFConfig.getText().toString();
-        String cidade = editTextCidadeConfig.getText().toString();
         String email = editTextEmailUsuConfig.getText().toString();
         String telefone = editTextTelefone.getText().toString();
 
@@ -247,18 +170,10 @@ public class ConfigUsuarioActivity extends AppCompatActivity implements View.OnC
             fone = editTextTelefone.getRawText().toString();
         }
 
-//      if (listaFotosRec.size() != 0) {
-//      if (!nome.isEmpty()) {
-//      if (!endereco.isEmpty()) {
-//      if (!cEP.isEmpty()) {
-//      if (!telefone.isEmpty() && fone.length() >= 10) {
-
         usuario.setId(idLogUsuario);
         usuario.setNome(nome);
         usuario.setEmail(email);
-
         usuario.setTipo("U");
-
         usuario.setTelefone(telefone);
 
         for (int i = 0; i < listaFotosRec.size(); ++i) {
@@ -268,45 +183,10 @@ public class ConfigUsuarioActivity extends AppCompatActivity implements View.OnC
         }
 
         usuario.salvar();
-
-//      } else {
-//         mensagemToast("Preencha o campo Telefone");
-//      }
-//      } else {
-//         mensagemToast("Preencha o campo CEP");
-//      }
-//      } else {
-//         mensagemToast("Preencha o campo Endereço Completo");
-//      }
-//      } else {
-//         mensagemToast("Preencha o campo Nome");
-//      }
-//      } else {
-//         mensagemToast("Selecione uma imagem de perfil");
-//      }
-
     }
 
     private void mensagemToast(String texto) {
         Toast.makeText(this, texto, Toast.LENGTH_SHORT).show();
-    }
-
-    private void iniciarComponentes() {
-
-        editTextNomeUsuario = findViewById(R.id.editTextNomeUsuario);
-//        editTextUsuarioCEP = findViewById(R.id.editTextUsuarioCEP);
-//        editTextLogradouroConfig = findViewById(R.id.editTextLogradouroConfig);
-//        editTextComplementoConfig = findViewById(R.id.editTextComplementoConfig);
-//        editTextBairroConfig = findViewById(R.id.editTextBairroConfig);
-//        editTextUFConfig = findViewById(R.id.editTextUFConfig);
-//        editTextCidadeConfig = findViewById(R.id.editTextCidadeConfig);
-        editTextTelefone = findViewById(R.id.editTextTelefone);
-
-        editTextEmailUsuConfig = findViewById(R.id.editTextEmailUsuConfig);
-
-        imageUsuario = findViewById(R.id.imageUsuario);
-        imageUsuario.setOnClickListener(this);
-
     }
 
     private void salvarFotoStorage(String urlString, int totalFotos, int contador) {
@@ -333,30 +213,50 @@ public class ConfigUsuarioActivity extends AppCompatActivity implements View.OnC
         });
     }
 
-//    @Override
-//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-//
-//        for (int permissaoResultado : grantResults) {
-//            if (permissaoResultado == PackageManager.PERMISSION_DENIED) {
-////                alertPermissao();
-//            }
-//        }
-//    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
 
-//    private void alertPermissao() {
-//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//        builder.setTitle("Permissões Negadas");
-//        builder.setMessage("Para utilizar o app é necessário aceitar as permissões");
-//        builder.setCancelable(false);
-//        builder.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                finish();
-//            }
-//        });
-//
-//        AlertDialog dialog = builder.create();
-//        dialog.show();
-//    }
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_usuario_config, menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        if (item.getItemId() == R.id.menuSair) {
+            deslogarUsuario();
+        } else if (item.getItemId() == R.id.pedidos) {
+            abrirPedidos();
+        } else if (item.getItemId() == android.R.id.home) {
+            startActivity(new Intent(this, HomeActivity.class));
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void abrirPedidos() {
+        startActivity(new Intent(ConfigUsuarioActivity.this, PedidoUsuarioActivity.class));
+    }
+
+    private void deslogarUsuario() {
+        try {
+            //desloga o usuario atual
+            auth.signOut();
+            startActivity(new Intent(this, AutentificacaoActivity.class));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void iniciarComponentes() {
+
+        editTextNomeUsuario = findViewById(R.id.editTextNomeUsuario);
+        editTextTelefone = findViewById(R.id.editTextTelefone);
+        editTextEmailUsuConfig = findViewById(R.id.editTextEmailUsuConfig);
+        imageUsuario = findViewById(R.id.imageUsuario);
+        imageUsuario.setOnClickListener(this);
+
+    }
 }

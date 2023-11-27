@@ -49,9 +49,6 @@ public class CadastroEnderecoActivity extends AppCompatActivity {
     private Button btnConsultarCEP, buttonCadastroEndereco;
     private EditText txtCEP, txtLogradouro, txtComplemento, txtBairro, txtUF, txtLocalidade;
     private TextInputLayout layCEP;
-    private String[] permissoes = new String[]{Manifest.permission.ACCESS_FINE_LOCATION};
-    private LocationManager locationManager;
-    private LocationListener locationListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,17 +56,6 @@ public class CadastroEnderecoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_cadastro_endereco);
 
         inicializarComponentes();
-
-        Permissoes.validarPermissoes(permissoes, this, 1);
-
-//        locationManager = (LocationManager) this.getSystemService(Context.LOCALE_SERVICE);
-//
-//        locationListener = new LocationListener() {
-//            @Override
-//            public void onLocationChanged(@NonNull Location location) {
-//                Log.d("Localizacao", "onLocationChanged: " + location.toString());
-//            }
-//        };
 
         //recuperar a usuario
         Bundle bundle = getIntent().getExtras();
@@ -79,9 +65,7 @@ public class CadastroEnderecoActivity extends AppCompatActivity {
 
         String tipoUser = usuario.getTipo();
 
-        if (tipoUser.equals("E")) {//Empresa
-
-        } else {
+        if (tipoUser.equals("U")) {
             cadastroUser();
         }
 
@@ -92,7 +76,6 @@ public class CadastroEnderecoActivity extends AppCompatActivity {
         retrofitCEP = new Retrofit.Builder().baseUrl(URL)                                       //endereço do webservice
                 .addConverterFactory(GsonConverterFactory.create()) //conversor
                 .build();
-
 
         btnConsultarCEP.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,27 +103,7 @@ public class CadastroEnderecoActivity extends AppCompatActivity {
                 }
             }
         });
-
-//        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-//            locationManager.requestLocationUpdates(
-//                    LocationManager.GPS_PROVIDER, 1000, 10, locationListener
-//            );
-//        }
-
     }
-
-    private void inicializarComponentes() {
-//        layCEP = findViewById(R.id.txtinpedtCEP);
-        txtCEP = findViewById(R.id.txtinpedtCEP);
-        txtLogradouro = findViewById(R.id.txtinpedtLogradouro);
-        txtComplemento = findViewById(R.id.txtinpedtComplemento);
-        txtBairro = findViewById(R.id.txtinpedtBairro);
-        txtUF = findViewById(R.id.txtinpedtUF);
-        txtLocalidade = findViewById(R.id.txtinpedtLocalidade);
-        btnConsultarCEP = findViewById(R.id.btnConsultarCEP);
-        buttonCadastroEndereco = findViewById(R.id.buttonCadastroEndereco);
-    }
-
 
     private Boolean validarCampos() {
 
@@ -238,5 +201,18 @@ public class CadastroEnderecoActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Ocorreu um erro ao tentar consultar o CEP. Erro: " + t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    private void inicializarComponentes() {
+
+        txtCEP = findViewById(R.id.txtinpedtCEP);
+        txtLogradouro = findViewById(R.id.txtinpedtLogradouro);
+        txtComplemento = findViewById(R.id.txtinpedtComplemento);
+        txtBairro = findViewById(R.id.txtinpedtBairro);
+        txtUF = findViewById(R.id.txtinpedtUF);
+        txtLocalidade = findViewById(R.id.txtinpedtLocalidade);
+        btnConsultarCEP = findViewById(R.id.btnConsultarCEP);
+        buttonCadastroEndereco = findViewById(R.id.buttonCadastroEndereco);
+
     }
 }

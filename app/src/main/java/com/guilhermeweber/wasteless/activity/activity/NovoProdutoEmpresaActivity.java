@@ -8,6 +8,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
@@ -30,6 +33,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -45,14 +49,12 @@ import java.util.List;
 import java.util.Locale;
 
 public class NovoProdutoEmpresaActivity extends AppCompatActivity implements View.OnClickListener {
-
     private static final int SELECAO_GALERIA = 200;
+    private FirebaseAuth auth;
     private StorageReference storageReference;
     private DatabaseReference firebaseRef;
-    private String idLogUsuario, ramdom, urlImagem1, TipoValor = "Unidade";
+    private String idLogUsuario, ramdom;
     private EditText editTextNomeProduto, editTexTextDescricao, editTextHoraRetDe, editTextHoraRetAte;
-    private Spinner spinnerNovoProdutoCategoria;
-    private LinearLayout linearTipoPeso;
     private ImageView ImageViewImageProduto;
     private CurrencyEditText editTextPrecoProduto;
     private List<String> listaFotosRec = new ArrayList<>();
@@ -70,7 +72,7 @@ public class NovoProdutoEmpresaActivity extends AppCompatActivity implements Vie
         iniciarComponentes();
 
         ramdom = String.valueOf(System.currentTimeMillis());
-
+        auth = ConfigFirebase.getFireAuth();
         storageReference = ConfigFirebase.getRefStorage();
         firebaseRef = ConfigFirebase.getFirebase();
         idLogUsuario = Usuario.getIdUsuario();
@@ -122,7 +124,6 @@ public class NovoProdutoEmpresaActivity extends AppCompatActivity implements Vie
         String caminhoImagem = imagemSelecionada.toString();
 
         //config umagem no ImageView
-
         ImageViewImageProduto.setImageURI(imagemSelecionada);
         listaFotosRec.add(caminhoImagem);
     }
@@ -188,13 +189,11 @@ public class NovoProdutoEmpresaActivity extends AppCompatActivity implements Vie
                             produto.salvar(ramdom);
                             finish();
                             mensagemToast("Produto cadastrado");
-
                         } else {
                             String pc = "Informe o preço do produto";
                             mensagemToast(pc);
                             editTextPrecoProduto.setError(pc);
                         }
-
                     } else {
                         String tm = "Informe o tamanho do pacote";
                         mensagemToast(tm);
@@ -224,30 +223,6 @@ public class NovoProdutoEmpresaActivity extends AppCompatActivity implements Vie
         Toast.makeText(this, texto, Toast.LENGTH_SHORT).show();
     }
 
-    private void iniciarComponentes() {
-
-        ImageViewImageProduto = findViewById(R.id.imageNovoProduto);
-        ImageViewImageProduto.setOnClickListener(this);
-
-        editTextNomeProduto = findViewById(R.id.editTextNomeProduto);
-        editTexTextDescricao = findViewById(R.id.editTextDescrição);
-
-        editTextHoraRetDe = findViewById(R.id.editTextHoraRetDe);
-        editTextHoraRetAte = findViewById(R.id.editTextHoraRetAte);
-
-        editTextPrecoProduto = findViewById(R.id.editTextPrecoProduto);
-        Locale locale = new Locale("pt", "BR");
-        editTextPrecoProduto.setLocale(locale);
-
-        //Radio Button opções
-        salgado = findViewById(R.id.radioButtonSalgado);
-        doce = findViewById(R.id.radioButtonDoce);
-        mista = findViewById(R.id.radioButtonMista);
-        pequena = findViewById(R.id.radioButtonPequena);
-        media = findViewById(R.id.radioButtonMedia);
-        grande = findViewById(R.id.radioButtonGrande);
-    }
-
     private void salvarFotoStorage(String urlString, int totalFotos, int contador) {
         final StorageReference imagemProduto = storageReference.child("imagens").child("produto").child(ramdom).child(idLogUsuario).child("image" + contador + ".jpg");
 
@@ -274,13 +249,59 @@ public class NovoProdutoEmpresaActivity extends AppCompatActivity implements Vie
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_empresa_novo, menu);
 
-        for (int permissaoResultado : grantResults) {
-            if (permissaoResultado == PackageManager.PERMISSION_DENIED) {
+        return super.onCreateOptionsMenu(menu);
+    }
 
-            }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        if (item.getItemId() == R.id.menuSair) {
+            deslogarUsuario();
+        } else if (item.getItemId() == R.id.menuConfig) {
+            abrirConfig();
+        } else if (item.getItemId() == android.R.id.home) {
+            startActivity(new Intent(this, EmpresaActivity.class));
         }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void deslogarUsuario() {
+        try {
+            //desloga o usuario atual
+            auth.signOut();
+            startActivity(new Intent(this, AutentificacaoActivity.class));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void abrirConfig() {
+        startActivity(new Intent(NovoProdutoEmpresaActivity.this, ConfigEmpresaActivity.class));
+    }
+
+    private void iniciarComponentes() {
+
+        ImageViewImageProduto = findViewById(R.id.imageNovoProduto);
+        ImageViewImageProduto.setOnClickListener(this);
+        editTextNomeProduto = findViewById(R.id.editTextNomeProduto);
+        editTexTextDescricao = findViewById(R.id.editTextDescrição);
+        editTextHoraRetDe = findViewById(R.id.editTextHoraRetDe);
+        editTextHoraRetAte = findViewById(R.id.editTextHoraRetAte);
+        editTextPrecoProduto = findViewById(R.id.editTextPrecoProduto);
+
+        Locale locale = new Locale("pt", "BR");
+        editTextPrecoProduto.setLocale(locale);
+
+        salgado = findViewById(R.id.radioButtonSalgado);
+        doce = findViewById(R.id.radioButtonDoce);
+        mista = findViewById(R.id.radioButtonMista);
+        pequena = findViewById(R.id.radioButtonPequena);
+        media = findViewById(R.id.radioButtonMedia);
+        grande = findViewById(R.id.radioButtonGrande);
     }
 }

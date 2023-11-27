@@ -1,9 +1,16 @@
 package com.guilhermeweber.wasteless.activity.activity;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,6 +18,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,7 +37,7 @@ import java.util.List;
 import dmax.dialog.SpotsDialog;
 
 public class PedidoActivity extends AppCompatActivity {
-
+    private FirebaseAuth auth;
     private RecyclerView recyclerPedidos;
     private AdapterPedido adapterPedido;
     private List<Pedido> pedidos = new ArrayList<>();
@@ -44,6 +52,8 @@ public class PedidoActivity extends AppCompatActivity {
 
         //iniciar componentes
         inicializarComponentes();
+
+        auth = ConfigFirebase.getFireAuth();
         firebaseRef = ConfigFirebase.getFirebase();
         idEmpresa = Usuario.getIdUsuario();
 
@@ -51,8 +61,9 @@ public class PedidoActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("Pedidos");
         setSupportActionBar(toolbar);
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         //recyclerview
         RecyclerView.LayoutManager recyclerViewProdutos = new LinearLayoutManager(getApplicationContext());
@@ -71,17 +82,34 @@ public class PedidoActivity extends AppCompatActivity {
 
             @Override
             public void onLongItemClick(View view, int position) {
-                Pedido pedido = pedidos.get(position);
-                pedido.setStatus("finalizado");
-                pedido.atualizarStatus();
+                finalizar(position);
             }
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             }
         }));
+    }
 
+    private void finalizar(int position) {
 
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Deseja finalizar esse pedido?");
+        builder.setPositiveButton("Finalizar Pedido", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Pedido pedido = pedidos.get(position);
+                pedido.setStatus("finalizado");
+                pedido.atualizarStatus();
+            }
+        }).setNeutralButton("Voltar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     private void recuperarPedidos() {
@@ -112,8 +140,46 @@ public class PedidoActivity extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
+    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_empresa_pedi, menu);
 
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        if (item.getItemId() == R.id.menuSair) {
+            deslogarUsuario();
+        } else if (item.getItemId() == R.id.menuConfig) {
+            abrirConfig();
+        } else if (item.getItemId() == android.R.id.home) {
+            deslogarUsuario();
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void deslogarUsuario() {
+        try {
+            //desloga o usuario atual
+            auth.signOut();
+            startActivity(new Intent(this, AutentificacaoActivity.class));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void abrirConfig() {
+        startActivity(new Intent(PedidoActivity.this, ConfigEmpresaActivity.class));
+    }
+
+    private void abrirNovoProduto() {
+        startActivity(new Intent(PedidoActivity.this, NovoProdutoEmpresaActivity.class));
     }
 
     private void inicializarComponentes() {

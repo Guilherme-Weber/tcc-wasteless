@@ -36,16 +36,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EmpresaActivity extends AppCompatActivity {
-
     private FirebaseAuth auth;
     private DatabaseReference firebaseRef;
-    private FirebaseDatabase firebaseDatabase;
     private String idUsuarioLogado;
     private RecyclerView recyclerProdutos;
     private AdapterProduto adapterProduto;
     private List<Produto> produtos = new ArrayList<>();
     private AlertDialog dialog;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,7 +77,6 @@ public class EmpresaActivity extends AppCompatActivity {
         recyclerProdutos.addOnItemTouchListener(new RecyclerItemClickListener(this, recyclerProdutos, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-
             }
 
             @Override
@@ -92,10 +88,8 @@ public class EmpresaActivity extends AppCompatActivity {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
             }
         }));
-
     }
 
     private void mensagemToast(String texto) {
@@ -118,31 +112,8 @@ public class EmpresaActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
-
-
-//        Produto produtoObj = new Produto();
-//
-//        firebaseDatabase = FirebaseDatabase.getInstance();
-////        DatabaseReference produtosRef = firebaseRef.getDatabase().getReference().child("produto").child(idUsuarioLogado);
-//        firebaseDatabase.getReference("produto").child(idUsuarioLogado).addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                produtos.clear();
-//                for (DataSnapshot ds : snapshot.getChildren()) {
-//                    produtos.add(ds.getValue(Produto.class));
-//
-//                }
-//                adapterProduto.notifyDataSetChanged();
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
     }
 
     @Override
@@ -169,31 +140,12 @@ public class EmpresaActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
-
-        //o jeito certo era fazer com um switch case, porem nas verções mais nova do Android Gradle Plugin (acima de 7.4.2) ele da um erro que só consegui resolver com if else
-        //em vez de rodar numa verção mais antiga manterei esse workaround
-        /*
-        switch (item.getItemId()) {
-            case R.id.menuSair:
-                deslogarUsuario();
-                break;
-
-            case R.id.menuConfig:
-                abrirConfig();
-                break;
-
-            case R.id.menuNovoProduto:
-                abrirNovoProduto();
-                break;
-        }
-        */
     }
 
     private void deslogarUsuario() {
         try {
             //desloga o usuario atual
             auth.signOut();
-//            finish();
             startActivity(new Intent(this, AutentificacaoActivity.class));
         } catch (Exception e) {
             e.printStackTrace();
@@ -215,5 +167,4 @@ public class EmpresaActivity extends AppCompatActivity {
     private void inicializarComponentes() {
         recyclerProdutos = findViewById(R.id.recyclerEmpresas);
     }
-
 }

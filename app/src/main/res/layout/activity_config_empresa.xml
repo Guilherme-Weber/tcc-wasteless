@@ -79,7 +79,7 @@
                     <EditText
                         android:id="@+id/editTextEmpresaCEP"
                         android:layout_width="144dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="60dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginRight="8dp"
                         android:layout_weight="1"
@@ -92,17 +92,17 @@
                     <Button
                         android:id="@+id/btnConsultarCEPConfig"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_gravity="center_vertical"
-                    android:backgroundTint="@color/quad"
-                    android:onClick="CEP"
-                    android:padding="16dp"
-                    android:text="Consultar"
-                    android:textColor="@color/white"
-                    android:textSize="12sp"
-                    android:theme="@style/botaoPadrao"
-                    app:cornerRadius="10dp" />
+                        android:layout_height="65dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginTop="3dp"
+                        android:layout_weight="1"
+                        android:backgroundTint="@color/quad"
+                        android:onClick="CEP"
+                        android:text="Consultar CEP"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        android:theme="@style/botaoPadrao"
+                        app:cornerRadius="10dp" />
                 </LinearLayout>
 
                 <EditText

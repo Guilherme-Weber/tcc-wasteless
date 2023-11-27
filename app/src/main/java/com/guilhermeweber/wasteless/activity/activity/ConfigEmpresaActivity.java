@@ -8,6 +8,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -25,6 +28,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -61,6 +65,7 @@ public class ConfigEmpresaActivity extends AppCompatActivity implements View.OnC
     private EditText editTextEmailEmpConfig, editTextNomeEmpresa, editTextEmpresaCEP, editTextEmpresaTempo, editTextLogradouroConfig, editTextComplementoConfig, editTextBairroConfig, editTextUFConfig, editTextCidadeConfig;
     private Spinner spinnerEmpresaCategoria;
     private MaskEditText editTextNumeroTelefone;
+    private FirebaseAuth auth;
     private CurrencyEditText editTextEmpresaTaxa;
     private Activity configEmpresaActivity = this;
     private CircleImageView imagePerfilEmpresa;
@@ -75,13 +80,10 @@ public class ConfigEmpresaActivity extends AppCompatActivity implements View.OnC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_config_empresa);
 
-        //Validar Permissões
-//        Permissoes.validarPermissoes(permissoes, this, 1);
-
         iniciarComponentes();
-
         carregarDadosSpinner();
 
+        auth = ConfigFirebase.getFireAuth();
         storageReference = ConfigFirebase.getRefStorage();
         firebaseRef = ConfigFirebase.getFirebase();
         idLogUsuario = Usuario.getIdUsuario();
@@ -90,6 +92,7 @@ public class ConfigEmpresaActivity extends AppCompatActivity implements View.OnC
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("Configurações da Empresa");
         setSupportActionBar(toolbar);
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
@@ -107,18 +110,15 @@ public class ConfigEmpresaActivity extends AppCompatActivity implements View.OnC
 
         //recupera os dados do empresa logada
         recuperarDados();
-
     }
 
     private void recuperarDados() {
 
         DatabaseReference empresaRef = firebaseRef.child("empresa").child(idLogUsuario);
-
         empresaRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.getValue() != null) {
-
                     Empresa empresa = snapshot.getValue(Empresa.class);
 
                     if (!(empresa.getCategoria() == null)) {
@@ -126,7 +126,6 @@ public class ConfigEmpresaActivity extends AppCompatActivity implements View.OnC
                     }
 
                     urlImagemSelecionada = empresa.getUrlImagem();
-
                     editTextNumeroTelefone.setText(empresa.getTelefone());
 
                     if (urlImagemSelecionada != "") {
@@ -145,7 +144,6 @@ public class ConfigEmpresaActivity extends AppCompatActivity implements View.OnC
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
 
@@ -155,17 +153,13 @@ public class ConfigEmpresaActivity extends AppCompatActivity implements View.OnC
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.getValue() != null) {
-
                     usuario = snapshot.getValue(Usuario.class);
-
                     editTextNomeEmpresa.setText(usuario.getNome());
-
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
     }
@@ -195,15 +189,12 @@ public class ConfigEmpresaActivity extends AppCompatActivity implements View.OnC
         String caminhoImagem = imagemSelecionada.toString();
 
         //config umagem no ImageView
-
         imagePerfilEmpresa.setImageURI(imagemSelecionada);
         listaFotosRec.add(caminhoImagem);
     }
 
     public void CEP(View view) {
-
         if (validarCampos()) {
-
             String cep = editTextEmpresaCEP.getText().toString().trim();
             empresa.setcEP(cep);
 
@@ -236,7 +227,6 @@ public class ConfigEmpresaActivity extends AppCompatActivity implements View.OnC
                     editTextUFConfig.setText(cep.getUf());
                     editTextCidadeConfig.setText(cep.getLocalidade());
                     Toast.makeText(getApplicationContext(), "CEP consultado com sucesso", Toast.LENGTH_LONG).show();
-
                 }
             }
 
@@ -284,24 +274,14 @@ public class ConfigEmpresaActivity extends AppCompatActivity implements View.OnC
             fone = editTextNumeroTelefone.getRawText().toString();
         }
 
-//      if (listaFotosRec.size() != 0) {
-//      if (!nome.isEmpty()) {
-//      if (categoria != null) {
-//      if (!taxa.isEmpty() && !taxa.equals("0")) {
-//      if (!tempo.isEmpty()) {
-//      if (!telefone.isEmpty() && fone.length() >= 10) {
-
         usuario.setId(idLogUsuario);
         usuario.setNome(nome);
         usuario.setEmail(email);
-
         usuario.setTipo("E");
-
         usuario.setTelefone(telefone);
 
         empresa.setCategoria(categoriaText);
         empresa.setIdCategoria(categoria);
-
         empresa.setIdEmpresaUsuario(idLogUsuario);
         empresa.setNome(nome);
         empresa.setEmail(email);
@@ -313,59 +293,18 @@ public class ConfigEmpresaActivity extends AppCompatActivity implements View.OnC
         empresa.setLocalidade(cidade);
         empresa.setTelefone(telefone);
 
-
         for (int i = 0; i < listaFotosRec.size(); ++i) {
             String urlImagem = listaFotosRec.get(i);
             int tamanhoLista = listaFotosRec.size();
             salvarFotoStorage(urlImagem, tamanhoLista, i);
         }
 
-
         usuario.salvar();
         empresa.salvar();
-
-//      } else {
-//          mensagemToast("Preencha o campo telefone");
-//      }
-//      } else {
-//          mensagemToast("Digite o tempo de entrega");
-//      }
-//      } else {
-//          mensagemToast("Digite a taxa de entrega da empresa");
-//      }
-//      } else {
-//          mensagemToast("Selecione a categoria em que a empresa opera");
-//      }
-//      } else {
-//          mensagemToast("Preencha o nome para a empresa");
-//      }
-//      } else {
-//          mensagemToast("Selecione uma imagem para a empresa");
-//      }
     }
 
     private void mensagemToast(String texto) {
         Toast.makeText(this, texto, Toast.LENGTH_SHORT).show();
-    }
-
-    private void iniciarComponentes() {
-
-        editTextNomeEmpresa = findViewById(R.id.editTextNomeEmpresa);
-        editTextEmpresaCEP = findViewById(R.id.editTextEmpresaCEP);
-        editTextLogradouroConfig = findViewById(R.id.editTextLogradouroConfig);
-        editTextComplementoConfig = findViewById(R.id.editTextComplementoConfig);
-        editTextBairroConfig = findViewById(R.id.editTextBairroConfig);
-        editTextUFConfig = findViewById(R.id.editTextUFConfig);
-        editTextCidadeConfig = findViewById(R.id.editTextCidadeConfig);
-        editTextNumeroTelefone = findViewById(R.id.editTextTelefone);
-
-        editTextEmailEmpConfig = findViewById(R.id.editTextEmailEmpConfig);
-
-        imagePerfilEmpresa = findViewById(R.id.imageEmpresa2);
-        imagePerfilEmpresa.setOnClickListener(this);
-
-        spinnerEmpresaCategoria = findViewById(R.id.spinnerEmpresaCategoria);
-
     }
 
     private void carregarDadosSpinner() {
@@ -402,87 +341,48 @@ public class ConfigEmpresaActivity extends AppCompatActivity implements View.OnC
         });
     }
 
-//    @Override
-//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-//
-//        for (int permissaoResultado : grantResults) {
-//            if (permissaoResultado == PackageManager.PERMISSION_DENIED) {
-////                alertPermissao();
-//            }
-//        }
-//    }
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_empresa_config, menu);
 
-//    private void alertPermissao() {
-//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//        builder.setTitle("Permissões Negadas");
-//        builder.setMessage("Para utilizar o app é necessário aceitar as permissões");
-//        builder.setCancelable(false);
-//        builder.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                Permissoes.validarPermissoes(permissoes, configEmpresaActivity, 1);
-//                finish();
-//            }
-//        });
-//
-//        AlertDialog dialog = builder.create();
-//        dialog.show();
-//    }
+        return super.onCreateOptionsMenu(menu);
+    }
 
-    //metodo antigo mais complexo que ja envia logo que o usuario escolhe a foto (n funciona corretamento com a ultimas adições)
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//
-//        if (resultCode == RESULT_FIRST_USER) {
-//            Bitmap imagem = null;
-//            try {
-//
-//                switch (requestCode) {
-//                    case SELECAO_GALERIA:
-//                        Uri localImagem = data.getData();
-//                        imagem = MediaStore.Images.Media.getBitmap(getContentResolver(), localImagem);
-//                        break;
-//                }
-//
-//                if (imagem != null) {
-//                    imagePerfilEmpresa.setImageBitmap(imagem);
-//
-//                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-//                    imagem.compress(Bitmap.CompressFormat.JPEG, 70, baos);
-//                    byte[] dadosImagem = baos.toByteArray();
-//
-//                    final StorageReference imagemRef = storageReference.child("imagens").child("empresas").child(idLogUsuario + ".jpeg");
-//
-//                    UploadTask uploadTask = imagemRef.putBytes(dadosImagem);
-//                    uploadTask.addOnFailureListener(new OnFailureListener() {
-//                        @Override
-//                        public void onFailure(@NonNull Exception e) {
-//                            Toast.makeText(ConfigEmpresaActivity.this, "Erro ao fazer upload da imagem", Toast.LENGTH_SHORT).show();
-//                        }
-//                    }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-//                        @Override
-//                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//
-////                            Task<Uri> url = imagemRef.getDownloadUrl();
-////                            urlImagemSelecionada = taskSnapshot.getStorage().getDownloadUrl().toString();
-//
-//                            urlImagemSelecionada = imagemRef.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
-//                                @Override
-//                                public void onComplete(@NonNull Task<Uri> task) {
-//                                    Uri url = task.getResult();
-//                                }
-//                            }).toString();
-//                            Toast.makeText(ConfigEmpresaActivity.this, "Sucesso ao fazer upload da imagem", Toast.LENGTH_SHORT).show();
-//                        }
-//                    });
-//                }
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//        }
-//    }
+        if (item.getItemId() == R.id.menuSair) {
+            deslogarUsuario();
+        } else if (item.getItemId() == android.R.id.home) {
+            startActivity(new Intent(this, EmpresaActivity.class));
+        }
 
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void deslogarUsuario() {
+        try {
+            //desloga o usuario atual
+            auth.signOut();
+            startActivity(new Intent(this, AutentificacaoActivity.class));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void iniciarComponentes() {
+
+        editTextNomeEmpresa = findViewById(R.id.editTextNomeEmpresa);
+        editTextEmpresaCEP = findViewById(R.id.editTextEmpresaCEP);
+        editTextLogradouroConfig = findViewById(R.id.editTextLogradouroConfig);
+        editTextComplementoConfig = findViewById(R.id.editTextComplementoConfig);
+        editTextBairroConfig = findViewById(R.id.editTextBairroConfig);
+        editTextUFConfig = findViewById(R.id.editTextUFConfig);
+        editTextCidadeConfig = findViewById(R.id.editTextCidadeConfig);
+        editTextNumeroTelefone = findViewById(R.id.editTextTelefone);
+        editTextEmailEmpConfig = findViewById(R.id.editTextEmailEmpConfig);
+        imagePerfilEmpresa = findViewById(R.id.imageEmpresa2);
+        imagePerfilEmpresa.setOnClickListener(this);
+        spinnerEmpresaCategoria = findViewById(R.id.spinnerEmpresaCategoria);
+    }
 }

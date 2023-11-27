@@ -5,6 +5,8 @@ import static com.guilhermeweber.wasteless.activity.model.Usuario.getIdUsuario;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -15,6 +17,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,13 +36,12 @@ import java.util.List;
 import dmax.dialog.SpotsDialog;
 
 public class PedidoUsuarioActivity extends AppCompatActivity {
-
+    private FirebaseAuth auth;
     private RecyclerView recyclerPedidos;
     private AdapterPedido adapterPedido;
     private List<Pedido> pedidos = new ArrayList<>();
     private AlertDialog dialog;
     private DatabaseReference firebaseRef;
-    private String idUsuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +51,7 @@ public class PedidoUsuarioActivity extends AppCompatActivity {
         //iniciar componentes
         inicializarComponentes();
         firebaseRef = ConfigFirebase.getFirebase();
-        idUsuario = getIdUsuario();
+        auth = ConfigFirebase.getFireAuth();
 
         //config toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -58,7 +60,6 @@ public class PedidoUsuarioActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-
 
         //recyclerview
         RecyclerView.LayoutManager recyclerViewProdutos = new LinearLayoutManager(getApplicationContext());
@@ -83,19 +84,6 @@ public class PedidoUsuarioActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             }
         }));
-
-
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
-        if (item.getItemId() == android.R.id.home) {
-            Intent intent = new Intent(PedidoUsuarioActivity.this, HomeActivity.class);
-            startActivity(intent);
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     private void recuperarPedidos() {
@@ -126,8 +114,43 @@ public class PedidoUsuarioActivity extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
+    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
 
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_usuario_pedi, menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        if (item.getItemId() == R.id.menuSair) {
+            deslogarUsuario();
+        } else if (item.getItemId() == R.id.menuConfig) {
+            abrirConfig();
+        } else if (item.getItemId() == android.R.id.home) {
+            startActivity(new Intent(this, HomeActivity.class));
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void abrirConfig() {
+        startActivity(new Intent(PedidoUsuarioActivity.this, ConfigUsuarioActivity.class));
+    }
+
+    private void deslogarUsuario() {
+        try {
+            //desloga o usuario atual
+            auth.signOut();
+            startActivity(new Intent(this, AutentificacaoActivity.class));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void inicializarComponentes() {

@@ -50,11 +50,7 @@ public class SplashActivity extends AppCompatActivity {
                 // Get new FCM registration token
                 String token = task.getResult();
 
-                // Log and toast
-
                 System.out.println(token);
-//                Toast.makeText(SplashActivity.this, " Token de registro: " + token, Toast.LENGTH_SHORT).show();
-
             }
         });
 
@@ -66,10 +62,8 @@ public class SplashActivity extends AppCompatActivity {
                     msg = "Subscribe failed";
                 }
                 System.out.println(msg);
-//                        Toast.makeText(SplashActivity.this, msg, Toast.LENGTH_SHORT).show();
             }
         });
-
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -84,11 +78,6 @@ public class SplashActivity extends AppCompatActivity {
         Usuario usuario = new Usuario();
 
         if (usuario.getUsuarioAtual() != null) {
-            //dialog.show();
-
-//            usuario = null;
-
-            //adicionar tela de carregando aqui no futuro
             Usuario.redirectUser(SplashActivity.this);
         } else {
             Intent i = new Intent(SplashActivity.this, AutentificacaoActivity.class);
