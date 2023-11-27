@@ -11,7 +11,6 @@ import com.guilhermeweber.wasteless.activity.helper.ConfigFirebase;
 import java.io.Serializable;
 
 public class Empresa implements Serializable {
-
     private String idEmpresaUsuario;
     private String categoria;
     private Integer idCategoria;
@@ -41,7 +40,7 @@ public class Empresa implements Serializable {
     @Override
     public boolean equals(Object empresa) {
         if (empresa instanceof Empresa) {
-            return this.getIdEmpresaUsuario().equals(((Empresa)empresa).getIdEmpresaUsuario());
+            return this.getIdEmpresaUsuario().equals(((Empresa) empresa).getIdEmpresaUsuario());
         }
 
         return false;

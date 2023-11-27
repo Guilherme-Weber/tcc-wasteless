@@ -59,6 +59,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ConfigUsuarioActivity extends AppCompatActivity implements View.OnClickListener {
     private static final int SELECAO_GALERIA = 200;
+    String contact = "+55 41 99844-2385";
     Usuario usuario = new Usuario();
     private CircleImageView imageUsuario;
     private EditText editTextEmailUsuConfig, editTextNomeUsuario;
@@ -135,9 +136,6 @@ public class ConfigUsuarioActivity extends AppCompatActivity implements View.OnC
 
         if (v.getId() == R.id.imageUsuario) {
             escolherImagem(1);
-        } else if (v.getId() == android.R.id.home) {
-            Intent intent = new Intent(ConfigUsuarioActivity.this, HomeActivity.class);
-            startActivity(intent);
         }
     }
 
@@ -229,11 +227,27 @@ public class ConfigUsuarioActivity extends AppCompatActivity implements View.OnC
             deslogarUsuario();
         } else if (item.getItemId() == R.id.pedidos) {
             abrirPedidos();
+        } else if (item.getItemId() == R.id.zapzap) {
+            abrirZapZap();
         } else if (item.getItemId() == android.R.id.home) {
             startActivity(new Intent(this, HomeActivity.class));
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void abrirZapZap() {
+        String url = "https://api.whatsapp.com/send?phone=" + contact;
+        try {
+            PackageManager pm = this.getPackageManager();
+            pm.getPackageInfo("com.whatsapp", PackageManager.GET_ACTIVITIES);
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse(url));
+            startActivity(i);
+        } catch (PackageManager.NameNotFoundException e) {
+            Toast.makeText(this, "Parece que você não tem o WhatsApp instalado...", Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+        }
     }
 
     private void abrirPedidos() {

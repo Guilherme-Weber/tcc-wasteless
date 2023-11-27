@@ -30,9 +30,7 @@ import com.guilhermeweber.wasteless.activity.activity.SplashActivity;
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
-        // ...
 
-        // TODO(developer): Handle FCM messages here.
         // Not getting messages here? See why this may be: https://goo.gl/39bRNJ
         System.out.println("From: " + remoteMessage.getFrom());
 
@@ -77,39 +75,3 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
     }
 }
-
-//public class MyFirebaseInstanceIDService extends FirebaseMessagingService {
-//
-//    @Override
-//    public void onMessageReceived(@NonNull RemoteMessage message) {
-//        super.onMessageReceived(message);
-//        getFirebasemessage(message.getNotification().getTitle(), message.getNotification().getBody());
-//    }
-//
-//    public void getFirebasemessage(String title, String msg) {
-//
-//        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
-//            // TODO: Consider calling
-//            //    ActivityCompat#requestPermissions
-//            // here to request the missing permissions, and then overriding
-//            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-//            //                                          int[] grantResults)
-//            // to handle the case where the user grants the permission. See the documentation
-//            // for ActivityCompat#requestPermissions for more details.
-//            return;
-//        }
-//
-//
-//        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "myFirebaseChannel")
-//                .setSmallIcon(R.drawable.logo_small)
-//                .setContentTitle(title)
-//                .setContentText(msg)
-//                .setAutoCancel(true);
-//
-//        NotificationManagerCompat manager = NotificationManagerCompat.from(this);
-//
-//        manager.notify(101, builder.build());
-//
-//    }
-//
-//}

@@ -36,6 +36,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
+    String contact = "+55 41 99844-2385";
     private FirebaseAuth auth;
     private MaterialSearchView searchView, searchViewTudo;
     private RecyclerView recyclerEmpresa;
@@ -230,7 +231,6 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void abrirZapZap() {
-        String contact = "+55 41 99844-2385"; // use country code with your phone number
         String url = "https://api.whatsapp.com/send?phone=" + contact;
         try {
             PackageManager pm = this.getPackageManager();

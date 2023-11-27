@@ -4,7 +4,6 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class CEP {
-
     @SerializedName("cep")
     @Expose
     private String cep;
@@ -109,5 +108,4 @@ public class CEP {
     public String toString() {
         return "cep:" + getCep() + "\nlogradouro:" + getLogradouro() + "\ncomplemento:" + getComplemento() + "\nbairro:" + getBairro() + "\nlocalidade:" + getLocalidade() + "\nuf" + getUf() + "\nunidade:" + getUnidade() + "\nibge:" + getIbge() + "\ngia" + getGia();
     }
-
 }

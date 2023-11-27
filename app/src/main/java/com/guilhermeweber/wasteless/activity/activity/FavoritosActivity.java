@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -35,6 +37,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FavoritosActivity extends AppCompatActivity {
+    String contact = "+55 41 99844-2385";
     private FirebaseAuth auth;
     private RecyclerView recyclerFav;
     private AdapterEmpresa adapterEmpresa;
@@ -110,11 +113,27 @@ public class FavoritosActivity extends AppCompatActivity {
             abrirConfig();
         } else if (item.getItemId() == R.id.pedidos) {
             abrirPedidos();
+        } else if (item.getItemId() == R.id.zapzap) {
+            abrirZapZap();
         } else if (item.getItemId() == android.R.id.home) {
             startActivity(new Intent(this, HomeActivity.class));
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void abrirZapZap() {
+        String url = "https://api.whatsapp.com/send?phone=" + contact;
+        try {
+            PackageManager pm = this.getPackageManager();
+            pm.getPackageInfo("com.whatsapp", PackageManager.GET_ACTIVITIES);
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse(url));
+            startActivity(i);
+        } catch (PackageManager.NameNotFoundException e) {
+            Toast.makeText(this, "Parece que você não tem o WhatsApp instalado...", Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+        }
     }
 
     private void abrirPedidos() {

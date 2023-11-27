@@ -50,6 +50,7 @@ import java.util.Locale;
 
 public class NovoProdutoEmpresaActivity extends AppCompatActivity implements View.OnClickListener {
     private static final int SELECAO_GALERIA = 200;
+    String contact = "+55 41 99844-2385";
     private FirebaseAuth auth;
     private StorageReference storageReference;
     private DatabaseReference firebaseRef;
@@ -101,12 +102,8 @@ public class NovoProdutoEmpresaActivity extends AppCompatActivity implements Vie
 
     @Override
     public void onClick(View v) {
-        int needif = v.getId();
-        if (needif == R.id.imageNovoProduto) {
+        if (v.getId() == R.id.imageNovoProduto) {
             escolherImagem(1);
-        } else if (v.getId() == android.R.id.home) {
-            Intent intent = new Intent(this, EmpresaActivity.class);
-            startActivity(intent);
         }
     }
 
@@ -265,9 +262,25 @@ public class NovoProdutoEmpresaActivity extends AppCompatActivity implements Vie
             abrirConfig();
         } else if (item.getItemId() == android.R.id.home) {
             startActivity(new Intent(this, EmpresaActivity.class));
+        } else if (item.getItemId() == R.id.zapzap) {
+            abrirZapZap();
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void abrirZapZap() {
+        String url = "https://api.whatsapp.com/send?phone=" + contact;
+        try {
+            PackageManager pm = this.getPackageManager();
+            pm.getPackageInfo("com.whatsapp", PackageManager.GET_ACTIVITIES);
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse(url));
+            startActivity(i);
+        } catch (PackageManager.NameNotFoundException e) {
+            Toast.makeText(this, "Parece que você não tem o WhatsApp instalado...", Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+        }
     }
 
     private void deslogarUsuario() {

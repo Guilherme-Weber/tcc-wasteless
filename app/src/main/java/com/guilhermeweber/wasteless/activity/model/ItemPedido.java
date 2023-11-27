@@ -7,7 +7,6 @@ public class ItemPedido implements Serializable {
     private String idProduto;
     private String nomeProduto;
     private int quantidade;
-
     private String email;
     private Double preco;
     private String urlImagem;
