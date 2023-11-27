@@ -31,6 +31,8 @@ import com.santalu.maskedittext.MaskEditText;
 
 
 public class CadastrosUsuariosActivity extends AppCompatActivity {
+    //Site com os "termos"
+    String urlTermos = "https://drive.google.com/file/d/1PjT2IWbV7eJ_x8SM7sdm0c0QNndR_y8L/view?usp=drivesdk";
     private EditText campoNome, campoEmail, campoSenha, campoSenhaDenovo;
     private MaskEditText editTextTelefone;
     private String nome, email, senha, senhadenovo, telefone;
@@ -75,11 +77,8 @@ public class CadastrosUsuariosActivity extends AppCompatActivity {
         textTermos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Site com os "termos"
-                String url = "https://docs.google.com/document/d/1o0RWL4XDadayu7z3_n6zjX6glhPmCtM3SfiEiQXm5dQ/edit";
-
                 //Criando a Intent que irá abrir a URL no navegador
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(urlTermos));
 
                 //Iniciando a Intent
                 startActivity(intent);
