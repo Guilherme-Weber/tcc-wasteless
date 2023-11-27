@@ -87,7 +87,7 @@ public class EmpresaActivity extends AppCompatActivity {
             public void onLongItemClick(View view, int position) {
                 Produto produtoSelecionado = produtos.get(position);
                 produtoSelecionado.remover(produtoSelecionado.getIdProduto());
-                mensagemToast("Produto Excluido com Sucesso!");
+                mensagemToast("Produto removido");
             }
 
             @Override

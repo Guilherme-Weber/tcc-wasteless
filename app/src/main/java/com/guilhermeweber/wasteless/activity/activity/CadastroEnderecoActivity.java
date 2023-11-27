@@ -148,7 +148,7 @@ public class CadastroEnderecoActivity extends AppCompatActivity {
         String cep = txtCEP.getText().toString().trim();
 
         if (cep.isEmpty()) {
-            txtCEP.setError("Digite um CEP válido.");
+            txtCEP.setError("Informe um CEP válido.");
             status = false;
         }
 

@@ -184,7 +184,7 @@ public class PagamentoActivity extends AppCompatActivity {
                 pedido = null;
 
                 // Fecha o alerta e retorna para a tela de histórico de pedidos
-                Intent intent = new Intent(PagamentoActivity.this, HistoricoPedidosActivity.class);
+                Intent intent = new Intent(PagamentoActivity.this, HomeActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 finish();

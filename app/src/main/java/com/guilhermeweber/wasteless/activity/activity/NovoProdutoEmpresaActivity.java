@@ -187,36 +187,36 @@ public class NovoProdutoEmpresaActivity extends AppCompatActivity implements Vie
 
                             produto.salvar(ramdom);
                             finish();
-                            mensagemToast("Produto Salvo Com Sucesso!");
+                            mensagemToast("Produto cadastrado");
 
                         } else {
-                            String pc = "Preencha o preço do produto";
+                            String pc = "Informe o preço do produto";
                             mensagemToast(pc);
                             editTextPrecoProduto.setError(pc);
                         }
 
                     } else {
-                        String tm = "Preencha o tamanho do seu pacote";
+                        String tm = "Informe o tamanho do pacote";
                         mensagemToast(tm);
                         pequena.setError(tm);
                         media.setError(tm);
                         grande.setError(tm);
                     }
                 } else {
-                    String tp = "Preencha o tipo de pacote";
+                    String tp = "Informe o tipo de pacote";
                     mensagemToast(tp);
                     salgado.setError(tp);
                     doce.setError(tp);
                     mista.setError(tp);
                 }
             } else {
-                String des = "Preencha a descrição do produto";
+                String des = "Informe a descrição do produto";
                 mensagemToast(des);
                 editTexTextDescricao.setError(des);
             }
         } else {
-            mensagemToast("Preencha o nome do produto");
-            editTextNomeProduto.setError("Preencha o nome do produto");
+            mensagemToast("Informe o nome do produto");
+            editTextNomeProduto.setError("Informe o nome do produto");
         }
     }
 

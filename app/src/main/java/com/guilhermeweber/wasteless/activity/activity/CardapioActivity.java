@@ -315,7 +315,7 @@ public class CardapioActivity extends AppCompatActivity {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Quantidade");
-        builder.setMessage("Digite a Quantidade");
+        builder.setMessage("Informe a Quantidade");
 
         EditText editQuantidade = new EditText(this);
         editQuantidade.setText("1");
@@ -372,7 +372,7 @@ public class CardapioActivity extends AppCompatActivity {
                     pedidoRecuperado.salvar();
 
                 } else {
-                    mensagemToast("Quantidade Invalidada de Itens!");
+                    mensagemToast("Quantidade inválida de itens!");
                 }
             }
         });
@@ -435,7 +435,7 @@ public class CardapioActivity extends AppCompatActivity {
 
                 DecimalFormat df = new DecimalFormat("0.00");
 
-                textCarrinhoQtd.setText("Itens no Carrinho: " + String.valueOf(qtdItensCarrinho));
+                textCarrinhoQtd.setText("Quantidade: " + String.valueOf(qtdItensCarrinho));
                 textCarrinhoTotal.setValue(Double.valueOf(totalCarrinho).longValue());
 
                 dialog.dismiss();

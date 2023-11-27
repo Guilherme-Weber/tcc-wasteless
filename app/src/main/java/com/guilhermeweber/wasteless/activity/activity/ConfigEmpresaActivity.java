@@ -253,7 +253,7 @@ public class ConfigEmpresaActivity extends AppCompatActivity implements View.OnC
         String cep = editTextEmpresaCEP.getText().toString().trim();
 
         if (cep.isEmpty()) {
-            editTextEmpresaCEP.setError("Digite um CEP válido.");
+            editTextEmpresaCEP.setError("Informe um CEP válido.");
             status = false;
         }
 
@@ -370,7 +370,7 @@ public class ConfigEmpresaActivity extends AppCompatActivity implements View.OnC
 
     private void carregarDadosSpinner() {
 
-        String[] categorias = new String[]{"Padaria", "Comercio em Geral", "Autônomo", "Hotelaria"};
+        String[] categorias = new String[]{"Padaria", "Comércio em Geral", "Autônomo", "Hotelaria"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, categorias);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerEmpresaCategoria.setAdapter(adapter);

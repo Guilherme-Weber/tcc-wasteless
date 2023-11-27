@@ -271,9 +271,6 @@ public class HomeActivity extends AppCompatActivity {
         searchViewTudo = findViewById(R.id.materialSearchViewIdTudo);
         recyclerEmpresa = findViewById(R.id.recyclerEmpresa);
 
-        //configurando menu inferior
-        btnHome = findViewById(R.id.btnHome);
-        btnPedido = findViewById(R.id.btnPedido);
     }
 
     private void abrirConfig() {

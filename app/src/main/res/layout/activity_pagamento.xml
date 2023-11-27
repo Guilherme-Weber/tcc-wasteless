@@ -59,7 +59,7 @@
             android:layout_height="40dp"
             android:padding="8dp"
             android:background="@drawable/bg_edit_text"
-            android:hint="Número do Cartão de Crédito"
+            android:hint="Número do Cartão"
             android:inputType="number"
             android:maxLength="19"
             android:textColor="@color/quad"

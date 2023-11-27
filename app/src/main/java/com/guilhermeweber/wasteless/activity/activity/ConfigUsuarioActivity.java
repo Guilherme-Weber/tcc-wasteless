@@ -218,7 +218,7 @@ public class ConfigUsuarioActivity extends AppCompatActivity implements View.OnC
         String cep = editTextUsuarioCEP.getText().toString().trim();
 
         if (cep.isEmpty()) {
-            editTextUsuarioCEP.setError("Digite um CEP válido.");
+            editTextUsuarioCEP.setError("Informe um CEP válido.");
             status = false;
         }
 

@@ -76,7 +76,7 @@ public class CadastrosUsuariosActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //Site com os "termos"
-                String url = "https://drive.google.com/drive/folders/1wq6Yj2T7tOTTprB1Mx4pvffnsdeZL1cj";
+                String url = "https://docs.google.com/document/d/1o0RWL4XDadayu7z3_n6zjX6glhPmCtM3SfiEiQXm5dQ/edit";
 
                 //Criando a Intent que irá abrir a URL no navegador
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
@@ -171,17 +171,17 @@ public class CadastrosUsuariosActivity extends AppCompatActivity {
                                     }
                                 });
                             } else {
-                                Toast.makeText(CadastrosUsuariosActivity.this, "Você deve conconcordar com os termos e condições", Toast.LENGTH_SHORT).show();
-                                checkBoxTermos.setError("Concorde com os termos e condições");
+                                Toast.makeText(CadastrosUsuariosActivity.this, "Você deve conconcordar com os termos e condições de uso", Toast.LENGTH_SHORT).show();
+                                checkBoxTermos.setError("Concorde com os termos e condições de uso");
                             }
                         } else {
-                            String pw = "Ambas as senhas tem que ser iguais";
+                            String pw = "Ambas as senhas devem ser idênticas";
                             Toast.makeText(CadastrosUsuariosActivity.this, pw, Toast.LENGTH_SHORT).show();
                             campoSenha.setError(pw);
                             campoSenhaDenovo.setError(pw);
                         }
                     } else {
-                        String tf = "Preencha o Campo Telefone";
+                        String tf = "Preencha o campo telefone";
                         Toast.makeText(CadastrosUsuariosActivity.this, tf, Toast.LENGTH_SHORT).show();
                         editTextTelefone.setError(tf);
                     }
