@@ -9,6 +9,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.guilhermeweber.wasteless.activity.helper.ConfigFirebase;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Empresa implements Serializable {
     private String idEmpresaUsuario;
@@ -27,8 +28,9 @@ public class Empresa implements Serializable {
     private String UF;
     private String localidade;
     private String pix;
-    private int strela; // 1 a 5
-    private int totalStrela;
+    private double strela; // 1 a 5
+    private int totalStrela; // total de avaliações
+    private int totalAnalise; // numero somado das avaliações
 
     public Empresa() {
     }
@@ -177,11 +179,11 @@ public class Empresa implements Serializable {
         this.pix = pix;
     }
 
-    public int getStrela() {
+    public double getStrela() {
         return strela;
     }
 
-    public void setStrela(int strela) {
+    public void setStrela(double strela) {
         this.strela = strela;
     }
 
@@ -191,5 +193,13 @@ public class Empresa implements Serializable {
 
     public void setTotalStrela(int totalStrela) {
         this.totalStrela = totalStrela;
+    }
+
+    public int getTotalAnalise() {
+        return totalAnalise;
+    }
+
+    public void setTotalAnalise(int totalAnalise) {
+        this.totalAnalise = totalAnalise;
     }
 }

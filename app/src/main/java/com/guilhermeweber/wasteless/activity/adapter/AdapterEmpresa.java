@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,6 +51,30 @@ public class AdapterEmpresa extends RecyclerView.Adapter<AdapterEmpresa.MyViewHo
             holder.categoria.setText("Empresa");
         }
 
+        //calculo de media
+        double totalNum = empresa.getTotalAnalise();
+        double totalAva = empresa.getTotalStrela();
+        double average = 0;
+
+        if (totalNum == 0) {
+            if (totalAva == 0) {
+            } else {
+                average = totalNum / totalAva;
+            }
+        } else {
+            average = totalNum / totalAva;
+        }
+
+        holder.textAnalize.setText(String.format("%.1f", average));
+
+        average = average * 10;
+
+        int averageInt = (int) average;
+
+        holder.progressBar.setProgress(averageInt);
+
+
+
         holder.tempo.setText(empresa.getBairro());
 
         //recuperar imagem
@@ -67,15 +92,21 @@ public class AdapterEmpresa extends RecyclerView.Adapter<AdapterEmpresa.MyViewHo
         ImageView imagemEmpresa;
         TextView nomeEmpresa;
         TextView categoria;
+        TextView textTotalAnalise;
+        TextView textAnalize;
         TextView tempo;
+        ProgressBar progressBar;
 
         public MyViewHolder(View itemView) {
             super(itemView);
 
+            textAnalize = itemView.findViewById(R.id.textAnalize);
+            textTotalAnalise = itemView.findViewById(R.id.textTotalAnalise);
             nomeEmpresa = itemView.findViewById(R.id.textNomeEmpresa);
             categoria = itemView.findViewById(R.id.textCategoriaEmpresa);
             tempo = itemView.findViewById(R.id.textTempoEmpresa);
             imagemEmpresa = itemView.findViewById(R.id.imageEmpresa);
+            progressBar = itemView.findViewById(R.id.progressBar);
         }
     }
 }

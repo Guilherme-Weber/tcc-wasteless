@@ -61,7 +61,7 @@ public class CardapioActivity extends AppCompatActivity {
     private DatabaseReference firebaseRef;
     private FirebaseDatabase firebaseDatabase;
     private ImageView imageEmpresaCardapio;
-    private TextView textNomeEmpresaCardapio, textCarrinhoQtd;
+    private TextView textNomeEmpresaCardapio, textCarrinhoQtd, textTotalAnalise, textAnalize;
     private CurrencyEditText textCarrinhoTotal;
     private Empresa empresaSelecionada;
     private Empresa empresa;
@@ -200,13 +200,9 @@ public class CardapioActivity extends AppCompatActivity {
         linearLayoutD.setPadding(20, 20, 20, 20);
 
         String total;
-
         total = String.valueOf(textCarrinhoTotal.getText());
-
         linearLayoutD.addView(alertText("Total: ", total));
-
         linearLayout.addView(linearLayoutD);
-
 
         builder.setPositiveButton(Html.fromHtml("<font color='" + corSecundaria + "'>Finalizar Pedido</font>"), new DialogInterface.OnClickListener() {
             @Override
@@ -249,6 +245,7 @@ public class CardapioActivity extends AppCompatActivity {
         if (negativeButton != null) {
             negativeButton.setTextColor(corSecundaria);
         }
+
         dialog.show();
     }
 
@@ -506,11 +503,10 @@ public class CardapioActivity extends AppCompatActivity {
         recyclerProdutosCardapio = findViewById(R.id.recyclerProdutosCardapio);
         imageEmpresaCardapio = findViewById(R.id.imageEmpresaCardapio);
         textNomeEmpresaCardapio = findViewById(R.id.textNomeEmpresaCardapio);
-
+        textTotalAnalise = findViewById(R.id.textTotalAnalise);
         buttonMaisInfo = findViewById(R.id.buttonMaisInfo);
         buttonCarrinho = findViewById(R.id.buttonCarrinho);
         imageButtonFavoritar = findViewById(R.id.imageButtonFavoritar);
-
         textCarrinhoQtd = findViewById(R.id.textCarrinhoQtd);
         textCarrinhoTotal = findViewById(R.id.textCarrinhoTotal);
         Locale locale = new Locale("pt", "BR");

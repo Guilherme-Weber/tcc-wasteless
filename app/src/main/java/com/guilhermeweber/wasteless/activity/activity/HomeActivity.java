@@ -215,8 +215,6 @@ public class HomeActivity extends AppCompatActivity {
 
         if (item.getItemId() == android.R.id.home) {
             deslogarUsuario();
-        } else if (item.getItemId() == R.id.menuSair) {
-            deslogarUsuario();
         } else if (item.getItemId() == R.id.menuFav) {
             startActivity(new Intent(this, FavoritosActivity.class));
         } else if (item.getItemId() == R.id.pedidos) {
@@ -225,6 +223,8 @@ public class HomeActivity extends AppCompatActivity {
             abrirZapZap();
         } else if (item.getItemId() == R.id.menuConfig) {
             abrirConfig();
+        } else if (item.getItemId() == R.id.menuSair) {
+            deslogarUsuario();
         }
 
         return super.onOptionsItemSelected(item);
