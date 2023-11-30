@@ -38,7 +38,7 @@ public class PagamentoActivity extends AppCompatActivity {
 
         //config toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle("Wasteless - Home");
+        toolbar.setTitle("Pagamento");
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
