@@ -26,7 +26,7 @@
 
     <item
         android:id="@+id/pedidos"
-        android:title="Historico"
+        android:title="Histórico de Pedidos"
         app:showAsAction="never" />
 
     <item

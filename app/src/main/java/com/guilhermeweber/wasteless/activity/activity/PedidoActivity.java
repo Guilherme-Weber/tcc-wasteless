@@ -6,18 +6,19 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -97,22 +98,36 @@ public class PedidoActivity extends AppCompatActivity {
 
     private void finalizar(int position) {
 
+        int corSecundaria = ContextCompat.getColor(this, R.color.secundaria);
+
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Deseja finalizar esse pedido?");
-        builder.setPositiveButton("Finalizar Pedido", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(Html.fromHtml("<font color='" + corSecundaria + "'>Finalizar Pedido</font>"), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Pedido pedido = pedidos.get(position);
                 pedido.setStatus("finalizado");
                 pedido.atualizarStatus();
             }
-        }).setNeutralButton("Voltar", new DialogInterface.OnClickListener() {
+        }).setNeutralButton(Html.fromHtml("<font color='" + corSecundaria + "'>Voltar</font>"), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
             }
         });
 
         AlertDialog dialog = builder.create();
+
+        Button positiveButton = dialog.getButton(DialogInterface.BUTTON_POSITIVE);
+        Button neutralButton = dialog.getButton(DialogInterface.BUTTON_NEUTRAL);
+
+        if (positiveButton != null) {
+            positiveButton.setTextColor(corSecundaria);
+        }
+
+        if (neutralButton != null) {
+            neutralButton.setTextColor(corSecundaria);
+        }
+
         dialog.show();
     }
 

@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.Html;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
@@ -15,10 +16,9 @@ import android.widget.RadioGroup;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 
 import com.guilhermeweber.wasteless.R;
-import com.guilhermeweber.wasteless.activity.helper.ConfigFirebase;
-import com.guilhermeweber.wasteless.activity.model.Empresa;
 import com.guilhermeweber.wasteless.activity.model.Pedido;
 
 public class PagamentoActivity extends AppCompatActivity {
@@ -29,6 +29,7 @@ public class PagamentoActivity extends AppCompatActivity {
     private EditText textCVV;
     private Button buttonPagar;
     private Pedido pedido;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -160,20 +161,31 @@ public class PagamentoActivity extends AppCompatActivity {
     }
 
     private void exibirMensagemErro(String mensagem) {
+        int corSecundaria = ContextCompat.getColor(this, R.color.secundaria);
+
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Erro no Pagamento");
         builder.setMessage(mensagem);
-        builder.setPositiveButton("OK", null);
+        builder.setPositiveButton(Html.fromHtml("<font color='" + corSecundaria + "'>OK</font>"), null);
         AlertDialog alertDialog = builder.create();
+
+        Button positiveButton = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
+
+        if (positiveButton != null) {
+            positiveButton.setTextColor(corSecundaria);
+        }
+
         alertDialog.show();
     }
 
     private void mostrarAlertaPedidoConfirmado() {
+        int corSecundaria = ContextCompat.getColor(this, R.color.secundaria);
+
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Pedido Confirmado");
         builder.setMessage("Seu pedido foi confirmado com sucesso!");
 
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(Html.fromHtml("<font color='" + corSecundaria + "'>OK</font>"), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
@@ -184,7 +196,7 @@ public class PagamentoActivity extends AppCompatActivity {
                 pedido = null;
 
                 // Fecha o alerta e retorna para a tela de histórico de pedidos
-                Intent intent = new Intent(PagamentoActivity.this, HomeActivity.class);
+                Intent intent = new Intent(PagamentoActivity.this, PedidoUsuarioActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 finish();
@@ -193,6 +205,13 @@ public class PagamentoActivity extends AppCompatActivity {
 
         // Cria e exibe o AlertDialog
         AlertDialog alertDialog = builder.create();
+
+        Button positiveButton = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
+
+        if (positiveButton != null) {
+            positiveButton.setTextColor(corSecundaria);
+        }
+
         alertDialog.show();
     }
 }

@@ -4,10 +4,9 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.AttributeSet;
+import android.text.Html;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -18,13 +17,13 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -46,7 +45,6 @@ import com.guilhermeweber.wasteless.activity.model.Produto;
 import com.guilhermeweber.wasteless.activity.model.Usuario;
 import com.squareup.picasso.Picasso;
 
-import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -162,6 +160,8 @@ public class CardapioActivity extends AppCompatActivity {
 
     private void abrirCarrinho() {
 
+        int corSecundaria = ContextCompat.getColor(this, R.color.secundaria);
+
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Carrinho ");
 
@@ -207,27 +207,48 @@ public class CardapioActivity extends AppCompatActivity {
 
         linearLayout.addView(linearLayoutD);
 
-        builder.setPositiveButton("Finalizar Pedido", new DialogInterface.OnClickListener() {
+
+        builder.setPositiveButton(Html.fromHtml("<font color='" + corSecundaria + "'>Finalizar Pedido</font>"), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 //confirmarPedido();
                 confirmarPedidoNovo();
             }
-        }).setNeutralButton("Voltar", new DialogInterface.OnClickListener() {
+        });
+
+        builder.setNeutralButton(Html.fromHtml("<font color='" + corSecundaria + "'>Voltar</font>"), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
             }
-        }).setNegativeButton("Limpar", new DialogInterface.OnClickListener() {
+        });
+
+        builder.setNegativeButton(Html.fromHtml("<font color='" + corSecundaria + "'>Limpar</font>"), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 pedidoRecuperado.remover();
             }
         });
 
+
         builder.setView(linearLayoutP);
 
         AlertDialog dialog = builder.create();
+
+        Button positiveButton = dialog.getButton(DialogInterface.BUTTON_POSITIVE);
+        Button neutralButton = dialog.getButton(DialogInterface.BUTTON_NEUTRAL);
+        Button negativeButton = dialog.getButton(DialogInterface.BUTTON_NEGATIVE);
+
+        if (positiveButton != null) {
+            positiveButton.setTextColor(corSecundaria);
+        }
+
+        if (neutralButton != null) {
+            neutralButton.setTextColor(corSecundaria);
+        }
+
+        if (negativeButton != null) {
+            negativeButton.setTextColor(corSecundaria);
+        }
         dialog.show();
     }
 
@@ -285,7 +306,9 @@ public class CardapioActivity extends AppCompatActivity {
 
         builder.setView(editQuantidade);
 
-        builder.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+        int corSecundaria = ContextCompat.getColor(this, R.color.secundaria);
+
+        builder.setPositiveButton(Html.fromHtml("<font color='" + corSecundaria + "'>Confirmar</font>"), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
@@ -333,13 +356,24 @@ public class CardapioActivity extends AppCompatActivity {
                     mensagemToast("Quantidade inválida de itens!");
                 }
             }
-        }).setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+        }).setNegativeButton(Html.fromHtml("<font color='" + corSecundaria + "'>Cancelar</font>"), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
             }
         });
 
         AlertDialog dialog = builder.create();
+
+        Button positiveButton = dialog.getButton(DialogInterface.BUTTON_POSITIVE);
+        Button negativeButton = dialog.getButton(DialogInterface.BUTTON_NEGATIVE);
+
+        if (positiveButton != null) {
+            positiveButton.setTextColor(corSecundaria);
+        }
+        if (negativeButton != null) {
+            negativeButton.setTextColor(corSecundaria);
+        }
+
         dialog.show();
     }
 
