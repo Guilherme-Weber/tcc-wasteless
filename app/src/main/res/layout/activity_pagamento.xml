@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="16dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="15dp"
         android:text="Pagamento"
         android:textAlignment="center"
         android:textColor="@color/grey"
@@ -133,6 +133,29 @@
                         android:textSize="14sp" />
 
                 </LinearLayout>
+
+                <TextView
+                    android:id="@+id/textView9"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginLeft="8dp"
+                    android:text="Valor total"
+                    android:textColor="@color/grey"
+                    android:textSize="14sp" />
+
+                <com.blackcat.currencyedittext.CurrencyEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginBottom="3dp"
+                    android:background="@drawable/bg_edit_text"
+                    android:ems="10"
+                    android:focusable="false"
+                    android:inputType="none"
+                    android:padding="12dp"
+                    android:textColor="@color/secundaria"
+                    android:textSize="14sp"
+                    android:textStyle="bold"/>
 
                 <Button
                     android:id="@+id/buttonPagar"
