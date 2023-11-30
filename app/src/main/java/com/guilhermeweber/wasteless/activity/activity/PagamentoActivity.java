@@ -18,8 +18,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 
+import com.blackcat.currencyedittext.CurrencyEditText;
 import com.guilhermeweber.wasteless.R;
 import com.guilhermeweber.wasteless.activity.model.Pedido;
+
+import java.util.Locale;
 
 public class PagamentoActivity extends AppCompatActivity {
     private RadioGroup radioGroupMetodoPagamento;
@@ -29,7 +32,7 @@ public class PagamentoActivity extends AppCompatActivity {
     private EditText textCVV;
     private Button buttonPagar;
     private Pedido pedido;
-
+    private CurrencyEditText editTextCascalho;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +48,6 @@ public class PagamentoActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         inicializarComponentes();
-
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) pedido = (Pedido) bundle.getSerializable("pedido");
@@ -137,7 +139,9 @@ public class PagamentoActivity extends AppCompatActivity {
         textDataExpiracao = findViewById(R.id.textDataExpiracao);
         textCVV = findViewById(R.id.textCVV);
         buttonPagar = findViewById(R.id.buttonPagar);
-
+        editTextCascalho = findViewById(R.id.editTextCascalho);
+        Locale locale = new Locale("pt", "BR");
+        editTextCascalho.setLocale(locale);
     }
 
     private boolean realizarPagamento() {

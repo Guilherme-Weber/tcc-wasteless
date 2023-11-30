@@ -19,7 +19,6 @@ public class Produto {
     private String tempoAte;
 
     public Produto() {
-
     }
 
     public void salvar(String seed) {

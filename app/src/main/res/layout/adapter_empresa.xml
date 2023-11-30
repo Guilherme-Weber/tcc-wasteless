@@ -12,7 +12,7 @@
         android:layout_height="wrap_content">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/bg_edit_text"
             android:gravity="center_vertical"
@@ -34,7 +34,7 @@
                     tools:src="@drawable/baseline_downloading_24" />
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="267dp"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="12dp"
                     android:gravity="center"
@@ -57,7 +57,7 @@
 
                         <TextView
                             android:id="@+id/textCategoriaEmpresa"
-                            android:layout_width="98dp"
+                            android:layout_width="126dp"
                             android:layout_height="match_parent"
                             android:gravity="center"
                             android:padding="1dp"
@@ -75,7 +75,7 @@
 
                         <TextView
                             android:id="@+id/textTempoEmpresa"
-                            android:layout_width="130dp"
+                            android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="4dp"
                             android:gravity="center"
@@ -85,37 +85,32 @@
 
                     </LinearLayout>
 
-                    <ProgressBar
-                        android:id="@+id/progressBar"
-                        style="?android:attr/progressBarStyleHorizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="33dp"
-                        android:max="50" />
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <ProgressBar
+                            android:id="@+id/progressBar"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_width="217dp"
+                            android:layout_height="33dp"
+                            android:max="50" />
+
+                        <TextView
+                            android:id="@+id/textAnalize"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:padding="5px"
+                            android:text="5"
+                            android:textColor="@color/quad" />
+
+                    </LinearLayout>
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/textTotalAnalise"
-                        android:layout_width="44dp"
-                        android:layout_height="42dp"
-                        android:gravity="center"
-                        android:text=""
-                        android:textColor="@color/quad" />
-
-                    <TextView
-                        android:id="@+id/textAnalize"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:text="5"
-                        android:textColor="@color/quad" />
-
-                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

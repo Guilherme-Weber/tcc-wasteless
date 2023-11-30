@@ -503,7 +503,6 @@ public class CardapioActivity extends AppCompatActivity {
         recyclerProdutosCardapio = findViewById(R.id.recyclerProdutosCardapio);
         imageEmpresaCardapio = findViewById(R.id.imageEmpresaCardapio);
         textNomeEmpresaCardapio = findViewById(R.id.textNomeEmpresaCardapio);
-        textTotalAnalise = findViewById(R.id.textTotalAnalise);
         buttonMaisInfo = findViewById(R.id.buttonMaisInfo);
         buttonCarrinho = findViewById(R.id.buttonCarrinho);
         imageButtonFavoritar = findViewById(R.id.imageButtonFavoritar);

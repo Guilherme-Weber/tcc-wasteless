@@ -1,6 +1,8 @@
 package com.guilhermeweber.wasteless.activity.adapter;
 
+
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.guilhermeweber.wasteless.R;
@@ -68,12 +71,11 @@ public class AdapterEmpresa extends RecyclerView.Adapter<AdapterEmpresa.MyViewHo
         holder.textAnalize.setText(String.format("%.1f", average));
 
         average = average * 10;
-
         int averageInt = (int) average;
-
         holder.progressBar.setProgress(averageInt);
 
-
+        int color_int = ContextCompat.getColor(context, R.color.secundaria);
+        holder.progressBar.getProgressDrawable().setColorFilter(color_int, android.graphics.PorterDuff.Mode.SRC_IN);
 
         holder.tempo.setText(empresa.getBairro());
 
@@ -101,7 +103,6 @@ public class AdapterEmpresa extends RecyclerView.Adapter<AdapterEmpresa.MyViewHo
             super(itemView);
 
             textAnalize = itemView.findViewById(R.id.textAnalize);
-            textTotalAnalise = itemView.findViewById(R.id.textTotalAnalise);
             nomeEmpresa = itemView.findViewById(R.id.textNomeEmpresa);
             categoria = itemView.findViewById(R.id.textCategoriaEmpresa);
             tempo = itemView.findViewById(R.id.textTempoEmpresa);

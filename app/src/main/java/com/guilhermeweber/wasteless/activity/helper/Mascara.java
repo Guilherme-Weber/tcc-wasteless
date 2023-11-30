@@ -7,6 +7,7 @@ import android.widget.EditText;
 public abstract class Mascara {
     public static String MASCARA_CEP = "##.###-###";
     public static String MASCARA_TIME = "##:##";
+    public static String MASCARA_CARTAO = "#### #### #### ####";
 
     public static String unmask(String s) {
 

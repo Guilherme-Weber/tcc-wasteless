@@ -146,6 +146,7 @@
                     android:textSize="14sp" />
 
                 <com.blackcat.currencyedittext.CurrencyEditText
+                    android:id="@+id/editTextCascalho"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_marginBottom="3dp"

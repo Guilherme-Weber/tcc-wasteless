@@ -33,6 +33,8 @@ import com.guilhermeweber.wasteless.activity.model.Empresa;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
@@ -178,13 +180,20 @@ public class HomeActivity extends AppCompatActivity {
     private void recuperarProdutos() {
         firebaseRef = ConfigFirebase.getFirebase();
         DatabaseReference empresaRef = firebaseRef.child("empresa");
-        empresaRef.addValueEventListener(new ValueEventListener() {
+//        empresaRef.addValueEventListener(new ValueEventListener() {
+//        orderBy("strela", descending: true).limit(1);
+        Query query = empresaRef.orderByChild("strela");
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 empresas.clear();
                 for (DataSnapshot ds : snapshot.getChildren()) {
                     empresas.add(ds.getValue(Empresa.class));
                 }
+
+                Collections.sort(empresas, Comparator.comparing(Empresa::getStrela));
+                Collections.reverse(empresas);
+
                 adapterEmpresa.notifyDataSetChanged();
             }
 
