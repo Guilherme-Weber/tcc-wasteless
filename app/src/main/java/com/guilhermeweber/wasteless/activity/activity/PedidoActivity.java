@@ -172,13 +172,13 @@ public class PedidoActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
-        if (item.getItemId() == R.id.menuSair) {
+        if (item.getItemId() == android.R.id.home) {
             deslogarUsuario();
-        } else if (item.getItemId() == R.id.menuConfig) {
-            abrirConfig();
         } else if (item.getItemId() == R.id.zapzap) {
             abrirZapZap();
-        } else if (item.getItemId() == android.R.id.home) {
+        } else if (item.getItemId() == R.id.menuConfig) {
+            abrirConfig();
+        } else if (item.getItemId() == R.id.menuSair) {
             deslogarUsuario();
         }
 

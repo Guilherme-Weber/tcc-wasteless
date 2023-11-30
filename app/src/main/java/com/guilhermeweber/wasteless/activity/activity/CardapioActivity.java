@@ -517,47 +517,4 @@ public class CardapioActivity extends AppCompatActivity {
         textCarrinhoTotal.setLocale(locale);
 
     }
-
-//    private void confirmarPedido() {
-//
-//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//        builder.setTitle("Selecione um método de pagamento");
-//
-//        CharSequence[] itens = new CharSequence[]{"Dinheiro", "PIX", "Máquina de Cartão"};
-//        builder.setSingleChoiceItems(itens, 0, new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                metodoPagamento = which;
-//            }
-//        });
-//
-//        EditText editObservacao = new EditText(this);
-//        editObservacao.setHint("Digite uma observação (opcional)");
-//        builder.setView(editObservacao);
-//
-//        builder.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//
-//                String observacao = editObservacao.getText().toString();
-//                pedidoRecuperado.setMetodoPagamento(metodoPagamento);
-//                pedidoRecuperado.setObservacao(observacao);
-//                pedidoRecuperado.setStatus("confirmado");
-//                pedidoRecuperado.confirmar();
-//                pedidoRecuperado.remover();
-//                pedidoRecuperado = null;
-//
-//            }
-//        }).setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//
-//            }
-//        });
-//
-//        AlertDialog dialog = builder.create();
-//        dialog.show();
-//
-//    }
-
 }

@@ -4,11 +4,30 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4180712b-4657-4bc8-bfce-1f6b8de8fb66" name="Changes" comment="" />
+    <list default="true" id="4180712b-4657-4bc8-bfce-1f6b8de8fb66" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/guilhermeweber/wasteless/activity/activity/CardapioActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/guilhermeweber/wasteless/activity/activity/CardapioActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/guilhermeweber/wasteless/activity/model/Empresa.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/guilhermeweber/wasteless/activity/model/Empresa.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_cadastro_endereco.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_cadastro_endereco.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/adapter_pedidos.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/adapter_pedidos.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand />
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />

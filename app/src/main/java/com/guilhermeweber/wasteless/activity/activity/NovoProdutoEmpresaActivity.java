@@ -256,14 +256,14 @@ public class NovoProdutoEmpresaActivity extends AppCompatActivity implements Vie
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
-        if (item.getItemId() == R.id.menuSair) {
-            deslogarUsuario();
-        } else if (item.getItemId() == R.id.menuConfig) {
-            abrirConfig();
-        } else if (item.getItemId() == android.R.id.home) {
+        if (item.getItemId() == android.R.id.home) {
             startActivity(new Intent(this, EmpresaActivity.class));
         } else if (item.getItemId() == R.id.zapzap) {
             abrirZapZap();
+        } else if (item.getItemId() == R.id.menuConfig) {
+            abrirConfig();
+        } else if (item.getItemId() == R.id.menuSair) {
+            deslogarUsuario();
         }
 
         return super.onOptionsItemSelected(item);

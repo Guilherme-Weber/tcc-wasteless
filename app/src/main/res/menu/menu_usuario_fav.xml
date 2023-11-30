@@ -3,11 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/menuConfig"
-        android:title="Configurações"
-        app:showAsAction="never" />
-
-    <item
         android:id="@+id/pedidos"
         android:title="Histórico de Pedidos"
         app:showAsAction="never" />
@@ -15,6 +10,11 @@
     <item
         android:id="@+id/zapzap"
         android:title="Ajuda (WhatsApp)"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menuConfig"
+        android:title="Configurações"
         app:showAsAction="never" />
 
     <item

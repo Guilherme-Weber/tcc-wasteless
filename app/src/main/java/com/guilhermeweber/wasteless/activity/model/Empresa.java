@@ -26,6 +26,9 @@ public class Empresa implements Serializable {
     private String bairro;
     private String UF;
     private String localidade;
+    private String pix;
+    private int strela; // 1 a 5
+    private int totalStrela;
 
     public Empresa() {
     }
@@ -164,5 +167,29 @@ public class Empresa implements Serializable {
 
     public void setLocalidade(String localidade) {
         this.localidade = localidade;
+    }
+
+    public String getPix() {
+        return pix;
+    }
+
+    public void setPix(String pix) {
+        this.pix = pix;
+    }
+
+    public int getStrela() {
+        return strela;
+    }
+
+    public void setStrela(int strela) {
+        this.strela = strela;
+    }
+
+    public int getTotalStrela() {
+        return totalStrela;
+    }
+
+    public void setTotalStrela(int totalStrela) {
+        this.totalStrela = totalStrela;
     }
 }

@@ -98,7 +98,7 @@
                         android:layout_weight="1"
                         android:backgroundTint="@color/quad"
                         android:onClick="CEP"
-                        android:text="Consultar CEP"
+                        android:text="Atualizar endereço"
                         android:textColor="@color/white"
                         android:textSize="12sp"
                         android:theme="@style/botaoPadrao"
@@ -182,19 +182,6 @@
 
                 </LinearLayout>
 
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/bg_edit_text"
-                    android:ems="10"
-                    android:hint="Chave Pix"
-                    android:inputType="text"
-                    android:padding="16dp"
-                    android:textColor="@color/quad"
-                    android:textSize="18sp" />
-
                 <com.santalu.maskedittext.MaskEditText
                     android:id="@+id/editTextTelefone"
                     android:layout_width="match_parent"
@@ -207,6 +194,20 @@
                     android:padding="16dp"
                     app:met_mask="(##) #####-####" />
 
+
+                <EditText
+                    android:id="@+id/editTextChavePix"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_edit_text"
+                    android:ems="10"
+                    android:hint="Chave Pix"
+                    android:inputType="text"
+                    android:padding="16dp"
+                    android:textColor="@color/quad"
+                    android:textSize="18sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"

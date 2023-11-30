@@ -133,7 +133,6 @@ public class ConfigUsuarioActivity extends AppCompatActivity implements View.OnC
 
     @Override
     public void onClick(View v) {
-
         if (v.getId() == R.id.imageUsuario) {
             escolherImagem(1);
         }
@@ -223,14 +222,14 @@ public class ConfigUsuarioActivity extends AppCompatActivity implements View.OnC
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
-        if (item.getItemId() == R.id.menuSair) {
-            deslogarUsuario();
+        if (item.getItemId() == android.R.id.home) {
+            startActivity(new Intent(this, HomeActivity.class));
         } else if (item.getItemId() == R.id.pedidos) {
             abrirPedidos();
         } else if (item.getItemId() == R.id.zapzap) {
             abrirZapZap();
-        } else if (item.getItemId() == android.R.id.home) {
-            startActivity(new Intent(this, HomeActivity.class));
+        } else if (item.getItemId() == R.id.menuSair) {
+            deslogarUsuario();
         }
 
         return super.onOptionsItemSelected(item);

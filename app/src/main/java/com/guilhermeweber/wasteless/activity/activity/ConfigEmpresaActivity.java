@@ -60,11 +60,10 @@ public class ConfigEmpresaActivity extends AppCompatActivity implements View.OnC
     Empresa empresa = new Empresa();
     Usuario usuario = new Usuario();
     private Retrofit retrofitCEP;
-    private EditText editTextEmailEmpConfig, editTextNomeEmpresa, editTextEmpresaCEP, editTextEmpresaTempo, editTextLogradouroConfig, editTextComplementoConfig, editTextBairroConfig, editTextUFConfig, editTextCidadeConfig;
+    private EditText editTextEmailEmpConfig, editTextNomeEmpresa, editTextEmpresaCEP, editTextLogradouroConfig, editTextComplementoConfig, editTextBairroConfig, editTextUFConfig, editTextCidadeConfig, editTextChavePix;
     private Spinner spinnerEmpresaCategoria;
     private MaskEditText editTextNumeroTelefone;
     private FirebaseAuth auth;
-    private CurrencyEditText editTextEmpresaTaxa;
     private Activity configEmpresaActivity = this;
     private CircleImageView imagePerfilEmpresa;
     private StorageReference storageReference;
@@ -137,6 +136,7 @@ public class ConfigEmpresaActivity extends AppCompatActivity implements View.OnC
                     editTextUFConfig.setText(empresa.getUF());
                     editTextCidadeConfig.setText(empresa.getLocalidade());
                     editTextEmailEmpConfig.setText(empresa.getEmail());
+                    editTextChavePix.setText(empresa.getPix());
                 }
             }
 
@@ -260,6 +260,7 @@ public class ConfigEmpresaActivity extends AppCompatActivity implements View.OnC
         String uF = editTextUFConfig.getText().toString();
         String cidade = editTextCidadeConfig.getText().toString();
         String email = editTextEmailEmpConfig.getText().toString();
+        String pix = editTextChavePix.getText().toString();
 
         String categoriaText = spinnerEmpresaCategoria.getSelectedItem().toString();
         Integer categoria = spinnerEmpresaCategoria.getSelectedItemPosition();
@@ -287,6 +288,7 @@ public class ConfigEmpresaActivity extends AppCompatActivity implements View.OnC
         empresa.setUF(uF);
         empresa.setLocalidade(cidade);
         empresa.setTelefone(telefone);
+        empresa.setPix(pix);
 
         for (int i = 0; i < listaFotosRec.size(); ++i) {
             String urlImagem = listaFotosRec.get(i);
@@ -346,12 +348,12 @@ public class ConfigEmpresaActivity extends AppCompatActivity implements View.OnC
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
-        if (item.getItemId() == R.id.menuSair) {
-            deslogarUsuario();
-        } else if (item.getItemId() == android.R.id.home) {
+        if (item.getItemId() == android.R.id.home) {
             startActivity(new Intent(this, EmpresaActivity.class));
         } else if (item.getItemId() == R.id.zapzap) {
             abrirZapZap();
+        } else if (item.getItemId() == R.id.menuSair) {
+            deslogarUsuario();
         }
 
         return super.onOptionsItemSelected(item);
@@ -395,5 +397,7 @@ public class ConfigEmpresaActivity extends AppCompatActivity implements View.OnC
         imagePerfilEmpresa = findViewById(R.id.imageEmpresa2);
         imagePerfilEmpresa.setOnClickListener(this);
         spinnerEmpresaCategoria = findViewById(R.id.spinnerEmpresaCategoria);
+        editTextChavePix = findViewById(R.id.editTextChavePix);
+
     }
 }

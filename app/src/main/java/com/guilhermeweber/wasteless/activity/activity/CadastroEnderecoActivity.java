@@ -47,7 +47,7 @@ public class CadastroEnderecoActivity extends AppCompatActivity {
     Empresa empresa = new Empresa();
     private Retrofit retrofitCEP;
     private Button btnConsultarCEP, buttonCadastroEndereco;
-    private EditText txtCEP, txtLogradouro, txtComplemento, txtBairro, txtUF, txtLocalidade;
+    private EditText txtCEP, txtLogradouro, txtComplemento, txtBairro, txtUF, txtLocalidade, textCadastroChavePix;
     private TextInputLayout layCEP;
 
     @Override
@@ -129,6 +129,7 @@ public class CadastroEnderecoActivity extends AppCompatActivity {
         String Bairro = txtBairro.getText().toString();
         String UF = txtUF.getText().toString();
         String Localidade = txtLocalidade.getText().toString();
+        String pix = textCadastroChavePix.getText().toString();
 
         empresa.setTelefone(usuario.getTelefone());
         empresa.setNome(usuario.getNome());
@@ -138,6 +139,7 @@ public class CadastroEnderecoActivity extends AppCompatActivity {
         empresa.setBairro(Bairro);
         empresa.setUF(UF);
         empresa.setLocalidade(Localidade);
+        empresa.setPix(pix);
 
         usuario.salvar();
 
@@ -205,6 +207,7 @@ public class CadastroEnderecoActivity extends AppCompatActivity {
 
     private void inicializarComponentes() {
 
+        textCadastroChavePix = findViewById(R.id.editTextCadastroChavePix);
         txtCEP = findViewById(R.id.txtinpedtCEP);
         txtLogradouro = findViewById(R.id.txtinpedtLogradouro);
         txtComplemento = findViewById(R.id.txtinpedtComplemento);
