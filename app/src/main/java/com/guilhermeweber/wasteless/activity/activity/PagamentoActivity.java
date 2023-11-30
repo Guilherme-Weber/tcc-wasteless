@@ -164,7 +164,7 @@ public class PagamentoActivity extends AppCompatActivity {
         int corSecundaria = ContextCompat.getColor(this, R.color.secundaria);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Erro no Pagamento");
+        builder.setTitle("Erro ao efetuar pagamento");
         builder.setMessage(mensagem);
         builder.setPositiveButton(Html.fromHtml("<font color='" + corSecundaria + "'>OK</font>"), null);
         AlertDialog alertDialog = builder.create();

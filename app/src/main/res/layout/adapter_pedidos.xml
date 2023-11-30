@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:layout_margin="5dp"
     android:orientation="vertical">
 
@@ -11,17 +11,37 @@
         android:background="@drawable/bg_edit_text"
         android:orientation="vertical">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
         <TextView
             android:id="@+id/textPedidoNome"
-            android:layout_width="match_parent"
+            android:layout_width="232dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
             android:layout_margin="8dp"
+            android:layout_marginStart="8dp"
             android:padding="2dp"
             android:text="Jamilton damasceno"
             android:textColor="@color/grey"
             android:textSize="16sp"
             android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textStatusPedido"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_marginEnd="8dp"
+            android:gravity="center"
+            android:padding="2dp"
+            android:background="@drawable/bg_edit_text"
+            android:layout_weight="1"
+            android:text="Pedido Finalizado"
+            android:textStyle="bold"/>
+
+    </LinearLayout>
 
         <TextView
             android:id="@+id/textPedidoEmail"
