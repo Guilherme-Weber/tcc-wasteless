@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -12,95 +13,140 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <RadioGroup
-        android:id="@+id/radioGroupMetodoPagamento"
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:orientation="horizontal">
+        android:padding="16dp"
+        android:layout_marginBottom="20dp"
+        android:text="Pagamento"
+        android:textAlignment="center"
+        android:textColor="@color/grey"
+        android:textSize="24sp"
+        android:textStyle="bold" />
 
-        <RadioButton
-            android:id="@+id/radioButtonCredito"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/grey"
-            android:buttonTint="@color/grey"
-            android:checked="true"
-            android:text="Cartão de Crédito" />
-
-        <RadioButton
-            android:id="@+id/radioButtonDebito"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/grey"
-            android:buttonTint="@color/grey"
-            android:text="Cartão de Débito" />
-
-        <RadioButton
-            android:id="@+id/radioButtonPix"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/grey"
-            android:buttonTint="@color/grey"
-            android:text="Pix" />
-    </RadioGroup>
-
-    <LinearLayout
-        android:id="@+id/layoutCartaoCredito"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:orientation="vertical"
-        android:visibility="visible">
+        android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/textNumeroCartao"
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:padding="8dp"
-            android:background="@drawable/bg_edit_text"
-            android:hint="Número do Cartão"
-            android:inputType="number"
-            android:maxLength="19"
-            android:textColor="@color/quad"
-            android:textSize="14sp" />
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            app:cardCornerRadius="8dp">
 
-        <EditText
-            android:id="@+id/textDataExpiracao"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/bg_edit_text"
-            android:hint="Data de Expiração (MM/YY)"
-            android:inputType="number"
-            android:maxLength="5"
-            android:padding="12dp"
-            android:textColor="@color/quad"
-            android:textSize="14sp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/textCVV"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/bg_edit_text"
-            android:hint="CVV"
-            android:inputType="number"
-            android:maxLength="3"
-            android:padding="12dp"
-            android:textColor="@color/quad"
-            android:textSize="14sp" />
-    </LinearLayout>
 
-    <Button
-        android:id="@+id/buttonPagar"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginTop="16dp"
-        android:backgroundTint="@color/secundaria"
-        android:padding="12dp"
-        android:text="Efetuar pagamento"
-        android:textColor="@color/white"
-        android:textSize="12sp"
-        android:theme="@style/botaoPadrao" />
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="match_parent"
+                    android:layout_height="38dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_weight="1"
+                    android:text="Qual será a forma de pagamento?"
+                    android:textAlignment="center"
+                    android:textColor="@color/grey"
+                    android:textSize="14sp" />
+
+                <RadioGroup
+                    android:id="@+id/radioGroupMetodoPagamento"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/radioButtonCredito"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/grey"
+                        android:buttonTint="@color/grey"
+                        android:checked="true"
+                        android:text="Cartão de Crédito" />
+
+                    <RadioButton
+                        android:id="@+id/radioButtonDebito"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/grey"
+                        android:buttonTint="@color/grey"
+                        android:text="Cartão de Débito" />
+
+                    <RadioButton
+                        android:id="@+id/radioButtonPix"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/grey"
+                        android:buttonTint="@color/grey"
+                        android:text="Pix" />
+                </RadioGroup>
+
+                <LinearLayout
+                    android:id="@+id/layoutCartaoCredito"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:orientation="vertical"
+                    android:visibility="visible">
+
+                    <EditText
+                        android:id="@+id/textNumeroCartao"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/bg_edit_text"
+                        android:hint="Número do Cartão"
+                        android:inputType="number"
+                        android:maxLength="19"
+                        android:padding="8dp"
+                        android:textColor="@color/quad"
+                        android:textSize="14sp" />
+
+                    <EditText
+                        android:id="@+id/textDataExpiracao"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="16dp"
+                        android:background="@drawable/bg_edit_text"
+                        android:hint="Data de Expiração (MM/YY)"
+                        android:inputType="number"
+                        android:maxLength="5"
+                        android:padding="12dp"
+                        android:textColor="@color/quad"
+                        android:textSize="14sp" />
+
+                    <EditText
+                        android:id="@+id/textCVV"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="16dp"
+                        android:background="@drawable/bg_edit_text"
+                        android:hint="CVV"
+                        android:inputType="number"
+                        android:maxLength="3"
+                        android:padding="12dp"
+                        android:textColor="@color/quad"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/buttonPagar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:backgroundTint="@color/secundaria"
+                    android:padding="16dp"
+                    android:text="Efetuar pagamento"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    android:theme="@style/botaoPadrao" />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </ScrollView>
 </androidx.appcompat.widget.LinearLayoutCompat>
