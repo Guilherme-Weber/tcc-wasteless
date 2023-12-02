@@ -3,54 +3,75 @@ package com.guilhermeweber.wasteless.activity.activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.Html;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 
 import com.blackcat.currencyedittext.CurrencyEditText;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
 import com.guilhermeweber.wasteless.R;
+import com.guilhermeweber.wasteless.activity.helper.ConfigFirebase;
+import com.guilhermeweber.wasteless.activity.model.Empresa;
 import com.guilhermeweber.wasteless.activity.model.Pedido;
 
 import java.util.Locale;
 
 public class PagamentoActivity extends AppCompatActivity {
+    String contact = "+55 41 99844-2385";
     private RadioGroup radioGroupMetodoPagamento;
+    private RadioButton radioButtonCredito, radioButtonDebito, radioButtonPix;
     private LinearLayout layoutCartaoCredito;
-    private EditText textNumeroCartao;
-    private EditText textDataExpiracao;
-    private EditText textCVV;
+    private EditText textNumeroCartao, textDataExpiracao, textCVV;
     private Button buttonPagar;
     private Pedido pedido;
+    private Double totalCarrinho;
+    private FirebaseAuth auth;
+    private DatabaseReference firebaseRef;
     private CurrencyEditText editTextCascalho;
+    private String formaPagamento; // 1 = crédito 2 = débito 3 = pix
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pagamento);
 
+        inicializarComponentes();
+        firebaseRef = ConfigFirebase.getFirebase();
+        auth = ConfigFirebase.getFireAuth();
+
         //config toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("Pagamento");
         setSupportActionBar(toolbar);
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        inicializarComponentes();
-
         Bundle bundle = getIntent().getExtras();
-        if (bundle != null) pedido = (Pedido) bundle.getSerializable("pedido");
+        if (bundle != null) {
+            pedido = (Pedido) bundle.getSerializable("pedido");
+            totalCarrinho = bundle.getDouble("totalCarrinho");
+            editTextCascalho.setValue(Double.valueOf(totalCarrinho).longValue());
+        }
 
         radioGroupMetodoPagamento.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -62,6 +83,14 @@ public class PagamentoActivity extends AppCompatActivity {
                 } else {
                     // Esconde os campos do cartão de crédito se selecionar Pix
                     layoutCartaoCredito.setVisibility(View.GONE);
+                }
+
+                if (checkedId == R.id.radioButtonCredito) {
+                    formaPagamento = "1";
+                } else if (checkedId == R.id.radioButtonDebito) {
+                    formaPagamento = "2";
+                } else if (checkedId == R.id.radioButtonPix) {
+                    formaPagamento = "3";
                 }
             }
         });
@@ -107,9 +136,9 @@ public class PagamentoActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                String cleanText = s.toString().replace("/", "");
-                if (cleanText.length() > 2) {
-                    String formattedText = cleanText.substring(0, 2) + "/" + cleanText.substring(2);
+                String cleanText1 = s.toString().replace("/", "");
+                if (cleanText1.length() > 2) {
+                    String formattedText = cleanText1.substring(0, 2) + "/" + cleanText1.substring(2);
                     textDataExpiracao.removeTextChangedListener(this);
                     textDataExpiracao.setText(formattedText);
                     textDataExpiracao.setSelection(formattedText.length());
@@ -125,26 +154,28 @@ public class PagamentoActivity extends AppCompatActivity {
 
                 // Lógica de pagamento aqui
                 if (realizarPagamento()) {
-                    mostrarAlertaPedidoConfirmado();
+
+                    pagamentoLogica();
+
+//                    mostrarAlertaPedidoConfirmado();
                 }
             }
         });
     }
 
-    private void inicializarComponentes() {
+    private void pagamentoLogica() {
 
-        radioGroupMetodoPagamento = findViewById(R.id.radioGroupMetodoPagamento);
-        layoutCartaoCredito = findViewById(R.id.layoutCartaoCredito);
-        textNumeroCartao = findViewById(R.id.textNumeroCartao);
-        textDataExpiracao = findViewById(R.id.textDataExpiracao);
-        textCVV = findViewById(R.id.textCVV);
-        buttonPagar = findViewById(R.id.buttonPagar);
-        editTextCascalho = findViewById(R.id.editTextCascalho);
-        Locale locale = new Locale("pt", "BR");
-        editTextCascalho.setLocale(locale);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("");
+
+
+
+        AlertDialog alertDialog = builder.create();
+
     }
 
     private boolean realizarPagamento() {
+
         if (radioGroupMetodoPagamento.getCheckedRadioButtonId() == -1) {
             exibirMensagemErro("Selecione um método de pagamento");
             return false;
@@ -182,6 +213,7 @@ public class PagamentoActivity extends AppCompatActivity {
         alertDialog.show();
     }
 
+
     private void mostrarAlertaPedidoConfirmado() {
         int corSecundaria = ContextCompat.getColor(this, R.color.secundaria);
 
@@ -217,5 +249,77 @@ public class PagamentoActivity extends AppCompatActivity {
         }
 
         alertDialog.show();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_usuario_carr_pag, menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        if (item.getItemId() == android.R.id.home) {
+            startActivity(new Intent(this, HomeActivity.class));
+        } else if (item.getItemId() == R.id.zapzap) {
+            abrirZapZap();
+        } else if (item.getItemId() == R.id.menuConfig) {
+            abrirConfig();
+        } else if (item.getItemId() == R.id.menuSair) {
+            deslogarUsuario();
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void abrirConfig() {
+        startActivity(new Intent(this, ConfigUsuarioActivity.class));
+    }
+
+    private void deslogarUsuario() {
+        try {
+            //desloga o usuario atual
+            auth.signOut();
+            startActivity(new Intent(this, AutentificacaoActivity.class));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void abrirZapZap() {
+        String url = "https://api.whatsapp.com/send?phone=" + contact;
+        try {
+            PackageManager pm = this.getPackageManager();
+            pm.getPackageInfo("com.whatsapp", PackageManager.GET_ACTIVITIES);
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse(url));
+            startActivity(i);
+        } catch (PackageManager.NameNotFoundException e) {
+            Toast.makeText(this, "Parece que você não tem o WhatsApp instalado...", Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+        }
+    }
+
+    private void mensagemToast(String texto) {
+        Toast.makeText(this, texto, Toast.LENGTH_SHORT).show();
+    }
+
+    private void inicializarComponentes() {
+
+        radioGroupMetodoPagamento = findViewById(R.id.radioGroupMetodoPagamento);
+        radioButtonCredito = findViewById(R.id.radioButtonCredito);
+        radioButtonDebito = findViewById(R.id.radioButtonDebito);
+        radioButtonPix = findViewById(R.id.radioButtonPix);
+        layoutCartaoCredito = findViewById(R.id.layoutCartaoCredito);
+        textNumeroCartao = findViewById(R.id.textNumeroCartao);
+        textDataExpiracao = findViewById(R.id.textDataExpiracao);
+        textCVV = findViewById(R.id.textCVV);
+        buttonPagar = findViewById(R.id.buttonPagar);
+        editTextCascalho = findViewById(R.id.editTextCascalho);
+        Locale locale = new Locale("pt", "BR");
+        editTextCascalho.setLocale(locale);
     }
 }

@@ -73,7 +73,7 @@ public class CardapioActivity extends AppCompatActivity {
     private String idEmpresa, idUsuarioLogado;
     private AlertDialog dialog;
     private int qtdItensCarrinho, metodoPagamento;
-    private Double totalCarrinho;
+    private Double totalCarrinho, totalCarrinho2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -294,6 +294,20 @@ public class CardapioActivity extends AppCompatActivity {
 
     private void confirmarQuantidade(int position) {
 
+        // Layout para armazenar os TextViews
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        LinearLayout linearLayout = new LinearLayout(this);
+        linearLayout.setOrientation(LinearLayout.VERTICAL);
+        LinearLayout linearLayoutP = new LinearLayout(this);
+        linearLayoutP.setOrientation(LinearLayout.VERTICAL);
+        linearLayoutP.setPadding(20, 20, 20, 20);
+        linearLayoutP.addView(linearLayout, layoutParams);
+
+        TextView textViewVazio = new TextView(this);
+
+        linearLayout.setBackgroundResource(R.drawable.bg_edit_text);
+        linearLayout.setPadding(20, 20, 20, 20);
+
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Quantidade");
         builder.setMessage("Informe a Quantidade");
@@ -301,7 +315,9 @@ public class CardapioActivity extends AppCompatActivity {
         EditText editQuantidade = new EditText(this);
         editQuantidade.setText("1");
 
-        builder.setView(editQuantidade);
+        linearLayout.addView(editQuantidade);
+
+        builder.setView(linearLayoutP);
 
         int corSecundaria = ContextCompat.getColor(this, R.color.secundaria);
 
@@ -425,6 +441,8 @@ public class CardapioActivity extends AppCompatActivity {
                 textCarrinhoQtd.setText("Quantidade: " + String.valueOf(qtdItensCarrinho));
                 textCarrinhoTotal.setValue(Double.valueOf(totalCarrinho).longValue());
 
+                totalCarrinho2 = totalCarrinho;
+
                 dialog.dismiss();
             }
 
@@ -457,7 +475,7 @@ public class CardapioActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_cardapio, menu);
+        inflater.inflate(R.menu.menu_usuario_carr_pag, menu);
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -466,12 +484,30 @@ public class CardapioActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
         if (item.getItemId() == android.R.id.home) {
-            finish();
+            startActivity(new Intent(this, HomeActivity.class));
         } else if (item.getItemId() == R.id.zapzap) {
             abrirZapZap();
+        } else if (item.getItemId() == R.id.menuConfig) {
+            abrirConfig();
+        } else if (item.getItemId() == R.id.menuSair) {
+            deslogarUsuario();
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void abrirConfig() {
+        startActivity(new Intent(this, ConfigUsuarioActivity.class));
+    }
+
+    private void deslogarUsuario() {
+        try {
+            //desloga o usuario atual
+            auth.signOut();
+            startActivity(new Intent(this, AutentificacaoActivity.class));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void abrirZapZap() {
@@ -491,6 +527,7 @@ public class CardapioActivity extends AppCompatActivity {
     private void confirmarPedidoNovo() {
         Intent intent = new Intent(CardapioActivity.this, PagamentoActivity.class);
         intent.putExtra("pedido", pedidoRecuperado);
+        intent.putExtra("totalCarrinho", totalCarrinho2);
         startActivity(intent);
     }
 

@@ -68,7 +68,6 @@ public class ConfigUsuarioActivity extends AppCompatActivity implements View.OnC
     private DatabaseReference firebaseRef;
     private String idLogUsuario, urlImagemSelecionada;
     private List<String> listaFotosRec = new ArrayList<>();
-
     private FirebaseAuth auth;
 
     @Override
@@ -212,7 +211,6 @@ public class ConfigUsuarioActivity extends AppCompatActivity implements View.OnC
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_usuario_config, menu);
 
@@ -270,6 +268,5 @@ public class ConfigUsuarioActivity extends AppCompatActivity implements View.OnC
         editTextEmailUsuConfig = findViewById(R.id.editTextEmailUsuConfig);
         imageUsuario = findViewById(R.id.imageUsuario);
         imageUsuario.setOnClickListener(this);
-
     }
 }
