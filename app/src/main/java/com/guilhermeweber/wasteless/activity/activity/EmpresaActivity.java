@@ -1,20 +1,26 @@
 package com.guilhermeweber.wasteless.activity.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -84,15 +90,61 @@ public class EmpresaActivity extends AppCompatActivity {
 
             @Override
             public void onLongItemClick(View view, int position) {
-                Produto produtoSelecionado = produtos.get(position);
-                produtoSelecionado.remover(produtoSelecionado.getIdProduto());
-                mensagemToast("Produto removido");
+                removerPedido(position);
             }
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             }
         }));
+    }
+
+    private void removerPedido(int position) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        // Layout para armazenar os TextViews
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        LinearLayout linearLayout = new LinearLayout(this);
+        linearLayout.setOrientation(LinearLayout.VERTICAL);
+        linearLayout.setBackgroundResource(R.drawable.bg_edit_text);
+        linearLayout.setPadding(20, 20, 20, 20);
+
+        LinearLayout linearLayoutP = new LinearLayout(this);
+        linearLayoutP.setOrientation(LinearLayout.VERTICAL);
+        linearLayoutP.setPadding(20, 20, 20, 20);
+        linearLayoutP.addView(linearLayout, layoutParams);
+
+        TextView textViewVazio = new TextView(this);
+
+        TextView massageQuantidadeTitle = new TextView(this);
+        massageQuantidadeTitle.setTextSize(20);
+        massageQuantidadeTitle.setTextColor(Color.BLACK);
+        massageQuantidadeTitle.setText("Tem certeza que deseja remover esse produto?");
+
+        linearLayout.addView(massageQuantidadeTitle);
+
+        int corSecundaria = ContextCompat.getColor(this, R.color.secundaria);
+        builder.setPositiveButton(Html.fromHtml("<font color='" + corSecundaria + "'>Remover Produto</font>"), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                Produto produtoSelecionado = produtos.get(position);
+                produtoSelecionado.remover(produtoSelecionado.getIdProduto());
+                mensagemToast("Produto removido");
+
+            }
+        }).setNeutralButton(Html.fromHtml("<font color='" + corSecundaria + "'>Voltar</font>"), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+
+        builder.setView(linearLayoutP);
+
+        AlertDialog alertDialog = builder.create();
+
+        alertDialog.show();
     }
 
     private void mensagemToast(String texto) {

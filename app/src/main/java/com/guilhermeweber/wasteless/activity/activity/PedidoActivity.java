@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Html;
@@ -13,6 +14,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -101,7 +104,32 @@ public class PedidoActivity extends AppCompatActivity {
         int corSecundaria = ContextCompat.getColor(this, R.color.secundaria);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Deseja finalizar esse pedido?");
+
+        // Layout para armazenar os TextViews
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        LinearLayout linearLayout = new LinearLayout(this);
+        linearLayout.setOrientation(LinearLayout.VERTICAL);
+        linearLayout.setBackgroundResource(R.drawable.bg_edit_text);
+        linearLayout.setPadding(20, 20, 20, 20);
+
+        LinearLayout linearLayoutP = new LinearLayout(this);
+        linearLayoutP.setOrientation(LinearLayout.VERTICAL);
+        linearLayoutP.setPadding(20, 20, 20, 20);
+        linearLayoutP.addView(linearLayout, layoutParams);
+
+        TextView textViewVazio = new TextView(this);
+
+        TextView massageQuantidadeTitle = new TextView(this);
+        massageQuantidadeTitle.setTextSize(20);
+        massageQuantidadeTitle.setPadding(20, 20, 20, 20);
+        massageQuantidadeTitle.setBackgroundResource(R.drawable.bg_edit_text);
+        massageQuantidadeTitle.setTextColor(Color.BLACK);
+        massageQuantidadeTitle.setText("Pagamento");
+
+        linearLayout.addView(massageQuantidadeTitle);
+
+        builder.setView(linearLayoutP);
+
         builder.setPositiveButton(Html.fromHtml("<font color='" + corSecundaria + "'>Finalizar Pedido</font>"), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -173,7 +201,7 @@ public class PedidoActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
         if (item.getItemId() == android.R.id.home) {
-            deslogarUsuario();
+            startActivity(new Intent(this, HomeActivity.class));
         } else if (item.getItemId() == R.id.zapzap) {
             abrirZapZap();
         } else if (item.getItemId() == R.id.menuConfig) {

@@ -4,19 +4,25 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.Html;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -36,7 +42,11 @@ import com.guilhermeweber.wasteless.activity.helper.ConfigFirebase;
 import com.guilhermeweber.wasteless.activity.model.Empresa;
 import com.guilhermeweber.wasteless.activity.model.Pedido;
 
+import java.io.InputStream;
 import java.util.Locale;
+import java.util.Random;
+
+import dmax.dialog.SpotsDialog;
 
 public class PagamentoActivity extends AppCompatActivity {
     String contact = "+55 41 99844-2385";
@@ -52,6 +62,7 @@ public class PagamentoActivity extends AppCompatActivity {
     private DatabaseReference firebaseRef;
     private CurrencyEditText editTextCascalho;
     private String formaPagamento; // 1 = crédito 2 = débito 3 = pix
+    private AlertDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -168,10 +179,7 @@ public class PagamentoActivity extends AppCompatActivity {
     }
 
     private void pagamentoLogica() {
-
-//        radioButtonCredito = findViewById(R.id.radioButtonCredito);
-//        radioButtonDebito = findViewById(R.id.radioButtonDebito);
-//        radioButtonPix = findViewById(R.id.radioButtonPix);
+        int corSecundaria = ContextCompat.getColor(this, R.color.secundaria);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
@@ -188,34 +196,71 @@ public class PagamentoActivity extends AppCompatActivity {
         linearLayoutP.addView(linearLayout, layoutParams);
 
         TextView textViewVazio = new TextView(this);
+        TextView textViewVazi2 = new TextView(this);
 
         TextView massageQuantidadeTitle = new TextView(this);
         massageQuantidadeTitle.setTextSize(20);
         massageQuantidadeTitle.setPadding(20, 20, 20, 20);
         massageQuantidadeTitle.setBackgroundResource(R.drawable.bg_edit_text);
         massageQuantidadeTitle.setTextColor(Color.BLACK);
-        massageQuantidadeTitle.setText("Carrinho");
+        massageQuantidadeTitle.setText("Pagamento");
 
         linearLayout.addView(massageQuantidadeTitle);
 
+        linearLayout.addView(textViewVazio);
 
         if (radioButtonPix.isChecked()) {
             TextView textViewPix = new TextView(this);
 
             if (TextUtils.isEmpty(empresa.getPix())) {
-                textViewPix.setText("Pix de pagamento: 998472547");
+                textViewPix.setText("Pix para pagamento manual: 998472547");
             } else {
-                textViewPix.setText("Pix de pagamento: " + empresa.getPix());
+                textViewPix.setText("Pix para pagamento manual: " + empresa.getPix());
             }
 
             textViewPix.setBackgroundColor(Color.WHITE);
             linearLayout.addView(textViewPix);
         }
 
+        linearLayout.addView(textViewVazi2);
+
+        ImageView imageView = new ImageView(this);
+
+        new DownloadImageTask((ImageView) imageView).execute("https://i.pinimg.com/originals/60/c1/4a/60c14a43fb4745795b3b358868517e79.png");
+
+        imageView.setBackgroundResource(R.drawable.bg_edit_text);
+        imageView.setPadding(20, 20, 20, 20);
+
+        linearLayout.addView(imageView);
+
+        builder.setPositiveButton(Html.fromHtml("<font color='" + corSecundaria + "'>OK</font>"), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                fakeLoading();
+            }
+        });
+
         builder.setView(linearLayoutP);
 
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
+    }
+
+    private void fakeLoading() {
+        dialog = new SpotsDialog.Builder().setContext(this).setMessage("Carregando Dados").setCancelable(false).build();
+        dialog.show();
+
+        final int min = 2000;
+        final int max = 5000;
+        final int randoom = new Random().nextInt((max - min) + 1) + min;
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                dialog.dismiss();
+                mostrarAlertaPedidoConfirmado();
+            }
+        }, randoom);
     }
 
     private boolean realizarPagamento() {
@@ -256,7 +301,6 @@ public class PagamentoActivity extends AppCompatActivity {
 
         alertDialog.show();
     }
-
 
     private void mostrarAlertaPedidoConfirmado() {
         int corSecundaria = ContextCompat.getColor(this, R.color.secundaria);
@@ -365,5 +409,30 @@ public class PagamentoActivity extends AppCompatActivity {
         editTextCascalho = findViewById(R.id.editTextCascalho);
         Locale locale = new Locale("pt", "BR");
         editTextCascalho.setLocale(locale);
+    }
+
+    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        ImageView bmImage;
+
+        public DownloadImageTask(ImageView bmImage) {
+            this.bmImage = bmImage;
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = urls[0];
+            Bitmap mIcon11 = null;
+            try {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                mIcon11 = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
+            }
+            return mIcon11;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            bmImage.setImageBitmap(result);
+        }
     }
 }

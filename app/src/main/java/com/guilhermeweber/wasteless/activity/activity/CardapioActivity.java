@@ -214,8 +214,6 @@ public class CardapioActivity extends AppCompatActivity {
         linearLayoutD.setBackgroundResource(R.drawable.bg_edit_text);
         linearLayoutD.setPadding(20, 20, 20, 20);
 
-
-
         String total;
         total = String.valueOf(textCarrinhoTotal.getText());
         linearLayoutD.addView(alertText("Total: ", total));

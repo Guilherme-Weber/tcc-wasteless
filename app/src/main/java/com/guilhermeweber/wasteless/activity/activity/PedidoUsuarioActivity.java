@@ -73,21 +73,6 @@ public class PedidoUsuarioActivity extends AppCompatActivity {
         recyclerPedidos.setAdapter(adapterPedido);
 
         recuperarPedidos();
-
-        //click no recyclerview
-        recyclerPedidos.addOnItemTouchListener(new RecyclerItemClickListener(this, recyclerPedidos, new RecyclerItemClickListener.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-            }
-
-            @Override
-            public void onLongItemClick(View view, int position) {
-            }
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            }
-        }));
     }
 
     private void recuperarPedidos() {
