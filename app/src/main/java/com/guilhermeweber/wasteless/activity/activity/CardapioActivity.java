@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Html;
@@ -163,7 +164,6 @@ public class CardapioActivity extends AppCompatActivity {
         int corSecundaria = ContextCompat.getColor(this, R.color.secundaria);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Carrinho ");
 
         // Layout para armazenar os TextViews
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -174,8 +174,19 @@ public class CardapioActivity extends AppCompatActivity {
         linearLayoutP.setPadding(20, 20, 20, 20);
         linearLayoutP.addView(linearLayout, layoutParams);
         TextView textViewVazio = new TextView(this);
+        textViewVazio.setTextSize(5);
         linearLayout.setBackgroundResource(R.drawable.bg_edit_text);
         linearLayout.setPadding(20, 20, 20, 20);
+
+        TextView massageQuantidadeTitle = new TextView(this);
+        massageQuantidadeTitle.setTextSize(20);
+        massageQuantidadeTitle.setPadding(20, 20, 20, 20);
+        massageQuantidadeTitle.setBackgroundResource(R.drawable.bg_edit_text);
+        massageQuantidadeTitle.setTextColor(Color.BLACK);
+        massageQuantidadeTitle.setText("Carrinho");
+
+        linearLayout.addView(massageQuantidadeTitle);
+        linearLayout.addView(textViewVazio);
 
         for (int x = 0; x < itensCarrinho.size(); x++) {
 
@@ -194,10 +205,16 @@ public class CardapioActivity extends AppCompatActivity {
             linearLayout.addView(linearLayoutD);
         }
 
+        TextView textVazio = new TextView(this);
+        textVazio.setTextSize(5);
+        linearLayout.addView(textVazio);
+
         LinearLayout linearLayoutD = new LinearLayout(this);
         linearLayoutD.setOrientation(LinearLayout.VERTICAL);
         linearLayoutD.setBackgroundResource(R.drawable.bg_edit_text);
         linearLayoutD.setPadding(20, 20, 20, 20);
+
+
 
         String total;
         total = String.valueOf(textCarrinhoTotal.getText());
@@ -225,7 +242,6 @@ public class CardapioActivity extends AppCompatActivity {
             }
         });
 
-
         builder.setView(linearLayoutP);
 
         AlertDialog dialog = builder.create();
@@ -252,7 +268,7 @@ public class CardapioActivity extends AppCompatActivity {
     private void maisInfo() {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Informações Sobre " + empresaSelecionada.getNome());
+//        builder.setTitle("Informações Sobre " + empresaSelecionada.getNome());
 
         // Layout para armazenar os TextViews
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -268,6 +284,14 @@ public class CardapioActivity extends AppCompatActivity {
         linearLayout.setBackgroundResource(R.drawable.bg_edit_text);
         linearLayout.setPadding(20, 20, 20, 20);
 
+        TextView massageQuantidadeTitle = new TextView(this);
+        massageQuantidadeTitle.setTextSize(20);
+        massageQuantidadeTitle.setTextColor(Color.BLACK);
+        massageQuantidadeTitle.setPadding(20, 20, 20, 20);
+        massageQuantidadeTitle.setText("Informações Sobre " + empresaSelecionada.getNome());
+
+        linearLayout.addView(massageQuantidadeTitle);
+        linearLayout.addView(textViewVazio);
         linearLayout.addView(alertText("Email: ", empresaSelecionada.getEmail()), layoutParams);
         linearLayout.addView(alertText("Endereço: ", ""), layoutParams);
         linearLayout.addView(alertText("CEP: ", empresaSelecionada.getcEP()), layoutParams);
@@ -294,29 +318,51 @@ public class CardapioActivity extends AppCompatActivity {
 
     private void confirmarQuantidade(int position) {
 
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
         // Layout para armazenar os TextViews
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         LinearLayout linearLayout = new LinearLayout(this);
         linearLayout.setOrientation(LinearLayout.VERTICAL);
+        linearLayout.setBackgroundResource(R.drawable.bg_edit_text);
+        linearLayout.setPadding(20, 20, 20, 20);
+
         LinearLayout linearLayoutP = new LinearLayout(this);
         linearLayoutP.setOrientation(LinearLayout.VERTICAL);
         linearLayoutP.setPadding(20, 20, 20, 20);
         linearLayoutP.addView(linearLayout, layoutParams);
 
+        LinearLayout linearLayoutD = new LinearLayout(this);
+        linearLayoutD.setOrientation(LinearLayout.VERTICAL);
+        linearLayoutD.setBackgroundResource(R.drawable.bg_edit_text);
+        linearLayoutD.setPadding(20, 20, 20, 20);
+
         TextView textViewVazio = new TextView(this);
 
-        linearLayout.setBackgroundResource(R.drawable.bg_edit_text);
-        linearLayout.setPadding(20, 20, 20, 20);
+        TextView massageQuantidadeTitle = new TextView(this);
+        massageQuantidadeTitle.setTextSize(20);
+        massageQuantidadeTitle.setPadding(20, 20, 20, 20);
+        massageQuantidadeTitle.setTextColor(Color.BLACK);
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Quantidade");
-        builder.setMessage("Informe a Quantidade");
+        TextView vazio = new TextView(this);
+
+        TextView massageQuantidade = new TextView(this);
+        massageQuantidade.setTextSize(20);
 
         EditText editQuantidade = new EditText(this);
+//        editQuantidade.setBackgroundColor(Color.WHITE);
+
+        massageQuantidadeTitle.setText("Quantidade");
+//        linearLayout.addView(vazio);
+        massageQuantidade.setText("Informe a Quantidade");
         editQuantidade.setText("1");
 
-        linearLayout.addView(editQuantidade);
+        linearLayoutD.addView(editQuantidade);
 
+        linearLayout.addView(massageQuantidadeTitle);
+        linearLayout.addView(vazio);
+        linearLayout.addView(massageQuantidade);
+        linearLayout.addView(linearLayoutD);
         builder.setView(linearLayoutP);
 
         int corSecundaria = ContextCompat.getColor(this, R.color.secundaria);
@@ -438,7 +484,7 @@ public class CardapioActivity extends AppCompatActivity {
 
                 DecimalFormat df = new DecimalFormat("0.00");
 
-                textCarrinhoQtd.setText("Quantidade: " + String.valueOf(qtdItensCarrinho));
+                textCarrinhoQtd.setText("Quantidade: " + qtdItensCarrinho);
                 textCarrinhoTotal.setValue(Double.valueOf(totalCarrinho).longValue());
 
                 totalCarrinho2 = totalCarrinho;
@@ -527,6 +573,7 @@ public class CardapioActivity extends AppCompatActivity {
     private void confirmarPedidoNovo() {
         Intent intent = new Intent(CardapioActivity.this, PagamentoActivity.class);
         intent.putExtra("pedido", pedidoRecuperado);
+        intent.putExtra("empresa", empresaSelecionada);
         intent.putExtra("totalCarrinho", totalCarrinho2);
         startActivity(intent);
     }

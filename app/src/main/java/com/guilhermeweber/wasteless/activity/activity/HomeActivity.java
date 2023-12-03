@@ -111,7 +111,6 @@ public class HomeActivity extends AppCompatActivity {
                 Intent i = new Intent(HomeActivity.this, CardapioActivity.class);
                 i.putExtra("empresa", empresaSelecionada);
                 startActivity(i);
-
             }
 
             @Override

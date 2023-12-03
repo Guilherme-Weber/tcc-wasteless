@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
@@ -19,6 +20,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -44,6 +46,7 @@ public class PagamentoActivity extends AppCompatActivity {
     private EditText textNumeroCartao, textDataExpiracao, textCVV;
     private Button buttonPagar;
     private Pedido pedido;
+    private Empresa empresa;
     private Double totalCarrinho;
     private FirebaseAuth auth;
     private DatabaseReference firebaseRef;
@@ -69,6 +72,7 @@ public class PagamentoActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             pedido = (Pedido) bundle.getSerializable("pedido");
+            empresa = (Empresa) bundle.getSerializable("empresa");
             totalCarrinho = bundle.getDouble("totalCarrinho");
             editTextCascalho.setValue(Double.valueOf(totalCarrinho).longValue());
         }
@@ -165,13 +169,53 @@ public class PagamentoActivity extends AppCompatActivity {
 
     private void pagamentoLogica() {
 
+//        radioButtonCredito = findViewById(R.id.radioButtonCredito);
+//        radioButtonDebito = findViewById(R.id.radioButtonDebito);
+//        radioButtonPix = findViewById(R.id.radioButtonPix);
+
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("");
+
+        // Layout para armazenar os TextViews
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        LinearLayout linearLayout = new LinearLayout(this);
+        linearLayout.setOrientation(LinearLayout.VERTICAL);
+        linearLayout.setBackgroundResource(R.drawable.bg_edit_text);
+        linearLayout.setPadding(20, 20, 20, 20);
+
+        LinearLayout linearLayoutP = new LinearLayout(this);
+        linearLayoutP.setOrientation(LinearLayout.VERTICAL);
+        linearLayoutP.setPadding(20, 20, 20, 20);
+        linearLayoutP.addView(linearLayout, layoutParams);
+
+        TextView textViewVazio = new TextView(this);
+
+        TextView massageQuantidadeTitle = new TextView(this);
+        massageQuantidadeTitle.setTextSize(20);
+        massageQuantidadeTitle.setPadding(20, 20, 20, 20);
+        massageQuantidadeTitle.setBackgroundResource(R.drawable.bg_edit_text);
+        massageQuantidadeTitle.setTextColor(Color.BLACK);
+        massageQuantidadeTitle.setText("Carrinho");
+
+        linearLayout.addView(massageQuantidadeTitle);
 
 
+        if (radioButtonPix.isChecked()) {
+            TextView textViewPix = new TextView(this);
+
+            if (TextUtils.isEmpty(empresa.getPix())) {
+                textViewPix.setText("Pix de pagamento: 998472547");
+            } else {
+                textViewPix.setText("Pix de pagamento: " + empresa.getPix());
+            }
+
+            textViewPix.setBackgroundColor(Color.WHITE);
+            linearLayout.addView(textViewPix);
+        }
+
+        builder.setView(linearLayoutP);
 
         AlertDialog alertDialog = builder.create();
-
+        alertDialog.show();
     }
 
     private boolean realizarPagamento() {
