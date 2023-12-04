@@ -81,7 +81,6 @@ public class CadastroEnderecoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (validarCampos()) {
-
                     String cep = txtCEP.getText().toString().trim();
                     empresa.setcEP(cep);
 

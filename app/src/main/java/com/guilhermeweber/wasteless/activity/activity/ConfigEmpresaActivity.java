@@ -13,6 +13,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -52,14 +53,17 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class ConfigEmpresaActivity extends AppCompatActivity implements View.OnClickListener {
     private static final int SELECAO_GALERIA = 200;
+    private final String URL = "https://viacep.com.br/ws/";
     String contact = "+55 41 99844-2385";
     Empresa empresa = new Empresa();
     Usuario usuario = new Usuario();
     private Retrofit retrofitCEP;
+    private Button btnConsultarCEPConfig;
     private EditText editTextEmailEmpConfig, editTextNomeEmpresa, editTextEmpresaCEP, editTextLogradouroConfig, editTextComplementoConfig, editTextBairroConfig, editTextUFConfig, editTextCidadeConfig, editTextChavePix;
     private Spinner spinnerEmpresaCategoria;
     private MaskEditText editTextNumeroTelefone;
@@ -95,12 +99,29 @@ public class ConfigEmpresaActivity extends AppCompatActivity implements View.OnC
 
         editTextEmpresaCEP.addTextChangedListener(Mascara.insert(Mascara.MASCARA_CEP, editTextEmpresaCEP));
 
+        //configura os recursos do retrofit
+        retrofitCEP = new Retrofit.Builder().baseUrl(URL) //endereço do webservice
+                .addConverterFactory(GsonConverterFactory.create()) //conversor
+                .build();
+
         imagePerfilEmpresa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 if (i.resolveActivity(getPackageManager()) != null) {
                     startActivityForResult(i, SELECAO_GALERIA);
+                }
+            }
+        });
+
+        btnConsultarCEPConfig.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (validarCampos()) {
+                    String cep = editTextEmpresaCEP.getText().toString().trim();
+                    empresa.setcEP(cep);
+
+                    consultarCEP();
                 }
             }
         });
@@ -186,15 +207,6 @@ public class ConfigEmpresaActivity extends AppCompatActivity implements View.OnC
         //config umagem no ImageView
         imagePerfilEmpresa.setImageURI(imagemSelecionada);
         listaFotosRec.add(caminhoImagem);
-    }
-
-    public void CEP(View view) {
-        if (validarCampos()) {
-            String cep = editTextEmpresaCEP.getText().toString().trim();
-            empresa.setcEP(cep);
-
-            consultarCEP();
-        }
     }
 
     private void consultarCEP() {
@@ -398,6 +410,6 @@ public class ConfigEmpresaActivity extends AppCompatActivity implements View.OnC
         imagePerfilEmpresa.setOnClickListener(this);
         spinnerEmpresaCategoria = findViewById(R.id.spinnerEmpresaCategoria);
         editTextChavePix = findViewById(R.id.editTextChavePix);
-
+        btnConsultarCEPConfig = findViewById(R.id.btnConsultarCEPConfig);
     }
 }

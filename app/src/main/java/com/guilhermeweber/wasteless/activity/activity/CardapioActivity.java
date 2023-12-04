@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Html;
+import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -18,6 +19,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -223,10 +225,10 @@ public class CardapioActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 //confirmarPedido();
-                if (totalCarrinho == 0 || totalCarrinho == null) {
-                    confirmarPedidoNovo();
-                }else{
+                if (totalCarrinho == 0.0) {
                     mensagemToast("Parece que o seu carrinho esta vazio!");
+                } else {
+                    confirmarPedidoNovo();
                 }
             }
         });
@@ -269,6 +271,8 @@ public class CardapioActivity extends AppCompatActivity {
 
     private void maisInfo() {
 
+        int corSecundaria = ContextCompat.getColor(this, R.color.secundaria);
+
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 //        builder.setTitle("Informações Sobre " + empresaSelecionada.getNome());
 
@@ -290,7 +294,7 @@ public class CardapioActivity extends AppCompatActivity {
         massageQuantidadeTitle.setTextSize(20);
         massageQuantidadeTitle.setTextColor(Color.BLACK);
         massageQuantidadeTitle.setPadding(20, 20, 20, 20);
-        massageQuantidadeTitle.setText("Informações Sobre " + empresaSelecionada.getNome());
+        massageQuantidadeTitle.setText("Informações Sobre \n" + empresaSelecionada.getNome());
 
         linearLayout.addView(massageQuantidadeTitle);
         linearLayout.addView(textViewVazio);
@@ -303,9 +307,148 @@ public class CardapioActivity extends AppCompatActivity {
         linearLayout.addView(alertText("Logradouro: ", empresaSelecionada.getLogradouro()), layoutParams);
         linearLayout.addView(alertText("Complemento(opcional): ", empresaSelecionada.getComplemento()), layoutParams);
 
+
+        //calculo de media
+        double totalNum = empresaSelecionada.getTotalAnalise();
+        double totalAva = empresaSelecionada.getTotalStrela();
+        double average = 0;
+
+        if (totalNum == 0) {
+            if (totalAva == 0) {
+            } else {
+                average = totalNum / totalAva;
+            }
+        } else {
+            average = totalNum / totalAva;
+        }
+
+        linearLayout.addView(alertText("Nota da empresa: ", String.format("%.1f", average)), layoutParams);
+
+        ProgressBar progressBar = new ProgressBar(this, null, android.R.attr.progressBarStyleHorizontal);
+
+        average = average * 10;
+        int averageInt = (int) average;
+        progressBar.setProgress(averageInt);
+
+        progressBar.setPadding(20, 20, 20, 20);
+
+        int color_int = ContextCompat.getColor(this, R.color.secundaria);
+
+        linearLayout.addView(progressBar);
+
+        builder.setNegativeButton(Html.fromHtml("<font color='" + corSecundaria + "'>Avaliar</font>"), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                avaliacao();
+            }
+        });
+
+        progressBar.getProgressDrawable().setColorFilter(color_int, android.graphics.PorterDuff.Mode.SRC_IN);
+
         builder.setView(linearLayoutP);
 
         AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    private void avaliacao() {
+
+        int corSecundaria = ContextCompat.getColor(this, R.color.secundaria);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this).setCancelable(false);
+
+        // Layout para armazenar os TextViews
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        LinearLayout linearLayout = new LinearLayout(this);
+        linearLayout.setOrientation(LinearLayout.VERTICAL);
+        LinearLayout linearLayoutP = new LinearLayout(this);
+        linearLayoutP.setOrientation(LinearLayout.VERTICAL);
+        linearLayoutP.setPadding(20, 20, 20, 20);
+        linearLayoutP.addView(linearLayout, layoutParams);
+
+        TextView textViewVazio = new TextView(this);
+
+        linearLayout.setBackgroundResource(R.drawable.bg_edit_text);
+        linearLayout.setPadding(20, 20, 20, 20);
+
+        TextView massageQuantidadeTitle = new TextView(this);
+        massageQuantidadeTitle.setTextSize(20);
+        massageQuantidadeTitle.setTextColor(Color.BLACK);
+        massageQuantidadeTitle.setPadding(20, 20, 20, 20);
+        massageQuantidadeTitle.setBackgroundResource(R.drawable.bg_edit_text);
+        massageQuantidadeTitle.setText("Avaliação");
+
+        EditText editQuantidade = new EditText(this);
+        editQuantidade.setBackgroundColor(Color.WHITE);
+
+        TextView vazio = new TextView(this);
+        vazio.setTextSize(4);
+
+        TextView massageQuantidade = new TextView(this);
+        massageQuantidade.setTextSize(20);
+
+//        linearLayout.addView(vazio);
+        massageQuantidade.setText("Informe uma nota entre 1 e 5");
+        massageQuantidade.setPadding(20, 20, 20, 20);
+        editQuantidade.setPadding(20, 20, 20, 20);
+        editQuantidade.setText("1");
+
+        LinearLayout linearLayoutD = new LinearLayout(this);
+        linearLayoutD.setOrientation(LinearLayout.VERTICAL);
+        linearLayoutD.setBackgroundResource(R.drawable.bg_edit_text);
+        linearLayoutD.setPadding(20, 20, 20, 20);
+
+        linearLayoutD.addView(massageQuantidade);
+        linearLayoutD.addView(editQuantidade);
+
+        linearLayout.addView(massageQuantidadeTitle);
+        linearLayout.addView(linearLayoutD);
+
+        editQuantidade.setInputType(InputType.TYPE_CLASS_NUMBER);
+
+        builder.setPositiveButton(Html.fromHtml("<font color='" + corSecundaria + "'>Confirmar</font>"), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                String nota = editQuantidade.getText().toString();
+
+                if (nota.equals("1") || nota.equals("2") || nota.equals("3") || nota.equals("4") || nota.equals("5")) {
+
+                    double tAnalize = empresaSelecionada.getTotalAnalise();
+                    double tStrela = empresaSelecionada.getTotalStrela();
+
+                    int notaInt = Integer.parseInt(nota);
+
+                    tAnalize = tAnalize + notaInt;
+                    tStrela = tStrela + 1;
+
+                    double StrelaP = tAnalize / tStrela;
+
+                    empresaSelecionada.setTotalAnalise(Integer.parseInt(String.format("%.0f", tAnalize)));
+                    empresaSelecionada.setTotalStrela(Integer.parseInt(String.format("%.0f", tStrela)));
+
+                    empresaSelecionada.setStrela(Double.valueOf(String.format("%.2f", StrelaP)));
+
+                    empresaSelecionada.salvar();
+
+                } else {
+                    mensagemToast("nota deve ser entre 1 e 5!");
+                    avaliacao();
+                }
+
+                mensagemToast("Obrigado pelo seu feedback!");
+
+            }
+        }).setNegativeButton(Html.fromHtml("<font color='" + corSecundaria + "'>Cancelar</font>"), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+
+        builder.setView(linearLayoutP);
+
+        AlertDialog dialog = builder.create();
+
         dialog.show();
     }
 
@@ -319,6 +462,8 @@ public class CardapioActivity extends AppCompatActivity {
     }
 
     private void confirmarQuantidade(int position) {
+
+        int corSecundaria = ContextCompat.getColor(this, R.color.secundaria);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
@@ -362,6 +507,7 @@ public class CardapioActivity extends AppCompatActivity {
         massageQuantidade.setText("Informe a Quantidade:");
         massageQuantidade.setPadding(20, 20, 20, 20);
         editQuantidade.setPadding(20, 20, 20, 20);
+        editQuantidade.setInputType(InputType.TYPE_CLASS_NUMBER);
         editQuantidade.setText("1");
 
         linearLayoutD.addView(massageQuantidade);
@@ -371,8 +517,6 @@ public class CardapioActivity extends AppCompatActivity {
         linearLayout.addView(textViewVazio);
         linearLayout.addView(linearLayoutD);
         builder.setView(linearLayoutP);
-
-        int corSecundaria = ContextCompat.getColor(this, R.color.secundaria);
 
         builder.setPositiveButton(Html.fromHtml("<font color='" + corSecundaria + "'>Confirmar</font>"), new DialogInterface.OnClickListener() {
             @Override
