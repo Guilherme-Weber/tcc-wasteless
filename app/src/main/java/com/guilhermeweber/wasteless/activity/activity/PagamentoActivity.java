@@ -50,6 +50,7 @@ import dmax.dialog.SpotsDialog;
 
 public class PagamentoActivity extends AppCompatActivity {
     String contact = "+55 41 99844-2385";
+    String urlImage = "https://media.discordapp.net/attachments/831903573469560892/1181038360953896990/Screenshot_20231203-220329_Mercado_Pago.jpg?ex=657f9aaf&is=656d25af&hm=d60022a52cc6291554ec6aa5416798b9267cea150c1d398fbab2b9346142639a&=&format=webp&width=660&height=671";
     private RadioGroup radioGroupMetodoPagamento;
     private RadioButton radioButtonCredito, radioButtonDebito, radioButtonPix;
     private LinearLayout layoutCartaoCredito;
@@ -169,9 +170,7 @@ public class PagamentoActivity extends AppCompatActivity {
 
                 // Lógica de pagamento aqui
                 if (realizarPagamento()) {
-
                     pagamentoLogica();
-
 //                    mostrarAlertaPedidoConfirmado();
                 }
             }
@@ -181,7 +180,16 @@ public class PagamentoActivity extends AppCompatActivity {
     private void pagamentoLogica() {
         int corSecundaria = ContextCompat.getColor(this, R.color.secundaria);
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        if (radioButtonCredito.isChecked()) {
+            fakeLoading();
+            return;
+        }
+        if (radioButtonDebito.isChecked()) {
+            fakeLoading();
+            return;
+        }
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this).setCancelable(false);
 
         // Layout para armazenar os TextViews
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -203,37 +211,41 @@ public class PagamentoActivity extends AppCompatActivity {
         massageQuantidadeTitle.setPadding(20, 20, 20, 20);
         massageQuantidadeTitle.setBackgroundResource(R.drawable.bg_edit_text);
         massageQuantidadeTitle.setTextColor(Color.BLACK);
-        massageQuantidadeTitle.setText("Pagamento");
+        massageQuantidadeTitle.setText("Pagamento Pix");
 
         linearLayout.addView(massageQuantidadeTitle);
 
+        textViewVazio.setTextSize(8);
         linearLayout.addView(textViewVazio);
 
         if (radioButtonPix.isChecked()) {
             TextView textViewPix = new TextView(this);
 
             if (TextUtils.isEmpty(empresa.getPix())) {
-                textViewPix.setText("Pix para pagamento manual: 998472547");
+                textViewPix.setText("Chave para pagamento manual: 998472547");
             } else {
-                textViewPix.setText("Pix para pagamento manual: " + empresa.getPix());
+                textViewPix.setText("Chave para pagamento manual: " + empresa.getPix());
             }
 
             textViewPix.setBackgroundColor(Color.WHITE);
+            textViewPix.setPadding(20, 20, 20, 20);
+            textViewPix.setBackgroundResource(R.drawable.bg_edit_text);
             linearLayout.addView(textViewPix);
+
+            textViewVazi2.setTextSize(8);
+            linearLayout.addView(textViewVazi2);
+
+            ImageView imageView = new ImageView(this);
+
+            new DownloadImageTask((ImageView) imageView).execute(urlImage);
+
+            imageView.setBackgroundResource(R.drawable.bg_edit_text);
+            imageView.setPadding(20, 20, 20, 20);
+
+            linearLayout.addView(imageView);
         }
 
-        linearLayout.addView(textViewVazi2);
-
-        ImageView imageView = new ImageView(this);
-
-        new DownloadImageTask((ImageView) imageView).execute("https://i.pinimg.com/originals/60/c1/4a/60c14a43fb4745795b3b358868517e79.png");
-
-        imageView.setBackgroundResource(R.drawable.bg_edit_text);
-        imageView.setPadding(20, 20, 20, 20);
-
-        linearLayout.addView(imageView);
-
-        builder.setPositiveButton(Html.fromHtml("<font color='" + corSecundaria + "'>OK</font>"), new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(Html.fromHtml("<font color='" + corSecundaria + "'>Confirmar Pagamento</font>"), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 fakeLoading();

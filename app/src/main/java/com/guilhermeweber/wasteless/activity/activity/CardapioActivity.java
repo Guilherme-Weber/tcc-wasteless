@@ -223,7 +223,11 @@ public class CardapioActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 //confirmarPedido();
-                confirmarPedidoNovo();
+                if (totalCarrinho == 0 || totalCarrinho == null) {
+                    confirmarPedidoNovo();
+                }else{
+                    mensagemToast("Parece que o seu carrinho esta vazio!");
+                }
             }
         });
 
@@ -336,30 +340,35 @@ public class CardapioActivity extends AppCompatActivity {
         linearLayoutD.setPadding(20, 20, 20, 20);
 
         TextView textViewVazio = new TextView(this);
+        textViewVazio.setTextSize(4);
 
         TextView massageQuantidadeTitle = new TextView(this);
         massageQuantidadeTitle.setTextSize(20);
         massageQuantidadeTitle.setPadding(20, 20, 20, 20);
+        massageQuantidadeTitle.setBackgroundResource(R.drawable.bg_edit_text);
         massageQuantidadeTitle.setTextColor(Color.BLACK);
 
         TextView vazio = new TextView(this);
+        vazio.setTextSize(4);
 
         TextView massageQuantidade = new TextView(this);
         massageQuantidade.setTextSize(20);
 
         EditText editQuantidade = new EditText(this);
-//        editQuantidade.setBackgroundColor(Color.WHITE);
+        editQuantidade.setBackgroundColor(Color.WHITE);
 
         massageQuantidadeTitle.setText("Quantidade");
 //        linearLayout.addView(vazio);
-        massageQuantidade.setText("Informe a Quantidade");
+        massageQuantidade.setText("Informe a Quantidade:");
+        massageQuantidade.setPadding(20, 20, 20, 20);
+        editQuantidade.setPadding(20, 20, 20, 20);
         editQuantidade.setText("1");
 
+        linearLayoutD.addView(massageQuantidade);
         linearLayoutD.addView(editQuantidade);
 
         linearLayout.addView(massageQuantidadeTitle);
-        linearLayout.addView(vazio);
-        linearLayout.addView(massageQuantidade);
+        linearLayout.addView(textViewVazio);
         linearLayout.addView(linearLayoutD);
         builder.setView(linearLayoutP);
 

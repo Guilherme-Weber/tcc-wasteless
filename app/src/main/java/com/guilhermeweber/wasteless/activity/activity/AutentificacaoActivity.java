@@ -127,7 +127,7 @@ public class AutentificacaoActivity extends AppCompatActivity {
                                 if (task.isSuccessful()) { // verifica se o retorno foi um sucesso
 
                                     usuario.redirectUser(AutentificacaoActivity.this);
-                                    Toast.makeText(AutentificacaoActivity.this, "Login realizado com Sucesso", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(AutentificacaoActivity.this, "Login Efetuado", Toast.LENGTH_SHORT).show();
 
                                 } else {// caso login tenha dado falha ele informa ao usuario o erro
 
