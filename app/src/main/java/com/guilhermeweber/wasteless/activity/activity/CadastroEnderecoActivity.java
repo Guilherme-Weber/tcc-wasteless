@@ -1,39 +1,22 @@
 package com.guilhermeweber.wasteless.activity.activity;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-
-import android.Manifest;
-import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.material.textfield.TextInputEditText;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.material.textfield.TextInputLayout;
 import com.guilhermeweber.wasteless.R;
 import com.guilhermeweber.wasteless.activity.helper.Mascara;
-import com.guilhermeweber.wasteless.activity.helper.Permissoes;
 import com.guilhermeweber.wasteless.activity.helper.RESTService;
 import com.guilhermeweber.wasteless.activity.model.CEP;
 import com.guilhermeweber.wasteless.activity.model.Empresa;
 import com.guilhermeweber.wasteless.activity.model.Usuario;
-import com.squareup.picasso.Picasso;
 
 import retrofit2.Call;
 import retrofit2.Callback;

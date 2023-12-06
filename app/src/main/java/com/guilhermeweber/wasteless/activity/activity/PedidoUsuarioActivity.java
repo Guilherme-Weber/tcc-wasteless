@@ -10,8 +10,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -29,9 +27,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.guilhermeweber.wasteless.R;
 import com.guilhermeweber.wasteless.activity.adapter.AdapterPedido;
 import com.guilhermeweber.wasteless.activity.helper.ConfigFirebase;
-import com.guilhermeweber.wasteless.activity.listener.RecyclerItemClickListener;
 import com.guilhermeweber.wasteless.activity.model.Pedido;
-import com.guilhermeweber.wasteless.activity.model.Usuario;
 
 import java.util.ArrayList;
 import java.util.List;

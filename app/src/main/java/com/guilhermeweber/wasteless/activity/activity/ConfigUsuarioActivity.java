@@ -1,12 +1,8 @@
 package com.guilhermeweber.wasteless.activity.activity;
 
-import android.Manifest;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -14,15 +10,11 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -39,10 +31,6 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.guilhermeweber.wasteless.R;
 import com.guilhermeweber.wasteless.activity.helper.ConfigFirebase;
-import com.guilhermeweber.wasteless.activity.helper.Mascara;
-import com.guilhermeweber.wasteless.activity.helper.Permissoes;
-import com.guilhermeweber.wasteless.activity.helper.RESTService;
-import com.guilhermeweber.wasteless.activity.model.CEP;
 import com.guilhermeweber.wasteless.activity.model.Usuario;
 import com.santalu.maskedittext.MaskEditText;
 import com.squareup.picasso.Picasso;
@@ -51,11 +39,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ConfigUsuarioActivity extends AppCompatActivity implements View.OnClickListener {
     private static final int SELECAO_GALERIA = 200;

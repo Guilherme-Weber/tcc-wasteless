@@ -1,11 +1,5 @@
 package com.guilhermeweber.wasteless.activity.activity;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -18,15 +12,19 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.guilhermeweber.wasteless.R;
 import com.guilhermeweber.wasteless.activity.adapter.AdapterEmpresa;
-import com.guilhermeweber.wasteless.activity.adapter.AdapterPedido;
 import com.guilhermeweber.wasteless.activity.helper.ConfigFirebase;
 import com.guilhermeweber.wasteless.activity.listener.RecyclerItemClickListener;
 import com.guilhermeweber.wasteless.activity.model.Empresa;

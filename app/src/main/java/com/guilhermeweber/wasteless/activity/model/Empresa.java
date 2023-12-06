@@ -1,15 +1,9 @@
 package com.guilhermeweber.wasteless.activity.model;
 
-import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
-
-import android.util.Log;
-import android.widget.Toast;
-
 import com.google.firebase.database.DatabaseReference;
 import com.guilhermeweber.wasteless.activity.helper.ConfigFirebase;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 public class Empresa implements Serializable {
     private String idEmpresaUsuario;
